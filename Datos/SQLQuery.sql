@@ -82,126 +82,15 @@ CREATE TABLE Personas(
 --);
 
 
---PROCEDIMIENTOS ALMACENADOS DE LOS GRUPOS CRUD
-DROP PROCEDURE IF EXISTS sp_AgregarGrupo;
-GO
-CREATE PROCEDURE sp_AgregarGrupo
- (      
-    @Titulo VARCHAR(50),      
-    @Descripcion VARCHAR(100),      
-    @Orden INT,
-	@Icono VARCHAR(30),
-	@UrlGrupo VARCHAR(50),
-	@Estatus BIT,
-	@FechaRegistro DATETIME     
- )      
- AS      
- BEGIN      
-    INSERT INTO Grupos VALUES(@Titulo,@Descripcion,@Orden,@Icono,@UrlGrupo,@Estatus,@FechaRegistro)      
- END
- GO
 
-DROP PROCEDURE IF EXISTS sp_ActualizarGrupo;
-GO
-CREATE PROCEDURE sp_ActualizarGrupo      
- (  
-	@IdGrupo INT,    
-    @Titulo VARCHAR(50),      
-    @Descripcion VARCHAR(100),      
-    @Orden INT,
-	@Icono VARCHAR(30),
-	@UrlGrupo VARCHAR(50),
-	@Estatus BIT     
- )      
- AS      
- BEGIN      
-    UPDATE Grupos      
-    SET Nombre=@Titulo,      
-		Descripcion=@Descripcion,      
-		Orden= @Orden,
-		Icono=@Icono,
-		UrlGrupo=@UrlGrupo,
-		Estatus=@Estatus
-		WHERE IdGrupo = @IdGrupo	
- END
- GO      
-     
-DROP PROCEDURE IF EXISTS sp_EliminarGrupo;
-GO   
-CREATE PROCEDURE sp_EliminarGrupo      
- (      
-    @IdGrupo INT      
- )      
- AS      
- BEGIN       
-    DELETE FROM Grupos WHERE IdGrupo=@IdGrupo      
- END
- GO
-
-DROP PROCEDURE IF EXISTS sp_ListarGrupo;
-GO
-CREATE PROCEDURE sp_ListarGrupo        
- AS        
- BEGIN        
-    SELECT * FROM Grupos      
- END
- GO
-
---PROCEDURE USUARIOS
-DROP PROCEDURE IF EXISTS sp_AgregarUsuario;
-GO
-CREATE PROCEDURE sp_AgregarUsuario
- (      
-    @NombreUsuario VARCHAR(30),      
-    @Contrasena VARCHAR(100),
-	@IdRole INT,
-    @IdPSeguridad INT,
-	@RespuestaP VARCHAR(50),
-	@Estatus BIT,
-	@FechaRegistro DATETIME
- )      
- AS      
- BEGIN      
-    INSERT INTO Usuarios(NombreUsuario,Contrasena,IdRol,IdPreguntaSeguridad,RespuestaSeguridad,Estatus,FechaRegistro) VALUES(@NombreUsuario,@Contrasena,@IdRole,@IdPSeguridad,@RespuestaP,@Estatus,@FechaRegistro)      
- END
- GO
 
  EXEC sp_AgregarUsuario 'Jose', '123456', 1, 1, 'Test', 1, '2007-05-04'
  
-  
- SELECT * FROM Usuarios;
 
 
-UPDATE GruposDetalles SET UrlDetalle = '/Grupo/Index'
-where IdGrupoDetalle = 23
-SELECT * FROM GruposDetalles;
-
-UPDATE Grupos SET Icono = 'fa fa-pause fa-4x'
-where IdGrupo = 1
-SELECT * FROM Grupos;
-
-
-SELECT gp.IdGrupoDetalle, gp.Nombre, gp.IdGrupo, gp.Orden, gp.IdPadre, gp.Estatus 
-FROM GruposDetalles AS gp 
-INNER JOIN Grupos AS g ON gp.IdGrupo = g.IdGrupo 
-WHERE g.Estatus =1 AND gp.Estatus =1 AND gp.IdGrupo =1 AND gp.IdPadre = 0
-ORDER BY gp.Orden ASC
 
 --SELECT GENERICOS
 SELECT * FROM Grupos;
 SELECT * FROM GruposDetalles;
---SELECT * FROM AspNetUsers;
+SELECT * FROM AspNetUsers;
 SELECT * FROM Personas;
-SELECT gd.IdGrupoDetalle, gd.Nombre, gd.Descripcion, gd.idGrupo, gp.Nombre, gd.idPadre
-FROM GruposDetalles AS gd
-INNER JOIN Grupos AS gp 
-	ON gd.idGrupo = gp.idGrupo
-	WHERE gd.Estatus = 1 AND gd.idGrupo = 1;
-
-DROP VIEW IF EXISTS vw_Personas
-GO
-CREATE VIEW vw_Personas AS
-SELECT p.IdPersona, p.Nombres, CONCAT(g.Nombre, p.CiRif) AS Cedula, p.Direccion, p.Telefonos, p.Email, p.Imagen, p.FechaRegistro
-FROM Personas AS p
-INNER JOIN GruposDetalles AS g ON p.IdTipoPersona = g.IdGrupoDetalle;
-

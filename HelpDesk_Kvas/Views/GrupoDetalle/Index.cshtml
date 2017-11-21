@@ -1,4 +1,4 @@
-﻿@model IEnumerable<KvasEntity.GruposDetallesEntity>
+﻿@model IEnumerable<KvasEntity.GruposDetallesView>
 @{
     ViewBag.Title = "Lista de Tablas";
 }
@@ -22,16 +22,16 @@
     <table id="example1" class="table table-bordered table-striped">
         <thead>
             <tr>
-                <th>Rendering engine</th>
-                <th>Browser</th>
-                <th>Platform(s)</th>
-                <th>Engine version</th>
-                <th>CSS grade</th>
-                <th>Rendering engine</th>
-                <th>Browser</th>
-                <th>Platform(s)</th>
-                <th>Engine version</th>
-                <th>CSS grade</th>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Descripcion</th>
+                <th>Orden</th>
+                <th>Cat. Superior</th>
+                <th>Icono</th>
+                <th>Url</th>
+                <th>Estatus</th>
+                <th>Registrado</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -42,15 +42,21 @@
                     <td>@objGrupo.Titulo</td>
                     <td>@objGrupo.Descripcion</td>
                     <td>@objGrupo.Orden</td>
-                    <td>@objGrupo.IdGrupo</td>
                     <td>@objGrupo.IdPadre</td>
                     <td><span class="@objGrupo.Icono"></span></td>
                     <td>@objGrupo.UrlDetalle</td>
                     <td>@objGrupo.Estatus</td>
                     <td>@objGrupo.FechaRegistro</td>
-                    <td><a class="btn btn-success" href="~/GrupoDetalle/Detail/@objGrupo.IdGrupoDetalle"><span class="glyphicon glyphicon-eye-open"></span></a></td>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <td><a class="btn btn-success" href="~/GrupoDetalle/Detail/@objGrupo.IdGrupoDetalle"><span class="glyphicon glyphicon-eye-open"></span></a></td>
+
+                    }
                     <td><a class="btn btn-info" href="~/GrupoDetalle/Edit/@objGrupo.IdGrupoDetalle"><span class="fa fa-edit"></span></a></td>
-                    <td><a class="btn btn-danger" href="~/GrupoDetalle/Delete/@objGrupo.IdGrupoDetalle"><span class="fa fa-book"></span></a></td>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <td><a class="btn btn-danger" href="~/GrupoDetalle/Delete/@objGrupo.IdGrupoDetalle"><span class="fa fa-book"></span></a></td>
+                    }
                 </tr>
             }
         </tbody>
@@ -59,23 +65,5 @@
     <script src="~/Content/lib/plugins/jQuery/jquery-2.2.3.min.js"></script>
     <script src="~/Content/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="~/Content/lib/plugins/datatables/jquery.dataTables.min.js"></script>
-    <script src="~/Content/lib/plugins/datatables/dataTables.bootstrap.min.js"></script>
-    <script>
-        $(function () {
-            $("#example1").DataTable();
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false
-            });
-        });
-    </script>
-
-
-
-
-            
+    <script src="~/Content/lib/plugins/datatables/dataTables.bootstrap.min.js"></script>         
 </section>

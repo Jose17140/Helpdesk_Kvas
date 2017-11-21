@@ -189,5 +189,38 @@ namespace KvasDAL
 
             }
         }
+
+        public IEnumerable<GruposDetallesView> ListaPorGrupoSP(int idGrupo)
+        {
+            try
+            {
+                IList<GruposDetallesView> lista = new List<GruposDetallesView>();
+                var query = db.sp_ListarDetalles_x_Grupo(idGrupo);
+                foreach (var grupos in query)
+                {
+                    lista.Add(new GruposDetallesView()
+                    {
+                        IdGrupoDetalle = grupos.IdGrupoDetalle,
+                        Titulo = grupos.Nombre,
+                        Descripcion = grupos.Descripcion,
+                        Orden = grupos.Orden,
+                        IdGrupo = grupos.Grupo,
+                        IdPadre = grupos.Categoria,
+                        Icono = grupos.Icono,
+                        Estatus = grupos.Estatus,
+                        FechaRegistro = grupos.FechaRegistro
+                    });
+                }
+                return lista;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+
+            }
+        }
     }
 }

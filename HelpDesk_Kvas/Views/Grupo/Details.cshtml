@@ -3,53 +3,70 @@
 @{ 
  
 }
-<div>
-    <h4>Grupos</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Titulo)
-        </dt>
+<section class="content">
+    <div class="form-horizontal">
+        <h4>Entitdades</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Titulo)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Titulo)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Titulo)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Descripcion)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Descripcion)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Orden)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Orden)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Orden)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Orden)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Icono)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Icono)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Icono)
-        </dd>
+            <dd>
+                <span class="@Html.DisplayFor(model => model.Icono)"></span>
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Estatus)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.UrlGrupo)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Estatus)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.UrlGrupo)
+            </dd>
 
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IdGrupo }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+            <dt>
+                @Html.DisplayNameFor(model => model.Estatus)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Estatus)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.FechaRegistro)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FechaRegistro)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Editar", "Edit", new { id = Model.IdGrupo }) |
+        @Html.ActionLink("Regresar al Listado", "Index")
+    </p>
+</section>

@@ -21,9 +21,9 @@ namespace HelpDesk_Kvas.Controllers
         }
 
         // GET: Grupo
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
-            var grupos = objGrupoDetalleLogic.Listar();
+            var grupos = objGrupoDetalleLogic.ListarPorGrupo(id);
             return View(grupos);
         }
 

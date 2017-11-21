@@ -72,9 +72,9 @@ namespace KvasLogic
 
         }
 
-        public IEnumerable<GruposDetallesEntity> ListarPorGrupo(int _idGrupo)
+        public IEnumerable<GruposDetallesView> ListarPorGrupo(int _idGrupo)
         {
-            return objDetalleDAL.ListaPorGrupo(_idGrupo);
+            return objDetalleDAL.ListaPorGrupoSP(_idGrupo);
         }
     }
 }

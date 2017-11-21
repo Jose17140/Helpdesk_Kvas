@@ -5,7 +5,7 @@ GO
 INSERT INTO Grupos(Nombre,Descripcion,UrlGrupo,Icono, FechaRegistro)VALUES 
 ('Nulo','Agrupa las Tablas Nulas','/','fa fa-bars',GETDATE()),
 ('Menu','Agrupa el Menu slidebar de la app','/','fa fa-bars',GETDATE()),
-('Permisos','Permisos de usuarios en el sistema','/','fa fa-pause',GETDATE()),
+('TipoPersona','Tipo de Identificacion de los Usuarios','/','fa fa-pause',GETDATE()),
 ('Sexos','Genero de las personas','/','fa fa-venus-mars',GETDATE()),
 ('Pais','Paises','/','fa fa-pause',GETDATE()),
 ('Estados','Estamos de los paises','/','fa fa-pause',GETDATE()),
@@ -28,7 +28,7 @@ INSERT INTO Grupos(Nombre,Descripcion,UrlGrupo,Icono, FechaRegistro)VALUES
 --MENUS '/',
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 ('Nulos','Agrupa Detalles nulos',0,'Nulo',0,0,'/',GETDATE()),
-('Registro','',1,'fa fa-plus-circle',1,0,'/',GETDATE()),
+('Registro','Registro de Clientes, Ticket y Organizaciones',1,'fa fa-plus-circle',1,0,'/',GETDATE()),
 ('Requerimientos','',1,'fa fa-ticket',2,0,'/',GETDATE()),
 ('Catalogo','',1,'fa  fa-tags',3,0,'/',GETDATE()),
 ('Clientes','',1,'fa fa-users',4,0,'/',GETDATE()),
@@ -90,18 +90,3 @@ INSERT personas (Nombres, IdTipoPersona, CiRif, Direccion, Telefonos,Imagen, Ema
 ( N'DOUGLAS GARCIA', 28, N'21018668', N'Caracas', N'04265556677', 'RutaImagen', N'help@help.com', GETDATE()),
 ( N'YERALDINE PAEZ', 28, N'21018669', N'Caracas', N'04265556677', 'RutaImagen', N'help@help.com', GETDATE()),
 ( N'ELIECER JARABA', 28, N'21018672', N'Caracas', N'04265556677', 'RutaImagen', N'help@help.com', GETDATE());
-
-
-SELECT gd.IdGrupoDetalle, gd.Nombre, gd.Descripcion, gd.idGrupo, gp.Nombre, gd.Orden, gd.idPadre
-FROM GruposDetalles AS gd
-INNER JOIN Grupos AS gp 
-	ON gd.idGrupo = gp.idGrupo
-	WHERE gd.Estatus = 1 AND gd.idGrupo = 1 AND gd.IdPadre = 0
-	ORDER BY gd.Orden ASC;
-
---ROLES DE USUARIOS
-INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
-('Admin','',3,'fa fa-circle-o',1,0,'/',GETDATE()),
-('Analista','',3,'fa fa-circle-o',2,0,'/',GETDATE()),
-('Usuario','',3,'fa fa-circle-o',3,0,'/',GETDATE()),
-('Tecnico','',3,'fa fa-circle-o',4,0,'/',GETDATE());
