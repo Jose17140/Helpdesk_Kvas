@@ -21,26 +21,16 @@ namespace HelpDesk_Kvas
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Content/lib/plugins/jQuery/jquery-2.2.3.min.js",
-                      "~/Content/lib/bootstrap/dist/js/bootstrap.js",
+                      "~/Content/lib/bootstrap/dist/js/bootstrap.min.js",
+                      "~/Content/lib/plugins/datatables/jquery.dataTables.min.js",
+                      "~/Content/lib/plugins/datatables/dataTables.bootstrap.min.js",
                       "~/Scripts/respond.js",
-                      "~/Content/lib/jquery-ui-1.11.4.custom/jquery-ui.js",
-                      "~/Content/lib/plugins/sparkline/jquery.sparkline.min.js",
-                      "~/Content/lib/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js",
-                      "~/Content/lib/plugins/jvectormap/jquery-jvectormap-world-mill-en.js",
-                      "~/Content/lib/plugins/knob/jquery.knob.js",
                       "~/Content/js/raphael.min.js",
                       "~/Content/js/moment.min.js",
-                      "~/Content/lib/plugins/daterangepicker/daterangepicker.js",
-                      "~/Content/lib/plugins/datepicker/bootstrap-datepicker.js",
-                      "~/Content/lib/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js",
                       "~/Content/lib/plugins/slimScroll/jquery.slimscroll.min.js",
-                      "~/Content/lib/plugins/fastclick/fastclick.js",
                       "~/Content/js/app.js",
-                      "~/Content/lib/angular-1.6.4/angular.js",
                       "~/Content/js/demo.js",
-                      "~/Content/js/site.js",
-                      "~/Content/lib/plugins/datatables/jquery.dataTables.min.js",
-                      "~/Content/lib/plugins/datatables/dataTables.bootstrap.min.js"
+                      "~/Content/js/site.js"
                       ));
             bundles.Add(new StyleBundle("~/Content/css").Include(
                      "~/Content/lib/bootstrap/dist/css/bootstrap.css",
@@ -50,10 +40,6 @@ namespace HelpDesk_Kvas
                      "~/Content/css/_all-skins.css",
                      "~/Content/lib/plugins/iCheck/flat/blue.css",
                      "~/Content/lib/plugins/morris/morris.css",
-                     "~/Content/lib/plugins/jvectormap/jquery-jvectormap-1.2.2.css",
-                     "~/Content/lib/plugins/datepicker/datepicker3.css",
-                     "~/Content/lib/plugins/daterangepicker/daterangepicker.css",
-                     "~/Content/lib/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.css",
                      "~/Content/lib/toastr/build/toastr.css",
                      "~/Content/lib/plugins/datatables/dataTables.bootstrap.css"));
         }

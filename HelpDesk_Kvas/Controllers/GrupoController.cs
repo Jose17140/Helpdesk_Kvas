@@ -104,25 +104,6 @@ namespace HelpDesk_Kvas.Controllers
             return PartialView();
         }
 
-        public ActionResult CreateJson()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public JsonResult CreateJson(GruposEntity objGrupo)
-        {
-            if (ModelState.IsValid)
-            {
-                // TODO: Add insert logic here
-                MensajeInicioRegistrar();
-                objGrupoLogic.Insertar(objGrupo);
-                MensajeErrorRegistrar(objGrupo);
-                return Json("Exitoso.");
-            }
-            return Json("Fallo");
-        }
-
         // GET: Grupo/Edit/5
         public ActionResult Edit(int id)
         {

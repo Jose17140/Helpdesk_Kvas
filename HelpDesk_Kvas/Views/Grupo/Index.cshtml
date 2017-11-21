@@ -1,7 +1,4 @@
-﻿@*@model List<KvasEntity.GruposEntity>*@
-
-
-@model PagedList.IPagedList<KvasEntity.GruposEntity>
+﻿@model PagedList.IPagedList<KvasEntity.GruposEntity>
 @using PagedList.Mvc;
 
 
@@ -53,7 +50,7 @@
                         <span class="glyphicon-class">@g.Titulo</span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="/GrupoDetalle/IndexTest/@g.IdGrupo">Listar</a></li>
+                        <li><a href="/GrupoDetalle/index/@g.IdGrupo">Listar</a></li>
                         <li><a href="/Grupo/Details/@g.IdGrupo">Detalle</a></li>
                         <li><a href="/Grupo/Edit/@g.IdGrupo">Editar</a></li>
                         <li><a href="/Grupo/Delete/@g.IdGrupo">Eliminar</a></li>
@@ -64,26 +61,4 @@
         </div>
         <!-- /.box-body -->
     </div>
-
-
-    <script>
-        $(document).ready(function () {
-            $("#list").Grid({
-                Columnas: [
-                    { leyenda: '', columna: '', ordenable: true},
-                    { leyenda: '', columna: '', ordenable: true},
-                    { leyenda: '', columna: '', ordenable: true},
-                    { leyenda: '', columna: '', ordenable: true},
-                    { leyenda: '', columna: '', ordenable: true},
-                    { leyenda: '', columna: '', ordenable: true},
-                    { leyenda: '', columna: '', ordenable: true},
-                    { leyenda: '', columna: '', ordenable: true},
-                    { leyenda: '', columna: '', ordenable: true}
-                ],
-            })
-        })
-    </script>
-
 </section>
-
-<script src="~/Content/js/jquery.Grid.min.js"></script>

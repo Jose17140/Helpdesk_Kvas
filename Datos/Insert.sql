@@ -48,10 +48,10 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDet
 ('Servicios','',1,'fa fa-puzzle-piece',2,3,'/',GETDATE());
 --PRODUCTOS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
-('Productos','',1,'fa fa-circle-o',1,13,'/',GETDATE()),
-('Fabricantes','',1,'fa fa-circle-o',2,13,'/',GETDATE()),
-('Categorias','',1,'fa fa-circle-o',3,13,'/',GETDATE()),
-('Movimiento de Inventario','',1,'fa fa-circle-o',4,13,'/',GETDATE());
+('Productos','',1,'fa  fa-tablet',1,13,'/',GETDATE()),
+('Fabricantes','',1,'fa fa-bank',2,13,'/',GETDATE()),
+('Categorias','',1,'fa fa-bookmark-o',3,13,'/',GETDATE()),
+('Movimiento de Inventario','',1,'fa fa-pencil-square-o',4,13,'/',GETDATE());
 --SISTEMA SUBMENU
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 ('Configuracion','',1,'fa fa-cog',1,8,'/',GETDATE()),
@@ -59,40 +59,37 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDet
 ('Herramientas','',1,'fa fa-wrench',3,8,'/',GETDATE());
 --SUBMENU SISTEMA
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
-('Tienda','',1,'fa fa-circle-o',1,19,'/',GETDATE()),
-('Entidades','',1,'fa fa-circle-o',3,19,'/Grupo/Index',GETDATE()),
-('Respaldos','',1,'fa fa-circle-o',1,21,'/',GETDATE()),
+('Tienda','',1,'fa fa-home',1,19,'/',GETDATE()),
+('Entidades','',1,'fa fa-bars',3,19,'/Grupo/Index',GETDATE()),
+('Respaldos','',1,'fa fa-database',1,21,'/',GETDATE()),
 ('Log','',1,'fa fa-circle-o',2,21,'/',GETDATE());
 --USUARIOS Y ROLES
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 ('Usuarios','',1,'fa fa-user',1,20,'/',GETDATE()),
-('Roles','',1,'fa fa-circle-o',3,20,'/Grupo/Index',GETDATE());
-
-
-
+('Roles','',1,'fa fa-archive',3,20,'/Grupo/Index',GETDATE());
 --TIPOS DE PERSONAS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,FechaRegistro)VALUES
-('V','Venezolano',2,'',1,0, GETDATE()),
-('E','Extranjero',2,'',2,0, GETDATE()),
-('J','Juridico',2,'',3,0, GETDATE()),
-('G','Gubernamental',2,'',4,0, GETDATE());
+('V','Venezolano',2,'fa fa-flag-o',1,0, GETDATE()),
+('E','Extranjero',2,'fa fa-flag-o',2,0, GETDATE()),
+('J','Juridico',2,'fa fa-flag-o',3,0, GETDATE()),
+('G','Gubernamental',2,'fa fa-flag-o',4,0, GETDATE());
 --INSERTAR PERSONAS
 INSERT personas (Nombres, IdTipoPersona, CiRif, Direccion, Telefonos,Imagen, Email, FechaRegistro) VALUES 
-( N'JUAN ARCOS', 19, N'22012345', N'Caracas', N'04265556677', 'RuraImagen', N'help@help.com', GETDATE()),
-( N'YADELSY REYES', 19, N'22012346', N'Caracas', N'04265556677', 'RuraImagen', N'help@help.com', GETDATE()),
-( N'TERESA BRAVO', 19, N'22012347', N'Caracas', N'04265556677', 'RuraImagen', N'help@help.com', GETDATE()),
-( N'ANA PRINCIPE', 19, N'22012348', N'Caracas', N'04265556677', 'RuraImagen', N'help@help.com', GETDATE()),
-( N'LUIS TORRES', 19, N'22012349', N'Caracas', N'04265556677', 'RuraImagen', N'help@help.com', GETDATE()),
-( N'MARIA OSPINA', 19, N'22012350', N'Caracas', N'04265556677', 'RuraImagen', N'help@help.com', GETDATE()),
-( N'ANYELI MORA', 19, N'21018642', N'Caracas', N'04265556677', 'RuraImagen', N'help@help.com', GETDATE()),
-( N'ROSNELLY MORA', 19, N'21018643', N'Caracas', N'04265556677', 'RuraImagen', N'help@help.com', GETDATE()),
-( N'MARIA GUEVARA', 19, N'21018645', N'Caracas', N'04265556677', 'RuraImagen', N'help@help.com', GETDATE()),
-( N'MARIA GUEVARA', 19, N'21018646', N'Caracas', N'04265556677', 'RuraImagen', N'help@help.com', GETDATE()),
-( N'YOSNELLY PINTO', 19, N'21018660', N'Caracas', N'04265556677', 'RuraImagen', N'help@help.com', GETDATE()),
-( N'JOSE RODRIGUEZ', 19, N'21018662', N'Caracas', N'04265556677', 'RuraImagen', N'help@help.com', GETDATE()),
-( N'DOUGLAS GARCIA', 19, N'21018668', N'Caracas', N'04265556677', 'RuraImagen', N'help@help.com', GETDATE()),
-( N'YERALDINE PAEZ', 19, N'21018669', N'Caracas', N'04265556677', 'RuraImagen', N'help@help.com', GETDATE()),
-( N'ELIECER JARABA', 19, N'21018672', N'Caracas', N'04265556677', 'RuraImagen', N'help@help.com', GETDATE());
+( N'JUAN ARCOS', 28, N'22012345', N'Caracas', N'04265556677', 'RutaImagen', N'help@help.com', GETDATE()),
+( N'YADELSY REYES', 28, N'22012346', N'Caracas', N'04265556677', 'RutaImagen', N'help@help.com', GETDATE()),
+( N'TERESA BRAVO', 28, N'22012347', N'Caracas', N'04265556677', 'RutaImagen', N'help@help.com', GETDATE()),
+( N'ANA PRINCIPE', 28, N'22012348', N'Caracas', N'04265556677', 'RutaImagen', N'help@help.com', GETDATE()),
+( N'LUIS TORRES', 28, N'22012349', N'Caracas', N'04265556677', 'RutaImagen', N'help@help.com', GETDATE()),
+( N'MARIA OSPINA', 28, N'22012350', N'Caracas', N'04265556677', 'RutaImagen', N'help@help.com', GETDATE()),
+( N'ANYELI MORA', 28, N'21018642', N'Caracas', N'04265556677', 'RutaImagen', N'help@help.com', GETDATE()),
+( N'ROSNELLY MORA', 28, N'21018643', N'Caracas', N'04265556677', 'RutaImagen', N'help@help.com', GETDATE()),
+( N'MARIA GUEVARA', 28, N'21018645', N'Caracas', N'04265556677', 'RutaImagen', N'help@help.com', GETDATE()),
+( N'MARIA GUEVARA', 28, N'21018646', N'Caracas', N'04265556677', 'RutaImagen', N'help@help.com', GETDATE()),
+( N'YOSNELLY PINTO', 28, N'21018660', N'Caracas', N'04265556677', 'RutaImagen', N'help@help.com', GETDATE()),
+( N'JOSE RODRIGUEZ', 28, N'21018662', N'Caracas', N'04265556677', 'RutaImagen', N'help@help.com', GETDATE()),
+( N'DOUGLAS GARCIA', 28, N'21018668', N'Caracas', N'04265556677', 'RutaImagen', N'help@help.com', GETDATE()),
+( N'YERALDINE PAEZ', 28, N'21018669', N'Caracas', N'04265556677', 'RutaImagen', N'help@help.com', GETDATE()),
+( N'ELIECER JARABA', 28, N'21018672', N'Caracas', N'04265556677', 'RutaImagen', N'help@help.com', GETDATE());
 
 
 SELECT gd.IdGrupoDetalle, gd.Nombre, gd.Descripcion, gd.idGrupo, gp.Nombre, gd.Orden, gd.idPadre

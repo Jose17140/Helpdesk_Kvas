@@ -21,59 +21,22 @@ namespace HelpDesk_Kvas.Controllers
         }
 
         // GET: Grupo
-        public ActionResult Index(int _id, string sortOrder, string currentFilter, string searchString, int? page)
+        public ActionResult Index()
         {
-            ViewBag.CurrentSort = sortOrder;
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewBag.IdSortParm = String.IsNullOrEmpty(sortOrder) ? "id_grupo" : "";
-            ViewBag.OrdenSortParm = sortOrder == "Date" ? "date_desc" : "Date";
-
-            if (searchString != null)
-            {
-                page = 1;
-            }
-            else
-            {
-                searchString = currentFilter;
-            }
-
-            ViewBag.CurrentFilter = searchString;
-
-            var grupos = objGrupoDetalleLogic.ListarPorGrupo(_id);
-
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                grupos = grupos.Where(s => s.Titulo.ToUpper().Contains(searchString.ToUpper())
-                                       || s.Descripcion.ToUpper().Contains(searchString.ToUpper()));
-            }
-            switch (sortOrder)
-            {
-                case "id_grupo":
-                    grupos = grupos.OrderByDescending(s => s.IdGrupoDetalle);
-                    break;
-                case "name_desc":
-                    grupos = grupos.OrderByDescending(s => s.Titulo);
-                    break;
-                case "Date":
-                    grupos = grupos.OrderBy(s => s.Orden);
-                    break;
-                case "date_desc":
-                    grupos = grupos.OrderByDescending(s => s.Orden);
-                    break;
-                default:  // Name ascending 
-                    grupos = grupos.OrderBy(s => s.Titulo);
-                    break;
-            }
-
-            int pageSize = 10;
-            int pageNumber = (page ?? 1);
-            return View(grupos.ToPagedList(pageNumber, pageSize));
+            var grupos = objGrupoDetalleLogic.Listar();
+            return View(grupos);
         }
 
-        public ActionResult IndexTest(int id)
+        public ActionResult ListaGrupo(int _id)
         {
-            var grupos = objGrupoDetalleLogic.ListarPorGrupo(id);
+            var grupos = objGrupoDetalleLogic.ListarPorGrupo(_id);
             return View(grupos);
+        }
+
+        public JsonResult Lista(int _id)
+        {
+            var grupos = objGrupoDetalleLogic.ListarPorGrupo(_id);
+            return Json(grupos, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Grupo/Details/5
