@@ -1,0 +1,79 @@
+﻿@model IEnumerable<HelpDesk_Kvas.Models.GruposDetalles>
+@{
+    Layout = null;
+}
+
+<ul class="sidebar-menu">
+    @if (Model != null)
+    {
+        foreach (var lv1 in Model)
+        {
+            <li class="treeview">
+                <a href="@lv1.Descripcion">
+                    <i class="@lv1.Icono"></i>
+                    <span>@lv1.Nombre</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                @if (lv1.ICollection.Count > 0)
+                {
+                    <ul class="treeview-menu">
+                        @foreach (var lv2 in lv1.ICollection)
+                        {
+                            <li>
+                                <a href="@lv2.Descripcion">
+                                    <i class="@lv2.Icono"></i>
+                                    @lv2.Nombre
+                                    <span class="pull-right-container">
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                    </span>
+                                </a>
+                                @if (lv2.ICollection.Count > 0)
+                                {
+                                    <ul class="treeview-menu">
+                                        @foreach (var lv3 in lv2.ICollection)
+                                        {
+                                            <li>
+                                                <a href="@lv3.UrlDetalle">
+                                                    <i class="@lv3.Icono"></i>
+                                                    @lv3.Nombre
+                                                    <span class="pull-right-container">
+                                                        <i class="fa fa-angle-left pull-right"></i>
+                                                    </span>
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                }
+                            </li>
+                        }
+                    </ul>
+                }
+            </li>
+        }
+    }
+    else
+    {
+        <li class="treeview">
+            <a href="">
+                <i class=""></i>
+                <span class="danger">Error!</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li>
+                    <a href="#">
+                        <i class=""></i>
+                        <span>Contacte al Administrador</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    }
+</ul>

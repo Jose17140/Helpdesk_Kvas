@@ -1,0 +1,89 @@
+﻿@*@model List<KvasEntity.GruposEntity>*@
+
+
+@model PagedList.IPagedList<KvasEntity.GruposEntity>
+@using PagedList.Mvc;
+
+
+@{
+    ViewBag.Title = "Lista de Tablas";
+}
+
+@Styles.Render("~/Content/css/Grupos.css")
+
+
+<section class="content-header">
+    <h1>
+        Tablero
+        <small>@ViewBag.Title</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+        <li class="active">Dashboard</li>
+    </ol>
+</section>
+<br />
+<section class="content">
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+    <div class="col-md-3">
+        @using (Html.BeginForm("Index", "Grupo", FormMethod.Get))
+            {
+            <div class="input-group">
+                @Html.TextBox("SearchString", ViewBag._filtro as string, new { @class = "form-control", @placeholder = "Buscar..." })
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+                </span>
+            </div>
+        }
+    </div>
+    <br /><br /><br />
+    <div class="box">
+        <div class="box-body">
+            <div class="btn dropdown">
+                <a class="btn btn-apps" href="/Grupo/Create">
+                    <span class="fa fa-plus-square fa-4x"></span>
+                    <span class="glyphicon-class">Nueva Entidad</span>
+                </a>
+            </div>
+            @foreach (var g in Model)
+            {
+                <div class="btn dropdown">
+                    <a class="btn btn-apps dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        <span class="@g.Icono"></span>
+                        <span class="glyphicon-class">@g.Titulo</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/GrupoDetalle/IndexTest/@g.IdGrupo">Listar</a></li>
+                        <li><a href="/Grupo/Details/@g.IdGrupo">Detalle</a></li>
+                        <li><a href="/Grupo/Edit/@g.IdGrupo">Editar</a></li>
+                        <li><a href="/Grupo/Delete/@g.IdGrupo">Eliminar</a></li>
+                    </ul>
+                </div>
+            }
+
+        </div>
+        <!-- /.box-body -->
+    </div>
+
+
+    <script>
+        $(document).ready(function () {
+            $("#list").Grid({
+                Columnas: [
+                    { leyenda: '', columna: '', ordenable: true},
+                    { leyenda: '', columna: '', ordenable: true},
+                    { leyenda: '', columna: '', ordenable: true},
+                    { leyenda: '', columna: '', ordenable: true},
+                    { leyenda: '', columna: '', ordenable: true},
+                    { leyenda: '', columna: '', ordenable: true},
+                    { leyenda: '', columna: '', ordenable: true},
+                    { leyenda: '', columna: '', ordenable: true},
+                    { leyenda: '', columna: '', ordenable: true}
+                ],
+            })
+        })
+    </script>
+
+</section>
+
+<script src="~/Content/js/jquery.Grid.min.js"></script>

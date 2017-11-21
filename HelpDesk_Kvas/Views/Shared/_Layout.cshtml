@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+
+
+    <body class="hold-transition skin-blue fixed sidebar-mini">
+        <!-- INICIO-->
+        <div class="wrapper">
+            <!--Menu Superior-->
+            <header class="main-header">
+                <!-- Logo -->
+                <a href="/" class="logo">
+                    <!-- mini logo for sidebar mini 50x50 pixels -->
+                    <span class="logo-mini"><b>Kv</b>ar</span>
+                    <!-- logo for regular state and mobile devices -->
+                    <span class="logo-lg"><b>Kva</b>sir</span>
+                </a>
+                <!-- Header Navbar: style can be found in header.less -->
+                <!--  navbar-inverse navbar-fixed-top -->
+                <nav class="navbar navbar-static-top">
+                    <!-- Sidebar toggle button-->
+                    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                        <span class="sr-only">Toggle navigation</span>
+                    </a>
+                    @Html.Action("_TopBar", "Menu")
+                </nav>
+            </header>
+            <!--Fin del Menu Superior-->
+            <aside class="main-sidebar">
+                <!-- sidebar: style can be found in sidebar.less -->
+                <section class="sidebar">
+                    <br>
+                    <!--SIDEBAR TOP-->
+                    @{Html.RenderAction("_SideBart", "Menu");}
+
+                    <ul class="sidebar-menu">
+                        <li class="header">Menu de Navegacion</li>
+                        <li class="active treeview">
+                            <a href="/">
+                                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <!--SIDEBAR BOTTON-->
+                    @{Html.RenderAction("_SideBarb", "Menu");}
+                </section>
+                <!-- /.sidebar -->
+            </aside>
+
+            <!--Mapa de Navegacion-->
+            <div class="content-wrapper">
+                @RenderBody()
+            </div>
+            <footer class="main-footer">
+                <div class="pull-right hidden-xs">
+                    <b>Version</b> 2.3.8
+                </div>
+                <strong>Copyright &copy; 2.017 <a href="#">Bolivar y Pulido</a>.</strong> All rights
+                reserved.
+            </footer>
+
+            <!--PANEL DE CONTROL USUARIO-->
+            @Html.Action("_UserPanel", "Menu")
+            <!-- /. FIN DE PANEL DE CONTROL -->
+            <!-- Add the sidebar's background. This div must be placed
+             immediately after the control sidebar -->
+            <div class="control-sidebar-bg"></div>
+        </div>
+
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+
+
+
+
+
+    
+    </body>
+
+</html>
