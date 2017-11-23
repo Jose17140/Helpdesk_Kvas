@@ -30,7 +30,7 @@ namespace KvasEntity
         public int IdGrupo { get; set; }
 
         [Required(ErrorMessage = "Seleccione sin Grupo")]
-        [Display(Name = "Grupo Superior:")]
+        [Display(Name = "Categoria Padre:")]
         public int IdPadre { get; set; }
 
         [StringLength(30)]

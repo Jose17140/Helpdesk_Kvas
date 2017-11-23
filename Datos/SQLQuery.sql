@@ -4,12 +4,14 @@ GO
 USE Helpdesk_Kvas;
 GO
 
-DROP TABLE IF EXISTS PermisosPorRoles;
-DROP TABLE IF EXISTS Empleados;
-DROP TABLE IF EXISTS Usuarios;
+
 DROP TABLE IF EXISTS Personas;
+DROP TABLE IF EXISTS SerialesProductos;
+DROP TABLE IF EXISTS ProductosDetalles;
 DROP TABLE IF EXISTS GruposDetalles;
 DROP TABLE IF EXISTS Grupos;
+
+
 
 DROP TABLE IF EXISTS Grupos;
 CREATE TABLE Grupos(
@@ -36,8 +38,12 @@ CREATE TABLE GruposDetalles(
 	Estatus BIT NOT NULL DEFAULT 1,
 	FechaRegistro DATETIME NOT NULL,
 	CONSTRAINT PK_GruposDetalles_IdGrupoDetalle PRIMARY KEY(IdGrupoDetalle),
-	CONSTRAINT FK_GruposDetalles_Grupos_IdGrupo FOREIGN KEY(IdGrupo) REFERENCES Grupos(IdGrupo),
+	CONSTRAINT FK_GruposDetalles_Grupos_IdGrupo FOREIGN KEY(IdGrupo) REFERENCES Grupos(IdGrupo)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
 	CONSTRAINT FK_GruposDetalles_GruposDetallesPadres FOREIGN KEY(IdPadre) REFERENCES GruposDetalles(IdGrupoDetalle)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION,
 );
 DROP TABLE IF EXISTS Personas;
 CREATE TABLE Personas(
@@ -53,6 +59,8 @@ CREATE TABLE Personas(
 	CONSTRAINT PK_Personas_IdPersona PRIMARY KEY(IdPersona),
 	CONSTRAINT UQ_Personas_CiRif UNIQUE(CiRif),
 	CONSTRAINT FK_Personas_GruposDetalles_IdDetalles FOREIGN KEY (IdTipoPersona) REFERENCES GruposDetalles(IdGrupoDetalle)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE
 );
 --DROP TABLE IF EXISTS Usuarios;
 --CREATE TABLE Usuarios(
@@ -80,7 +88,39 @@ CREATE TABLE Personas(
 --CONSTRAINT FK_Empleados_Personas_Id FOREIGN KEY (IdPersona) REFERENCES Personas(IdPersona),
 --CONSTRAINT FK_Empleados_Usuarios_Id FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario)
 --);
-
+DROP TABLE IF EXISTS ProductosDetalles;
+CREATE TABLE ProductosDetalles(
+	IdProducto INT NOT NULL,
+	Sku VARCHAR(24) NULL,
+	IdCategoria INT NOT NULL,
+	IdFabricante INT NOT NULL,
+	Stock INT NOT NULL,
+	Stock_Min INT NOT NULL,
+	Precio DECIMAL(8,2)  NOT NULL,
+	Garantia INT NOT NULL DEFAULT 0,
+	Estatus BIT NOT NULL DEFAULT 1,
+	CONSTRAINT PK_Productos PRIMARY KEY(IdProducto),
+	CONSTRAINT FK_Productos_Detalles_IdProducto FOREIGN KEY (IdProducto) REFERENCES GruposDetalles(IdGrupoDetalle)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
+	CONSTRAINT FK_Productos_Detalles_IdCategoria FOREIGN KEY (IdCategoria) REFERENCES GruposDetalles(IdGrupoDetalle)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION,
+	CONSTRAINT FK_Productos_Detalles_IdFabricante FOREIGN KEY (IdFabricante) REFERENCES GruposDetalles(IdGrupoDetalle)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+);
+DROP TABLE IF EXISTS SerialesProductos;
+CREATE TABLE SerialesProductos(
+	IdSerial INT IDENTITY(1,1) NOT NULL,
+	IdProducto INT NOT NULL,
+	Serial VARCHAR(40) NOT NULL,
+	Estatus BIT NOT NULL DEFAULT 1,
+	CONSTRAINT PK_Seriales PRIMARY KEY(IdProducto,IdSerial),
+	CONSTRAINT FK_Seriales_Productos FOREIGN KEY (IdProducto) REFERENCES ProductosDetalles(IdProducto)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE
+);
 
 
 

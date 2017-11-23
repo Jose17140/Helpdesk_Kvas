@@ -109,7 +109,7 @@ namespace KvasDAL
             try
             {
                 IList<GruposEntity> lista = new List<GruposEntity>();
-                //var xx = db.sp_ListarGrupo();
+                //var query = db.sp_ListarGrupo().ToList();
                 var query = (from m in db.Grupos
                              where m.Estatus == true && m.IdGrupo > 0
                              select m).ToList();
@@ -137,7 +137,6 @@ namespace KvasDAL
             {
 
             }
-        }
-        
+        }  
     }
 }

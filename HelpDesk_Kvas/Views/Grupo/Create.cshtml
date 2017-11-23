@@ -9,7 +9,7 @@
     @ViewBag.MensajeInicio
 </div>
 
-@using (Html.BeginForm("Grupo", "Create", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     <div class="form-horizontal">

@@ -22,51 +22,50 @@ INSERT INTO Grupos(Nombre,Descripcion,UrlGrupo,Icono, FechaRegistro)VALUES
 ('Prioridades','Prioridad del requerimiento','/','fa fa-pause',GETDATE()),
 ('Departamentos','Departamentos de servicio','/','fa fa-pause',GETDATE()),
 ('Cargos','Cargo de los empleados','/','fa fa-pause',GETDATE()),
-('Usuarios','Carga Usuarios del Sistema','/','fa fa-user',GETDATE()),
 ('Impuestos','Alicuota de Impuestas','/','fa fa-edit',GETDATE());
 -- INSERTANDO DATOS TABLA DESCRIPCION DE GRUPOS
 --MENUS '/',
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 ('Nulos','Agrupa Detalles nulos',0,'Nulo',0,0,'/',GETDATE()),
 ('Registro','Registro de Clientes, Ticket y Organizaciones',1,'fa fa-plus-circle',1,0,'/',GETDATE()),
-('Requerimientos','',1,'fa fa-ticket',2,0,'/',GETDATE()),
-('Catalogo','',1,'fa  fa-tags',3,0,'/',GETDATE()),
-('Clientes','',1,'fa fa-users',4,0,'/',GETDATE()),
-('Informes','',1,'fa fa-bar-chart',5,0,'/',GETDATE()),
-('Base de Conocimientos','',1,'fa fa-database',6,0,'/',GETDATE()),
-('Documentacion','',1,'fa fa-book',7,0,'/',GETDATE()),
-('Sistema','',1,'fa fa-cogs',8,0,'/',GETDATE());
+('Requerimientos','Menu',1,'fa fa-ticket',2,0,'/',GETDATE()),
+('Catalogo','Menu',1,'fa  fa-tags',3,0,'/',GETDATE()),
+('Clientes','Menu',1,'fa fa-users',4,0,'/',GETDATE()),
+('Informes','Menu',1,'fa fa-bar-chart',5,0,'/',GETDATE()),
+('Base de Conocimientos','Menu',1,'fa fa-database',6,0,'/',GETDATE()),
+('Documentacion','Menu',1,'fa fa-book',7,0,'/',GETDATE()),
+('Sistema','Menu',1,'fa fa-cogs',8,0,'/',GETDATE());
 --SUBMENUS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
-('Cliente','',1,'fa fa-user',1,1,'/',GETDATE()),
-('Ticket','',1,'fa fa-sticky-note-o',2,1,'/',GETDATE()),
-('Organizacion','',1,'fa fa-institution',3,1,'/',GETDATE()),
-('Buscar','',1,'fa fa-search',4,1,'/',GETDATE());
+('Cliente','Menu',1,'fa fa-user',1,1,'/',GETDATE()),
+('Ticket','Menu',1,'fa fa-sticky-note-o',2,1,'/',GETDATE()),
+('Organizacion','Menu',1,'fa fa-institution',3,1,'/',GETDATE()),
+('Buscar','Menu',1,'fa fa-search',4,1,'/',GETDATE());
 --CATALOGO
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
-('Productos','',1,'fa fa-laptop',1,3,'/',GETDATE()),
-('Servicios','',1,'fa fa-puzzle-piece',2,3,'/',GETDATE());
+('Productos','Menu',1,'fa fa-laptop',1,3,'/',GETDATE()),
+('Servicios','Menu',1,'fa fa-puzzle-piece',2,3,'/',GETDATE());
 --PRODUCTOS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
-('Productos','',1,'fa  fa-tablet',1,13,'/',GETDATE()),
-('Fabricantes','',1,'fa fa-bank',2,13,'/',GETDATE()),
-('Categorias','',1,'fa fa-bookmark-o',3,13,'/',GETDATE()),
-('Movimiento de Inventario','',1,'fa fa-pencil-square-o',4,13,'/',GETDATE());
+('Productos','Menu',1,'fa  fa-tablet',1,13,'/',GETDATE()),
+('Fabricantes','Menu',1,'fa fa-bank',2,13,'/',GETDATE()),
+('Categorias','Menu',1,'fa fa-bookmark-o',3,13,'/',GETDATE()),
+('Movimiento de Inventario','Menu',1,'fa fa-pencil-square-o',4,13,'/',GETDATE());
 --SISTEMA SUBMENU
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
-('Configuracion','',1,'fa fa-cog',1,8,'/',GETDATE()),
-('Usuarios','',1,'fa fa-users',2,8,'/',GETDATE()),
-('Herramientas','',1,'fa fa-wrench',3,8,'/',GETDATE());
+('Configuracion','Menu',1,'fa fa-cog',1,8,'/',GETDATE()),
+('Usuarios','Menu',1,'fa fa-users',2,8,'/',GETDATE()),
+('Herramientas','Menu',1,'fa fa-wrench',3,8,'/',GETDATE());
 --SUBMENU SISTEMA
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
-('Tienda','',1,'fa fa-home',1,19,'/',GETDATE()),
-('Entidades','',1,'fa fa-bars',3,19,'/Grupo/Index',GETDATE()),
-('Respaldos','',1,'fa fa-database',1,21,'/',GETDATE()),
-('Log','',1,'fa fa-circle-o',2,21,'/',GETDATE());
+('Tienda','Menu',1,'fa fa-home',1,19,'/',GETDATE()),
+('Entidades','Menu',1,'fa fa-bars',3,19,'/Grupo/Index',GETDATE()),
+('Respaldos','Menu',1,'fa fa-database',1,21,'/',GETDATE()),
+('Log','Menu',1,'fa fa-circle-o',2,21,'/',GETDATE());
 --USUARIOS Y ROLES
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
-('Usuarios','',1,'fa fa-user',1,20,'/',GETDATE()),
-('Roles','',1,'fa fa-archive',3,20,'/Grupo/Index',GETDATE());
+('Usuarios','Menu',1,'fa fa-user',1,20,'/',GETDATE()),
+('Roles','Menu',1,'fa fa-archive',3,20,'/Grupo/Index',GETDATE());
 --TIPOS DE PERSONAS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,FechaRegistro)VALUES
 ('V','Venezolano',2,'fa fa-flag-o',1,0, GETDATE()),

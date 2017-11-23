@@ -9,7 +9,7 @@
         foreach (var lv1 in Model)
         {
             <li class="treeview">
-                <a href="@lv1.Descripcion">
+                <a href="@lv1.UrlDetalle">
                     <i class="@lv1.Icono"></i>
                     <span>@lv1.Nombre</span>
                     <span class="pull-right-container">
@@ -22,7 +22,7 @@
                         @foreach (var lv2 in lv1.ICollection)
                         {
                             <li>
-                                <a href="@lv2.Descripcion">
+                                <a href="@lv2.UrlDetalle">
                                     <i class="@lv2.Icono"></i>
                                     @lv2.Nombre
                                     <span class="pull-right-container">

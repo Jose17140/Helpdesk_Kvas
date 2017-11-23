@@ -23,6 +23,7 @@ namespace HelpDesk_Kvas.Controllers
         // GET: Grupo
         public ActionResult Index(int id)
         {
+            ViewBag.Id = id;
             var grupos = objGrupoDetalleLogic.ListarPorGrupo(id);
             return View(grupos);
         }
@@ -47,15 +48,16 @@ namespace HelpDesk_Kvas.Controllers
 
         // GET: Grupo/Create
         //[ChildActionOnly]
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
+            ViewBag.Id = id;
             //LISTA DE GRUPO
-            var listaGrupos = objGrupoLogic.Listar();
+            var listaGrupos = objGrupoLogic.Buscar(id);
             var listaDetalles = objGrupoDetalleLogic.Listar();
 
-            SelectList grupos = new SelectList(listaGrupos, "IdGrupo", "Titulo");
+            //SelectList grupos = new SelectList(listaGrupos, "IdGrupo", "Titulo");
             SelectList gruposDetalles = new SelectList(listaDetalles, "IdGrupoDetalle","Titulo");
-            ViewBag.ListaGrupos = grupos;
+            ViewBag.ListaGrupos = listaGrupos;
             ViewBag.ListaGruposDetalles = gruposDetalles;
             //LISTA DE PADRES
 
