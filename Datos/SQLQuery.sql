@@ -4,10 +4,10 @@ GO
 USE Helpdesk_Kvas;
 GO
 
-
+DROP TABLE IF EXISTS Usuarios;
 DROP TABLE IF EXISTS Personas;
 DROP TABLE IF EXISTS SerialesProductos;
-DROP TABLE IF EXISTS ProductosDetalles;
+DROP TABLE IF EXISTS PSDetalles;
 DROP TABLE IF EXISTS GruposDetalles;
 DROP TABLE IF EXISTS Grupos;
 
@@ -21,7 +21,7 @@ CREATE TABLE Grupos(
 	Orden INT NOT NULL DEFAULT 0,
 	Icono NVARCHAR(30) NULL,
 	UrlGrupo VARCHAR(50) NOT NULL,
-	Estatus BIT NOT NULL DEFAULT 1,
+	Estatus BIT NOT NULL DEFAULT 0,
 	FechaRegistro DATETIME NOT NULL,
 	CONSTRAINT PK_Grupos_IdGrupo PRIMARY KEY(IdGrupo)
 );
@@ -62,24 +62,28 @@ CREATE TABLE Personas(
 		ON DELETE CASCADE
 		ON UPDATE CASCADE
 );
---DROP TABLE IF EXISTS Usuarios;
---CREATE TABLE Usuarios(
---IdUsuario INT IDENTITY(1,1) NOT NULL,
---NombreUsuario VARCHAR(30) NOT NULL,
---Contrasena VARCHAR(100) NOT NULL,
---IdRol INT NOT NULL,
---IdPreguntaSeguridad INT NOT NULL,
---RespuestaSeguridad VARCHAR(50) NOT NULL,
---FechaLogin DATETIME NULL,
---ContadorFallido SMALLINT NOT NULL DEFAULT 0,
---Estatus BIT NOT NULL DEFAULT 0,
---FechaRegistro DATETIME NOT NULL,
---FechaModificacion DATETIME NULL,
---CONSTRAINT PK_IdUsuario PRIMARY KEY(IdUsuario),
---CONSTRAINT UQ_NombreUsuario UNIQUE (NombreUsuario),
---CONSTRAINT FK_Usuarios_GrupoDetalles_IdRespuestaSeguridad FOREIGN KEY(IdPreguntaSeguridad) REFERENCES GruposDetalles(IdGrupoDetalle),
---CONSTRAINT FK_Usuarios_GrupoDetalles_IdRol FOREIGN KEY(IdRol) REFERENCES GruposDetalles(IdGrupoDetalle)
---);
+DROP TABLE IF EXISTS Usuarios;
+CREATE TABLE Usuarios(
+	IdUsuario INT IDENTITY(1,1) NOT NULL,
+	NombreUsuario VARCHAR(30) NOT NULL,
+	Contrasena VARCHAR(100) NOT NULL,
+	IdRol INT NOT NULL,
+	IdPreguntaSeguridad INT NOT NULL,
+	RespuestaSeguridad VARCHAR(50) NOT NULL,
+	FechaLogin DATETIME NULL,
+	ContadorFallido INT NOT NULL DEFAULT 0,
+	Estatus BIT NOT NULL DEFAULT 0,
+	FechaRegistro DATETIME NOT NULL,
+	FechaModificacion DATETIME NULL,
+	CONSTRAINT PK_IdUsuario PRIMARY KEY(IdUsuario),
+	CONSTRAINT UQ_NombreUsuario UNIQUE (NombreUsuario),
+	CONSTRAINT FK_Usuarios_GrupoDetalles_IdRespuestaSeguridad FOREIGN KEY(IdPreguntaSeguridad) REFERENCES GruposDetalles(IdGrupoDetalle)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION,
+	CONSTRAINT FK_Usuarios_GrupoDetalles_IdRol FOREIGN KEY(IdRol) REFERENCES GruposDetalles(IdGrupoDetalle)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+);
 --DROP TABLE IF EXISTS Empleados;
 --CREATE TABLE Empleados(
 --IdPersona INT NOT NULL,
@@ -88,15 +92,19 @@ CREATE TABLE Personas(
 --CONSTRAINT FK_Empleados_Personas_Id FOREIGN KEY (IdPersona) REFERENCES Personas(IdPersona),
 --CONSTRAINT FK_Empleados_Usuarios_Id FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario)
 --);
-DROP TABLE IF EXISTS ProductosDetalles;
-CREATE TABLE ProductosDetalles(
+--PRODUCTOS Y SERVICIOS
+DROP TABLE IF EXISTS PSDetalles;
+CREATE TABLE PSDetalles(
 	IdProducto INT NOT NULL,
 	Sku VARCHAR(24) NULL,
 	IdCategoria INT NOT NULL,
 	IdFabricante INT NOT NULL,
 	Stock INT NOT NULL,
+	Imagen VARCHAR(50) NOT NULL,
+	IdUnidad INT NOT NULL,
 	Stock_Min INT NOT NULL,
-	Precio DECIMAL(8,2)  NOT NULL,
+	PrecioCompra DECIMAL(8,2)  NOT NULL,
+	PrecioVenta DECIMAL(8,2)  NOT NULL,
 	Garantia INT NOT NULL DEFAULT 0,
 	Estatus BIT NOT NULL DEFAULT 1,
 	CONSTRAINT PK_Productos PRIMARY KEY(IdProducto),
@@ -108,6 +116,9 @@ CREATE TABLE ProductosDetalles(
 		ON UPDATE NO ACTION,
 	CONSTRAINT FK_Productos_Detalles_IdFabricante FOREIGN KEY (IdFabricante) REFERENCES GruposDetalles(IdGrupoDetalle)
 		ON DELETE NO ACTION
+		ON UPDATE NO ACTION,
+	CONSTRAINT FK_Productos_Detalles_IdUnidad FOREIGN KEY (IdUnidad) REFERENCES GruposDetalles(IdGrupoDetalle)
+		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
 );
 DROP TABLE IF EXISTS SerialesProductos;
@@ -117,20 +128,15 @@ CREATE TABLE SerialesProductos(
 	Serial VARCHAR(40) NOT NULL,
 	Estatus BIT NOT NULL DEFAULT 1,
 	CONSTRAINT PK_Seriales PRIMARY KEY(IdProducto,IdSerial),
-	CONSTRAINT FK_Seriales_Productos FOREIGN KEY (IdProducto) REFERENCES ProductosDetalles(IdProducto)
+	CONSTRAINT FK_Seriales_Productos FOREIGN KEY (IdProducto) REFERENCES PSDetalles(IdProducto)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE
 );
 
-
-
- EXEC sp_AgregarUsuario 'Jose', '123456', 1, 1, 'Test', 1, '2007-05-04'
- 
-
-
-
 --SELECT GENERICOS
 SELECT * FROM Grupos;
 SELECT * FROM GruposDetalles;
-SELECT * FROM AspNetUsers;
 SELECT * FROM Personas;
+SELECT * FROM Usuarios;
+SELECT * FROM PSDetalles;
+SELECT * FROM SerialesProductos;

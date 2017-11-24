@@ -13,24 +13,41 @@ namespace KvasEntity
         public int IdPersona { get; set; }
 
         [Required]
+        [StringLength(50)]
+        [Display(Name = "Nombres:")]
         public string Nombres { get; set; }
 
         [Required]
+        [Display(Name = "Tipo de Identificacion:")]
         public int IdTipoPersona { get; set; }
 
         [Required]
+        [StringLength(11)]
+        [Display(Name = "Cedula:")]
         public string CiRif { get; set; }
 
         [Required]
+        [StringLength(100)]
+        [Display(Name = "Direccion:")]
         public string Direccion { get; set; }
 
         [Required]
+        [StringLength(60)]
+        [Display(Name = "Telefonos:")]
         public string Telefonos { get; set; }
 
+        [StringLength(60)]
+        [Required]
+        [Display(Name = "Correo electrónico")]
+        [EmailAddress]
         public string Email { get; set; }
-        
+
+        [StringLength(60)]
+        [Display(Name = "Imagen:")]
         public string Imagen { get; set; }
 
+        [DataType(DataType.Date)]
+        [Display(Name = "Fecha de Registro:")]
         public DateTime FechaRegistro { get; set; }
 
         public int Mensaje { get; set; }

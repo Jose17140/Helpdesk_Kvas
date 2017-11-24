@@ -80,9 +80,9 @@ namespace HelpDesk_Kvas.Controllers
             GruposEntity _grupo = objGrupoLogic.Buscar(id);
             return View(_grupo);
         }
-
-        // GET: Grupo/Create
-        public PartialViewResult Create()
+        
+        [ChildActionOnly]
+        public ActionResult Create()
         {
             MensajeInicioRegistrar();
             return PartialView();
@@ -91,7 +91,7 @@ namespace HelpDesk_Kvas.Controllers
         // POST: Grupo/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public PartialViewResult Create(GruposEntity objGrupo)
+        public ActionResult Create(GruposEntity objGrupo)
         {
             if (ModelState.IsValid)
             {
@@ -99,9 +99,10 @@ namespace HelpDesk_Kvas.Controllers
                 MensajeInicioRegistrar();
                 objGrupoLogic.Insertar(objGrupo);
                 MensajeErrorRegistrar(objGrupo);
-                return PartialView();
+                var text = "Agregado Exitosamente";
+                return this.Json(new { EnableSuccess = true, SuccessTitle = "Success", SuccessMsg = text });
             }
-            return PartialView();
+            return this.Json(new { EnableError = true, ErrorTitle = "Error", ErrorMsg = "Verifique los datos he intente nuevamente" });
         }
 
         // GET: Grupo/Edit/5

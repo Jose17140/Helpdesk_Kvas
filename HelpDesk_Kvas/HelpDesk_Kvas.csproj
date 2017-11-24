@@ -207,6 +207,7 @@
     <Compile Include="Controllers\GrupoDetalleController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PersonaController.cs" />
     <Compile Include="DataGrid\DataGrid.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -2682,6 +2683,8 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -2732,16 +2735,18 @@
     <Content Include="Views\GrupoDetalle\Delete.cshtml" />
     <Content Include="Views\GrupoDetalle\Edit.cshtml" />
     <Content Include="Views\GrupoDetalle\Index.cshtml" />
-    <Content Include="Views\Grupo\Create.cshtml" />
+    <Content Include="Views\Grupo\Createx.cshtml" />
     <Content Include="Views\Grupo\Delete.cshtml" />
     <Content Include="Views\Grupo\Details.cshtml" />
     <Content Include="Views\Grupo\Edit.cshtml" />
     <Content Include="Views\Grupo\Index.cshtml" />
     <Content Include="Views\Home\Tablero.cshtml" />
     <Content Include="Views\GrupoDetalle\IndexTest.cshtml" />
+    <Content Include="Views\Grupo\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Persona\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

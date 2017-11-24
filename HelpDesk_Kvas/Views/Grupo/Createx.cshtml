@@ -1,32 +1,24 @@
-﻿@model KvasEntity.GruposDetallesEntity
+﻿@model KvasEntity.GruposEntity
 @{
-    ViewBag.Title = "Nueva Tabla";
+    ViewBag.Title = "Nueva Entidad";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<br />
 <div class="well well-sm text-primary text-center">
     @ViewBag.MensajeInicio
 </div>
 
-
-<script>
-
-</script>
-
-
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
-
-    @ViewBag.ListaGrupos
-    @ViewBag.Id
     <div class="form-horizontal">
         <fieldset>
             <div class="form-group">
                 @Html.LabelFor(model => model.Titulo, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
                     @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control" } })
+
                     @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -45,26 +37,6 @@
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-md-6">
-                    @Html.EditorFor(model => model.IdGrupo, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.Id } })
-                </div>
-            </div>
-@*
-    <div class="form-group">
-        @Html.LabelFor(model => model.IdGrupo, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-6">
-            @Html.DropDownListFor(model => model.IdGrupo, ViewBag.ListaGrupos as SelectList, "Seleccione una Entidad", htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.IdGrupo, "", new { @class = "text-danger" })
-        </div>
-    </div>*@
-            <div class="form-group">
-                @Html.LabelFor(model => model.IdPadre, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-6">
-                    @Html.DropDownListFor(model => model.IdPadre, ViewBag.ListaGruposDetalles as SelectList, "Seleccione Categoria Padre", htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.IdPadre, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
                 @Html.LabelFor(model => model.Icono, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
                     @Html.EditorFor(model => model.Icono, new { htmlAttributes = new { @class = "form-control" } })
@@ -72,10 +44,10 @@
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.UrlDetalle, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.UrlGrupo, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
-                    @Html.EditorFor(model => model.UrlDetalle, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.UrlDetalle, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.UrlGrupo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.UrlGrupo, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group">

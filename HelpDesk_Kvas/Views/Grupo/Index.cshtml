@@ -36,16 +36,12 @@
     <br /><br /><br />
     <div class="box">
         <div class="box-body">
-
-            @if (User.IsInRole("Admin"))
-            {
-                <div class="btn dropdown">
-                    <a class="btn btn-apps" href="/Grupo/Create">
-                        <span class="fa fa-plus-square fa-4x"></span>
-                        <span class="glyphicon-class">Nueva Entidad</span>
-                    </a>
-                </div>
-            }
+            <div class="btn dropdown">
+                <a class="btn btn-apps" data-toggle="modal" data-target="#squarespaceModal"">
+                    <span class="fa fa-plus-square fa-4x"></span>
+                    <span class="glyphicon-class">Nueva Entidad</span>
+                </a>
+            </div>
             @foreach (var g in Model)
             {
                 <div class="btn dropdown">
@@ -69,3 +65,33 @@
         <!-- /.box-body -->
     </div>
 </section>
+
+<div class="modal fade" id="squarespaceModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <h3 class="modal-title" id="lineModalLabel">Agregar Entidad</h3>
+            </div>
+            <div class="modal-body">
+                @{ Html.RenderAction("Create", "Grupo");}
+            </div>
+            <br /><br />
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="squarespaceModaledi" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <h3 class="modal-title" id="lineModalLabel">Agregar Entidad</h3>
+            </div>
+            <div class="modal-body">
+                @{ Html.RenderAction("Edit", "Grupo");}
+            </div>
+            <br /><br />
+        </div>
+    </div>
+</div>

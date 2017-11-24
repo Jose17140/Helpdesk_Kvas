@@ -54,16 +54,9 @@
                     <td>@objGrupo.UrlDetalle</td>
                     <td>@objGrupo.Estatus</td>
                     <td>@objGrupo.FechaRegistro</td>
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <td><a class="btn btn-success" href="~/GrupoDetalle/Detail/@objGrupo.IdGrupoDetalle"><span class="glyphicon glyphicon-eye-open"></span></a></td>
-
-                    }
+                    <td><a class="btn btn-success" href="~/GrupoDetalle/Detail/@objGrupo.IdGrupoDetalle"><span class="glyphicon glyphicon-eye-open"></span></a></td>
                     <td><a class="btn btn-info" href="~/GrupoDetalle/Edit/@objGrupo.IdGrupoDetalle"><span class="fa fa-edit"></span></a></td>
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <td><a class="btn btn-danger" href="~/GrupoDetalle/Delete/@objGrupo.IdGrupoDetalle"><span class="fa fa-book"></span></a></td>
-                    }
+                    <td><a class="btn btn-danger" href="~/GrupoDetalle/Delete/@objGrupo.IdGrupoDetalle"><span class="fa fa-book"></span></a></td>
                 </tr>
             }
         </tbody>

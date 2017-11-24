@@ -34,9 +34,9 @@ namespace HelpDesk_Kvas.Controllers
             return View(grupos);
         }
 
-        public JsonResult Lista(int _id)
+        public JsonResult Lista()
         {
-            var grupos = objGrupoDetalleLogic.ListarPorGrupo(_id);
+            var grupos = objGrupoDetalleLogic.Listar();
             return Json(grupos, JsonRequestBehavior.AllowGet);
         }
 
@@ -52,12 +52,12 @@ namespace HelpDesk_Kvas.Controllers
         {
             ViewBag.Id = id;
             //LISTA DE GRUPO
-            var listaGrupos = objGrupoLogic.Buscar(id);
+            var Grupo = objGrupoLogic.Buscar(id);
             var listaDetalles = objGrupoDetalleLogic.Listar();
-
-            //SelectList grupos = new SelectList(listaGrupos, "IdGrupo", "Titulo");
+            var listaGrupos = objGrupoLogic.Listar();
+            SelectList grupos = new SelectList(listaGrupos, id, "Titulo");
             SelectList gruposDetalles = new SelectList(listaDetalles, "IdGrupoDetalle","Titulo");
-            ViewBag.ListaGrupos = listaGrupos;
+            ViewBag.ListaGrupos = Grupo;
             ViewBag.ListaGruposDetalles = gruposDetalles;
             //LISTA DE PADRES
 
@@ -68,17 +68,18 @@ namespace HelpDesk_Kvas.Controllers
 
         // POST: Grupo/Create
         [HttpPost]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         //[ChildActionOnly]
         public ActionResult Create(GruposDetallesEntity objGrupo)
         {
             try
             {
+                ViewBag.Id = objGrupo.IdGrupo;
                 // TODO: Add insert logic here
                 MensajeInicioRegistrar();
-                objGrupoDetalleLogic.Insertar(objGrupo);
+                //objGrupoDetalleLogic.Insertar(objGrupo);
                 MensajeErrorRegistrar(objGrupo);
-                return View("Create");
+                return View("Index");
             }
             catch
             {

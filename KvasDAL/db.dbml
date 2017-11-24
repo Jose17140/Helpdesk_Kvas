@@ -1,18 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Helpdesk_Kvas" Class="dbDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="AppSettings" ConnectionString="Data Source=.;Initial Catalog=Helpdesk_Kvas;Integrated Security=True" SettingsObjectName="KvasDAL.Properties.Settings" SettingsPropertyName="Helpdesk_KvasConnectionString" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.Grupos" Member="Grupos">
-    <Type Name="Grupos">
-      <Column Name="IdGrupo" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Nombre" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Descripcion" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
-      <Column Name="Orden" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Icono" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
-      <Column Name="UrlGrupo" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Estatus" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="FechaRegistro" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Association Name="Grupos_GruposDetalles" Member="GruposDetalles" ThisKey="IdGrupo" OtherKey="IdGrupo" Type="GruposDetalles" />
-    </Type>
-  </Table>
   <Table Name="dbo.SerialesProductos" Member="SerialesProductos">
     <Type Name="SerialesProductos">
       <Column Name="IdSerial" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -39,8 +26,8 @@
       <Association Name="GruposDetalles_ProductosDetalles" Member="ProductosDetalles" ThisKey="IdGrupoDetalle" OtherKey="IdCategoria" Type="ProductosDetalles" />
       <Association Name="GruposDetalles_ProductosDetalles1" Member="ProductosDetalles1" ThisKey="IdGrupoDetalle" OtherKey="IdFabricante" Type="ProductosDetalles" />
       <Association Name="GruposDetalles_ProductosDetalles2" Member="ProductosDetalles2" ThisKey="IdGrupoDetalle" OtherKey="IdProducto" Type="ProductosDetalles" Cardinality="One" />
-      <Association Name="Grupos_GruposDetalles" Member="Grupos" ThisKey="IdGrupo" OtherKey="IdGrupo" Type="Grupos" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
       <Association Name="GruposDetalles_GruposDetalles" Member="GruposDetalles1" ThisKey="IdPadre" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" />
+      <Association Name="Grupos_GruposDetalles" Member="Grupos" ThisKey="IdGrupo" OtherKey="IdGrupo" Type="Grupos" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.Personas" Member="Personas">
@@ -71,6 +58,19 @@
       <Association Name="GruposDetalles_ProductosDetalles" Member="GruposDetalles" ThisKey="IdCategoria" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" />
       <Association Name="GruposDetalles_ProductosDetalles1" Member="GruposDetalles1" ThisKey="IdFabricante" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" />
       <Association Name="GruposDetalles_ProductosDetalles2" Member="GruposDetalles2" ThisKey="IdProducto" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Grupos" Member="Grupos">
+    <Type Name="Grupos">
+      <Column Name="IdGrupo" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Descripcion" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Orden" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Icono" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="UrlGrupo" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Estatus" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="FechaRegistro" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Grupos_GruposDetalles" Member="GruposDetalles" ThisKey="IdGrupo" OtherKey="IdGrupo" Type="GruposDetalles" />
     </Type>
   </Table>
   <Function Name="dbo.sp_ActualizarGrupo" Method="sp_ActualizarGrupo">

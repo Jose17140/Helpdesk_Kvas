@@ -1,19 +1,16 @@
 ﻿@model KvasEntity.GruposEntity
 @{
     ViewBag.Title = "Nueva Entidad";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
 }
-
 <br />
 <div class="well well-sm text-primary text-center">
     @ViewBag.MensajeInicio
 </div>
-
-@using (Html.BeginForm())
+@using (Ajax.BeginForm("Create", "Grupo", new AjaxOptions { HttpMethod = "POST", OnSuccess = "onAjaxRequestSuccess" }, new { @id = "AjaxformId", @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
-        <fieldset>
             <div class="form-group">
                 @Html.LabelFor(model => model.Titulo, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
@@ -56,14 +53,12 @@
                     @Html.CheckBoxFor(model => model.Estatus, new { htmlAttributes = new { @class = "form-control" } })
                 </div>
             </div>
-        </fieldset>
 
         <div class="form-actions col-md-offset-2">
             <input class="btn btn-primary" type="submit" name="btnguardar" value="Guardar" />|
             @Html.ActionLink("Regresar al Listado", "Index")
         </div>
     </div>
-
 }
 <div class="text-primary text-success text-center">
     @ViewBag.MensajeExito

@@ -11,7 +11,7 @@ namespace KvasEntity
     {
         [Key]
         public int IdGrupo { get; set; }
-
+        
         [Required]
         [StringLength(50)]
         [Display(Name = "Nombre:")]
