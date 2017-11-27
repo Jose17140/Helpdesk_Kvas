@@ -139,3 +139,4 @@ SELECT * FROM Personas;
 SELECT * FROM Usuarios;
 SELECT * FROM PSDetalles;
 SELECT * FROM SerialesProductos;
+SELECT * FROM vw_Personas;

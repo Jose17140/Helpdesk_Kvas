@@ -102,7 +102,6 @@ namespace HelpDesk_Kvas.Controllers
         //[ChildActionOnly]
         public ActionResult Create(GruposDetallesEntity objGrupo)
         {
-
             if (ModelState.IsValid)
             {
                 ViewBag.Id = objGrupo.IdGrupo;
@@ -126,6 +125,12 @@ namespace HelpDesk_Kvas.Controllers
             ViewBag.Id = id;
             MensajeInicioActualizar();
             GruposDetallesEntity _grupo = objGrupoDetalleLogic.Buscar(id);
+            var listaDetalle = objGrupoDetalleLogic.Listar();
+            var filtro = listaDetalle.Where(m => m.IdGrupo == _grupo.IdGrupo).ToList();
+            //listaDetalle.Where(m => m.)
+            
+            SelectList listaDetalles = new SelectList(filtro, "IdGrupoDetalle", "Titulo");
+            ViewBag.ListaGruposDetalles = listaDetalles;
             if (_grupo == null)
             {
                 return HttpNotFound();
@@ -139,19 +144,19 @@ namespace HelpDesk_Kvas.Controllers
         //[ChildActionOnly]
         public ActionResult Edit(GruposDetallesEntity objGrupo)
         {
-            try
+            if (objGrupo.IdPadre == null)
             {
+                objGrupo.IdPadre = 0;
+            }
+            if (ModelState.IsValid)
+            {
+                ViewBag.Id = objGrupo.IdGrupo;
                 MensajeInicioActualizar();
                 objGrupoDetalleLogic.Actualizar(objGrupo);
                 MensajeErrorActualizar(objGrupo);
-                // TODO: Add update logic here
-                ViewBag.Id = objGrupo.IdGrupo;
-                return PartialView("Edit");
+                return Json(new { success = true });
             }
-            catch
-            {
-                return View();
-            }
+            return Json(objGrupo, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Grupo/Delete/5
@@ -163,7 +168,12 @@ namespace HelpDesk_Kvas.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             GruposDetallesEntity _grupo = objGrupoDetalleLogic.Buscar(id);
-            return View(_grupo);
+            ViewBag.Nombre = _grupo.Titulo;
+            if (_grupo == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView("Delete",_grupo);
         }
 
         // POST: Grupo/Delete/5
@@ -179,7 +189,7 @@ namespace HelpDesk_Kvas.Controllers
                 MensajeErrorActualizar(objGrupo);
                 // TODO: Add delete logic here
 
-                return RedirectToAction("Index");
+                return Json(new { success = true });
             }
             catch
             {

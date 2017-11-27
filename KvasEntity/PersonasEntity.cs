@@ -42,13 +42,12 @@ namespace KvasEntity
         [EmailAddress]
         public string Email { get; set; }
 
-        [StringLength(60)]
-        [Display(Name = "Imagen:")]
-        public string Imagen { get; set; }
-
         [DataType(DataType.Date)]
         [Display(Name = "Fecha de Registro:")]
         public DateTime FechaRegistro { get; set; }
+
+        [Display(Name = "Identificacion")]
+        public string Identificacion { get; set; }
 
         public int Mensaje { get; set; }
     }

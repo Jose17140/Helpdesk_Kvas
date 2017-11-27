@@ -44,6 +44,17 @@
       <Association Name="GruposDetalles_Personas" Member="GruposDetalles" ThisKey="IdTipoPersona" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.vw_Personas" Member="vw_Personas">
+    <Type Name="vw_Personas">
+      <Column Name="IdPersona" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Nombres" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Cedula" Type="System.String" DbType="VarChar(61) NOT NULL" CanBeNull="false" />
+      <Column Name="Direccion" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Telefonos" Type="System.String" DbType="VarChar(60) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(60)" CanBeNull="true" />
+      <Column Name="FechaRegistro" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
   <Function Name="dbo.sp_ActualizarGrupo" Method="sp_ActualizarGrupo">
     <Parameter Name="IdGrupo" Parameter="idGrupo" Type="System.Int32" DbType="Int" />
     <Parameter Name="Titulo" Parameter="titulo" Type="System.String" DbType="VarChar(50)" />
@@ -80,18 +91,6 @@
     <Parameter Name="Estatus" Parameter="estatus" Type="System.Boolean" DbType="Bit" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.sp_ActualizarPersonas" Method="sp_ActualizarPersonas">
-    <Parameter Name="IdPersona" Parameter="idPersona" Type="System.Int32" DbType="Int" />
-    <Parameter Name="Nombres" Parameter="nombres" Type="System.String" DbType="VarChar(50)" />
-    <Parameter Name="IdTipoPersona" Parameter="idTipoPersona" Type="System.Int32" DbType="Int" />
-    <Parameter Name="CiRif" Parameter="ciRif" Type="System.String" DbType="VarChar(11)" />
-    <Parameter Name="Direccion" Parameter="direccion" Type="System.String" DbType="VarChar(100)" />
-    <Parameter Name="Telefonos" Parameter="telefonos" Type="System.String" DbType="VarChar(60)" />
-    <Parameter Name="Email" Parameter="email" Type="System.String" DbType="VarChar(60)" />
-    <Parameter Name="Imagen" Parameter="imagen" Type="System.String" DbType="VarChar(60)" />
-    <Parameter Name="FechaRegistro" Parameter="fechaRegistro" Type="System.DateTime" DbType="DateTime" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.sp_AgregarGrupo" Method="sp_AgregarGrupo">
     <Parameter Name="Titulo" Parameter="titulo" Type="System.String" DbType="VarChar(50)" />
     <Parameter Name="Descripcion" Parameter="descripcion" Type="System.String" DbType="VarChar(100)" />
@@ -114,27 +113,12 @@
     <Parameter Name="FechaRegistro" Parameter="fechaRegistro" Type="System.DateTime" DbType="DateTime" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.sp_AgregarPersonas" Method="sp_AgregarPersonas">
-    <Parameter Name="Nombres" Parameter="nombres" Type="System.String" DbType="VarChar(50)" />
-    <Parameter Name="IdTipoPersona" Parameter="idTipoPersona" Type="System.Int32" DbType="Int" />
-    <Parameter Name="CiRif" Parameter="ciRif" Type="System.String" DbType="VarChar(11)" />
-    <Parameter Name="Direccion" Parameter="direccion" Type="System.String" DbType="VarChar(100)" />
-    <Parameter Name="Telefonos" Parameter="telefonos" Type="System.String" DbType="VarChar(60)" />
-    <Parameter Name="Email" Parameter="email" Type="System.String" DbType="VarChar(60)" />
-    <Parameter Name="Imagen" Parameter="imagen" Type="System.String" DbType="VarChar(60)" />
-    <Parameter Name="FechaRegistro" Parameter="fechaRegistro" Type="System.DateTime" DbType="DateTime" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.sp_EliminarGrupo" Method="sp_EliminarGrupo">
     <Parameter Name="IdGrupo" Parameter="idGrupo" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
   <Function Name="dbo.sp_EliminarGrupoDetalle" Method="sp_EliminarGrupoDetalle">
     <Parameter Name="IdGrupoDetalle" Parameter="idGrupoDetalle" Type="System.Int32" DbType="Int" />
-    <Return Type="System.Int32" />
-  </Function>
-  <Function Name="dbo.sp_EliminarPersonas" Method="sp_EliminarPersonas">
-    <Parameter Name="IdPersona" Parameter="idPersona" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
   <Function Name="dbo.sp_ListarGrupo" Method="sp_ListarGrupo">
@@ -175,5 +159,29 @@
       <Column Name="Estatus" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="FechaRegistro" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
     </ElementType>
+  </Function>
+  <Function Name="dbo.sp_AgregarPersonas" Method="sp_AgregarPersonas">
+    <Parameter Name="Nombres" Parameter="nombres" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="IdTipoPersona" Parameter="idTipoPersona" Type="System.Int32" DbType="Int" />
+    <Parameter Name="CiRif" Parameter="ciRif" Type="System.String" DbType="VarChar(11)" />
+    <Parameter Name="Direccion" Parameter="direccion" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="Telefonos" Parameter="telefonos" Type="System.String" DbType="VarChar(60)" />
+    <Parameter Name="Email" Parameter="email" Type="System.String" DbType="VarChar(60)" />
+    <Parameter Name="FechaRegistro" Parameter="fechaRegistro" Type="System.DateTime" DbType="DateTime" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_EliminarPersonas" Method="sp_EliminarPersonas">
+    <Parameter Name="IdPersona" Parameter="idPersona" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_ActualizarPersonas" Method="sp_ActualizarPersonas">
+    <Parameter Name="IdPersona" Parameter="idPersona" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Nombres" Parameter="nombres" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="IdTipoPersona" Parameter="idTipoPersona" Type="System.Int32" DbType="Int" />
+    <Parameter Name="CiRif" Parameter="ciRif" Type="System.String" DbType="VarChar(11)" />
+    <Parameter Name="Direccion" Parameter="direccion" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="Telefonos" Parameter="telefonos" Type="System.String" DbType="VarChar(60)" />
+    <Parameter Name="Email" Parameter="email" Type="System.String" DbType="VarChar(60)" />
+    <Return Type="System.Int32" />
   </Function>
 </Database>

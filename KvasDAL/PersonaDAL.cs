@@ -19,17 +19,7 @@ namespace KvasDAL
             try
             {
                 var fecha = DateTime.Now;
-                var insert = new Personas()
-                {
-                    Nombres = persona.Nombres,
-                    IdTipoPersona = persona.IdTipoPersona,
-                    CiRif = persona.CiRif,
-                    Direccion = persona.Direccion,
-                    Telefonos = persona.Telefonos,
-                    Email = persona.Email,
-                    FechaRegistro = fecha
-                };
-                db.Personas.InsertOnSubmit(insert);
+                var insert = db.sp_AgregarPersonas(persona.Nombres, persona.IdTipoPersona, persona.CiRif,persona.Direccion,persona.Telefonos,persona.Email, fecha);
                 db.SubmitChanges();
             }
             catch (Exception)
@@ -46,8 +36,7 @@ namespace KvasDAL
         {
             try
             {
-                Personas query = db.Personas.Where(m => m.IdPersona == persona.IdPersona).SingleOrDefault();
-                db.Personas.DeleteOnSubmit(query);
+                var query = db.sp_EliminarPersonas(persona.IdTipoPersona);
                 db.SubmitChanges();
             }
             catch (Exception)
@@ -64,13 +53,7 @@ namespace KvasDAL
         {
             try
             {
-                Personas query = db.Personas.Where(m => m.IdPersona == persona.IdPersona).SingleOrDefault();
-                query.Nombres = persona.Nombres;
-                query.IdTipoPersona = persona.IdTipoPersona;
-                query.CiRif = persona.CiRif;
-                query.Direccion = persona.Direccion;
-                query.Telefonos = persona.Telefonos;
-                query.Email = persona.Email;
+                var query = db.sp_ActualizarPersonas(persona.IdPersona,persona.Nombres,persona.IdTipoPersona,persona.CiRif,persona.Direccion,persona.Telefonos,persona.Email);
                 db.SubmitChanges();
             }
             catch (Exception)
@@ -118,7 +101,7 @@ namespace KvasDAL
             try
             {
                 IList<PersonasEntity> lista = new List<PersonasEntity>();
-                var query = (from m in db.Personas
+                var query = (from m in db.vw_Personas
                              select m).ToList();
                 foreach (var personas in query)
                 {
@@ -126,8 +109,7 @@ namespace KvasDAL
                     {
                         IdPersona = personas.IdPersona,
                         Nombres = personas.Nombres,
-                        IdTipoPersona = personas.IdTipoPersona,
-                        CiRif = personas.CiRif,
+                        Identificacion = personas.Cedula,
                         Telefonos = personas.Telefonos,
                         Direccion = personas.Direccion,
                         Email = personas.Email,

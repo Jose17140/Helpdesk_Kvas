@@ -221,3 +221,12 @@ CREATE PROCEDURE sp_ListarPersonas
     SELECT * FROM Personas      
  END
  GO
+
+--VISTA PERSONAS
+GO
+CREATE VIEW vw_Personas
+AS
+	SELECT p.IdPersona, p.Nombres, CONCAT(gd.Nombre,p.CiRif) AS Cedula, p.Direccion, p.Telefonos, p.Email, p.FechaRegistro
+	FROM Personas AS p
+	INNER JOIN GruposDetalles AS gd ON P.IdTipoPersona = gd.IdGrupoDetalle
+GO

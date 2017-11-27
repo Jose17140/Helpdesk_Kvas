@@ -1,0 +1,68 @@
+﻿@model KvasEntity.PersonasEntity
+@{
+    Layout = null;
+}
+
+
+<div class="modal-body">
+    <h2>Detalle</h2>
+
+    <div>
+        <h4>Personas</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Nombres)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Nombres)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CiRif)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Identificacion)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Direccion)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Direccion)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Telefonos)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Telefonos)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.FechaRegistro)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FechaRegistro)
+            </dd>
+
+        </dl>
+    </div>
+    @*<p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.IdPersona }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>*@
+</div>

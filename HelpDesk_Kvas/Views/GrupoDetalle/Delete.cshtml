@@ -1,13 +1,13 @@
 ﻿@model KvasEntity.GruposDetallesEntity
 
 @{
-    ViewBag.Title = "Modulo de Actualizacion de Categoria";
+    ViewBag.Title = "Modulo Eliminar una Categoria";
     Layout = null;
 }
 
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 class="modal-title">@ViewBag.MensajeInicialEliminar</h3>
+    <h3 class="modal-title">@ViewBag.Title</h3>
 </div>
 <div class="modal-body">
     @using (Html.BeginForm())
@@ -17,7 +17,7 @@
             <fieldset>
                 <div class="form-group">
                     <div class="col-md-6">
-                        @Html.HiddenFor(model => model.IdGrupo, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.HiddenFor(model => model.IdGrupoDetalle, new { htmlAttributes = new { @class = "form-control" } })
                     </div>
                 </div>
                 <div class="form-group">
@@ -76,9 +76,18 @@
                         @Html.CheckBoxFor(model => model.Estatus, new { htmlAttributes = new { @class = "form-control" } })
                     </div>
                 </div>
+                <div class="form-group">
+                    <div class="col-sm-9 col-sm-offset-3">
+                        <h3>
+                            <span class="label label-danger">
+                                Desea eliminar el registro @ViewBag.Nombre?
+                            </span>
+                        </h3>
+                    </div>
+                </div>
                 <div class="form-actions col-md-offset-2">
-                    <input class="btn btn-primary" type="submit" name="btnguardar" value="Guardar" />|
-                    @Html.ActionLink("Regresar al Listado", "Index")
+                    <input class="btn btn-primary" type="submit" name="btnguardar" value="Eliminar" />|
+                    @*@Html.ActionLink("Regresar al Listado", "Index")*@
                 </div>
             </fieldset>
         </div>
