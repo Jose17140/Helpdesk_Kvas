@@ -27,7 +27,6 @@ namespace KvasDAL
                     Direccion = persona.Direccion,
                     Telefonos = persona.Telefonos,
                     Email = persona.Email,
-                    Imagen = persona.Imagen,
                     FechaRegistro = fecha
                 };
                 db.Personas.InsertOnSubmit(insert);
@@ -72,7 +71,6 @@ namespace KvasDAL
                 query.Direccion = persona.Direccion;
                 query.Telefonos = persona.Telefonos;
                 query.Email = persona.Email;
-                query.Imagen = persona.Imagen;
                 db.SubmitChanges();
             }
             catch (Exception)
@@ -101,7 +99,6 @@ namespace KvasDAL
                     Direccion = query.Direccion,
                     Telefonos = query.Telefonos,
                     Email = query.Email,
-                    Imagen = query.Imagen,
                     FechaRegistro = query.FechaRegistro
                 };
                 return model;
@@ -134,7 +131,6 @@ namespace KvasDAL
                         Telefonos = personas.Telefonos,
                         Direccion = personas.Direccion,
                         Email = personas.Email,
-                        Imagen = personas.Imagen,
                         FechaRegistro = personas.FechaRegistro
                     });
                 }

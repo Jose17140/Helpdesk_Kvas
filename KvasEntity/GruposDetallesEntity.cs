@@ -24,14 +24,12 @@ namespace KvasEntity
 
         [Display(Name = "Orden:")]
         public int Orden { get; set; }
-
-        [Required(ErrorMessage = "Seleccione sin Categoria")]
+        
         [Display(Name = "Entidad:")]
-        public int IdGrupo { get; set; }
-
-        [Required(ErrorMessage = "Seleccione sin Grupo")]
+        public int? IdGrupo { get; set; }
+        
         [Display(Name = "Categoria Padre:")]
-        public int IdPadre { get; set; }
+        public int? IdPadre { get; set; }
 
         [StringLength(30)]
         [Display(Name = "Icono:")]
@@ -69,14 +67,12 @@ namespace KvasEntity
 
         [Display(Name = "Orden:")]
         public int Orden { get; set; }
-
-        [Required(ErrorMessage = "Seleccione sin Categoria")]
+        
         [Display(Name = "Entidad:")]
         public string IdGrupo { get; set; }
-
-        [Required(ErrorMessage = "Seleccione sin Grupo")]
+        
         [Display(Name = "Grupo Superior:")]
-        public int IdPadre { get; set; }
+        public string IdPadre { get; set; }
 
         [StringLength(30)]
         [Display(Name = "Icono:")]

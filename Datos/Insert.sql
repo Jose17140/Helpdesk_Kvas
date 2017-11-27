@@ -77,19 +77,19 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,FechaR
 ('J','Juridico',2,'fa fa-flag-o',3,0, GETDATE()),
 ('G','Gubernamental',2,'fa fa-flag-o',4,0, GETDATE());
 --INSERTAR PERSONAS
-INSERT personas (Nombres, IdTipoPersona, CiRif, Direccion, Telefonos,Imagen, Email, FechaRegistro) VALUES 
-( N'JUAN ARCOS', 28, N'22012345', N'Caracas', N'04265556677', 'RutaImagen', N'help@help.com', GETDATE()),
-( N'YADELSY REYES', 28, N'22012346', N'Caracas', N'04265556677', 'RutaImagen', N'help@help.com', GETDATE()),
-( N'TERESA BRAVO', 28, N'22012347', N'Caracas', N'04265556677', 'RutaImagen', N'help@help.com', GETDATE()),
-( N'ANA PRINCIPE', 28, N'22012348', N'Caracas', N'04265556677', 'RutaImagen', N'help@help.com', GETDATE()),
-( N'LUIS TORRES', 28, N'22012349', N'Caracas', N'04265556677', 'RutaImagen', N'help@help.com', GETDATE()),
-( N'MARIA OSPINA', 28, N'22012350', N'Caracas', N'04265556677', 'RutaImagen', N'help@help.com', GETDATE()),
-( N'ANYELI MORA', 28, N'21018642', N'Caracas', N'04265556677', 'RutaImagen', N'help@help.com', GETDATE()),
-( N'ROSNELLY MORA', 28, N'21018643', N'Caracas', N'04265556677', 'RutaImagen', N'help@help.com', GETDATE()),
-( N'MARIA GUEVARA', 28, N'21018645', N'Caracas', N'04265556677', 'RutaImagen', N'help@help.com', GETDATE()),
-( N'MARIA GUEVARA', 28, N'21018646', N'Caracas', N'04265556677', 'RutaImagen', N'help@help.com', GETDATE()),
-( N'YOSNELLY PINTO', 28, N'21018660', N'Caracas', N'04265556677', 'RutaImagen', N'help@help.com', GETDATE()),
-( N'JOSE RODRIGUEZ', 28, N'21018662', N'Caracas', N'04265556677', 'RutaImagen', N'help@help.com', GETDATE()),
-( N'DOUGLAS GARCIA', 28, N'21018668', N'Caracas', N'04265556677', 'RutaImagen', N'help@help.com', GETDATE()),
-( N'YERALDINE PAEZ', 28, N'21018669', N'Caracas', N'04265556677', 'RutaImagen', N'help@help.com', GETDATE()),
-( N'ELIECER JARABA', 28, N'21018672', N'Caracas', N'04265556677', 'RutaImagen', N'help@help.com', GETDATE());
+INSERT personas (Nombres, IdTipoPersona, CiRif, Direccion, Telefonos, Email, FechaRegistro) VALUES 
+( N'JUAN ARCOS', 28, N'22012345', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
+( N'YADELSY REYES', 28, N'22012346', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
+( N'TERESA BRAVO', 28, N'22012347', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
+( N'ANA PRINCIPE', 28, N'22012348', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
+( N'LUIS TORRES', 28, N'22012349', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
+( N'MARIA OSPINA', 28, N'22012350', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
+( N'ANYELI MORA', 28, N'21018642', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
+( N'ROSNELLY MORA', 28, N'21018643', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
+( N'MARIA GUEVARA', 28, N'21018645', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
+( N'MARIA GUEVARA', 28, N'21018646', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
+( N'YOSNELLY PINTO', 28, N'21018660', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
+( N'JOSE RODRIGUEZ', 28, N'21018662', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
+( N'DOUGLAS GARCIA', 28, N'21018668', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
+( N'YERALDINE PAEZ', 28, N'21018669', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
+( N'ELIECER JARABA', 28, N'21018672', N'Caracas', N'04265556677', N'help@help.com', GETDATE());

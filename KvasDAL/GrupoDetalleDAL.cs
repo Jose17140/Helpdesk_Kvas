@@ -19,18 +19,11 @@ namespace KvasDAL
             try
             {
                 var fecha = DateTime.Now;
-                var insert = new GruposDetalles()
+                if (grupo.IdPadre == null)
                 {
-                    Nombre = grupo.Titulo,
-                    Descripcion = grupo.Descripcion,
-                    Orden = grupo.Orden,
-                    IdGrupo = grupo.IdGrupo,
-                    IdPadre = grupo.IdPadre,
-                    Icono = grupo.Icono,
-                    Estatus = grupo.Estatus,
-                    FechaRegistro = fecha
-                };
-                db.GruposDetalles.InsertOnSubmit(insert);
+                    grupo.IdPadre = 0;
+                }
+                db.sp_AgregarGrupoDetalle(grupo.Titulo,grupo.Descripcion,grupo.Orden,grupo.IdGrupo,grupo.IdPadre,grupo.Icono,grupo.UrlDetalle,grupo.Estatus,fecha);
                 db.SubmitChanges();
             }
             catch (Exception)
@@ -69,8 +62,9 @@ namespace KvasDAL
                 query.Nombre = grupo.Titulo;
                 query.Descripcion = grupo.Descripcion;
                 query.Orden = grupo.Orden;
-                query.IdGrupo = grupo.IdGrupo;
+                query.IdGrupo = Convert.ToInt32(grupo.IdGrupo);
                 query.IdPadre = grupo.IdPadre;
+                query.UrlDetalle = grupo.UrlDetalle;
                 query.Icono = grupo.Icono;
                 query.Estatus = grupo.Estatus;
                 db.SubmitChanges();
@@ -99,7 +93,8 @@ namespace KvasDAL
                     Descripcion = query.Descripcion,
                     Orden = query.Orden,
                     IdGrupo = query.IdGrupo,
-                    IdPadre = query.IdPadre,
+                    IdPadre = Convert.ToInt32(query.IdPadre),
+                    UrlDetalle = query.UrlDetalle,
                     Icono = query.Icono,
                     Estatus = query.Estatus,
                     FechaRegistro = query.FechaRegistro
@@ -136,6 +131,7 @@ namespace KvasDAL
                         Orden = grupos.Orden,
                         IdGrupo = grupos.IdGrupo,
                         IdPadre = grupos.IdPadre,
+                        UrlDetalle = grupos.UrlDetalle,
                         Icono = grupos.Icono,
                         Estatus = grupos.Estatus,
                         FechaRegistro = grupos.FechaRegistro
@@ -172,7 +168,8 @@ namespace KvasDAL
                         Descripcion = grupos.Descripcion,
                         Orden = grupos.Orden,
                         IdGrupo = grupos.IdGrupo,
-                        IdPadre = grupos.IdPadre,
+                        IdPadre = Convert.ToInt32(grupos.IdPadre),
+                        UrlDetalle = grupos.UrlDetalle,
                         Icono = grupos.Icono,
                         Estatus = grupos.Estatus,
                         FechaRegistro = grupos.FechaRegistro
@@ -204,7 +201,6 @@ namespace KvasDAL
                         Titulo = grupos.Nombre,
                         Descripcion = grupos.Descripcion,
                         Orden = grupos.Orden,
-                        IdGrupo = grupos.Grupo,
                         IdPadre = grupos.Categoria,
                         Icono = grupos.Icono,
                         Estatus = grupos.Estatus,

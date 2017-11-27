@@ -209,6 +209,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PersonaController.cs" />
     <Compile Include="DataGrid\DataGrid.cs" />
+    <Compile Include="DataGrid\PagedList.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -269,6 +270,7 @@
     <Content Include="Content\js\jquery.dataTables.min.js" />
     <Content Include="Content\js\jquery.Grid.min.js" />
     <Content Include="Content\js\moment.min.js" />
+    <Content Include="Content\js\PruebaModal.js" />
     <Content Include="Content\js\raphael.min.js" />
     <Content Include="Content\js\site.js" />
     <Content Include="Content\js\site.min.js" />
@@ -2735,14 +2737,15 @@
     <Content Include="Views\GrupoDetalle\Delete.cshtml" />
     <Content Include="Views\GrupoDetalle\Edit.cshtml" />
     <Content Include="Views\GrupoDetalle\Index.cshtml" />
-    <Content Include="Views\Grupo\Createx.cshtml" />
     <Content Include="Views\Grupo\Delete.cshtml" />
     <Content Include="Views\Grupo\Details.cshtml" />
     <Content Include="Views\Grupo\Edit.cshtml" />
     <Content Include="Views\Grupo\Index.cshtml" />
     <Content Include="Views\Home\Tablero.cshtml" />
-    <Content Include="Views\GrupoDetalle\IndexTest.cshtml" />
     <Content Include="Views\Grupo\Create.cshtml" />
+    <Content Include="Views\GrupoDetalle\List.cshtml" />
+    <Content Include="Views\Grupo\Indexx.cshtml" />
+    <Content Include="Views\GrupoDetalle\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -75,7 +75,7 @@ CREATE PROCEDURE sp_ListarDetalles_x_Grupo
  )      
  AS      
  BEGIN       
-    SELECT gd.IdGrupoDetalle, gd.Nombre, gd.Descripcion, gd.Orden, g.Nombre AS Grupo, gd.IdPadre AS Categoria, gd.Icono, gd.UrlDetalle, gd.Estatus, gd.FechaRegistro
+    SELECT gd.IdGrupoDetalle, gd.Nombre, gd.Descripcion, gd.Orden, gd.Nombre AS Categoria, gd.Icono, gd.UrlDetalle, gd.Estatus, gd.FechaRegistro
 	FROM Grupos AS g
 	INNER JOIN GruposDetalles AS gd ON g.IdGrupo = gd.IdGrupo
 	WHERE g.IdGrupo = @IdGrupo AND g.Estatus = 1 AND gd.Estatus = 1
@@ -166,12 +166,11 @@ CREATE PROCEDURE sp_AgregarPersonas
 	@Direccion VARCHAR(100),
 	@Telefonos VARCHAR(60),
 	@Email VARCHAR(60),
-	@Imagen VARCHAR(60),
 	@FechaRegistro DATETIME     
  )      
  AS      
  BEGIN      
-    INSERT INTO Personas VALUES(@Nombres,@IdTipoPersona,@CiRif,@Direccion,@Telefonos,@Email,@Imagen,@FechaRegistro)      
+    INSERT INTO Personas VALUES(@Nombres,@IdTipoPersona,@CiRif,@Direccion,@Telefonos,@Email,@FechaRegistro)      
  END
  GO
 
@@ -186,7 +185,6 @@ CREATE PROCEDURE sp_ActualizarPersonas
 	@Direccion VARCHAR(100),
 	@Telefonos VARCHAR(60),
 	@Email VARCHAR(60),
-	@Imagen VARCHAR(60),
 	@FechaRegistro DATETIME     
  )      
  AS      
@@ -198,7 +196,6 @@ CREATE PROCEDURE sp_ActualizarPersonas
 		Direccion=@Direccion,
 		Telefonos=@Telefonos,
 		Email=@Email,
-		Imagen=@Imagen,
 		FechaRegistro=@FechaRegistro
 		WHERE IdPersona = @IdPersona	
  END

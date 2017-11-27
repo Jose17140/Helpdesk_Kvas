@@ -137,6 +137,41 @@ namespace KvasDAL
             {
 
             }
-        }  
+        }
+
+        public IEnumerable<GruposEntity> ListarUnGrupo(int idGrupo)
+        {
+            try
+            {
+                IList<GruposEntity> lista = new List<GruposEntity>();
+                //var query = db.sp_ListarGrupo().ToList();
+                var query = (from m in db.Grupos
+                             where (m.Estatus == true && m.IdGrupo > 0) & (m.IdGrupo == idGrupo)
+                             select m).ToList();
+                foreach (var grupos in query)
+                {
+                    lista.Add(new GruposEntity()
+                    {
+                        IdGrupo = grupos.IdGrupo,
+                        Titulo = grupos.Nombre,
+                        Descripcion = grupos.Descripcion,
+                        Orden = grupos.Orden,
+                        Icono = grupos.Icono,
+                        UrlGrupo = grupos.UrlGrupo,
+                        Estatus = grupos.Estatus,
+                        FechaRegistro = grupos.FechaRegistro
+                    });
+                }
+                return lista;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+
+            }
+        }
     }
 }

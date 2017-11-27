@@ -1,6 +1,7 @@
-﻿using KvasEntity;
+﻿using HelpDesk_Kvas.DataGrid;
+using KvasEntity;
 using KvasLogic;
-using PagedList;
+//using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,13 +21,46 @@ namespace HelpDesk_Kvas.Controllers
             objGrupoLogic = new GrupoLogic();
         }
 
-        // GET: Grupo
-        public ActionResult Index(int id)
+        //GET: Grupo
+        //public ActionResult Index(int id)
+        //{
+        //    ViewBag.Id = id;
+        //    var grupos = objGrupoDetalleLogic.ListarPorGrupo(id);
+        //    return View(grupos);
+        //}
+
+        public ActionResult Index(int id, string filter = null, int page = 1, int pageSize = 15, string sort = "IdGrupoDetalle")
+        {
+            //var id = 1;
+            //, string sortdir = "DESC"
+            var records = new PagedList<GruposDetallesView>();
+            ViewBag.Id = id;
+            ViewBag.filter = filter;
+            var grupos = objGrupoDetalleLogic.ListarPorGrupo(id);
+            records.Content = grupos.Where(m => filter == null || (m.Titulo.ToUpper().Contains(filter.ToUpper()))
+                                || m.Descripcion.ToUpper().Contains(filter.ToUpper())
+                                )
+                                //.OrderBy(sort + " " + sortdir)
+                                .Skip((page - 1) * pageSize)
+                                .Take(pageSize).ToList();
+
+            // Count
+            records.TotalRecords = grupos.Where(m => filter == null || (m.Titulo.ToUpper().Contains(filter.ToUpper()))
+                                || m.Descripcion.ToUpper().Contains(filter.ToUpper())
+                                ).Count();
+
+            records.CurrentPage = page;
+            records.PageSize = pageSize;
+
+            return View(records);
+
+        }
+
+        public JsonResult Lista(int id)
         {
             ViewBag.Id = id;
-            var grupos = objGrupoDetalleLogic.ListarPorGrupo(id);
-            return View(grupos);
-        }
+            return Json(objGrupoDetalleLogic.ListarPorGrupo(id), JsonRequestBehavior.AllowGet);
+        } 
 
         public ActionResult ListaGrupo(int _id)
         {
@@ -34,11 +68,11 @@ namespace HelpDesk_Kvas.Controllers
             return View(grupos);
         }
 
-        public JsonResult Lista()
-        {
-            var grupos = objGrupoDetalleLogic.Listar();
-            return Json(grupos, JsonRequestBehavior.AllowGet);
-        }
+        //public JsonResult Lista()
+        //{
+        //    var grupos = objGrupoDetalleLogic.Listar();
+        //    return Json(grupos, JsonRequestBehavior.AllowGet);
+        //}
 
         // GET: Grupo/Details/5
         public ActionResult Details(int id)
@@ -52,18 +86,14 @@ namespace HelpDesk_Kvas.Controllers
         {
             ViewBag.Id = id;
             //LISTA DE GRUPO
-            var Grupo = objGrupoLogic.Buscar(id);
-            var listaDetalles = objGrupoDetalleLogic.Listar();
-            var listaGrupos = objGrupoLogic.Listar();
-            SelectList grupos = new SelectList(listaGrupos, id, "Titulo");
-            SelectList gruposDetalles = new SelectList(listaDetalles, "IdGrupoDetalle","Titulo");
-            ViewBag.ListaGrupos = Grupo;
-            ViewBag.ListaGruposDetalles = gruposDetalles;
-            //LISTA DE PADRES
-
-            //ViewBag.ELEMENTO = new SelectList(CONSULTA, "ID","NOMBRE");
+            var listaGrupo = objGrupoLogic.ListarUnGrupo(id);
+            var listaDetalle = objGrupoDetalleLogic.ListarPorGrupo(id);
+            SelectList grupos = new SelectList(listaGrupo,"IdGrupo", "Titulo");
+            SelectList listaDetalles = new SelectList(listaDetalle, "IdGrupoDetalle","Titulo");
+            ViewBag.Grupo = grupos;
+            ViewBag.ListaGruposDetalles = listaDetalles;
             MensajeInicioRegistrar();
-            return View();
+            return PartialView("Create");
         }
 
         // POST: Grupo/Create
@@ -72,19 +102,17 @@ namespace HelpDesk_Kvas.Controllers
         //[ChildActionOnly]
         public ActionResult Create(GruposDetallesEntity objGrupo)
         {
-            try
+
+            if (ModelState.IsValid)
             {
                 ViewBag.Id = objGrupo.IdGrupo;
                 // TODO: Add insert logic here
                 MensajeInicioRegistrar();
-                //objGrupoDetalleLogic.Insertar(objGrupo);
+                objGrupoDetalleLogic.Insertar(objGrupo);
                 MensajeErrorRegistrar(objGrupo);
-                return View("Index");
+                return Json(new { success = true });
             }
-            catch
-            {
-                return View();
-            }
+            return Json(objGrupo, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Grupo/Edit/5
@@ -95,13 +123,19 @@ namespace HelpDesk_Kvas.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            ViewBag.Id = id;
+            MensajeInicioActualizar();
             GruposDetallesEntity _grupo = objGrupoDetalleLogic.Buscar(id);
-            return View(_grupo);
+            if (_grupo == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView("Edit",_grupo);
         }
 
         // POST: Grupo/Edit/5
         [HttpPost]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         //[ChildActionOnly]
         public ActionResult Edit(GruposDetallesEntity objGrupo)
         {
@@ -111,8 +145,8 @@ namespace HelpDesk_Kvas.Controllers
                 objGrupoDetalleLogic.Actualizar(objGrupo);
                 MensajeErrorActualizar(objGrupo);
                 // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                ViewBag.Id = objGrupo.IdGrupo;
+                return PartialView("Edit");
             }
             catch
             {
@@ -157,7 +191,7 @@ namespace HelpDesk_Kvas.Controllers
         {
             if (disposing)
             {
-
+                
             }
             base.Dispose(disposing);
         }

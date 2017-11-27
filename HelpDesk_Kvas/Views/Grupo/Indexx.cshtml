@@ -1,0 +1,116 @@
+﻿@model HelpDesk_Kvas.DataGrid.PagedList<KvasEntity.GruposEntity>
+
+@Scripts.Render("~/bundles/jquery")
+
+@{
+    ViewBag.Title = "Lista de Tablas";
+}
+
+@Styles.Render("~/Content/css/Grupos.css")
+
+
+
+
+<section class="content-header">
+    <h1>
+        Tablero
+        <small>@ViewBag.Title</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+        <li class="active">Dashboard</li>
+    </ol>
+</section>
+<br />
+<section class="content">
+    <div class="well">
+        @using (Html.BeginForm("index", null, FormMethod.Get))
+        {
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="input-group">
+
+                        <input type="text"
+                               name="filter"
+                               value="@ViewBag.filter"
+                               class="form-control"
+                               style="display: inline"
+                               placeholder="Buscar..." />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit">Go</button>
+                        </span>
+
+                    </div>
+                </div>
+                <div class="pull-right col-lg-1">
+                    <a class="btn btn-success" data-modal="" href="/Grupo/Create" id="btnCreate">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>
+                </div>
+            </div>
+
+            <div style="margin-top:17px;">
+                @{
+                    var grid = new WebGrid(
+                                canPage: true,
+                                rowsPerPage: Model.PageSize,
+                                canSort: true,
+                                ajaxUpdateContainerId: "grid");
+
+                    grid.Bind(Model.Content, rowCount: Model.TotalRecords, autoSortAndPage: false);
+                    grid.Pager(WebGridPagerModes.All);
+
+                    @grid.GetHtml(htmlAttributes: new { id = "grid" },   // id for ajaxUpdateContainerId parameter
+            fillEmptyRows: false,
+            tableStyle: "table table-bordered table-hover",
+            mode: WebGridPagerModes.All,
+            columns: grid.Columns(
+              grid.Column("IdGrupo", "Id"),
+              grid.Column("Titulo", "Titulo"),
+              grid.Column("Descripcion", "Descripcion", style: "col-lg-3"),
+              grid.Column("Orden", "Orden"),
+              grid.Column("Icono", "Icono"),
+              grid.Column("UrlGrupo", "Url"),
+              grid.Column("Estatus", "Estatus"),
+              grid.Column("FechaRegistro", header: "Registrado", format: @<text>@String.Format("{0:MM/dd/yy}", item.FechaRegistro) </text>),
+              grid.Column(header: "Action", canSort: false, style: "action",
+                format:
+                @<text>
+                    @Html.Raw("<a data-modal='' href='/Grupo/details/" + item.IdGrupo + "' id='" + item.IdGrupo + "' title='Detail'> <span class='glyphicon glyphicon-search'> </span> </a>")
+                    @Html.Raw("<a data-modal='' href='/Grupo/edit/" + item.IdGrupo + "' id='" + item.IdGrupo + "' title='Edit'> <span class='glyphicon glyphicon-edit'> </span> </a>")
+                    @Html.Raw("<a data-modal='' href='/Grupo/delete/" + item.IdGrupo + "' id='" + item.IdGrupo + "' title='Delete'> <span class='glyphicon glyphicon-trash'> </span> </a>")
+                </text>)
+
+            ));
+                }
+
+
+            </div>
+                    }
+    </div>
+
+</section>
+
+<div class="modal fade" id="squarespaceModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <h3 class="modal-title" id="lineModalLabel">Agregar Entidad</h3>
+            </div>
+            <div class="modal-body">
+                @{ Html.RenderAction("Create", "Grupo");}
+            </div>
+            <br /><br />
+        </div>
+    </div>
+</div>
+
+<!-- modal placeholder-->
+<div id='myModal' class='modal fade in'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+</div>

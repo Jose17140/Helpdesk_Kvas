@@ -66,6 +66,11 @@ namespace KvasLogic
         {
             return objGrupoDAL.Buscar(_id);
             
-        } 
+        }
+
+        public IEnumerable<GruposEntity> ListarUnGrupo(int _id)
+        {
+            return objGrupoDAL.ListarUnGrupo(_id);
+        }
     }
 }

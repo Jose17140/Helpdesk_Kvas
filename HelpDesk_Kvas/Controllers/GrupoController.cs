@@ -1,13 +1,12 @@
 ﻿using KvasEntity;
 using KvasLogic;
-using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using System.Data.Entity;
+using PagedList;
 
 namespace HelpDesk_Kvas.Controllers
 {
@@ -36,7 +35,6 @@ namespace HelpDesk_Kvas.Controllers
             {
                 searchString = currentFilter;
             }
-
             ViewBag.CurrentFilter = searchString;
 
             var grupos = objGrupoLogic.Listar();
@@ -45,6 +43,7 @@ namespace HelpDesk_Kvas.Controllers
             {
                 grupos = grupos.Where(s => s.Titulo.ToUpper().Contains(searchString.ToUpper())
                                        || s.Descripcion.ToUpper().Contains(searchString.ToUpper()));
+
             }
             switch (sortOrder)
             {
@@ -65,7 +64,7 @@ namespace HelpDesk_Kvas.Controllers
                     break;
             }
 
-            int pageSize = 30;
+            int pageSize = 23;
             int pageNumber = (page ?? 1);
             return View(grupos.ToPagedList(pageNumber, pageSize));
         }
@@ -113,6 +112,10 @@ namespace HelpDesk_Kvas.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             GruposEntity _grupo = objGrupoLogic.Buscar(id);
+            if (_grupo == null)
+            {
+                return HttpNotFound();
+            }
             return View(_grupo);
         }
 
@@ -123,17 +126,22 @@ namespace HelpDesk_Kvas.Controllers
         {
             try
             {
-                MensajeInicioActualizar();
-                objGrupoLogic.Actualizar(objGrupo);
-                MensajeErrorActualizar(objGrupo);
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    MensajeInicioActualizar();
+                    objGrupoLogic.Actualizar(objGrupo);
+                    MensajeErrorActualizar(objGrupo);
+                    //var text = "Agregado Exitosamente";
+                    //return this.Json(new { EnableSuccess = true, SuccessTitle = "Success", SuccessMsg = text });
+                    return RedirectToAction("Index");
+                }
             }
             catch
             {
                 return View();
             }
+            //return this.Json(new { EnableError = true, ErrorTitle = "Error", ErrorMsg = "Verifique los datos he intente nuevamente" });
+            return View(objGrupo);
         }
 
         // GET: Grupo/Delete/5
@@ -144,6 +152,10 @@ namespace HelpDesk_Kvas.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             GruposEntity _grupo = objGrupoLogic.Buscar(id);
+            if (_grupo == null)
+            {
+                return HttpNotFound();
+            }
             return View(_grupo);
         }
 
