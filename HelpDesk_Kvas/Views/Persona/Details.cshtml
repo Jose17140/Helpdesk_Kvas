@@ -1,12 +1,15 @@
 ﻿@model KvasEntity.PersonasEntity
 @{
     Layout = null;
+
 }
 
 
 <div class="modal-body">
-    <h2>Detalle</h2>
-
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 class="modal-title">Detalle</h3>
+    </div>
     <div>
         <h4>Personas</h4>
         <hr />
@@ -24,7 +27,8 @@
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.Identificacion)
+                @ViewBag.Cedula
+                @Html.DisplayFor(model => model.CiRif)
             </dd>
 
             <dt>
@@ -66,3 +70,8 @@
         @Html.ActionLink("Back to List", "Index")
     </p>*@
 </div>
+<script>
+    $("form").removeData("validator");
+    $("form").removeData("unobtrusiveValidation");
+    $.validator.unobtrusive.parse("form");
+</script>

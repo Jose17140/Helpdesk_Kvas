@@ -1,40 +1,65 @@
-﻿@model HelpDesk_Kvas.Models.RegisterViewModel
+﻿@model HelpDeskEF.Models.AccountModel.RegisterViewModel
 @{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
     ViewBag.Title = "Registrarse";
 }
+<div class="login-screen"></div>
+<div class="login-center">
+    <div class="container min-height" style="margin-top: 20px;">
+        <div class="row">
+            <div class="col-xs-4 col-md-offset-8">
+                <div class="login" id="card" style="perspective: 640px; position: relative; transform-style: preserve-3d;">
+                    <div class="front signin_form" style="height: 100%; width: 100%; backface-visibility: hidden; transform-style: preserve-3d; position: absolute; z-index: 1; transition: all 0.5s ease-out;">
+                        <h4>Cree una cuenta nueva.</h4>
+                        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "login-form", role = "form", style = "backface-visibility: hidden;" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <hr />
+                            <div>@Html.ValidationSummary("", new { @class = "text-danger" })</div>
+                            <div class="input-group" style="backface-visibility: hidden;">
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Type your email", style = "backface-visibility: hidden;" })
+                                <span class="input-group-addon" style="backface-visibility: hidden;">
+                                    <i class="glyphicon glyphicon-user" style="backface-visibility: hidden;"></i>
+                                </span>
+                            </div>
+                            <span>@Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })</span>
+                            <br />
+                            <div class="input-group" style="backface-visibility: hidden;">
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Contrasena", style = "backface-visibility: hidden;" })
 
-<h2>@ViewBag.Title.</h2>
-
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    <h4>Cree una cuenta nueva.</h4>
-    <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                <span class="input-group-addon" style="backface-visibility: hidden;">
+                                    <i class="glyphicon glyphicon-lock" style="backface-visibility: hidden;"></i>
+                                </span>
+                            </div>
+                            <span>@Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })</span>
+                            <br />
+                            <div class="input-group" style="backface-visibility: hidden;">
+                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Confirme Contrasena", style = "backface-visibility: hidden;" })
+                                <span class="input-group-addon" style="backface-visibility: hidden;">
+                                    <i class="glyphicon glyphicon-lock" style="backface-visibility: hidden;"></i>
+                                </span>
+                            </div>
+                            <span>@Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })</span>
+                            <br />
+                            <div class="form-group sign-btn" style="backface-visibility: hidden;">
+                                <input type="submit" class="btn" value="Registrar" style="backface-visibility: hidden;">
+                                <br />
+                                <br />
+                                <p style="backface-visibility: hidden;">
+                                    <strong style="backface-visibility: hidden;">Problemas para iniciar sesion?</strong>
+                                    <br style="backface-visibility: hidden;">
+                                </p>
+                                <p>
+                                    @Html.ActionLink("Iniciar Sesion", "Login")
+                                </p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Registrarse" />
-        </div>
-    </div>
-}
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

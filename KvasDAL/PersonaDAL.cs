@@ -36,7 +36,7 @@ namespace KvasDAL
         {
             try
             {
-                var query = db.sp_EliminarPersonas(persona.IdTipoPersona);
+                var query = db.sp_EliminarPersonas(persona.IdPersona);
                 db.SubmitChanges();
             }
             catch (Exception)

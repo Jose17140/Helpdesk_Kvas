@@ -83,6 +83,14 @@ CREATE TABLE Usuarios(
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
 );
+DROP TABLE IF EXISTS RolesPermisos;
+CREATE TABLE RolesPermisos(
+IdRol INT NOT NULL,
+IdPermiso INT NOT NULL,
+CONSTRAINT PK_RolesPermisos PRIMARY KEY(IdRol,IdPermiso),
+CONSTRAINT FK_RolesPermisos_IdRol FOREIGN KEY (IdRol) REFERENCES GruposDetalles(IdGrupoDetalle),
+CONSTRAINT FK_RolesPermisos_IdPermiso FOREIGN KEY (IdPermiso) REFERENCES GruposDetalles(IdGrupoDetalle)
+);
 --DROP TABLE IF EXISTS Empleados;
 --CREATE TABLE Empleados(
 --IdPersona INT NOT NULL,

@@ -184,19 +184,38 @@ CREATE PROCEDURE sp_ActualizarPersonas
 	@CiRif VARCHAR(11),
 	@Direccion VARCHAR(100),
 	@Telefonos VARCHAR(60),
-	@Email VARCHAR(60),
-	@FechaRegistro DATETIME     
+	@Email VARCHAR(60)   
  )      
  AS      
  BEGIN      
     UPDATE Personas      
     SET Nombres=@Nombres,      
 		IdTipoPersona=@IdTipoPersona,      
-		CiRif= @CiRif,
+		CiRif=@CiRif,
 		Direccion=@Direccion,
 		Telefonos=@Telefonos,
-		Email=@Email,
-		FechaRegistro=@FechaRegistro
+		Email=@Email
+		WHERE IdPersona = @IdPersona	
+ END
+ GO
+
+DROP PROCEDURE IF EXISTS sp_ActualizarPersonasSimple;
+GO
+CREATE PROCEDURE sp_ActualizarPersonasSimple
+ (  
+	@IdPersona INT,
+	@Nombres VARCHAR(50),
+	@Direccion VARCHAR(100),
+	@Telefonos VARCHAR(60),
+	@Email VARCHAR(60)   
+ )      
+ AS      
+ BEGIN      
+    UPDATE Personas      
+    SET Nombres=@Nombres,
+		Direccion=@Direccion,
+		Telefonos=@Telefonos,
+		Email=@Email
 		WHERE IdPersona = @IdPersona	
  END
  GO      

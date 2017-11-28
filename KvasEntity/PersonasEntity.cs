@@ -49,6 +49,15 @@ namespace KvasEntity
         [Display(Name = "Identificacion")]
         public string Identificacion { get; set; }
 
+        [Display(Name = "Identificacion")]
+        public string FullCedula
+        {
+            get
+            {
+                return IdTipoPersona + ", " + CiRif;
+            }
+        }
+
         public int Mensaje { get; set; }
     }
 }

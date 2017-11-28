@@ -13,6 +13,7 @@ namespace HelpDesk_Kvas.Models
         }
 
         public virtual DbSet<GruposDetalles> GruposDetalles { get; set; }
+        public virtual DbSet<Usuarios> Usuarios { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -25,9 +26,42 @@ namespace HelpDesk_Kvas.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<GruposDetalles>()
+                .Property(e => e.UrlDetalle)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<GruposDetalles>()
                 .HasMany(e => e.ICollection)
-                .WithRequired(e => e.GruposDetallesR)
+                .WithOptional(e => e.GruposDetallesR)
                 .HasForeignKey(e => e.IdPadre);
+
+            modelBuilder.Entity<GruposDetalles>()
+                .HasMany(e => e.Usuarios_Seg)
+                .WithRequired(e => e.GruposDetalles_Seg)
+                .HasForeignKey(e => e.IdPreguntaSeguridad)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<GruposDetalles>()
+                .HasMany(e => e.Usuarios_Rol)
+                .WithRequired(e => e.GruposDetalles_Rol)
+                .HasForeignKey(e => e.IdRol)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<GruposDetalles>()
+                .HasMany(e => e.GruposDetalles_Permiso)
+                .WithMany(e => e.GruposDetalles_Rol)
+                .Map(m => m.ToTable("RolesPermisos").MapLeftKey("IdPermiso").MapRightKey("IdRol"));
+
+            modelBuilder.Entity<Usuarios>()
+                .Property(e => e.NombreUsuario)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Usuarios>()
+                .Property(e => e.Contrasena)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Usuarios>()
+                .Property(e => e.RespuestaSeguridad)
+                .IsUnicode(false);
         }
     }
 }
