@@ -156,7 +156,7 @@ CREATE PROCEDURE sp_ListarGrupoDetalle
  GO
 
  --CRUDL PERSONAS
- DROP PROCEDURE IF EXISTS sp_AgregarPersonas;
+DROP PROCEDURE IF EXISTS sp_AgregarPersonas;
 GO
 CREATE PROCEDURE sp_AgregarPersonas
  (      
@@ -240,8 +240,8 @@ CREATE PROCEDURE sp_ListarPersonas
     SELECT * FROM Personas      
  END
  GO
-
 --VISTA PERSONAS
+DROP VIEW IF EXISTS vw_Personas;
 GO
 CREATE VIEW vw_Personas
 AS
@@ -249,3 +249,68 @@ AS
 	FROM Personas AS p
 	INNER JOIN GruposDetalles AS gd ON P.IdTipoPersona = gd.IdGrupoDetalle
 GO
+
+ --CRUDL PRODUCTOS
+DROP PROCEDURE IF EXISTS sp_AgregarProducto;
+GO
+CREATE PROCEDURE sp_AgregarProducto
+ (      
+    @Nombres VARCHAR(50),      
+    @IdTipoPersona INT,
+	@CiRif VARCHAR(11),
+	@Direccion VARCHAR(100),
+	@Telefonos VARCHAR(60),
+	@Email VARCHAR(60),
+	@FechaRegistro DATETIME     
+ )      
+ AS      
+ BEGIN      
+    INSERT INTO PSDetalles VALUES(@Nombres,@IdTipoPersona,@CiRif,@Direccion,@Telefonos,@Email,@FechaRegistro)      
+ END
+ GO
+
+DROP PROCEDURE IF EXISTS sp_ActualizarProducto;
+GO
+CREATE PROCEDURE sp_ActualizarProducto
+ (  
+	@IdPersona INT,
+	@Nombres VARCHAR(50),      
+    @IdTipoPersona INT,
+	@CiRif VARCHAR(11),
+	@Direccion VARCHAR(100),
+	@Telefonos VARCHAR(60),
+	@Email VARCHAR(60)   
+ )      
+ AS      
+ BEGIN      
+    UPDATE PSDetalles      
+    SET Nombres=@Nombres,      
+		IdTipoPersona=@IdTipoPersona,      
+		CiRif=@CiRif,
+		Direccion=@Direccion,
+		Telefonos=@Telefonos,
+		Email=@Email
+		WHERE IdPersona = @IdPersona	
+ END
+ GO     
+     
+DROP PROCEDURE IF EXISTS sp_EliminarProducto;
+GO   
+CREATE PROCEDURE sp_EliminarProducto
+ (      
+    @IdPersona INT      
+ )      
+ AS      
+ BEGIN       
+    DELETE FROM PSDetalles WHERE IdPersona=@IdPersona      
+ END
+ GO
+
+DROP PROCEDURE IF EXISTS sp_ListarPersonas;
+GO
+CREATE PROCEDURE sp_ListarPersonas
+ AS        
+ BEGIN        
+    SELECT * FROM Personas      
+ END
+ GO

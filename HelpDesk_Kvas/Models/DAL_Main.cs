@@ -13,6 +13,7 @@ namespace HelpDesk_Kvas.Models
         }
 
         public virtual DbSet<GruposDetalles> GruposDetalles { get; set; }
+        public virtual DbSet<PermisosPorModulo> PermisosPorModulo { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -33,7 +34,19 @@ namespace HelpDesk_Kvas.Models
                 .HasMany(e => e.ICollection)
                 .WithOptional(e => e.GruposDetallesR)
                 .HasForeignKey(e => e.IdPadre);
+            //
+            modelBuilder.Entity<GruposDetalles>()
+                .HasMany(e => e.Permisos_IdModulo)
+                .WithRequired(e => e.GruposDetalles_IdModulo)
+                .HasForeignKey(e => e.IdModulo)
+                .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<GruposDetalles>()
+                .HasMany(e => e.Permisos_IdPermiso)
+                .WithRequired(e => e.GruposDetalles_IdPermiso)
+                .HasForeignKey(e => e.IdPermiso)
+                .WillCascadeOnDelete(false);
+            //
             modelBuilder.Entity<GruposDetalles>()
                 .HasMany(e => e.Usuarios_Seg)
                 .WithRequired(e => e.GruposDetalles_Seg)
@@ -49,7 +62,11 @@ namespace HelpDesk_Kvas.Models
             modelBuilder.Entity<GruposDetalles>()
                 .HasMany(e => e.GruposDetalles_Permiso)
                 .WithMany(e => e.GruposDetalles_Rol)
-                .Map(m => m.ToTable("RolesPermisos").MapLeftKey("IdPermiso").MapRightKey("IdRol"));
+                .Map(m => m.ToTable("PermisoDenegadoPorRol").MapLeftKey("IdPermiso").MapRightKey("IdRol"));
+
+            modelBuilder.Entity<PermisosPorModulo>()
+                .Property(e => e.Descripcion)
+                .IsUnicode(false);
 
             modelBuilder.Entity<Usuarios>()
                 .Property(e => e.NombreUsuario)

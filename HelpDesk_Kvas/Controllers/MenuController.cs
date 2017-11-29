@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Helpdesk_Kvas.Controllers
+namespace HelpDesk_Kvas.Controllers
 {
     public class MenuController : Controller
     {
@@ -41,6 +41,9 @@ namespace Helpdesk_Kvas.Controllers
                          where m.Estatus == true && (m.IdGrupo == 1 && m.IdPadre == 0)
                          orderby m.Orden ascending
                          select m).ToList();
+
+            //var lista = (from m in db.GruposDetalles
+            //           select m).ToList();
             return View(lista);
         }
 

@@ -16,14 +16,14 @@ namespace HelpDesk_Kvas.Seguridad
         {
             base.OnActionExecuting(filterContext);
 
-            if (!FrontUser.TienePermiso(this.Permiso))
-            {
-                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new
-                {
-                    controller = "Home",
-                    action = "Index"
-                }));
-            }
+            //if (!FrontUser.TienePermiso(this.Permiso))
+            //{
+            //    filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new
+            //    {
+            //        controller = "Home",
+            //        action = "Index"
+            //    }));
+            //}
         }
     }
 }

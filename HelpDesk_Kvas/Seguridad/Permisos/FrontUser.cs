@@ -8,12 +8,12 @@ namespace HelpDesk_Kvas.Seguridad.Permisos
 {
     public class FrontUser
     {
-        public static bool TienePermiso(RolesPermisos valor)
-        {
-            var usuario = FrontUser.Get();
-            return !usuario.GruposDetalles_Rol.GruposDetalles_Permiso.Where(x => x.PermisoID == valor)
-                               .Any();
-        }
+        //public static bool TienePermiso(RolesPermisos valor)
+        //{
+        //    var usuario = FrontUser.Get();
+        //    return !usuario.GruposDetalles_Rol.Permisos_IdPermiso.Where(x => x.IdPermiso == valor)
+        //                       .Any();
+        //}
 
         public static Usuarios Get()
         {

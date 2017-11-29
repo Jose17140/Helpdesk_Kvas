@@ -93,3 +93,20 @@ INSERT personas (Nombres, IdTipoPersona, CiRif, Direccion, Telefonos, Email, Fec
 ( N'DOUGLAS GARCIA', 28, N'21018668', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
 ( N'YERALDINE PAEZ', 28, N'21018669', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
 ( N'ELIECER JARABA', 28, N'21018672', N'Caracas', N'04265556677', N'help@help.com', GETDATE());
+
+
+
+
+--DEPARTAMENTOS
+INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
+('Servicio Tecnico','Departamento de Servicio Tecnico',18,'fa fa-archive',1,0,'/',GETDATE()),
+('Ventas','Departamento de Ventas',18,'fa fa-archive',2,0,'/',GETDATE());
+--PRODUCTOS
+INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
+('Partes y Piezas','Repuestos de Computadoras',9,'fa fa-user',1,0,'/',GETDATE()),
+('Procesador','Menu',1,'fa fa-archive',3,13,'/',GETDATE());
+
+
+-- 8 SERVICIO
+-- 9 PRODUCTO
+-- 18 DEPARTAMENTO

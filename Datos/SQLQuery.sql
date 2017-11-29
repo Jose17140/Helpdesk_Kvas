@@ -4,6 +4,7 @@ GO
 USE Helpdesk_Kvas;
 GO
 
+DROP TABLE IF EXISTS RolesPermisos;
 DROP TABLE IF EXISTS Usuarios;
 DROP TABLE IF EXISTS Personas;
 DROP TABLE IF EXISTS SerialesProductos;
@@ -83,14 +84,32 @@ CREATE TABLE Usuarios(
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
 );
-DROP TABLE IF EXISTS RolesPermisos;
-CREATE TABLE RolesPermisos(
-IdRol INT NOT NULL,
-IdPermiso INT NOT NULL,
-CONSTRAINT PK_RolesPermisos PRIMARY KEY(IdRol,IdPermiso),
-CONSTRAINT FK_RolesPermisos_IdRol FOREIGN KEY (IdRol) REFERENCES GruposDetalles(IdGrupoDetalle),
-CONSTRAINT FK_RolesPermisos_IdPermiso FOREIGN KEY (IdPermiso) REFERENCES GruposDetalles(IdGrupoDetalle)
+DROP TABLE IF EXISTS PermisosPorModulo;
+CREATE TABLE PermisosPorModulos(
+	IdPermiso INT NOT NULL,
+	IdModulo INT NOT NULL,
+	Descripcion VARCHAR(80) NOT NULL,
+	CONSTRAINT PK_Permisos PRIMARY KEY(IdPermiso,IdModulo),
+	CONSTRAINT FK_Permisos_IdPermiso FOREIGN KEY (IdPermiso) REFERENCES GruposDetalles(IdGrupoDetalle)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION,
+	CONSTRAINT FK_Permisos_IdModulo FOREIGN KEY (IdModulo) REFERENCES GruposDetalles(IdGrupoDetalle)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
 );
+DROP TABLE IF EXISTS PermisoDenegadoPorRol;
+CREATE TABLE PermisoDenegadoPorRol(
+	IdRol INT NOT NULL,
+	IdPermiso INT NOT NULL,
+	CONSTRAINT PK_RolesPermisos PRIMARY KEY(IdRol,IdPermiso),
+	CONSTRAINT FK_RolesPermisos_GrupoDetalles_IdRol FOREIGN KEY (IdRol) REFERENCES GruposDetalles(IdGrupoDetalle)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION,
+	CONSTRAINT FK_RolesPermisos_PermisosPorModulos_IdPermiso FOREIGN KEY (IdPermiso) REFERENCES PermisosPorModulo(IdPermiso)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+);
+
 --DROP TABLE IF EXISTS Empleados;
 --CREATE TABLE Empleados(
 --IdPersona INT NOT NULL,
@@ -104,21 +123,22 @@ DROP TABLE IF EXISTS PSDetalles;
 CREATE TABLE PSDetalles(
 	IdProducto INT NOT NULL,
 	Sku VARCHAR(24) NULL,
-	IdCategoria INT NOT NULL,
+	IdDepartamento INT NOT NULL, --DEPARTAMENTO DEL PRODUCTO (COMPUTADORAS,IMPRESORAS)
 	IdFabricante INT NOT NULL,
 	Stock INT NOT NULL,
-	Imagen VARCHAR(50) NOT NULL,
-	IdUnidad INT NOT NULL,
+	--Imagen VARCHAR(50) NOT NULL,
+	IdUnidad INT NOT NULL, -- UNIDAD DE VENTA
 	Stock_Min INT NOT NULL,
-	PrecioCompra DECIMAL(8,2)  NOT NULL,
-	PrecioVenta DECIMAL(8,2)  NOT NULL,
+	PrecioCompra DECIMAL(8,2) NOT NULL,
+	PrecioVenta DECIMAL(8,2) NOT NULL,
 	Garantia INT NOT NULL DEFAULT 0,
 	Estatus BIT NOT NULL DEFAULT 1,
+	FechaRegistro DATETIME NOT NULL,
 	CONSTRAINT PK_Productos PRIMARY KEY(IdProducto),
 	CONSTRAINT FK_Productos_Detalles_IdProducto FOREIGN KEY (IdProducto) REFERENCES GruposDetalles(IdGrupoDetalle)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
-	CONSTRAINT FK_Productos_Detalles_IdCategoria FOREIGN KEY (IdCategoria) REFERENCES GruposDetalles(IdGrupoDetalle)
+	CONSTRAINT FK_Productos_Detalles_IdDepartamento FOREIGN KEY (IdDepartamento) REFERENCES GruposDetalles(IdGrupoDetalle)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION,
 	CONSTRAINT FK_Productos_Detalles_IdFabricante FOREIGN KEY (IdFabricante) REFERENCES GruposDetalles(IdGrupoDetalle)
@@ -148,3 +168,10 @@ SELECT * FROM Usuarios;
 SELECT * FROM PSDetalles;
 SELECT * FROM SerialesProductos;
 SELECT * FROM vw_Personas;
+
+-- 8 SERVICIO
+-- 9 PRODUCTO
+
+SELECT *
+FROM GruposDetalles AS m
+WHERE m.Estatus = 1 AND (m.IdGrupo =1 AND m.IdPadre =0)
