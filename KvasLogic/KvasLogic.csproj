@@ -52,8 +52,8 @@
   <ItemGroup>
     <Compile Include="GrupoDetalleLogic.cs" />
     <Compile Include="GrupoLogic.cs" />
-    <Compile Include="GruposDetalleLogic.cs" />
     <Compile Include="PersonasLogic.cs" />
+    <Compile Include="ProductoLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

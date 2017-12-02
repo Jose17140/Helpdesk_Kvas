@@ -75,11 +75,21 @@ CREATE PROCEDURE sp_ListarDetalles_x_Grupo
  )      
  AS      
  BEGIN       
-    SELECT gd.IdGrupoDetalle, gd.Nombre, gd.Descripcion, gd.Orden, gd.Nombre AS Categoria, gd.Icono, gd.UrlDetalle, gd.Estatus, gd.FechaRegistro
-	FROM Grupos AS g
-	INNER JOIN GruposDetalles AS gd ON g.IdGrupo = gd.IdGrupo
-	WHERE g.IdGrupo = 1 AND g.Estatus = 1 AND gd.Estatus = 1
-	ORDER BY IdGrupoDetalle ASC     
+    WITH Cte_Productos(IdGrupoDetalle,Nombre,Descripcion,Orden,IdGrupo,IdPadre,Icono,UrlDetalle,Estatus,FechaRegistro, LevelGrupo) AS (
+		SELECT g.IdGrupoDetalle, g.Nombre, g.Descripcion, g.Orden, g.IdGrupo, g.IdPadre, g.Icono, g.UrlDetalle, g.Estatus, g.FechaRegistro, 0 AS LevelGrupo
+		FROM GruposDetalles AS g
+		WHERE g.IdPadre is null
+		UNION ALL
+		SELECT gd.IdGrupoDetalle, gd.Nombre, gd.Descripcion, gd.Orden, gd.IdGrupo, gd.IdPadre, gd.Icono, gd.UrlDetalle, gd.Estatus, gd.FechaRegistro, LevelGrupo+1
+		FROM GruposDetalles AS gd
+		INNER JOIN Cte_Productos AS cte ON gd.IdPadre = cte.IdGrupoDetalle
+	)
+	SELECT ct.IdGrupoDetalle, ct.Nombre, ct.Descripcion, ct.Orden, c.Nombre AS Categoria, ct.Icono, ct.UrlDetalle, ct.Estatus, ct.FechaRegistro
+	FROM Cte_Productos AS ct
+	INNER JOIN Cte_Productos AS c ON ct.IdPadre = c.IdGrupoDetalle
+	INNER JOIN Grupos AS g ON ct.IdGrupo = g.IdGrupo
+	WHERE g.IdGrupo = @IdGrupo
+	ORDER BY ct.LevelGrupo ASC 
  END
  GO
 
@@ -270,7 +280,6 @@ CREATE PROCEDURE sp_AgregarProducto (
 	@Estatus BIT,
 	@FechaRegistro DATETIME,
 	@Sku VARCHAR(24),
-	@IdDepartamento INT,
 	@IdFabricante INT,
 	@Stock INT,
 	@IdUnidad INT,
@@ -285,7 +294,7 @@ CREATE PROCEDURE sp_AgregarProducto (
 			DECLARE @Id INT
 			INSERT INTO GruposDetalles VALUES(@Nombre,@Descripcion,@Orden,@IdGrupo,@IdPadre,@Icono,@UrlDetalle,@Estatus,@FechaRegistro)
 			SELECT @Id = SCOPE_IDENTITY();
-			INSERT INTO PSDetalles VALUES (@Id,@Sku,@IdDepartamento,@IdFabricante,@Stock,@IdUnidad,@StockMin,@PrecioCompra,@PrecioVenta,@Garantia)
+			INSERT INTO PSDetalles VALUES (@Id,@Sku,@IdFabricante,@Stock,@IdUnidad,@StockMin,@PrecioCompra,@PrecioVenta,@Garantia)
 		COMMIT TRANSACTION Products
 	END TRY
 	BEGIN CATCH
@@ -315,7 +324,6 @@ CREATE PROCEDURE sp_ActualizarProducto (
 	@UrlDetalle VARCHAR(100),
 	@Estatus BIT,
 	@Sku VARCHAR(24),
-	@IdDepartamento INT,
 	@IdFabricante INT,
 	@Stock INT,
 	@IdUnidad INT,
@@ -339,7 +347,6 @@ CREATE PROCEDURE sp_ActualizarProducto (
 				WHERE IdGrupoDetalle = @Id;
 			UPDATE PSDetalles SET
 				Sku= @Sku,
-				IdDepartamento= @IdDepartamento,
 				IdFabricante= @IdFabricante,
 				Stock= @Stock,
 				IdUnidad= @IdUnidad,

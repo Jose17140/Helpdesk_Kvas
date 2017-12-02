@@ -54,9 +54,6 @@ namespace KvasEntity
         [Display(Name = "Codigo del Producto:")]
         public string Sku { get; set; }
 
-        [Display(Name = "Departamento:")]
-        public int IdDepartamento { get; set; }
-
         [Display(Name = "Fabricante:")]
         public int IdFabricante { get; set; }
 

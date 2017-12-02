@@ -132,18 +132,56 @@ namespace KvasDAL
 			return ((int)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_ListarGrupoDetalle")]
-		public ISingleResult<sp_ListarGrupoDetalleResult> sp_ListarGrupoDetalle()
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_OperacionesInventarioProducto")]
+		public ISingleResult<sp_OperacionesInventarioProductoResult> sp_OperacionesInventarioProducto([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Id", DbType="Int")] System.Nullable<int> id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Operador", DbType="Int")] System.Nullable<int> operador, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Stock", DbType="Int")] System.Nullable<int> stock, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PrecioCompra", DbType="Decimal(8,2)")] System.Nullable<decimal> precioCompra, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PrecioVenta", DbType="Decimal(8,2)")] System.Nullable<decimal> precioVenta)
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
-			return ((ISingleResult<sp_ListarGrupoDetalleResult>)(result.ReturnValue));
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, operador, stock, precioCompra, precioVenta);
+			return ((ISingleResult<sp_OperacionesInventarioProductoResult>)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_ActualizarGrupoDetalle")]
-		public int sp_ActualizarGrupoDetalle([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdGrupoDetalle", DbType="Int")] System.Nullable<int> idGrupoDetalle, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Titulo", DbType="VarChar(50)")] string titulo, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Descripcion", DbType="VarChar(100)")] string descripcion, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Orden", DbType="Int")] System.Nullable<int> orden, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdGrupo", DbType="Int")] System.Nullable<int> idGrupo, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdPadre", DbType="Int")] System.Nullable<int> idPadre, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Icono", DbType="VarChar(30)")] string icono, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="UrlDetalle", DbType="VarChar(50)")] string urlDetalle, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Estatus", DbType="Bit")] System.Nullable<bool> estatus)
+		public int sp_ActualizarGrupoDetalle([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdGrupoDetalle", DbType="Int")] System.Nullable<int> idGrupoDetalle, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Titulo", DbType="VarChar(50)")] string titulo, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Descripcion", DbType="VarChar(100)")] string descripcion, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Orden", DbType="Int")] System.Nullable<int> orden, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdGrupo", DbType="Int")] System.Nullable<int> idGrupo, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdPadre", DbType="Int")] System.Nullable<int> idPadre, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Icono", DbType="VarChar(30)")] string icono, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="UrlDetalle", DbType="VarChar(100)")] string urlDetalle, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Estatus", DbType="Bit")] System.Nullable<bool> estatus)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idGrupoDetalle, titulo, descripcion, orden, idGrupo, idPadre, icono, urlDetalle, estatus);
 			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_ActualizarPersonas")]
+		public int sp_ActualizarPersonas([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdPersona", DbType="Int")] System.Nullable<int> idPersona, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Nombres", DbType="VarChar(50)")] string nombres, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdTipoPersona", DbType="Int")] System.Nullable<int> idTipoPersona, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="CiRif", DbType="VarChar(11)")] string ciRif, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Direccion", DbType="VarChar(100)")] string direccion, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Telefonos", DbType="VarChar(60)")] string telefonos, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Email", DbType="VarChar(60)")] string email)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idPersona, nombres, idTipoPersona, ciRif, direccion, telefonos, email);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_ActualizarPersonasSimple")]
+		public int sp_ActualizarPersonasSimple([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdPersona", DbType="Int")] System.Nullable<int> idPersona, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Nombres", DbType="VarChar(50)")] string nombres, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Direccion", DbType="VarChar(100)")] string direccion, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Telefonos", DbType="VarChar(60)")] string telefonos, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Email", DbType="VarChar(60)")] string email)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idPersona, nombres, direccion, telefonos, email);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_ActualizarProducto")]
+		public ISingleResult<sp_ActualizarProductoResult> sp_ActualizarProducto(
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Id", DbType="Int")] System.Nullable<int> id, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Nombre", DbType="VarChar(50)")] string nombre, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Descripcion", DbType="VarChar(50)")] string descripcion, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Orden", DbType="Int")] System.Nullable<int> orden, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdGrupo", DbType="Int")] System.Nullable<int> idGrupo, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdPadre", DbType="Int")] System.Nullable<int> idPadre, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Icono", DbType="VarChar(30)")] string icono, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="UrlDetalle", DbType="VarChar(100)")] string urlDetalle, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Estatus", DbType="Bit")] System.Nullable<bool> estatus, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Sku", DbType="VarChar(24)")] string sku, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdFabricante", DbType="Int")] System.Nullable<int> idFabricante, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Stock", DbType="Int")] System.Nullable<int> stock, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdUnidad", DbType="Int")] System.Nullable<int> idUnidad, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="StockMin", DbType="Int")] System.Nullable<int> stockMin, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="PrecioCompra", DbType="Decimal(8,2)")] System.Nullable<decimal> precioCompra, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="PrecioVenta", DbType="Decimal(8,2)")] System.Nullable<decimal> precioVenta, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Garantia", DbType="Int")] System.Nullable<int> garantia)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, nombre, descripcion, orden, idGrupo, idPadre, icono, urlDetalle, estatus, sku, idFabricante, stock, idUnidad, stockMin, precioCompra, precioVenta, garantia);
+			return ((ISingleResult<sp_ActualizarProductoResult>)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_AgregarGrupo")]
@@ -154,10 +192,41 @@ namespace KvasDAL
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_AgregarGrupoDetalle")]
-		public int sp_AgregarGrupoDetalle([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Nombre", DbType="VarChar(50)")] string nombre, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Descripcion", DbType="VarChar(100)")] string descripcion, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Orden", DbType="Int")] System.Nullable<int> orden, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdGrupo", DbType="Int")] System.Nullable<int> idGrupo, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdPadre", DbType="Int")] System.Nullable<int> idPadre, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Icono", DbType="VarChar(30)")] string icono, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="UrlDetalle", DbType="VarChar(50)")] string urlDetalle, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Estatus", DbType="Bit")] System.Nullable<bool> estatus, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="FechaRegistro", DbType="DateTime")] System.Nullable<System.DateTime> fechaRegistro)
+		public int sp_AgregarGrupoDetalle([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Nombre", DbType="VarChar(50)")] string nombre, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Descripcion", DbType="VarChar(100)")] string descripcion, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Orden", DbType="Int")] System.Nullable<int> orden, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdGrupo", DbType="Int")] System.Nullable<int> idGrupo, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdPadre", DbType="Int")] System.Nullable<int> idPadre, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Icono", DbType="VarChar(30)")] string icono, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="UrlDetalle", DbType="VarChar(100)")] string urlDetalle, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Estatus", DbType="Bit")] System.Nullable<bool> estatus, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="FechaRegistro", DbType="DateTime")] System.Nullable<System.DateTime> fechaRegistro)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), nombre, descripcion, orden, idGrupo, idPadre, icono, urlDetalle, estatus, fechaRegistro);
 			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_AgregarPersonas")]
+		public int sp_AgregarPersonas([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Nombres", DbType="VarChar(50)")] string nombres, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdTipoPersona", DbType="Int")] System.Nullable<int> idTipoPersona, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="CiRif", DbType="VarChar(11)")] string ciRif, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Direccion", DbType="VarChar(100)")] string direccion, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Telefonos", DbType="VarChar(60)")] string telefonos, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Email", DbType="VarChar(60)")] string email, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="FechaRegistro", DbType="DateTime")] System.Nullable<System.DateTime> fechaRegistro)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), nombres, idTipoPersona, ciRif, direccion, telefonos, email, fechaRegistro);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_AgregarProducto")]
+		public ISingleResult<sp_AgregarProductoResult> sp_AgregarProducto(
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Nombre", DbType="VarChar(50)")] string nombre, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Descripcion", DbType="VarChar(50)")] string descripcion, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Orden", DbType="Int")] System.Nullable<int> orden, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdGrupo", DbType="Int")] System.Nullable<int> idGrupo, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdPadre", DbType="Int")] System.Nullable<int> idPadre, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Icono", DbType="VarChar(30)")] string icono, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="UrlDetalle", DbType="VarChar(100)")] string urlDetalle, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Estatus", DbType="Bit")] System.Nullable<bool> estatus, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="FechaRegistro", DbType="DateTime")] System.Nullable<System.DateTime> fechaRegistro, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Sku", DbType="VarChar(24)")] string sku, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdFabricante", DbType="Int")] System.Nullable<int> idFabricante, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Stock", DbType="Int")] System.Nullable<int> stock, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdUnidad", DbType="Int")] System.Nullable<int> idUnidad, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="StockMin", DbType="Int")] System.Nullable<int> stockMin, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="PrecioCompra", DbType="Decimal(8,2)")] System.Nullable<decimal> precioCompra, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="PrecioVenta", DbType="Decimal(8,2)")] System.Nullable<decimal> precioVenta, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Garantia", DbType="Int")] System.Nullable<int> garantia)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), nombre, descripcion, orden, idGrupo, idPadre, icono, urlDetalle, estatus, fechaRegistro, sku, idFabricante, stock, idUnidad, stockMin, precioCompra, precioVenta, garantia);
+			return ((ISingleResult<sp_AgregarProductoResult>)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_EliminarGrupo")]
@@ -174,18 +243,18 @@ namespace KvasDAL
 			return ((int)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_ListarGrupo")]
-		public ISingleResult<sp_ListarGrupoResult> sp_ListarGrupo()
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_EliminarPersonas")]
+		public int sp_EliminarPersonas([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdPersona", DbType="Int")] System.Nullable<int> idPersona)
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
-			return ((ISingleResult<sp_ListarGrupoResult>)(result.ReturnValue));
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idPersona);
+			return ((int)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_ListarPersonas")]
-		public ISingleResult<sp_ListarPersonasResult> sp_ListarPersonas()
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_EliminarProducto")]
+		public int sp_EliminarProducto([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdProducto", DbType="Int")] System.Nullable<int> idProducto)
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
-			return ((ISingleResult<sp_ListarPersonasResult>)(result.ReturnValue));
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idProducto);
+			return ((int)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_ListarDetalles_x_Grupo")]
@@ -195,89 +264,25 @@ namespace KvasDAL
 			return ((ISingleResult<sp_ListarDetalles_x_GrupoResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_AgregarPersonas")]
-		public int sp_AgregarPersonas([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Nombres", DbType="VarChar(50)")] string nombres, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdTipoPersona", DbType="Int")] System.Nullable<int> idTipoPersona, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="CiRif", DbType="VarChar(11)")] string ciRif, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Direccion", DbType="VarChar(100)")] string direccion, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Telefonos", DbType="VarChar(60)")] string telefonos, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Email", DbType="VarChar(60)")] string email, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="FechaRegistro", DbType="DateTime")] System.Nullable<System.DateTime> fechaRegistro)
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_ListarGrupo")]
+		public ISingleResult<sp_ListarGrupoResult> sp_ListarGrupo()
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), nombres, idTipoPersona, ciRif, direccion, telefonos, email, fechaRegistro);
-			return ((int)(result.ReturnValue));
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((ISingleResult<sp_ListarGrupoResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_EliminarPersonas")]
-		public int sp_EliminarPersonas([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdPersona", DbType="Int")] System.Nullable<int> idPersona)
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_ListarGrupoDetalle")]
+		public ISingleResult<sp_ListarGrupoDetalleResult> sp_ListarGrupoDetalle()
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idPersona);
-			return ((int)(result.ReturnValue));
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((ISingleResult<sp_ListarGrupoDetalleResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_ActualizarPersonas")]
-		public int sp_ActualizarPersonas([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdPersona", DbType="Int")] System.Nullable<int> idPersona, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Nombres", DbType="VarChar(50)")] string nombres, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdTipoPersona", DbType="Int")] System.Nullable<int> idTipoPersona, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="CiRif", DbType="VarChar(11)")] string ciRif, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Direccion", DbType="VarChar(100)")] string direccion, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Telefonos", DbType="VarChar(60)")] string telefonos, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Email", DbType="VarChar(60)")] string email)
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_ListarPersonas")]
+		public ISingleResult<sp_ListarPersonasResult> sp_ListarPersonas()
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idPersona, nombres, idTipoPersona, ciRif, direccion, telefonos, email);
-			return ((int)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_OperacionesInventarioProducto")]
-		public ISingleResult<sp_OperacionesInventarioProductoResult> sp_OperacionesInventarioProducto([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Id", DbType="Int")] System.Nullable<int> id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Operador", DbType="Int")] System.Nullable<int> operador, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Stock", DbType="Int")] System.Nullable<int> stock, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PrecioCompra", DbType="Decimal(8,2)")] System.Nullable<decimal> precioCompra, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PrecioVenta", DbType="Decimal(8,2)")] System.Nullable<decimal> precioVenta)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, operador, stock, precioCompra, precioVenta);
-			return ((ISingleResult<sp_OperacionesInventarioProductoResult>)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_AgregarProducto")]
-		public ISingleResult<sp_AgregarProductoResult> sp_AgregarProducto(
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Nombre", DbType="VarChar(50)")] string nombre, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Descripcion", DbType="VarChar(50)")] string descripcion, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Orden", DbType="Int")] System.Nullable<int> orden, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdGrupo", DbType="Int")] System.Nullable<int> idGrupo, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdPadre", DbType="Int")] System.Nullable<int> idPadre, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Icono", DbType="VarChar(30)")] string icono, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="UrlDetalle", DbType="VarChar(100)")] string urlDetalle, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Estatus", DbType="Bit")] System.Nullable<bool> estatus, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="FechaRegistro", DbType="DateTime")] System.Nullable<System.DateTime> fechaRegistro, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Sku", DbType="VarChar(24)")] string sku, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdDepartamento", DbType="Int")] System.Nullable<int> idDepartamento, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdFabricante", DbType="Int")] System.Nullable<int> idFabricante, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Stock", DbType="Int")] System.Nullable<int> stock, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdUnidad", DbType="Int")] System.Nullable<int> idUnidad, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="StockMin", DbType="Int")] System.Nullable<int> stockMin, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="PrecioCompra", DbType="Decimal(8,2)")] System.Nullable<decimal> precioCompra, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="PrecioVenta", DbType="Decimal(8,2)")] System.Nullable<decimal> precioVenta, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Garantia", DbType="Int")] System.Nullable<int> garantia)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), nombre, descripcion, orden, idGrupo, idPadre, icono, urlDetalle, estatus, fechaRegistro, sku, idDepartamento, idFabricante, stock, idUnidad, stockMin, precioCompra, precioVenta, garantia);
-			return ((ISingleResult<sp_AgregarProductoResult>)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_ActualizarProducto")]
-		public ISingleResult<sp_ActualizarProductoResult> sp_ActualizarProducto(
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Id", DbType="Int")] System.Nullable<int> id, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Nombre", DbType="VarChar(50)")] string nombre, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Descripcion", DbType="VarChar(50)")] string descripcion, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Orden", DbType="Int")] System.Nullable<int> orden, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdGrupo", DbType="Int")] System.Nullable<int> idGrupo, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdPadre", DbType="Int")] System.Nullable<int> idPadre, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Icono", DbType="VarChar(30)")] string icono, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="UrlDetalle", DbType="VarChar(100)")] string urlDetalle, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Estatus", DbType="Bit")] System.Nullable<bool> estatus, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Sku", DbType="VarChar(24)")] string sku, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdDepartamento", DbType="Int")] System.Nullable<int> idDepartamento, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdFabricante", DbType="Int")] System.Nullable<int> idFabricante, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Stock", DbType="Int")] System.Nullable<int> stock, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdUnidad", DbType="Int")] System.Nullable<int> idUnidad, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="StockMin", DbType="Int")] System.Nullable<int> stockMin, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="PrecioCompra", DbType="Decimal(8,2)")] System.Nullable<decimal> precioCompra, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="PrecioVenta", DbType="Decimal(8,2)")] System.Nullable<decimal> precioVenta, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Garantia", DbType="Int")] System.Nullable<int> garantia)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, nombre, descripcion, orden, idGrupo, idPadre, icono, urlDetalle, estatus, sku, idDepartamento, idFabricante, stock, idUnidad, stockMin, precioCompra, precioVenta, garantia);
-			return ((ISingleResult<sp_ActualizarProductoResult>)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_EliminarProducto")]
-		public int sp_EliminarProducto([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdProducto", DbType="Int")] System.Nullable<int> idProducto)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idProducto);
-			return ((int)(result.ReturnValue));
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((ISingleResult<sp_ListarPersonasResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -571,11 +576,9 @@ namespace KvasDAL
 		
 		private EntitySet<PSDetalles> _PSDetalles;
 		
-		private EntitySet<PSDetalles> _PSDetalles1;
+		private EntityRef<PSDetalles> _PSDetalles1;
 		
-		private EntityRef<PSDetalles> _PSDetalles2;
-		
-		private EntitySet<PSDetalles> _PSDetalles3;
+		private EntitySet<PSDetalles> _PSDetalles2;
 		
 		private EntityRef<Grupos> _Grupos;
 		
@@ -612,9 +615,8 @@ namespace KvasDAL
 			this._GruposDetalles2 = new EntitySet<GruposDetalles>(new Action<GruposDetalles>(this.attach_GruposDetalles2), new Action<GruposDetalles>(this.detach_GruposDetalles2));
 			this._Personas = new EntitySet<Personas>(new Action<Personas>(this.attach_Personas), new Action<Personas>(this.detach_Personas));
 			this._PSDetalles = new EntitySet<PSDetalles>(new Action<PSDetalles>(this.attach_PSDetalles), new Action<PSDetalles>(this.detach_PSDetalles));
-			this._PSDetalles1 = new EntitySet<PSDetalles>(new Action<PSDetalles>(this.attach_PSDetalles1), new Action<PSDetalles>(this.detach_PSDetalles1));
-			this._PSDetalles2 = default(EntityRef<PSDetalles>);
-			this._PSDetalles3 = new EntitySet<PSDetalles>(new Action<PSDetalles>(this.attach_PSDetalles3), new Action<PSDetalles>(this.detach_PSDetalles3));
+			this._PSDetalles1 = default(EntityRef<PSDetalles>);
+			this._PSDetalles2 = new EntitySet<PSDetalles>(new Action<PSDetalles>(this.attach_PSDetalles2), new Action<PSDetalles>(this.detach_PSDetalles2));
 			this._Grupos = default(EntityRef<Grupos>);
 			this._GruposDetalles1 = default(EntityRef<GruposDetalles>);
 			OnCreated();
@@ -854,7 +856,7 @@ namespace KvasDAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_PSDetalles", Storage="_PSDetalles", ThisKey="IdGrupoDetalle", OtherKey="IdDepartamento")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_PSDetalles", Storage="_PSDetalles", ThisKey="IdGrupoDetalle", OtherKey="IdFabricante")]
 		public EntitySet<PSDetalles> PSDetalles
 		{
 			get
@@ -867,58 +869,45 @@ namespace KvasDAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_PSDetalles1", Storage="_PSDetalles1", ThisKey="IdGrupoDetalle", OtherKey="IdFabricante")]
-		public EntitySet<PSDetalles> PSDetalles1
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_PSDetalles1", Storage="_PSDetalles1", ThisKey="IdGrupoDetalle", OtherKey="IdProducto", IsUnique=true, IsForeignKey=false)]
+		public PSDetalles PSDetalles1
 		{
 			get
 			{
-				return this._PSDetalles1;
+				return this._PSDetalles1.Entity;
 			}
 			set
 			{
-				this._PSDetalles1.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_PSDetalles2", Storage="_PSDetalles2", ThisKey="IdGrupoDetalle", OtherKey="IdProducto", IsUnique=true, IsForeignKey=false)]
-		public PSDetalles PSDetalles2
-		{
-			get
-			{
-				return this._PSDetalles2.Entity;
-			}
-			set
-			{
-				PSDetalles previousValue = this._PSDetalles2.Entity;
+				PSDetalles previousValue = this._PSDetalles1.Entity;
 				if (((previousValue != value) 
-							|| (this._PSDetalles2.HasLoadedOrAssignedValue == false)))
+							|| (this._PSDetalles1.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._PSDetalles2.Entity = null;
-						previousValue.GruposDetalles2 = null;
+						this._PSDetalles1.Entity = null;
+						previousValue.GruposDetalles1 = null;
 					}
-					this._PSDetalles2.Entity = value;
+					this._PSDetalles1.Entity = value;
 					if ((value != null))
 					{
-						value.GruposDetalles2 = this;
+						value.GruposDetalles1 = this;
 					}
-					this.SendPropertyChanged("PSDetalles2");
+					this.SendPropertyChanged("PSDetalles1");
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_PSDetalles3", Storage="_PSDetalles3", ThisKey="IdGrupoDetalle", OtherKey="IdUnidad")]
-		public EntitySet<PSDetalles> PSDetalles3
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_PSDetalles2", Storage="_PSDetalles2", ThisKey="IdGrupoDetalle", OtherKey="IdUnidad")]
+		public EntitySet<PSDetalles> PSDetalles2
 		{
 			get
 			{
-				return this._PSDetalles3;
+				return this._PSDetalles2;
 			}
 			set
 			{
-				this._PSDetalles3.Assign(value);
+				this._PSDetalles2.Assign(value);
 			}
 		}
 		
@@ -1046,28 +1035,16 @@ namespace KvasDAL
 			entity.GruposDetalles = null;
 		}
 		
-		private void attach_PSDetalles1(PSDetalles entity)
+		private void attach_PSDetalles2(PSDetalles entity)
 		{
 			this.SendPropertyChanging();
-			entity.GruposDetalles1 = this;
+			entity.GruposDetalles2 = this;
 		}
 		
-		private void detach_PSDetalles1(PSDetalles entity)
+		private void detach_PSDetalles2(PSDetalles entity)
 		{
 			this.SendPropertyChanging();
-			entity.GruposDetalles1 = null;
-		}
-		
-		private void attach_PSDetalles3(PSDetalles entity)
-		{
-			this.SendPropertyChanging();
-			entity.GruposDetalles3 = this;
-		}
-		
-		private void detach_PSDetalles3(PSDetalles entity)
-		{
-			this.SendPropertyChanging();
-			entity.GruposDetalles3 = null;
+			entity.GruposDetalles2 = null;
 		}
 	}
 	
@@ -1487,8 +1464,6 @@ namespace KvasDAL
 		
 		private string _Sku;
 		
-		private int _IdDepartamento;
-		
 		private int _IdFabricante;
 		
 		private System.Nullable<int> _Stock;
@@ -1511,8 +1486,6 @@ namespace KvasDAL
 		
 		private EntityRef<GruposDetalles> _GruposDetalles2;
 		
-		private EntityRef<GruposDetalles> _GruposDetalles3;
-		
     #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -1521,8 +1494,6 @@ namespace KvasDAL
     partial void OnIdProductoChanged();
     partial void OnSkuChanging(string value);
     partial void OnSkuChanged();
-    partial void OnIdDepartamentoChanging(int value);
-    partial void OnIdDepartamentoChanged();
     partial void OnIdFabricanteChanging(int value);
     partial void OnIdFabricanteChanged();
     partial void OnStockChanging(System.Nullable<int> value);
@@ -1545,7 +1516,6 @@ namespace KvasDAL
 			this._GruposDetalles = default(EntityRef<GruposDetalles>);
 			this._GruposDetalles1 = default(EntityRef<GruposDetalles>);
 			this._GruposDetalles2 = default(EntityRef<GruposDetalles>);
-			this._GruposDetalles3 = default(EntityRef<GruposDetalles>);
 			OnCreated();
 		}
 		
@@ -1560,7 +1530,7 @@ namespace KvasDAL
 			{
 				if ((this._IdProducto != value))
 				{
-					if (this._GruposDetalles2.HasLoadedOrAssignedValue)
+					if (this._GruposDetalles1.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -1593,30 +1563,6 @@ namespace KvasDAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdDepartamento", DbType="Int NOT NULL")]
-		public int IdDepartamento
-		{
-			get
-			{
-				return this._IdDepartamento;
-			}
-			set
-			{
-				if ((this._IdDepartamento != value))
-				{
-					if (this._GruposDetalles.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnIdDepartamentoChanging(value);
-					this.SendPropertyChanging();
-					this._IdDepartamento = value;
-					this.SendPropertyChanged("IdDepartamento");
-					this.OnIdDepartamentoChanged();
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdFabricante", DbType="Int NOT NULL")]
 		public int IdFabricante
 		{
@@ -1628,7 +1574,7 @@ namespace KvasDAL
 			{
 				if ((this._IdFabricante != value))
 				{
-					if (this._GruposDetalles1.HasLoadedOrAssignedValue)
+					if (this._GruposDetalles.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -1672,7 +1618,7 @@ namespace KvasDAL
 			{
 				if ((this._IdUnidad != value))
 				{
-					if (this._GruposDetalles3.HasLoadedOrAssignedValue)
+					if (this._GruposDetalles2.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -1778,7 +1724,7 @@ namespace KvasDAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_PSDetalles", Storage="_GruposDetalles", ThisKey="IdDepartamento", OtherKey="IdGrupoDetalle", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_PSDetalles", Storage="_GruposDetalles", ThisKey="IdFabricante", OtherKey="IdGrupoDetalle", IsForeignKey=true)]
 		public GruposDetalles GruposDetalles
 		{
 			get
@@ -1801,18 +1747,18 @@ namespace KvasDAL
 					if ((value != null))
 					{
 						value.PSDetalles.Add(this);
-						this._IdDepartamento = value.IdGrupoDetalle;
+						this._IdFabricante = value.IdGrupoDetalle;
 					}
 					else
 					{
-						this._IdDepartamento = default(int);
+						this._IdFabricante = default(int);
 					}
 					this.SendPropertyChanged("GruposDetalles");
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_PSDetalles1", Storage="_GruposDetalles1", ThisKey="IdFabricante", OtherKey="IdGrupoDetalle", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_PSDetalles1", Storage="_GruposDetalles1", ThisKey="IdProducto", OtherKey="IdGrupoDetalle", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public GruposDetalles GruposDetalles1
 		{
 			get
@@ -1829,24 +1775,24 @@ namespace KvasDAL
 					if ((previousValue != null))
 					{
 						this._GruposDetalles1.Entity = null;
-						previousValue.PSDetalles1.Remove(this);
+						previousValue.PSDetalles1 = null;
 					}
 					this._GruposDetalles1.Entity = value;
 					if ((value != null))
 					{
-						value.PSDetalles1.Add(this);
-						this._IdFabricante = value.IdGrupoDetalle;
+						value.PSDetalles1 = this;
+						this._IdProducto = value.IdGrupoDetalle;
 					}
 					else
 					{
-						this._IdFabricante = default(int);
+						this._IdProducto = default(int);
 					}
 					this.SendPropertyChanged("GruposDetalles1");
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_PSDetalles2", Storage="_GruposDetalles2", ThisKey="IdProducto", OtherKey="IdGrupoDetalle", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_PSDetalles2", Storage="_GruposDetalles2", ThisKey="IdUnidad", OtherKey="IdGrupoDetalle", IsForeignKey=true)]
 		public GruposDetalles GruposDetalles2
 		{
 			get
@@ -1863,53 +1809,19 @@ namespace KvasDAL
 					if ((previousValue != null))
 					{
 						this._GruposDetalles2.Entity = null;
-						previousValue.PSDetalles2 = null;
+						previousValue.PSDetalles2.Remove(this);
 					}
 					this._GruposDetalles2.Entity = value;
 					if ((value != null))
 					{
-						value.PSDetalles2 = this;
-						this._IdProducto = value.IdGrupoDetalle;
-					}
-					else
-					{
-						this._IdProducto = default(int);
-					}
-					this.SendPropertyChanged("GruposDetalles2");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_PSDetalles3", Storage="_GruposDetalles3", ThisKey="IdUnidad", OtherKey="IdGrupoDetalle", IsForeignKey=true)]
-		public GruposDetalles GruposDetalles3
-		{
-			get
-			{
-				return this._GruposDetalles3.Entity;
-			}
-			set
-			{
-				GruposDetalles previousValue = this._GruposDetalles3.Entity;
-				if (((previousValue != value) 
-							|| (this._GruposDetalles3.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._GruposDetalles3.Entity = null;
-						previousValue.PSDetalles3.Remove(this);
-					}
-					this._GruposDetalles3.Entity = value;
-					if ((value != null))
-					{
-						value.PSDetalles3.Add(this);
+						value.PSDetalles2.Add(this);
 						this._IdUnidad = value.IdGrupoDetalle;
 					}
 					else
 					{
 						this._IdUnidad = default(int);
 					}
-					this.SendPropertyChanged("GruposDetalles3");
+					this.SendPropertyChanged("GruposDetalles2");
 				}
 			}
 		}
@@ -2122,686 +2034,6 @@ namespace KvasDAL
 		}
 	}
 	
-	public partial class sp_ListarGrupoDetalleResult
-	{
-		
-		private int _IdGrupoDetalle;
-		
-		private string _Nombre;
-		
-		private string _Descripcion;
-		
-		private byte _Orden;
-		
-		private int _IdGrupo;
-		
-		private int _IdPadre;
-		
-		private string _Icono;
-		
-		private string _UrlDetalle;
-		
-		private bool _Estatus;
-		
-		private System.DateTime _FechaRegistro;
-		
-		public sp_ListarGrupoDetalleResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdGrupoDetalle", DbType="Int NOT NULL")]
-		public int IdGrupoDetalle
-		{
-			get
-			{
-				return this._IdGrupoDetalle;
-			}
-			set
-			{
-				if ((this._IdGrupoDetalle != value))
-				{
-					this._IdGrupoDetalle = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Nombre
-		{
-			get
-			{
-				return this._Nombre;
-			}
-			set
-			{
-				if ((this._Nombre != value))
-				{
-					this._Nombre = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descripcion", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Descripcion
-		{
-			get
-			{
-				return this._Descripcion;
-			}
-			set
-			{
-				if ((this._Descripcion != value))
-				{
-					this._Descripcion = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Orden", DbType="TinyInt NOT NULL")]
-		public byte Orden
-		{
-			get
-			{
-				return this._Orden;
-			}
-			set
-			{
-				if ((this._Orden != value))
-				{
-					this._Orden = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdGrupo", DbType="Int NOT NULL")]
-		public int IdGrupo
-		{
-			get
-			{
-				return this._IdGrupo;
-			}
-			set
-			{
-				if ((this._IdGrupo != value))
-				{
-					this._IdGrupo = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPadre", DbType="Int NOT NULL")]
-		public int IdPadre
-		{
-			get
-			{
-				return this._IdPadre;
-			}
-			set
-			{
-				if ((this._IdPadre != value))
-				{
-					this._IdPadre = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Icono", DbType="NVarChar(30)")]
-		public string Icono
-		{
-			get
-			{
-				return this._Icono;
-			}
-			set
-			{
-				if ((this._Icono != value))
-				{
-					this._Icono = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UrlDetalle", DbType="VarChar(30)")]
-		public string UrlDetalle
-		{
-			get
-			{
-				return this._UrlDetalle;
-			}
-			set
-			{
-				if ((this._UrlDetalle != value))
-				{
-					this._UrlDetalle = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estatus", DbType="Bit NOT NULL")]
-		public bool Estatus
-		{
-			get
-			{
-				return this._Estatus;
-			}
-			set
-			{
-				if ((this._Estatus != value))
-				{
-					this._Estatus = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaRegistro", DbType="DateTime NOT NULL")]
-		public System.DateTime FechaRegistro
-		{
-			get
-			{
-				return this._FechaRegistro;
-			}
-			set
-			{
-				if ((this._FechaRegistro != value))
-				{
-					this._FechaRegistro = value;
-				}
-			}
-		}
-	}
-	
-	public partial class sp_ListarGrupoResult
-	{
-		
-		private int _IdGrupo;
-		
-		private string _Nombre;
-		
-		private string _Descripcion;
-		
-		private byte _Orden;
-		
-		private string _Icono;
-		
-		private string _UrlGrupo;
-		
-		private bool _Estatus;
-		
-		private System.DateTime _FechaRegistro;
-		
-		public sp_ListarGrupoResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdGrupo", DbType="Int NOT NULL")]
-		public int IdGrupo
-		{
-			get
-			{
-				return this._IdGrupo;
-			}
-			set
-			{
-				if ((this._IdGrupo != value))
-				{
-					this._IdGrupo = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Nombre
-		{
-			get
-			{
-				return this._Nombre;
-			}
-			set
-			{
-				if ((this._Nombre != value))
-				{
-					this._Nombre = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descripcion", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
-		public string Descripcion
-		{
-			get
-			{
-				return this._Descripcion;
-			}
-			set
-			{
-				if ((this._Descripcion != value))
-				{
-					this._Descripcion = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Orden", DbType="TinyInt NOT NULL")]
-		public byte Orden
-		{
-			get
-			{
-				return this._Orden;
-			}
-			set
-			{
-				if ((this._Orden != value))
-				{
-					this._Orden = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Icono", DbType="NVarChar(30)")]
-		public string Icono
-		{
-			get
-			{
-				return this._Icono;
-			}
-			set
-			{
-				if ((this._Icono != value))
-				{
-					this._Icono = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UrlGrupo", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string UrlGrupo
-		{
-			get
-			{
-				return this._UrlGrupo;
-			}
-			set
-			{
-				if ((this._UrlGrupo != value))
-				{
-					this._UrlGrupo = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estatus", DbType="Bit NOT NULL")]
-		public bool Estatus
-		{
-			get
-			{
-				return this._Estatus;
-			}
-			set
-			{
-				if ((this._Estatus != value))
-				{
-					this._Estatus = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaRegistro", DbType="DateTime NOT NULL")]
-		public System.DateTime FechaRegistro
-		{
-			get
-			{
-				return this._FechaRegistro;
-			}
-			set
-			{
-				if ((this._FechaRegistro != value))
-				{
-					this._FechaRegistro = value;
-				}
-			}
-		}
-	}
-	
-	public partial class sp_ListarPersonasResult
-	{
-		
-		private int _IdPersona;
-		
-		private string _Nombres;
-		
-		private int _IdTipoPersona;
-		
-		private string _CiRif;
-		
-		private string _Direccion;
-		
-		private string _Telefonos;
-		
-		private string _Email;
-		
-		private string _Imagen;
-		
-		private System.DateTime _FechaRegistro;
-		
-		public sp_ListarPersonasResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPersona", DbType="Int NOT NULL")]
-		public int IdPersona
-		{
-			get
-			{
-				return this._IdPersona;
-			}
-			set
-			{
-				if ((this._IdPersona != value))
-				{
-					this._IdPersona = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombres", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Nombres
-		{
-			get
-			{
-				return this._Nombres;
-			}
-			set
-			{
-				if ((this._Nombres != value))
-				{
-					this._Nombres = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdTipoPersona", DbType="Int NOT NULL")]
-		public int IdTipoPersona
-		{
-			get
-			{
-				return this._IdTipoPersona;
-			}
-			set
-			{
-				if ((this._IdTipoPersona != value))
-				{
-					this._IdTipoPersona = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CiRif", DbType="VarChar(11) NOT NULL", CanBeNull=false)]
-		public string CiRif
-		{
-			get
-			{
-				return this._CiRif;
-			}
-			set
-			{
-				if ((this._CiRif != value))
-				{
-					this._CiRif = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Direccion", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
-		public string Direccion
-		{
-			get
-			{
-				return this._Direccion;
-			}
-			set
-			{
-				if ((this._Direccion != value))
-				{
-					this._Direccion = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Telefonos", DbType="VarChar(60) NOT NULL", CanBeNull=false)]
-		public string Telefonos
-		{
-			get
-			{
-				return this._Telefonos;
-			}
-			set
-			{
-				if ((this._Telefonos != value))
-				{
-					this._Telefonos = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="VarChar(60)")]
-		public string Email
-		{
-			get
-			{
-				return this._Email;
-			}
-			set
-			{
-				if ((this._Email != value))
-				{
-					this._Email = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Imagen", DbType="VarChar(60) NOT NULL", CanBeNull=false)]
-		public string Imagen
-		{
-			get
-			{
-				return this._Imagen;
-			}
-			set
-			{
-				if ((this._Imagen != value))
-				{
-					this._Imagen = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaRegistro", DbType="DateTime NOT NULL")]
-		public System.DateTime FechaRegistro
-		{
-			get
-			{
-				return this._FechaRegistro;
-			}
-			set
-			{
-				if ((this._FechaRegistro != value))
-				{
-					this._FechaRegistro = value;
-				}
-			}
-		}
-	}
-	
-	public partial class sp_ListarDetalles_x_GrupoResult
-	{
-		
-		private int _IdGrupoDetalle;
-		
-		private string _Nombre;
-		
-		private string _Descripcion;
-		
-		private int _Orden;
-		
-		private string _Categoria;
-		
-		private string _Icono;
-		
-		private string _UrlDetalle;
-		
-		private bool _Estatus;
-		
-		private System.DateTime _FechaRegistro;
-		
-		public sp_ListarDetalles_x_GrupoResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdGrupoDetalle", DbType="Int NOT NULL")]
-		public int IdGrupoDetalle
-		{
-			get
-			{
-				return this._IdGrupoDetalle;
-			}
-			set
-			{
-				if ((this._IdGrupoDetalle != value))
-				{
-					this._IdGrupoDetalle = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Nombre
-		{
-			get
-			{
-				return this._Nombre;
-			}
-			set
-			{
-				if ((this._Nombre != value))
-				{
-					this._Nombre = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descripcion", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Descripcion
-		{
-			get
-			{
-				return this._Descripcion;
-			}
-			set
-			{
-				if ((this._Descripcion != value))
-				{
-					this._Descripcion = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Orden", DbType="Int NOT NULL")]
-		public int Orden
-		{
-			get
-			{
-				return this._Orden;
-			}
-			set
-			{
-				if ((this._Orden != value))
-				{
-					this._Orden = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Categoria", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Categoria
-		{
-			get
-			{
-				return this._Categoria;
-			}
-			set
-			{
-				if ((this._Categoria != value))
-				{
-					this._Categoria = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Icono", DbType="NVarChar(30)")]
-		public string Icono
-		{
-			get
-			{
-				return this._Icono;
-			}
-			set
-			{
-				if ((this._Icono != value))
-				{
-					this._Icono = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UrlDetalle", DbType="VarChar(30)")]
-		public string UrlDetalle
-		{
-			get
-			{
-				return this._UrlDetalle;
-			}
-			set
-			{
-				if ((this._UrlDetalle != value))
-				{
-					this._UrlDetalle = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estatus", DbType="Bit NOT NULL")]
-		public bool Estatus
-		{
-			get
-			{
-				return this._Estatus;
-			}
-			set
-			{
-				if ((this._Estatus != value))
-				{
-					this._Estatus = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaRegistro", DbType="DateTime NOT NULL")]
-		public System.DateTime FechaRegistro
-		{
-			get
-			{
-				return this._FechaRegistro;
-			}
-			set
-			{
-				if ((this._FechaRegistro != value))
-				{
-					this._FechaRegistro = value;
-				}
-			}
-		}
-	}
-	
 	public partial class sp_OperacionesInventarioProductoResult
 	{
 		
@@ -2818,6 +2050,122 @@ namespace KvasDAL
 		private string _errMessage;
 		
 		public sp_OperacionesInventarioProductoResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_errNumber", DbType="Int")]
+		public System.Nullable<int> errNumber
+		{
+			get
+			{
+				return this._errNumber;
+			}
+			set
+			{
+				if ((this._errNumber != value))
+				{
+					this._errNumber = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_errSeverity", DbType="Int")]
+		public System.Nullable<int> errSeverity
+		{
+			get
+			{
+				return this._errSeverity;
+			}
+			set
+			{
+				if ((this._errSeverity != value))
+				{
+					this._errSeverity = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_errState", DbType="Int")]
+		public System.Nullable<int> errState
+		{
+			get
+			{
+				return this._errState;
+			}
+			set
+			{
+				if ((this._errState != value))
+				{
+					this._errState = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_errProcedure", DbType="NVarChar(128)")]
+		public string errProcedure
+		{
+			get
+			{
+				return this._errProcedure;
+			}
+			set
+			{
+				if ((this._errProcedure != value))
+				{
+					this._errProcedure = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_errLine", DbType="Int")]
+		public System.Nullable<int> errLine
+		{
+			get
+			{
+				return this._errLine;
+			}
+			set
+			{
+				if ((this._errLine != value))
+				{
+					this._errLine = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_errMessage", DbType="NVarChar(4000)")]
+		public string errMessage
+		{
+			get
+			{
+				return this._errMessage;
+			}
+			set
+			{
+				if ((this._errMessage != value))
+				{
+					this._errMessage = value;
+				}
+			}
+		}
+	}
+	
+	public partial class sp_ActualizarProductoResult
+	{
+		
+		private System.Nullable<int> _errNumber;
+		
+		private System.Nullable<int> _errSeverity;
+		
+		private System.Nullable<int> _errState;
+		
+		private string _errProcedure;
+		
+		private System.Nullable<int> _errLine;
+		
+		private string _errMessage;
+		
+		public sp_ActualizarProductoResult()
 		{
 		}
 		
@@ -3034,117 +2382,663 @@ namespace KvasDAL
 		}
 	}
 	
-	public partial class sp_ActualizarProductoResult
+	public partial class sp_ListarDetalles_x_GrupoResult
 	{
 		
-		private System.Nullable<int> _errNumber;
+		private int _IdGrupoDetalle;
 		
-		private System.Nullable<int> _errSeverity;
+		private string _Nombre;
 		
-		private System.Nullable<int> _errState;
+		private string _Descripcion;
 		
-		private string _errProcedure;
+		private int _Orden;
 		
-		private System.Nullable<int> _errLine;
+		private string _Categoria;
 		
-		private string _errMessage;
+		private string _Icono;
 		
-		public sp_ActualizarProductoResult()
+		private string _UrlDetalle;
+		
+		private bool _Estatus;
+		
+		private System.DateTime _FechaRegistro;
+		
+		public sp_ListarDetalles_x_GrupoResult()
 		{
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_errNumber", DbType="Int")]
-		public System.Nullable<int> errNumber
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdGrupoDetalle", DbType="Int NOT NULL")]
+		public int IdGrupoDetalle
 		{
 			get
 			{
-				return this._errNumber;
+				return this._IdGrupoDetalle;
 			}
 			set
 			{
-				if ((this._errNumber != value))
+				if ((this._IdGrupoDetalle != value))
 				{
-					this._errNumber = value;
+					this._IdGrupoDetalle = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_errSeverity", DbType="Int")]
-		public System.Nullable<int> errSeverity
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Nombre
 		{
 			get
 			{
-				return this._errSeverity;
+				return this._Nombre;
 			}
 			set
 			{
-				if ((this._errSeverity != value))
+				if ((this._Nombre != value))
 				{
-					this._errSeverity = value;
+					this._Nombre = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_errState", DbType="Int")]
-		public System.Nullable<int> errState
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descripcion", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Descripcion
 		{
 			get
 			{
-				return this._errState;
+				return this._Descripcion;
 			}
 			set
 			{
-				if ((this._errState != value))
+				if ((this._Descripcion != value))
 				{
-					this._errState = value;
+					this._Descripcion = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_errProcedure", DbType="NVarChar(128)")]
-		public string errProcedure
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Orden", DbType="Int NOT NULL")]
+		public int Orden
 		{
 			get
 			{
-				return this._errProcedure;
+				return this._Orden;
 			}
 			set
 			{
-				if ((this._errProcedure != value))
+				if ((this._Orden != value))
 				{
-					this._errProcedure = value;
+					this._Orden = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_errLine", DbType="Int")]
-		public System.Nullable<int> errLine
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Categoria", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Categoria
 		{
 			get
 			{
-				return this._errLine;
+				return this._Categoria;
 			}
 			set
 			{
-				if ((this._errLine != value))
+				if ((this._Categoria != value))
 				{
-					this._errLine = value;
+					this._Categoria = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_errMessage", DbType="NVarChar(4000)")]
-		public string errMessage
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Icono", DbType="NVarChar(30)")]
+		public string Icono
 		{
 			get
 			{
-				return this._errMessage;
+				return this._Icono;
 			}
 			set
 			{
-				if ((this._errMessage != value))
+				if ((this._Icono != value))
 				{
-					this._errMessage = value;
+					this._Icono = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UrlDetalle", DbType="VarChar(100)")]
+		public string UrlDetalle
+		{
+			get
+			{
+				return this._UrlDetalle;
+			}
+			set
+			{
+				if ((this._UrlDetalle != value))
+				{
+					this._UrlDetalle = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estatus", DbType="Bit NOT NULL")]
+		public bool Estatus
+		{
+			get
+			{
+				return this._Estatus;
+			}
+			set
+			{
+				if ((this._Estatus != value))
+				{
+					this._Estatus = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaRegistro", DbType="DateTime NOT NULL")]
+		public System.DateTime FechaRegistro
+		{
+			get
+			{
+				return this._FechaRegistro;
+			}
+			set
+			{
+				if ((this._FechaRegistro != value))
+				{
+					this._FechaRegistro = value;
+				}
+			}
+		}
+	}
+	
+	public partial class sp_ListarGrupoResult
+	{
+		
+		private int _IdGrupo;
+		
+		private string _Nombre;
+		
+		private string _Descripcion;
+		
+		private int _Orden;
+		
+		private string _Icono;
+		
+		private string _UrlGrupo;
+		
+		private bool _Estatus;
+		
+		private System.DateTime _FechaRegistro;
+		
+		public sp_ListarGrupoResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdGrupo", DbType="Int NOT NULL")]
+		public int IdGrupo
+		{
+			get
+			{
+				return this._IdGrupo;
+			}
+			set
+			{
+				if ((this._IdGrupo != value))
+				{
+					this._IdGrupo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Nombre
+		{
+			get
+			{
+				return this._Nombre;
+			}
+			set
+			{
+				if ((this._Nombre != value))
+				{
+					this._Nombre = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descripcion", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
+		public string Descripcion
+		{
+			get
+			{
+				return this._Descripcion;
+			}
+			set
+			{
+				if ((this._Descripcion != value))
+				{
+					this._Descripcion = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Orden", DbType="Int NOT NULL")]
+		public int Orden
+		{
+			get
+			{
+				return this._Orden;
+			}
+			set
+			{
+				if ((this._Orden != value))
+				{
+					this._Orden = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Icono", DbType="NVarChar(30)")]
+		public string Icono
+		{
+			get
+			{
+				return this._Icono;
+			}
+			set
+			{
+				if ((this._Icono != value))
+				{
+					this._Icono = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UrlGrupo", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string UrlGrupo
+		{
+			get
+			{
+				return this._UrlGrupo;
+			}
+			set
+			{
+				if ((this._UrlGrupo != value))
+				{
+					this._UrlGrupo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estatus", DbType="Bit NOT NULL")]
+		public bool Estatus
+		{
+			get
+			{
+				return this._Estatus;
+			}
+			set
+			{
+				if ((this._Estatus != value))
+				{
+					this._Estatus = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaRegistro", DbType="DateTime NOT NULL")]
+		public System.DateTime FechaRegistro
+		{
+			get
+			{
+				return this._FechaRegistro;
+			}
+			set
+			{
+				if ((this._FechaRegistro != value))
+				{
+					this._FechaRegistro = value;
+				}
+			}
+		}
+	}
+	
+	public partial class sp_ListarGrupoDetalleResult
+	{
+		
+		private int _IdGrupoDetalle;
+		
+		private string _Nombre;
+		
+		private string _Descripcion;
+		
+		private int _Orden;
+		
+		private int _IdGrupo;
+		
+		private System.Nullable<int> _IdPadre;
+		
+		private string _Icono;
+		
+		private string _UrlDetalle;
+		
+		private bool _Estatus;
+		
+		private System.DateTime _FechaRegistro;
+		
+		public sp_ListarGrupoDetalleResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdGrupoDetalle", DbType="Int NOT NULL")]
+		public int IdGrupoDetalle
+		{
+			get
+			{
+				return this._IdGrupoDetalle;
+			}
+			set
+			{
+				if ((this._IdGrupoDetalle != value))
+				{
+					this._IdGrupoDetalle = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Nombre
+		{
+			get
+			{
+				return this._Nombre;
+			}
+			set
+			{
+				if ((this._Nombre != value))
+				{
+					this._Nombre = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descripcion", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Descripcion
+		{
+			get
+			{
+				return this._Descripcion;
+			}
+			set
+			{
+				if ((this._Descripcion != value))
+				{
+					this._Descripcion = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Orden", DbType="Int NOT NULL")]
+		public int Orden
+		{
+			get
+			{
+				return this._Orden;
+			}
+			set
+			{
+				if ((this._Orden != value))
+				{
+					this._Orden = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdGrupo", DbType="Int NOT NULL")]
+		public int IdGrupo
+		{
+			get
+			{
+				return this._IdGrupo;
+			}
+			set
+			{
+				if ((this._IdGrupo != value))
+				{
+					this._IdGrupo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPadre", DbType="Int")]
+		public System.Nullable<int> IdPadre
+		{
+			get
+			{
+				return this._IdPadre;
+			}
+			set
+			{
+				if ((this._IdPadre != value))
+				{
+					this._IdPadre = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Icono", DbType="NVarChar(30)")]
+		public string Icono
+		{
+			get
+			{
+				return this._Icono;
+			}
+			set
+			{
+				if ((this._Icono != value))
+				{
+					this._Icono = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UrlDetalle", DbType="VarChar(100)")]
+		public string UrlDetalle
+		{
+			get
+			{
+				return this._UrlDetalle;
+			}
+			set
+			{
+				if ((this._UrlDetalle != value))
+				{
+					this._UrlDetalle = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estatus", DbType="Bit NOT NULL")]
+		public bool Estatus
+		{
+			get
+			{
+				return this._Estatus;
+			}
+			set
+			{
+				if ((this._Estatus != value))
+				{
+					this._Estatus = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaRegistro", DbType="DateTime NOT NULL")]
+		public System.DateTime FechaRegistro
+		{
+			get
+			{
+				return this._FechaRegistro;
+			}
+			set
+			{
+				if ((this._FechaRegistro != value))
+				{
+					this._FechaRegistro = value;
+				}
+			}
+		}
+	}
+	
+	public partial class sp_ListarPersonasResult
+	{
+		
+		private int _IdPersona;
+		
+		private string _Nombres;
+		
+		private int _IdTipoPersona;
+		
+		private string _CiRif;
+		
+		private string _Direccion;
+		
+		private string _Telefonos;
+		
+		private string _Email;
+		
+		private System.DateTime _FechaRegistro;
+		
+		public sp_ListarPersonasResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPersona", DbType="Int NOT NULL")]
+		public int IdPersona
+		{
+			get
+			{
+				return this._IdPersona;
+			}
+			set
+			{
+				if ((this._IdPersona != value))
+				{
+					this._IdPersona = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombres", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Nombres
+		{
+			get
+			{
+				return this._Nombres;
+			}
+			set
+			{
+				if ((this._Nombres != value))
+				{
+					this._Nombres = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdTipoPersona", DbType="Int NOT NULL")]
+		public int IdTipoPersona
+		{
+			get
+			{
+				return this._IdTipoPersona;
+			}
+			set
+			{
+				if ((this._IdTipoPersona != value))
+				{
+					this._IdTipoPersona = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CiRif", DbType="VarChar(11) NOT NULL", CanBeNull=false)]
+		public string CiRif
+		{
+			get
+			{
+				return this._CiRif;
+			}
+			set
+			{
+				if ((this._CiRif != value))
+				{
+					this._CiRif = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Direccion", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
+		public string Direccion
+		{
+			get
+			{
+				return this._Direccion;
+			}
+			set
+			{
+				if ((this._Direccion != value))
+				{
+					this._Direccion = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Telefonos", DbType="VarChar(60) NOT NULL", CanBeNull=false)]
+		public string Telefonos
+		{
+			get
+			{
+				return this._Telefonos;
+			}
+			set
+			{
+				if ((this._Telefonos != value))
+				{
+					this._Telefonos = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="VarChar(60)")]
+		public string Email
+		{
+			get
+			{
+				return this._Email;
+			}
+			set
+			{
+				if ((this._Email != value))
+				{
+					this._Email = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaRegistro", DbType="DateTime NOT NULL")]
+		public System.DateTime FechaRegistro
+		{
+			get
+			{
+				return this._FechaRegistro;
+			}
+			set
+			{
+				if ((this._FechaRegistro != value))
+				{
+					this._FechaRegistro = value;
 				}
 			}
 		}

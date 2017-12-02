@@ -22,8 +22,9 @@ namespace KvasDAL
             {
                 var fecha = DateTime.Now;
                 var insert = db.sp_AgregarProducto(producto.Titulo, producto.Descripcion, producto.Orden, producto.IdGrupo, producto.IdPadre,
-                                                    producto.Icono,producto.UrlDetalle,producto.Estatus,fecha,producto.Sku,producto.IdDepartamento,
-                                                    producto.IdFabricante, producto.Stock,producto.IdUnidad, producto.StockMin, producto.PrecioCompra, producto.PrecioVenta, producto.Garantia);
+                                                    producto.Icono,producto.UrlDetalle,producto.Estatus,fecha,producto.Sku, producto.IdFabricante, 
+                                                    producto.Stock,producto.IdUnidad, producto.StockMin, producto.PrecioCompra, producto.PrecioVenta, 
+                                                    producto.Garantia);
                 db.SubmitChanges();
             }
             catch (Exception)
@@ -58,9 +59,10 @@ namespace KvasDAL
             try
             {
                 
-                var insert = db.sp_ActualizarProducto(producto.IdGrupoDetalle, producto.Titulo, producto.Descripcion, producto.Orden, producto.IdGrupo, producto.IdPadre,
-                                                    producto.Icono, producto.UrlDetalle, producto.Estatus, producto.Sku, producto.IdDepartamento,
-                                                    producto.IdFabricante, producto.Stock, producto.IdUnidad, producto.StockMin, producto.PrecioCompra, producto.PrecioVenta, producto.Garantia);
+                var insert = db.sp_ActualizarProducto(producto.IdGrupoDetalle, producto.Titulo, producto.Descripcion, producto.Orden, 
+                                                    producto.IdGrupo, producto.IdPadre, producto.Icono, producto.UrlDetalle, producto.Estatus, 
+                                                    producto.Sku, producto.IdFabricante, producto.Stock, producto.IdUnidad, producto.StockMin, 
+                                                    producto.PrecioCompra, producto.PrecioVenta, producto.Garantia);
                 db.SubmitChanges();
             }
             catch (Exception)
