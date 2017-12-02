@@ -161,22 +161,27 @@ SELECT * FROM vw_Personas;
 
 
 
-WITH Cte_Productos(IdGrupoDetalle,Nombre,Descripcion,Orden,IdGrupo,IdPadre,Icono,Estatus,FechaRegistro, LevelGrupo) AS (
-	SELECT g.IdGrupoDetalle, g.Nombre, g.Descripcion, g.Orden, g.IdGrupo, g.IdPadre, g.Icono, g.Estatus, g.FechaRegistro, 0 AS LevelGrupo
+WITH Cte_Productos(IdGrupoDetalle,Nombre,Descripcion,Orden,IdGrupo,IdPadre,Icono,UrlDetalle,Estatus,FechaRegistro, LevelGrupo) AS (
+	SELECT g.IdGrupoDetalle, g.Nombre, g.Descripcion, g.Orden, g.IdGrupo, g.IdPadre, g.Icono, g.UrlDetalle, g.Estatus, g.FechaRegistro, 0 AS LevelGrupo
 	FROM GruposDetalles AS g
-	WHERE g.IdPadre = 0
+	WHERE g.IdPadre is null
 	UNION ALL
-	SELECT gd.IdGrupoDetalle, gd.Nombre, gd.Descripcion, gd.Orden, gd.IdGrupo, gd.IdPadre, gd.Icono, gd.Estatus, gd.FechaRegistro, LevelGrupo+1
+	SELECT gd.IdGrupoDetalle, gd.Nombre, gd.Descripcion, gd.Orden, gd.IdGrupo, gd.IdPadre, gd.Icono, gd.UrlDetalle, gd.Estatus, gd.FechaRegistro, LevelGrupo+1
 	FROM GruposDetalles AS gd
 	INNER JOIN Cte_Productos AS cte ON gd.IdPadre = cte.IdGrupoDetalle
 )
-SELECT c.IdGrupoDetalle AS IdDepartamento, c.Nombre AS Departamento, ct.IdGrupoDetalle, ct.Nombre AS Producto, ct.Descripcion, ct.Orden, ct.LevelGrupo, g.Nombre
+SELECT ct.IdGrupoDetalle, ct.Nombre, ct.Descripcion, ct.Orden, c.Nombre AS Categoria, ct.Icono, ct.UrlDetalle, ct.Estatus, ct.FechaRegistro
 FROM Cte_Productos AS ct
 INNER JOIN Cte_Productos AS c ON ct.IdPadre = c.IdGrupoDetalle
 INNER JOIN Grupos AS g ON ct.IdGrupo = g.IdGrupo
+WHERE g.IdGrupo = 1
 ORDER BY ct.LevelGrupo ASC
 
-
+SELECT gd.IdGrupoDetalle, gd.Nombre, gd.Descripcion, gd.Orden, gd.Nombre AS Categoria, gd.Icono, gd.UrlDetalle, gd.Estatus, gd.FechaRegistro, gd.IdPadre
+	FROM Grupos AS g
+	INNER JOIN GruposDetalles AS gd ON g.IdGrupo = gd.IdGrupo
+	WHERE g.IdGrupo = 1 AND g.Estatus = 1 AND gd.Estatus = 1
+	ORDER BY IdGrupoDetalle ASC
 
 --SELECT *
 --FROM GruposDetalles AS p
