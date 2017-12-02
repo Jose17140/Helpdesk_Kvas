@@ -27,6 +27,10 @@
       <Column Name="FechaRegistro" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Association Name="GruposDetalles_GruposDetalles" Member="GruposDetalles2" ThisKey="IdGrupoDetalle" OtherKey="IdPadre" Type="GruposDetalles" />
       <Association Name="GruposDetalles_Personas" Member="Personas" ThisKey="IdGrupoDetalle" OtherKey="IdTipoPersona" Type="Personas" />
+      <Association Name="GruposDetalles_PSDetalles" Member="PSDetalles" ThisKey="IdGrupoDetalle" OtherKey="IdDepartamento" Type="PSDetalles" />
+      <Association Name="GruposDetalles_PSDetalles1" Member="PSDetalles1" ThisKey="IdGrupoDetalle" OtherKey="IdFabricante" Type="PSDetalles" />
+      <Association Name="GruposDetalles_PSDetalles2" Member="PSDetalles2" ThisKey="IdGrupoDetalle" OtherKey="IdProducto" Type="PSDetalles" Cardinality="One" />
+      <Association Name="GruposDetalles_PSDetalles3" Member="PSDetalles3" ThisKey="IdGrupoDetalle" OtherKey="IdUnidad" Type="PSDetalles" />
       <Association Name="Grupos_GruposDetalles" Member="Grupos" ThisKey="IdGrupo" OtherKey="IdGrupo" Type="Grupos" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
       <Association Name="GruposDetalles_GruposDetalles" Member="GruposDetalles1" ThisKey="IdPadre" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" />
     </Type>
@@ -53,6 +57,34 @@
       <Column Name="Telefonos" Type="System.String" DbType="VarChar(60) NOT NULL" CanBeNull="false" />
       <Column Name="Email" Type="System.String" DbType="VarChar(60)" CanBeNull="true" />
       <Column Name="FechaRegistro" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PSDetalles" Member="PSDetalles">
+    <Type Name="PSDetalles">
+      <Column Name="IdProducto" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Sku" Type="System.String" DbType="VarChar(24) NOT NULL" CanBeNull="false" />
+      <Column Name="IdDepartamento" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdFabricante" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Stock" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdUnidad" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Stock_Min" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PrecioCompra" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
+      <Column Name="PrecioVenta" Type="System.Decimal" DbType="Decimal(8,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Garantia" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="PSDetalles_SerialesProductos" Member="SerialesProductos" ThisKey="IdProducto" OtherKey="IdProducto" Type="SerialesProductos" />
+      <Association Name="GruposDetalles_PSDetalles" Member="GruposDetalles" ThisKey="IdDepartamento" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" />
+      <Association Name="GruposDetalles_PSDetalles1" Member="GruposDetalles1" ThisKey="IdFabricante" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" />
+      <Association Name="GruposDetalles_PSDetalles2" Member="GruposDetalles2" ThisKey="IdProducto" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="GruposDetalles_PSDetalles3" Member="GruposDetalles3" ThisKey="IdUnidad" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SerialesProductos" Member="SerialesProductos">
+    <Type Name="SerialesProductos">
+      <Column Name="IdSerial" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdProducto" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Serial" Type="System.String" DbType="VarChar(40) NOT NULL" CanBeNull="false" />
+      <Column Name="Estatus" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="PSDetalles_SerialesProductos" Member="PSDetalles" ThisKey="IdProducto" OtherKey="IdProducto" Type="PSDetalles" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Function Name="dbo.sp_ActualizarGrupo" Method="sp_ActualizarGrupo">
@@ -182,6 +214,81 @@
     <Parameter Name="Direccion" Parameter="direccion" Type="System.String" DbType="VarChar(100)" />
     <Parameter Name="Telefonos" Parameter="telefonos" Type="System.String" DbType="VarChar(60)" />
     <Parameter Name="Email" Parameter="email" Type="System.String" DbType="VarChar(60)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_OperacionesInventarioProducto" Method="sp_OperacionesInventarioProducto">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Operador" Parameter="operador" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Stock" Parameter="stock" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PrecioCompra" Parameter="precioCompra" Type="System.Decimal" DbType="Decimal(8,2)" />
+    <Parameter Name="PrecioVenta" Parameter="precioVenta" Type="System.Decimal" DbType="Decimal(8,2)" />
+    <ElementType Name="sp_OperacionesInventarioProductoResult">
+      <Column Name="errNumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="errSeverity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="errState" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="errProcedure" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="errLine" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="errMessage" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_AgregarProducto" Method="sp_AgregarProducto">
+    <Parameter Name="Nombre" Parameter="nombre" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Descripcion" Parameter="descripcion" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Orden" Parameter="orden" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IdGrupo" Parameter="idGrupo" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IdPadre" Parameter="idPadre" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Icono" Parameter="icono" Type="System.String" DbType="VarChar(30)" />
+    <Parameter Name="UrlDetalle" Parameter="urlDetalle" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="Estatus" Parameter="estatus" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="FechaRegistro" Parameter="fechaRegistro" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="Sku" Parameter="sku" Type="System.String" DbType="VarChar(24)" />
+    <Parameter Name="IdDepartamento" Parameter="idDepartamento" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IdFabricante" Parameter="idFabricante" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Stock" Parameter="stock" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IdUnidad" Parameter="idUnidad" Type="System.Int32" DbType="Int" />
+    <Parameter Name="StockMin" Parameter="stockMin" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PrecioCompra" Parameter="precioCompra" Type="System.Decimal" DbType="Decimal(8,2)" />
+    <Parameter Name="PrecioVenta" Parameter="precioVenta" Type="System.Decimal" DbType="Decimal(8,2)" />
+    <Parameter Name="Garantia" Parameter="garantia" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_AgregarProductoResult">
+      <Column Name="errNumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="errSeverity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="errState" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="errProcedure" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="errLine" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="errMessage" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_ActualizarProducto" Method="sp_ActualizarProducto">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Nombre" Parameter="nombre" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Descripcion" Parameter="descripcion" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Orden" Parameter="orden" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IdGrupo" Parameter="idGrupo" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IdPadre" Parameter="idPadre" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Icono" Parameter="icono" Type="System.String" DbType="VarChar(30)" />
+    <Parameter Name="UrlDetalle" Parameter="urlDetalle" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="Estatus" Parameter="estatus" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="Sku" Parameter="sku" Type="System.String" DbType="VarChar(24)" />
+    <Parameter Name="IdDepartamento" Parameter="idDepartamento" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IdFabricante" Parameter="idFabricante" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Stock" Parameter="stock" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IdUnidad" Parameter="idUnidad" Type="System.Int32" DbType="Int" />
+    <Parameter Name="StockMin" Parameter="stockMin" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PrecioCompra" Parameter="precioCompra" Type="System.Decimal" DbType="Decimal(8,2)" />
+    <Parameter Name="PrecioVenta" Parameter="precioVenta" Type="System.Decimal" DbType="Decimal(8,2)" />
+    <Parameter Name="Garantia" Parameter="garantia" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_ActualizarProductoResult">
+      <Column Name="errNumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="errSeverity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="errState" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="errProcedure" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="errLine" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="errMessage" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_EliminarProducto" Method="sp_EliminarProducto">
+    <Parameter Name="IdProducto" Parameter="idProducto" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
 </Database>

@@ -1,10 +1,11 @@
-DROP DATABASE IF EXISTS Helpdesk_Kvas;
-CREATE DATABASE Helpdesk_Kvas
+--DROP DATABASE IF EXISTS Helpdesk_Kvas;
+--CREATE DATABASE Helpdesk_Kvas
 GO
 USE Helpdesk_Kvas;
 GO
 
-DROP TABLE IF EXISTS RolesPermisos;
+DROP TABLE IF EXISTS PermisoDenegadoPorRol;
+DROP TABLE IF EXISTS PermisosPorModulos;
 DROP TABLE IF EXISTS Usuarios;
 DROP TABLE IF EXISTS Personas;
 DROP TABLE IF EXISTS SerialesProductos;
@@ -12,7 +13,14 @@ DROP TABLE IF EXISTS PSDetalles;
 DROP TABLE IF EXISTS GruposDetalles;
 DROP TABLE IF EXISTS Grupos;
 
-
+--DROP TABLE IF EXISTS Empleados;
+--CREATE TABLE Empleados(
+--IdPersona INT NOT NULL,
+--IdUsuario INT NOT NULL,
+--CONSTRAINT PK_Empleados PRIMARY KEY(IdPersona,IdUsuario),
+--CONSTRAINT FK_Empleados_Personas_Id FOREIGN KEY (IdPersona) REFERENCES Personas(IdPersona),
+--CONSTRAINT FK_Empleados_Usuarios_Id FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario)
+--);
 
 DROP TABLE IF EXISTS Grupos;
 CREATE TABLE Grupos(
@@ -35,7 +43,7 @@ CREATE TABLE GruposDetalles(
 	IdGrupo INT NOT NULL,
 	IdPadre INT NULL,
 	Icono NVARCHAR(30) NULL,
-	UrlDetalle VARCHAR(30) NULL,
+	UrlDetalle VARCHAR(100) NULL,
 	Estatus BIT NOT NULL DEFAULT 1,
 	FechaRegistro DATETIME NOT NULL,
 	CONSTRAINT PK_GruposDetalles_IdGrupoDetalle PRIMARY KEY(IdGrupoDetalle),
@@ -84,56 +92,42 @@ CREATE TABLE Usuarios(
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
 );
-DROP TABLE IF EXISTS PermisosPorModulo;
-CREATE TABLE PermisosPorModulos(
-	IdPermiso INT NOT NULL,
-	IdModulo INT NOT NULL,
-	Descripcion VARCHAR(80) NOT NULL,
-	CONSTRAINT PK_Permisos PRIMARY KEY(IdPermiso,IdModulo),
-	CONSTRAINT FK_Permisos_IdPermiso FOREIGN KEY (IdPermiso) REFERENCES GruposDetalles(IdGrupoDetalle)
-		ON DELETE NO ACTION
-		ON UPDATE NO ACTION,
-	CONSTRAINT FK_Permisos_IdModulo FOREIGN KEY (IdModulo) REFERENCES GruposDetalles(IdGrupoDetalle)
-		ON DELETE NO ACTION
-		ON UPDATE NO ACTION
-);
-DROP TABLE IF EXISTS PermisoDenegadoPorRol;
-CREATE TABLE PermisoDenegadoPorRol(
-	IdRol INT NOT NULL,
-	IdPermiso INT NOT NULL,
-	CONSTRAINT PK_RolesPermisos PRIMARY KEY(IdRol,IdPermiso),
-	CONSTRAINT FK_RolesPermisos_GrupoDetalles_IdRol FOREIGN KEY (IdRol) REFERENCES GruposDetalles(IdGrupoDetalle)
-		ON DELETE NO ACTION
-		ON UPDATE NO ACTION,
-	CONSTRAINT FK_RolesPermisos_PermisosPorModulos_IdPermiso FOREIGN KEY (IdPermiso) REFERENCES PermisosPorModulo(IdPermiso)
-		ON DELETE NO ACTION
-		ON UPDATE NO ACTION
-);
-
---DROP TABLE IF EXISTS Empleados;
---CREATE TABLE Empleados(
---IdPersona INT NOT NULL,
---IdUsuario INT NOT NULL,
---CONSTRAINT PK_Empleados PRIMARY KEY(IdPersona,IdUsuario),
---CONSTRAINT FK_Empleados_Personas_Id FOREIGN KEY (IdPersona) REFERENCES Personas(IdPersona),
---CONSTRAINT FK_Empleados_Usuarios_Id FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario)
+--DROP TABLE IF EXISTS PermisosPorModulos;
+--CREATE TABLE PermisosPorModulos(
+--	IdPermiso INT IDENTITY(1,1) NOT NULL,
+--	IdModulo INT NOT NULL,
+--	Descripcion VARCHAR(80) NOT NULL,
+--	CONSTRAINT PK_Permisos PRIMARY KEY(IdPermiso),
+--	CONSTRAINT FK_Permisos_IdModulo FOREIGN KEY (IdModulo) REFERENCES GruposDetalles(IdGrupoDetalle)
+--		ON DELETE NO ACTION
+--		ON UPDATE NO ACTION
+--);
+--DROP TABLE IF EXISTS PermisoDenegadoPorRol;
+--CREATE TABLE PermisoDenegadoPorRol(
+--	IdRol INT NOT NULL,
+--	IdPermiso INT NOT NULL,
+--	CONSTRAINT PK_PermisoDenegadoPorRol PRIMARY KEY(IdRol,IdPermiso),
+--	CONSTRAINT FK_PermisoDenegadoPorRol_GrupoDetalles_IdRol FOREIGN KEY (IdRol) REFERENCES GruposDetalles(IdGrupoDetalle)
+--		ON DELETE NO ACTION
+--		ON UPDATE NO ACTION,
+--	CONSTRAINT FK_PermisoDenegadoPorRol_PermisosPorModulos_IdPermiso FOREIGN KEY (IdPermiso) REFERENCES PermisosPorModulos(IdPermiso)
+--		ON DELETE NO ACTION
+--		ON UPDATE NO ACTION
 --);
 --PRODUCTOS Y SERVICIOS
 DROP TABLE IF EXISTS PSDetalles;
 CREATE TABLE PSDetalles(
 	IdProducto INT NOT NULL,
-	Sku VARCHAR(24) NULL,
+	Sku VARCHAR(24) NOT NULL,
 	IdDepartamento INT NOT NULL, --DEPARTAMENTO DEL PRODUCTO (COMPUTADORAS,IMPRESORAS)
 	IdFabricante INT NOT NULL,
-	Stock INT NOT NULL,
+	Stock INT NULL,
 	--Imagen VARCHAR(50) NOT NULL,
 	IdUnidad INT NOT NULL, -- UNIDAD DE VENTA
-	Stock_Min INT NOT NULL,
-	PrecioCompra DECIMAL(8,2) NOT NULL,
+	Stock_Min INT NULL,
+	PrecioCompra DECIMAL(8,2) NULL,
 	PrecioVenta DECIMAL(8,2) NOT NULL,
-	Garantia INT NOT NULL DEFAULT 0,
-	Estatus BIT NOT NULL DEFAULT 1,
-	FechaRegistro DATETIME NOT NULL,
+	Garantia INT NOT NULL DEFAULT 0
 	CONSTRAINT PK_Productos PRIMARY KEY(IdProducto),
 	CONSTRAINT FK_Productos_Detalles_IdProducto FOREIGN KEY (IdProducto) REFERENCES GruposDetalles(IdGrupoDetalle)
 		ON DELETE CASCADE
@@ -172,6 +166,62 @@ SELECT * FROM vw_Personas;
 -- 8 SERVICIO
 -- 9 PRODUCTO
 
+-- 33 VENTAS
+
 SELECT *
 FROM GruposDetalles AS m
-WHERE m.Estatus = 1 AND (m.IdGrupo =1 AND m.IdPadre =0)
+WHERE m.IdGrupo = 12
+
+GO
+WITH Lista(IdProducto,Nombre,Descripcion,Orden,Padre, LEVEL)AS (
+SELECT p.IdGrupoDetalle AS IdProducto, p.Nombre, p.Descripcion, p.Orden, p.IdPadre AS Superior, 1
+FROM GruposDetalles AS p
+WHERE p.IdPadre = 0 AND p.IdGrupoDetalle > 0
+UNION ALL
+SELECT gd.IdGrupoDetalle AS IdProducto, gd.Nombre, gd.Descripcion, gd.Orden, gd.IdPadre AS Superior, LEVEL+1
+FROM GruposDetalles AS gd
+INNER JOIN Lista AS l ON gd.IdPadre = l.IdProducto
+)
+SELECT l.IdProducto, ll.Nombre AS Padre, l.Nombre, l.Descripcion, l.Orden, ps.PrecioVenta, ps.Stock
+FROM Lista AS l
+INNER JOIN Lista AS ll ON l.Padre = ll.IdProducto
+INNER JOIN PSDetalles AS ps ON l.IdProducto = ps.IdProducto
+WHERE ll.LEVEL >=1
+
+
+WITH Cte_Productos(IdGrupoDetalle,Nombre,Descripcion,Orden,IdPadre,Icono,Estatus,FechaRegistro, Level) AS (
+	SELECT g.IdGrupoDetalle, g.Nombre, g.Descripcion, g.Orden, g.IdPadre, g.Icono, g.Estatus, g.FechaRegistro, 1
+	FROM GruposDetalles AS g
+	WHERE g.IdPadre = 0 AND g.IdGrupoDetalle > 0
+	UNION ALL
+	SELECT gd.IdGrupoDetalle, gd.Nombre, gd.Descripcion, gd.Orden, gd.IdPadre, gd.Icono, gd.Estatus, gd.FechaRegistro, Level+1
+	FROM GruposDetalles AS gd
+	INNER JOIN Cte_Productos AS cte ON gd.IdPadre = cte.IdGrupoDetalle
+)
+SELECT ct.IdGrupoDetalle, ct.Nombre, ct.Descripcion, ct.Orden, c.Nombre
+FROM Cte_Productos AS ct
+INNER JOIN Cte_Productos AS c ON ct.IdPadre = c.IdGrupoDetalle
+WHERE c.Level>=1
+
+
+SELECT * FROM GruposDetalles;
+SELECT gd.IdGrupoDetalle, gd.Nombre, gd.Descripcion, gd.Orden, gd.Nombre AS Categoria, gd.Icono, gd.UrlDetalle, gd.Estatus, gd.FechaRegistro
+	FROM Grupos AS g
+	INNER JOIN GruposDetalles AS gd ON g.IdGrupo = gd.IdGrupo
+	WHERE gd.IdPadre > 0
+
+
+
+
+
+
+
+
+SELECT *
+FROM GruposDetalles AS p
+LEFT JOIN PSDetalles AS ps ON p.IdGrupoDetalle = ps.IdProducto
+WHERE p.IdPadre = 33 AND p.IdGrupoDetalle > 0
+
+EXEC sp_AgregarProducto 'Chip Reset','Impresora Tx120',2,9,33,'fa fa-laptop','*',1,'30-11-2017','BAR123',33,64,100,96,0,50000,110000,10
+EXEC sp_AgregarProducto 'Sistema de Tinta','Impresora Tx120',2,9,33,'fa fa-laptop','*',1,'30-11-2017','BAR123',33,64,100,96,0,50000,110000,10
+EXEC sp_AgregarProducto 'Procesador','Pc',2,9,33,'fa fa-laptop','*',1,'30-11-2017','BAR123',33,64,100,96,0,50000,110000,10

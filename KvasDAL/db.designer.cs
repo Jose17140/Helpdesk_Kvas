@@ -39,6 +39,12 @@ namespace KvasDAL
     partial void InsertPersonas(Personas instance);
     partial void UpdatePersonas(Personas instance);
     partial void DeletePersonas(Personas instance);
+    partial void InsertPSDetalles(PSDetalles instance);
+    partial void UpdatePSDetalles(PSDetalles instance);
+    partial void DeletePSDetalles(PSDetalles instance);
+    partial void InsertSerialesProductos(SerialesProductos instance);
+    partial void UpdateSerialesProductos(SerialesProductos instance);
+    partial void DeleteSerialesProductos(SerialesProductos instance);
     #endregion
 		
 		public dbDataContext() : 
@@ -100,6 +106,22 @@ namespace KvasDAL
 			get
 			{
 				return this.GetTable<vw_Personas>();
+			}
+		}
+		
+		public System.Data.Linq.Table<PSDetalles> PSDetalles
+		{
+			get
+			{
+				return this.GetTable<PSDetalles>();
+			}
+		}
+		
+		public System.Data.Linq.Table<SerialesProductos> SerialesProductos
+		{
+			get
+			{
+				return this.GetTable<SerialesProductos>();
 			}
 		}
 		
@@ -191,6 +213,70 @@ namespace KvasDAL
 		public int sp_ActualizarPersonas([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdPersona", DbType="Int")] System.Nullable<int> idPersona, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Nombres", DbType="VarChar(50)")] string nombres, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdTipoPersona", DbType="Int")] System.Nullable<int> idTipoPersona, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="CiRif", DbType="VarChar(11)")] string ciRif, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Direccion", DbType="VarChar(100)")] string direccion, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Telefonos", DbType="VarChar(60)")] string telefonos, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Email", DbType="VarChar(60)")] string email)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idPersona, nombres, idTipoPersona, ciRif, direccion, telefonos, email);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_OperacionesInventarioProducto")]
+		public ISingleResult<sp_OperacionesInventarioProductoResult> sp_OperacionesInventarioProducto([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Id", DbType="Int")] System.Nullable<int> id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Operador", DbType="Int")] System.Nullable<int> operador, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Stock", DbType="Int")] System.Nullable<int> stock, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PrecioCompra", DbType="Decimal(8,2)")] System.Nullable<decimal> precioCompra, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PrecioVenta", DbType="Decimal(8,2)")] System.Nullable<decimal> precioVenta)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, operador, stock, precioCompra, precioVenta);
+			return ((ISingleResult<sp_OperacionesInventarioProductoResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_AgregarProducto")]
+		public ISingleResult<sp_AgregarProductoResult> sp_AgregarProducto(
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Nombre", DbType="VarChar(50)")] string nombre, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Descripcion", DbType="VarChar(50)")] string descripcion, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Orden", DbType="Int")] System.Nullable<int> orden, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdGrupo", DbType="Int")] System.Nullable<int> idGrupo, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdPadre", DbType="Int")] System.Nullable<int> idPadre, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Icono", DbType="VarChar(30)")] string icono, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="UrlDetalle", DbType="VarChar(100)")] string urlDetalle, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Estatus", DbType="Bit")] System.Nullable<bool> estatus, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="FechaRegistro", DbType="DateTime")] System.Nullable<System.DateTime> fechaRegistro, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Sku", DbType="VarChar(24)")] string sku, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdDepartamento", DbType="Int")] System.Nullable<int> idDepartamento, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdFabricante", DbType="Int")] System.Nullable<int> idFabricante, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Stock", DbType="Int")] System.Nullable<int> stock, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdUnidad", DbType="Int")] System.Nullable<int> idUnidad, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="StockMin", DbType="Int")] System.Nullable<int> stockMin, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="PrecioCompra", DbType="Decimal(8,2)")] System.Nullable<decimal> precioCompra, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="PrecioVenta", DbType="Decimal(8,2)")] System.Nullable<decimal> precioVenta, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Garantia", DbType="Int")] System.Nullable<int> garantia)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), nombre, descripcion, orden, idGrupo, idPadre, icono, urlDetalle, estatus, fechaRegistro, sku, idDepartamento, idFabricante, stock, idUnidad, stockMin, precioCompra, precioVenta, garantia);
+			return ((ISingleResult<sp_AgregarProductoResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_ActualizarProducto")]
+		public ISingleResult<sp_ActualizarProductoResult> sp_ActualizarProducto(
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Id", DbType="Int")] System.Nullable<int> id, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Nombre", DbType="VarChar(50)")] string nombre, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Descripcion", DbType="VarChar(50)")] string descripcion, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Orden", DbType="Int")] System.Nullable<int> orden, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdGrupo", DbType="Int")] System.Nullable<int> idGrupo, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdPadre", DbType="Int")] System.Nullable<int> idPadre, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Icono", DbType="VarChar(30)")] string icono, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="UrlDetalle", DbType="VarChar(100)")] string urlDetalle, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Estatus", DbType="Bit")] System.Nullable<bool> estatus, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Sku", DbType="VarChar(24)")] string sku, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdDepartamento", DbType="Int")] System.Nullable<int> idDepartamento, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdFabricante", DbType="Int")] System.Nullable<int> idFabricante, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Stock", DbType="Int")] System.Nullable<int> stock, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdUnidad", DbType="Int")] System.Nullable<int> idUnidad, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="StockMin", DbType="Int")] System.Nullable<int> stockMin, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="PrecioCompra", DbType="Decimal(8,2)")] System.Nullable<decimal> precioCompra, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="PrecioVenta", DbType="Decimal(8,2)")] System.Nullable<decimal> precioVenta, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Garantia", DbType="Int")] System.Nullable<int> garantia)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, nombre, descripcion, orden, idGrupo, idPadre, icono, urlDetalle, estatus, sku, idDepartamento, idFabricante, stock, idUnidad, stockMin, precioCompra, precioVenta, garantia);
+			return ((ISingleResult<sp_ActualizarProductoResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_EliminarProducto")]
+		public int sp_EliminarProducto([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdProducto", DbType="Int")] System.Nullable<int> idProducto)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idProducto);
 			return ((int)(result.ReturnValue));
 		}
 	}
@@ -483,6 +569,14 @@ namespace KvasDAL
 		
 		private EntitySet<Personas> _Personas;
 		
+		private EntitySet<PSDetalles> _PSDetalles;
+		
+		private EntitySet<PSDetalles> _PSDetalles1;
+		
+		private EntityRef<PSDetalles> _PSDetalles2;
+		
+		private EntitySet<PSDetalles> _PSDetalles3;
+		
 		private EntityRef<Grupos> _Grupos;
 		
 		private EntityRef<GruposDetalles> _GruposDetalles1;
@@ -517,6 +611,10 @@ namespace KvasDAL
 		{
 			this._GruposDetalles2 = new EntitySet<GruposDetalles>(new Action<GruposDetalles>(this.attach_GruposDetalles2), new Action<GruposDetalles>(this.detach_GruposDetalles2));
 			this._Personas = new EntitySet<Personas>(new Action<Personas>(this.attach_Personas), new Action<Personas>(this.detach_Personas));
+			this._PSDetalles = new EntitySet<PSDetalles>(new Action<PSDetalles>(this.attach_PSDetalles), new Action<PSDetalles>(this.detach_PSDetalles));
+			this._PSDetalles1 = new EntitySet<PSDetalles>(new Action<PSDetalles>(this.attach_PSDetalles1), new Action<PSDetalles>(this.detach_PSDetalles1));
+			this._PSDetalles2 = default(EntityRef<PSDetalles>);
+			this._PSDetalles3 = new EntitySet<PSDetalles>(new Action<PSDetalles>(this.attach_PSDetalles3), new Action<PSDetalles>(this.detach_PSDetalles3));
 			this._Grupos = default(EntityRef<Grupos>);
 			this._GruposDetalles1 = default(EntityRef<GruposDetalles>);
 			OnCreated();
@@ -756,6 +854,74 @@ namespace KvasDAL
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_PSDetalles", Storage="_PSDetalles", ThisKey="IdGrupoDetalle", OtherKey="IdDepartamento")]
+		public EntitySet<PSDetalles> PSDetalles
+		{
+			get
+			{
+				return this._PSDetalles;
+			}
+			set
+			{
+				this._PSDetalles.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_PSDetalles1", Storage="_PSDetalles1", ThisKey="IdGrupoDetalle", OtherKey="IdFabricante")]
+		public EntitySet<PSDetalles> PSDetalles1
+		{
+			get
+			{
+				return this._PSDetalles1;
+			}
+			set
+			{
+				this._PSDetalles1.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_PSDetalles2", Storage="_PSDetalles2", ThisKey="IdGrupoDetalle", OtherKey="IdProducto", IsUnique=true, IsForeignKey=false)]
+		public PSDetalles PSDetalles2
+		{
+			get
+			{
+				return this._PSDetalles2.Entity;
+			}
+			set
+			{
+				PSDetalles previousValue = this._PSDetalles2.Entity;
+				if (((previousValue != value) 
+							|| (this._PSDetalles2.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._PSDetalles2.Entity = null;
+						previousValue.GruposDetalles2 = null;
+					}
+					this._PSDetalles2.Entity = value;
+					if ((value != null))
+					{
+						value.GruposDetalles2 = this;
+					}
+					this.SendPropertyChanged("PSDetalles2");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_PSDetalles3", Storage="_PSDetalles3", ThisKey="IdGrupoDetalle", OtherKey="IdUnidad")]
+		public EntitySet<PSDetalles> PSDetalles3
+		{
+			get
+			{
+				return this._PSDetalles3;
+			}
+			set
+			{
+				this._PSDetalles3.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Grupos_GruposDetalles", Storage="_Grupos", ThisKey="IdGrupo", OtherKey="IdGrupo", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public Grupos Grupos
 		{
@@ -866,6 +1032,42 @@ namespace KvasDAL
 		{
 			this.SendPropertyChanging();
 			entity.GruposDetalles = null;
+		}
+		
+		private void attach_PSDetalles(PSDetalles entity)
+		{
+			this.SendPropertyChanging();
+			entity.GruposDetalles = this;
+		}
+		
+		private void detach_PSDetalles(PSDetalles entity)
+		{
+			this.SendPropertyChanging();
+			entity.GruposDetalles = null;
+		}
+		
+		private void attach_PSDetalles1(PSDetalles entity)
+		{
+			this.SendPropertyChanging();
+			entity.GruposDetalles1 = this;
+		}
+		
+		private void detach_PSDetalles1(PSDetalles entity)
+		{
+			this.SendPropertyChanging();
+			entity.GruposDetalles1 = null;
+		}
+		
+		private void attach_PSDetalles3(PSDetalles entity)
+		{
+			this.SendPropertyChanging();
+			entity.GruposDetalles3 = this;
+		}
+		
+		private void detach_PSDetalles3(PSDetalles entity)
+		{
+			this.SendPropertyChanging();
+			entity.GruposDetalles3 = null;
 		}
 	}
 	
@@ -1271,6 +1473,651 @@ namespace KvasDAL
 				{
 					this._FechaRegistro = value;
 				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PSDetalles")]
+	public partial class PSDetalles : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _IdProducto;
+		
+		private string _Sku;
+		
+		private int _IdDepartamento;
+		
+		private int _IdFabricante;
+		
+		private System.Nullable<int> _Stock;
+		
+		private int _IdUnidad;
+		
+		private System.Nullable<int> _Stock_Min;
+		
+		private System.Nullable<decimal> _PrecioCompra;
+		
+		private decimal _PrecioVenta;
+		
+		private int _Garantia;
+		
+		private EntitySet<SerialesProductos> _SerialesProductos;
+		
+		private EntityRef<GruposDetalles> _GruposDetalles;
+		
+		private EntityRef<GruposDetalles> _GruposDetalles1;
+		
+		private EntityRef<GruposDetalles> _GruposDetalles2;
+		
+		private EntityRef<GruposDetalles> _GruposDetalles3;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdProductoChanging(int value);
+    partial void OnIdProductoChanged();
+    partial void OnSkuChanging(string value);
+    partial void OnSkuChanged();
+    partial void OnIdDepartamentoChanging(int value);
+    partial void OnIdDepartamentoChanged();
+    partial void OnIdFabricanteChanging(int value);
+    partial void OnIdFabricanteChanged();
+    partial void OnStockChanging(System.Nullable<int> value);
+    partial void OnStockChanged();
+    partial void OnIdUnidadChanging(int value);
+    partial void OnIdUnidadChanged();
+    partial void OnStock_MinChanging(System.Nullable<int> value);
+    partial void OnStock_MinChanged();
+    partial void OnPrecioCompraChanging(System.Nullable<decimal> value);
+    partial void OnPrecioCompraChanged();
+    partial void OnPrecioVentaChanging(decimal value);
+    partial void OnPrecioVentaChanged();
+    partial void OnGarantiaChanging(int value);
+    partial void OnGarantiaChanged();
+    #endregion
+		
+		public PSDetalles()
+		{
+			this._SerialesProductos = new EntitySet<SerialesProductos>(new Action<SerialesProductos>(this.attach_SerialesProductos), new Action<SerialesProductos>(this.detach_SerialesProductos));
+			this._GruposDetalles = default(EntityRef<GruposDetalles>);
+			this._GruposDetalles1 = default(EntityRef<GruposDetalles>);
+			this._GruposDetalles2 = default(EntityRef<GruposDetalles>);
+			this._GruposDetalles3 = default(EntityRef<GruposDetalles>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdProducto", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int IdProducto
+		{
+			get
+			{
+				return this._IdProducto;
+			}
+			set
+			{
+				if ((this._IdProducto != value))
+				{
+					if (this._GruposDetalles2.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIdProductoChanging(value);
+					this.SendPropertyChanging();
+					this._IdProducto = value;
+					this.SendPropertyChanged("IdProducto");
+					this.OnIdProductoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sku", DbType="VarChar(24) NOT NULL", CanBeNull=false)]
+		public string Sku
+		{
+			get
+			{
+				return this._Sku;
+			}
+			set
+			{
+				if ((this._Sku != value))
+				{
+					this.OnSkuChanging(value);
+					this.SendPropertyChanging();
+					this._Sku = value;
+					this.SendPropertyChanged("Sku");
+					this.OnSkuChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdDepartamento", DbType="Int NOT NULL")]
+		public int IdDepartamento
+		{
+			get
+			{
+				return this._IdDepartamento;
+			}
+			set
+			{
+				if ((this._IdDepartamento != value))
+				{
+					if (this._GruposDetalles.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIdDepartamentoChanging(value);
+					this.SendPropertyChanging();
+					this._IdDepartamento = value;
+					this.SendPropertyChanged("IdDepartamento");
+					this.OnIdDepartamentoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdFabricante", DbType="Int NOT NULL")]
+		public int IdFabricante
+		{
+			get
+			{
+				return this._IdFabricante;
+			}
+			set
+			{
+				if ((this._IdFabricante != value))
+				{
+					if (this._GruposDetalles1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIdFabricanteChanging(value);
+					this.SendPropertyChanging();
+					this._IdFabricante = value;
+					this.SendPropertyChanged("IdFabricante");
+					this.OnIdFabricanteChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Stock", DbType="Int")]
+		public System.Nullable<int> Stock
+		{
+			get
+			{
+				return this._Stock;
+			}
+			set
+			{
+				if ((this._Stock != value))
+				{
+					this.OnStockChanging(value);
+					this.SendPropertyChanging();
+					this._Stock = value;
+					this.SendPropertyChanged("Stock");
+					this.OnStockChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdUnidad", DbType="Int NOT NULL")]
+		public int IdUnidad
+		{
+			get
+			{
+				return this._IdUnidad;
+			}
+			set
+			{
+				if ((this._IdUnidad != value))
+				{
+					if (this._GruposDetalles3.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIdUnidadChanging(value);
+					this.SendPropertyChanging();
+					this._IdUnidad = value;
+					this.SendPropertyChanged("IdUnidad");
+					this.OnIdUnidadChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Stock_Min", DbType="Int")]
+		public System.Nullable<int> Stock_Min
+		{
+			get
+			{
+				return this._Stock_Min;
+			}
+			set
+			{
+				if ((this._Stock_Min != value))
+				{
+					this.OnStock_MinChanging(value);
+					this.SendPropertyChanging();
+					this._Stock_Min = value;
+					this.SendPropertyChanged("Stock_Min");
+					this.OnStock_MinChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PrecioCompra", DbType="Decimal(8,2)")]
+		public System.Nullable<decimal> PrecioCompra
+		{
+			get
+			{
+				return this._PrecioCompra;
+			}
+			set
+			{
+				if ((this._PrecioCompra != value))
+				{
+					this.OnPrecioCompraChanging(value);
+					this.SendPropertyChanging();
+					this._PrecioCompra = value;
+					this.SendPropertyChanged("PrecioCompra");
+					this.OnPrecioCompraChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PrecioVenta", DbType="Decimal(8,2) NOT NULL")]
+		public decimal PrecioVenta
+		{
+			get
+			{
+				return this._PrecioVenta;
+			}
+			set
+			{
+				if ((this._PrecioVenta != value))
+				{
+					this.OnPrecioVentaChanging(value);
+					this.SendPropertyChanging();
+					this._PrecioVenta = value;
+					this.SendPropertyChanged("PrecioVenta");
+					this.OnPrecioVentaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Garantia", DbType="Int NOT NULL")]
+		public int Garantia
+		{
+			get
+			{
+				return this._Garantia;
+			}
+			set
+			{
+				if ((this._Garantia != value))
+				{
+					this.OnGarantiaChanging(value);
+					this.SendPropertyChanging();
+					this._Garantia = value;
+					this.SendPropertyChanged("Garantia");
+					this.OnGarantiaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PSDetalles_SerialesProductos", Storage="_SerialesProductos", ThisKey="IdProducto", OtherKey="IdProducto")]
+		public EntitySet<SerialesProductos> SerialesProductos
+		{
+			get
+			{
+				return this._SerialesProductos;
+			}
+			set
+			{
+				this._SerialesProductos.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_PSDetalles", Storage="_GruposDetalles", ThisKey="IdDepartamento", OtherKey="IdGrupoDetalle", IsForeignKey=true)]
+		public GruposDetalles GruposDetalles
+		{
+			get
+			{
+				return this._GruposDetalles.Entity;
+			}
+			set
+			{
+				GruposDetalles previousValue = this._GruposDetalles.Entity;
+				if (((previousValue != value) 
+							|| (this._GruposDetalles.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._GruposDetalles.Entity = null;
+						previousValue.PSDetalles.Remove(this);
+					}
+					this._GruposDetalles.Entity = value;
+					if ((value != null))
+					{
+						value.PSDetalles.Add(this);
+						this._IdDepartamento = value.IdGrupoDetalle;
+					}
+					else
+					{
+						this._IdDepartamento = default(int);
+					}
+					this.SendPropertyChanged("GruposDetalles");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_PSDetalles1", Storage="_GruposDetalles1", ThisKey="IdFabricante", OtherKey="IdGrupoDetalle", IsForeignKey=true)]
+		public GruposDetalles GruposDetalles1
+		{
+			get
+			{
+				return this._GruposDetalles1.Entity;
+			}
+			set
+			{
+				GruposDetalles previousValue = this._GruposDetalles1.Entity;
+				if (((previousValue != value) 
+							|| (this._GruposDetalles1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._GruposDetalles1.Entity = null;
+						previousValue.PSDetalles1.Remove(this);
+					}
+					this._GruposDetalles1.Entity = value;
+					if ((value != null))
+					{
+						value.PSDetalles1.Add(this);
+						this._IdFabricante = value.IdGrupoDetalle;
+					}
+					else
+					{
+						this._IdFabricante = default(int);
+					}
+					this.SendPropertyChanged("GruposDetalles1");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_PSDetalles2", Storage="_GruposDetalles2", ThisKey="IdProducto", OtherKey="IdGrupoDetalle", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public GruposDetalles GruposDetalles2
+		{
+			get
+			{
+				return this._GruposDetalles2.Entity;
+			}
+			set
+			{
+				GruposDetalles previousValue = this._GruposDetalles2.Entity;
+				if (((previousValue != value) 
+							|| (this._GruposDetalles2.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._GruposDetalles2.Entity = null;
+						previousValue.PSDetalles2 = null;
+					}
+					this._GruposDetalles2.Entity = value;
+					if ((value != null))
+					{
+						value.PSDetalles2 = this;
+						this._IdProducto = value.IdGrupoDetalle;
+					}
+					else
+					{
+						this._IdProducto = default(int);
+					}
+					this.SendPropertyChanged("GruposDetalles2");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_PSDetalles3", Storage="_GruposDetalles3", ThisKey="IdUnidad", OtherKey="IdGrupoDetalle", IsForeignKey=true)]
+		public GruposDetalles GruposDetalles3
+		{
+			get
+			{
+				return this._GruposDetalles3.Entity;
+			}
+			set
+			{
+				GruposDetalles previousValue = this._GruposDetalles3.Entity;
+				if (((previousValue != value) 
+							|| (this._GruposDetalles3.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._GruposDetalles3.Entity = null;
+						previousValue.PSDetalles3.Remove(this);
+					}
+					this._GruposDetalles3.Entity = value;
+					if ((value != null))
+					{
+						value.PSDetalles3.Add(this);
+						this._IdUnidad = value.IdGrupoDetalle;
+					}
+					else
+					{
+						this._IdUnidad = default(int);
+					}
+					this.SendPropertyChanged("GruposDetalles3");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_SerialesProductos(SerialesProductos entity)
+		{
+			this.SendPropertyChanging();
+			entity.PSDetalles = this;
+		}
+		
+		private void detach_SerialesProductos(SerialesProductos entity)
+		{
+			this.SendPropertyChanging();
+			entity.PSDetalles = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SerialesProductos")]
+	public partial class SerialesProductos : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _IdSerial;
+		
+		private int _IdProducto;
+		
+		private string _Serial;
+		
+		private bool _Estatus;
+		
+		private EntityRef<PSDetalles> _PSDetalles;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdSerialChanging(int value);
+    partial void OnIdSerialChanged();
+    partial void OnIdProductoChanging(int value);
+    partial void OnIdProductoChanged();
+    partial void OnSerialChanging(string value);
+    partial void OnSerialChanged();
+    partial void OnEstatusChanging(bool value);
+    partial void OnEstatusChanged();
+    #endregion
+		
+		public SerialesProductos()
+		{
+			this._PSDetalles = default(EntityRef<PSDetalles>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdSerial", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int IdSerial
+		{
+			get
+			{
+				return this._IdSerial;
+			}
+			set
+			{
+				if ((this._IdSerial != value))
+				{
+					this.OnIdSerialChanging(value);
+					this.SendPropertyChanging();
+					this._IdSerial = value;
+					this.SendPropertyChanged("IdSerial");
+					this.OnIdSerialChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdProducto", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int IdProducto
+		{
+			get
+			{
+				return this._IdProducto;
+			}
+			set
+			{
+				if ((this._IdProducto != value))
+				{
+					if (this._PSDetalles.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIdProductoChanging(value);
+					this.SendPropertyChanging();
+					this._IdProducto = value;
+					this.SendPropertyChanged("IdProducto");
+					this.OnIdProductoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Serial", DbType="VarChar(40) NOT NULL", CanBeNull=false)]
+		public string Serial
+		{
+			get
+			{
+				return this._Serial;
+			}
+			set
+			{
+				if ((this._Serial != value))
+				{
+					this.OnSerialChanging(value);
+					this.SendPropertyChanging();
+					this._Serial = value;
+					this.SendPropertyChanged("Serial");
+					this.OnSerialChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estatus", DbType="Bit NOT NULL")]
+		public bool Estatus
+		{
+			get
+			{
+				return this._Estatus;
+			}
+			set
+			{
+				if ((this._Estatus != value))
+				{
+					this.OnEstatusChanging(value);
+					this.SendPropertyChanging();
+					this._Estatus = value;
+					this.SendPropertyChanged("Estatus");
+					this.OnEstatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PSDetalles_SerialesProductos", Storage="_PSDetalles", ThisKey="IdProducto", OtherKey="IdProducto", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public PSDetalles PSDetalles
+		{
+			get
+			{
+				return this._PSDetalles.Entity;
+			}
+			set
+			{
+				PSDetalles previousValue = this._PSDetalles.Entity;
+				if (((previousValue != value) 
+							|| (this._PSDetalles.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._PSDetalles.Entity = null;
+						previousValue.SerialesProductos.Remove(this);
+					}
+					this._PSDetalles.Entity = value;
+					if ((value != null))
+					{
+						value.SerialesProductos.Add(this);
+						this._IdProducto = value.IdProducto;
+					}
+					else
+					{
+						this._IdProducto = default(int);
+					}
+					this.SendPropertyChanged("PSDetalles");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
@@ -1950,6 +2797,354 @@ namespace KvasDAL
 				if ((this._FechaRegistro != value))
 				{
 					this._FechaRegistro = value;
+				}
+			}
+		}
+	}
+	
+	public partial class sp_OperacionesInventarioProductoResult
+	{
+		
+		private System.Nullable<int> _errNumber;
+		
+		private System.Nullable<int> _errSeverity;
+		
+		private System.Nullable<int> _errState;
+		
+		private string _errProcedure;
+		
+		private System.Nullable<int> _errLine;
+		
+		private string _errMessage;
+		
+		public sp_OperacionesInventarioProductoResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_errNumber", DbType="Int")]
+		public System.Nullable<int> errNumber
+		{
+			get
+			{
+				return this._errNumber;
+			}
+			set
+			{
+				if ((this._errNumber != value))
+				{
+					this._errNumber = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_errSeverity", DbType="Int")]
+		public System.Nullable<int> errSeverity
+		{
+			get
+			{
+				return this._errSeverity;
+			}
+			set
+			{
+				if ((this._errSeverity != value))
+				{
+					this._errSeverity = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_errState", DbType="Int")]
+		public System.Nullable<int> errState
+		{
+			get
+			{
+				return this._errState;
+			}
+			set
+			{
+				if ((this._errState != value))
+				{
+					this._errState = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_errProcedure", DbType="NVarChar(128)")]
+		public string errProcedure
+		{
+			get
+			{
+				return this._errProcedure;
+			}
+			set
+			{
+				if ((this._errProcedure != value))
+				{
+					this._errProcedure = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_errLine", DbType="Int")]
+		public System.Nullable<int> errLine
+		{
+			get
+			{
+				return this._errLine;
+			}
+			set
+			{
+				if ((this._errLine != value))
+				{
+					this._errLine = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_errMessage", DbType="NVarChar(4000)")]
+		public string errMessage
+		{
+			get
+			{
+				return this._errMessage;
+			}
+			set
+			{
+				if ((this._errMessage != value))
+				{
+					this._errMessage = value;
+				}
+			}
+		}
+	}
+	
+	public partial class sp_AgregarProductoResult
+	{
+		
+		private System.Nullable<int> _errNumber;
+		
+		private System.Nullable<int> _errSeverity;
+		
+		private System.Nullable<int> _errState;
+		
+		private string _errProcedure;
+		
+		private System.Nullable<int> _errLine;
+		
+		private string _errMessage;
+		
+		public sp_AgregarProductoResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_errNumber", DbType="Int")]
+		public System.Nullable<int> errNumber
+		{
+			get
+			{
+				return this._errNumber;
+			}
+			set
+			{
+				if ((this._errNumber != value))
+				{
+					this._errNumber = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_errSeverity", DbType="Int")]
+		public System.Nullable<int> errSeverity
+		{
+			get
+			{
+				return this._errSeverity;
+			}
+			set
+			{
+				if ((this._errSeverity != value))
+				{
+					this._errSeverity = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_errState", DbType="Int")]
+		public System.Nullable<int> errState
+		{
+			get
+			{
+				return this._errState;
+			}
+			set
+			{
+				if ((this._errState != value))
+				{
+					this._errState = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_errProcedure", DbType="NVarChar(128)")]
+		public string errProcedure
+		{
+			get
+			{
+				return this._errProcedure;
+			}
+			set
+			{
+				if ((this._errProcedure != value))
+				{
+					this._errProcedure = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_errLine", DbType="Int")]
+		public System.Nullable<int> errLine
+		{
+			get
+			{
+				return this._errLine;
+			}
+			set
+			{
+				if ((this._errLine != value))
+				{
+					this._errLine = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_errMessage", DbType="NVarChar(4000)")]
+		public string errMessage
+		{
+			get
+			{
+				return this._errMessage;
+			}
+			set
+			{
+				if ((this._errMessage != value))
+				{
+					this._errMessage = value;
+				}
+			}
+		}
+	}
+	
+	public partial class sp_ActualizarProductoResult
+	{
+		
+		private System.Nullable<int> _errNumber;
+		
+		private System.Nullable<int> _errSeverity;
+		
+		private System.Nullable<int> _errState;
+		
+		private string _errProcedure;
+		
+		private System.Nullable<int> _errLine;
+		
+		private string _errMessage;
+		
+		public sp_ActualizarProductoResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_errNumber", DbType="Int")]
+		public System.Nullable<int> errNumber
+		{
+			get
+			{
+				return this._errNumber;
+			}
+			set
+			{
+				if ((this._errNumber != value))
+				{
+					this._errNumber = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_errSeverity", DbType="Int")]
+		public System.Nullable<int> errSeverity
+		{
+			get
+			{
+				return this._errSeverity;
+			}
+			set
+			{
+				if ((this._errSeverity != value))
+				{
+					this._errSeverity = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_errState", DbType="Int")]
+		public System.Nullable<int> errState
+		{
+			get
+			{
+				return this._errState;
+			}
+			set
+			{
+				if ((this._errState != value))
+				{
+					this._errState = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_errProcedure", DbType="NVarChar(128)")]
+		public string errProcedure
+		{
+			get
+			{
+				return this._errProcedure;
+			}
+			set
+			{
+				if ((this._errProcedure != value))
+				{
+					this._errProcedure = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_errLine", DbType="Int")]
+		public System.Nullable<int> errLine
+		{
+			get
+			{
+				return this._errLine;
+			}
+			set
+			{
+				if ((this._errLine != value))
+				{
+					this._errLine = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_errMessage", DbType="NVarChar(4000)")]
+		public string errMessage
+		{
+			get
+			{
+				return this._errMessage;
+			}
+			set
+			{
+				if ((this._errMessage != value))
+				{
+					this._errMessage = value;
 				}
 			}
 		}

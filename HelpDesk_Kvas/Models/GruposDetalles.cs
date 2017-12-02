@@ -12,12 +12,10 @@ namespace HelpDesk_Kvas.Models
         public GruposDetalles()
         {
             ICollection = new HashSet<GruposDetalles>();
-            Permisos_IdModulo = new HashSet<PermisosPorModulo>();
-            Permisos_IdPermiso = new HashSet<PermisosPorModulo>();
+            Permisos_IdModulo = new HashSet<PermisosPorModulos>();
+            Permisos_IdPermisoDenegado = new HashSet<PermisosPorModulos>();
             Usuarios_Seg = new HashSet<Usuarios>();
             Usuarios_Rol = new HashSet<Usuarios>();
-            GruposDetalles_Permiso = new HashSet<GruposDetalles>();
-            GruposDetalles_Rol = new HashSet<GruposDetalles>();
         }
 
         [Key]
@@ -46,10 +44,7 @@ namespace HelpDesk_Kvas.Models
         public virtual GruposDetalles GruposDetallesR { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PermisosPorModulo> Permisos_IdModulo { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PermisosPorModulo> Permisos_IdPermiso { get; set; }
+        public virtual ICollection<PermisosPorModulos> Permisos_IdModulo { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Usuarios> Usuarios_Seg { get; set; }
@@ -58,9 +53,6 @@ namespace HelpDesk_Kvas.Models
         public virtual ICollection<Usuarios> Usuarios_Rol { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GruposDetalles> GruposDetalles_Permiso { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GruposDetalles> GruposDetalles_Rol { get; set; }
+        public virtual ICollection<PermisosPorModulos> Permisos_IdPermisoDenegado { get; set; }
     }
 }
