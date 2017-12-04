@@ -63,15 +63,20 @@ namespace KvasLogic
             }
         }
 
-        //public IEnumerable<ProductosEntity> Listar()
-        //{
-        //    return objDetalleDAL.Listar();
-        //}
+        public IEnumerable<ProductosEntityView> Listar()
+        {
+            return objProductoDAL.Listar();
+        }
 
-        //public ProductosEntity Buscar(int _idProducto)
-        //{
-        //    return objDetalleDAL.Buscar(_idProducto);
+        public ProductosEntity Buscar(int _idProducto)
+        {
+            return objProductoDAL.Buscar(_idProducto);
 
+        }
+
+        //public IEnumerable<ProductosEntity> ListarPorGrupo(int _idProducto)
+        //{
+        //    return objDetalleDAL.ListaPorGrupoSP(_idProducto);
         //}
 
         //public IEnumerable<ProductosEntity> ListarPorGrupo(int _idProducto)

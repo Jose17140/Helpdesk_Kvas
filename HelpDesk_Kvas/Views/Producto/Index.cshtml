@@ -1,6 +1,4 @@
-﻿@*@model IEnumerable<KvasEntity.GruposDetallesView>*@
-
-@model HelpDesk_Kvas.DataGrid.PagedList<KvasEntity.GruposDetallesView>
+﻿@model HelpDesk_Kvas.DataGrid.PagedList<KvasEntity.ProductosEntityView>
 @{
     ViewBag.Title = "Lista de Tablas";
 }
@@ -22,8 +20,8 @@
     </ol>
     <br />
     @*<button type="button" class="btn btn-info" aria-pressed="false" autocomplete="off" data-toggle="modal" data-target="#squarespaceModal">
-        Agregar
-    </button>*@
+            Agregar
+        </button>*@
 </section>
 <br />
 
@@ -50,7 +48,7 @@
                 </div>
             </div>
             <div class="pull-right col-lg-1">
-                <a class="btn btn-success" data-modal="" href="/GrupoDetalle/Create/@ViewBag.Id" id="btnCreate">
+                <a class="btn btn-success" data-modal="" href="/Producto/Create" id="btnCreate">
                     <span class="glyphicon glyphicon-plus"></span>
                 </a>
             </div>
@@ -75,16 +73,15 @@
               grid.Column("IdGrupoDetalle", "ID"),
               grid.Column("Titulo", "Titulo"),
               grid.Column("Descripcion", "Descripcion"),
-              grid.Column("Orden", "Orden"),
               grid.Column("Padre", "Cat. Superior"),
-              grid.Column("Icono", header: "Icono", format: @<text>@Html.Raw("<span class='"+ item.Icono +"'></span>")</text>),
+              grid.Column("Icono", header: "Icono", format: @<text>@Html.Raw("<span class='" + item.Icono + "'></span>")</text>),
               grid.Column("Estatus", "Estatus"),
               grid.Column("FechaRegistro", header: "Fecha", format: @<text>@String.Format("{0:MM/dd/yy}", item.FechaRegistro) </text>),
               grid.Column(header: "Acciones", canSort: false, style: "action",
                 format: @<text>
-                @Html.Raw("<a data-modal='' href='/GrupoDetalle/details/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Detail'> <span class='glyphicon glyphicon-search'> </span> </a>")
-                @Html.Raw("<a data-modal='' href='/GrupoDetalle/edit/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Edit'> <span class='glyphicon glyphicon-edit'> </span> </a>")
-                @Html.Raw("<a data-modal='' href='/GrupoDetalle/delete/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Delete'> <span class='glyphicon glyphicon-trash'> </span> </a>")
+                @Html.Raw("<a data-modal='' href='/Producto/details/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Detail'> <span class='glyphicon glyphicon-search'> </span> </a>")
+                @Html.Raw("<a data-modal='' href='/Producto/edit/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Edit'> <span class='glyphicon glyphicon-edit'> </span> </a>")
+                @Html.Raw("<a data-modal='' href='/Producto/delete/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Delete'> <span class='glyphicon glyphicon-trash'> </span> </a>")
                 </text>)
 
             ));
@@ -98,10 +95,12 @@
 
 <!-- modal placeholder-->
 <div id='myModal' class='modal fade in'>
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div id='myModalContent'></div>
         </div>
     </div>
 </div>
 <script src="~/Content/js/PruebaModal.js"></script>
+
+

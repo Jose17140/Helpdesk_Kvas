@@ -225,6 +225,32 @@
       <Column Name="errMessage" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
     </ElementType>
   </Function>
+  <Function Name="dbo.sp_BuscarProducto" Method="sp_BuscarProducto">
+    <Parameter Name="IdProducto" Parameter="idProducto" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_BuscarProductoResult">
+      <Column Name="IdProducto" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Sku" Type="System.String" DbType="VarChar(24)" CanBeNull="true" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Descripcion" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Orden" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdGrupo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Grupo" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="IdPadre" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Padre" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Icono" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="UrlDetalle" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Estatus" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IdFabricante" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Nombre1" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Stock" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Stock_Min" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdUnidad" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Garantia" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PrecioCompra" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
+      <Column Name="PrecioVenta" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
+      <Column Name="FechaRegistro" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
   <Function Name="dbo.sp_EliminarGrupo" Method="sp_EliminarGrupo">
     <Parameter Name="IdGrupo" Parameter="idGrupo" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
@@ -244,15 +270,15 @@
   <Function Name="dbo.sp_ListarDetalles_x_Grupo" Method="sp_ListarDetalles_x_Grupo">
     <Parameter Name="IdGrupo" Parameter="idGrupo" Type="System.Int32" DbType="Int" />
     <ElementType Name="sp_ListarDetalles_x_GrupoResult">
-      <Column Name="IdGrupoDetalle" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Nombre" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Descripcion" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Orden" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Categoria" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="IdGrupoDetalle" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Descripcion" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Orden" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Categoria" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="Icono" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
       <Column Name="UrlDetalle" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-      <Column Name="Estatus" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="FechaRegistro" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Estatus" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="FechaRegistro" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </ElementType>
   </Function>
   <Function Name="dbo.sp_ListarGrupo" Method="sp_ListarGrupo">
@@ -291,6 +317,32 @@
       <Column Name="Telefonos" Type="System.String" DbType="VarChar(60) NOT NULL" CanBeNull="false" />
       <Column Name="Email" Type="System.String" DbType="VarChar(60)" CanBeNull="true" />
       <Column Name="FechaRegistro" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_ListarProducto" Method="sp_ListarProducto">
+    <ElementType Name="sp_ListarProductoResult">
+      <Column Name="IdProducto" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Sku" Type="System.String" DbType="VarChar(24)" CanBeNull="true" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Descripcion" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Orden" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdGrupo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Grupo" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="IdPadre" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Padre" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Icono" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="UrlDetalle" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="IdFabricante" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Fabricante" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Stock" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Stock_Min" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdUnidad" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Unidad" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Garantia" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PrecioCompra" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
+      <Column Name="PrecioVenta" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
+      <Column Name="Estatus" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="FechaRegistro" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </ElementType>
   </Function>
 </Database>

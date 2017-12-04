@@ -260,9 +260,6 @@ AS
 	INNER JOIN GruposDetalles AS gd ON P.IdTipoPersona = gd.IdGrupoDetalle
 GO
 
-SELECT * FROM GruposDetalles;
-SELECT * FROM PSDetalles;
-
  --CRUDL PRODUCTOS
 IF OBJECT_ID('sp_AgregarProducto') IS NOT NULL
 BEGIN 
@@ -428,17 +425,53 @@ CREATE PROCEDURE sp_BuscarProducto
  )      
  AS      
  BEGIN       
-    SELECT gd.IdGrupoDetalle, gd.Nombre, gd.Descripcion, gd.Orden, gd.Nombre AS Categoria, gd.Icono, gd.UrlDetalle, gd.Estatus, gd.FechaRegistro
-	FROM Grupos AS g
-	INNER JOIN GruposDetalles AS gd ON g.IdGrupo = gd.IdGrupo
-	WHERE g.IdGrupo = @IdProducto AND g.Estatus = 1 AND gd.Estatus = 1
-	ORDER BY IdGrupoDetalle ASC     
+    WITH Cte_Productos(IdGrupoDetalle,Nombre,Descripcion,Orden,IdGrupo,IdPadre,Icono,UrlDetalle,Estatus,FechaRegistro, LevelGrupo) AS (
+		SELECT g.IdGrupoDetalle, g.Nombre, g.Descripcion, g.Orden, g.IdGrupo, g.IdPadre, g.Icono, g.UrlDetalle, g.Estatus, g.FechaRegistro, 0 AS LevelGrupo
+		FROM GruposDetalles AS g
+		WHERE g.IdPadre is null
+		UNION ALL
+		SELECT gd.IdGrupoDetalle, gd.Nombre, gd.Descripcion, gd.Orden, gd.IdGrupo, gd.IdPadre, gd.Icono, gd.UrlDetalle, gd.Estatus, gd.FechaRegistro, LevelGrupo+1
+		FROM GruposDetalles AS gd
+		INNER JOIN Cte_Productos AS cte ON gd.IdPadre = cte.IdGrupoDetalle
+	)
+	SELECT ct.IdGrupoDetalle AS IdProducto, ps.Sku, ct.Nombre, ct.Descripcion, ct.Orden, ct.IdGrupo, g.Nombre AS Grupo, ct.IdPadre, c.Nombre AS Padre, ct.Icono, ct.UrlDetalle, ct.Estatus, 
+			ps.IdFabricante, gd.Nombre, ps.Stock, ps.Stock_Min, ps.IdUnidad, ps.Garantia, ps.PrecioCompra, ps.PrecioVenta, ct.FechaRegistro
+	FROM Cte_Productos AS ct
+	INNER JOIN Cte_Productos AS c ON ct.IdPadre = c.IdGrupoDetalle
+	INNER JOIN Grupos AS g ON ct.IdGrupo = g.IdGrupo
+	LEFT JOIN PSDetalles AS ps ON ct.IdGrupoDetalle = ps.IdProducto
+	LEFT JOIN GruposDetalles AS gd ON ps.IdFabricante = gd.IdGrupoDetalle
+	WHERE ct.IdGrupoDetalle = @IdProducto
+	ORDER BY ct.LevelGrupo ASC    
  END
  GO
 
- GO
- CREATE VIEW vw_ProductoSimple AS
-	SELECT gd.IdGrupoDetalle AS IdProducto, gd.Nombre, gd.Descripcion, gd.Orden, gd.IdGrupo, gd.IdPadre, gd.Icono, ps.Sku, ps.IdDepartamento, ps.IdFabricante, ps.Stock, ps.Stock_Min, ps.PrecioCompra, ps.PrecioVenta, ps.Garantia, gd.Estatus, gd.FechaRegistro
-	FROM GruposDetalles AS gd
-	INNER JOIN PSDetalles AS ps ON gd.IdGrupoDetalle = ps.IdProducto
 
+DROP PROCEDURE IF EXISTS sp_ListarProducto;
+GO   
+CREATE PROCEDURE sp_ListarProducto      
+ AS      
+ BEGIN       
+    WITH Cte_Productos(IdGrupoDetalle,Nombre,Descripcion,Orden,IdGrupo,IdPadre,Icono,UrlDetalle,Estatus,FechaRegistro, LevelGrupo) AS (
+		SELECT g.IdGrupoDetalle, g.Nombre, g.Descripcion, g.Orden, g.IdGrupo, g.IdPadre, g.Icono, g.UrlDetalle, g.Estatus, g.FechaRegistro, 0 AS LevelGrupo
+		FROM GruposDetalles AS g
+		WHERE g.IdPadre is null
+		UNION ALL
+		SELECT gd.IdGrupoDetalle, gd.Nombre, gd.Descripcion, gd.Orden, gd.IdGrupo, gd.IdPadre, gd.Icono, gd.UrlDetalle, gd.Estatus, gd.FechaRegistro, LevelGrupo+1
+		FROM GruposDetalles AS gd
+		INNER JOIN Cte_Productos AS cte ON gd.IdPadre = cte.IdGrupoDetalle
+	)
+	SELECT ct.IdGrupoDetalle AS IdProducto, ps.Sku, ct.Nombre, ct.Descripcion, ct.Orden, ct.IdGrupo, g.Nombre AS Grupo, ct.IdPadre, c.Nombre AS Padre, ct.Icono, ct.UrlDetalle, 
+			ps.IdFabricante, gd.Nombre AS Fabricante, ps.Stock, ps.Stock_Min, ps.IdUnidad, gdd.Nombre AS Unidad, ps.Garantia, ps.PrecioCompra, ps.PrecioVenta, ct.Estatus, ct.FechaRegistro
+	FROM Cte_Productos AS ct
+	INNER JOIN Cte_Productos AS c ON ct.IdPadre = c.IdGrupoDetalle
+	INNER JOIN Grupos AS g ON ct.IdGrupo = g.IdGrupo
+	LEFT JOIN PSDetalles AS ps ON ct.IdGrupoDetalle = ps.IdProducto
+	LEFT JOIN GruposDetalles AS gd ON ps.IdFabricante = gd.IdGrupoDetalle
+	LEFT JOIN GruposDetalles AS gdd ON ps.IdUnidad = gdd.IdGrupoDetalle
+	WHERE ct.IdGrupo = 9
+	ORDER BY ct.LevelGrupo ASC    
+ END
+ GO
+
+ EXEC sp_ListarProducto

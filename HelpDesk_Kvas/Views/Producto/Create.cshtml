@@ -1,0 +1,131 @@
+﻿@model KvasEntity.ProductosEntityView
+@{
+    ViewBag.Title = "Create";
+}
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 class="modal-title">@ViewBag.MensajeInicio</h3>
+</div>
+
+<div class="modal-body">
+    @using (Ajax.BeginForm("Create", "Producto", new AjaxOptions { HttpMethod = "POST", OnSuccess = "onAjaxRequestSuccess" }, new { @id = "AjaxformId", @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="modal-body" style="padding: 5px;">
+            <div class="row">
+                <input id="IdGrupo" name="IdGrupo" type="hidden" value="@ViewBag.Grupo" />
+                <input id="UrlDetalle" name="UrlDetalle" type="hidden" value="@ViewBag.Url" />
+                <input id="Orden" name="Orden" type="hidden" value="@ViewBag.Orden" />
+                <input id="Icono" name="Icono" type="hidden" value="fa fa-users" />
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-3" style="padding-bottom: 10px;">
+                    @Html.EditorFor(model => model.Sku, new { htmlAttributes = new { @class = "form-control", @placeholder = "SKU" } })
+                    @Html.ValidationMessageFor(model => model.Sku, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-5 col-md-5 col-sm-5" style="padding-bottom: 10px;">
+                    @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nombre" } })
+                    @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-7" style="padding-bottom: 10px;">
+                    @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control", @placeholder = "Descripcion corta" } })
+                    @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
+                    <div class="btn-group" role="group" aria-label="...">
+                        <div class="btn-group" role="group">
+                            @Html.DropDownListFor(model => model.IdPadre, ViewBag.ListaDepartamento as SelectList, "Seleccione Departamento", htmlAttributes: new { @class = "form-control" })
+                        </div>
+                        <button type="button" class="btn btn-success" data-modal="" href="/GrupoDetalle/Create/38" id="btnCreate">+</button>
+                        @Html.ValidationMessageFor(model => model.IdPadre, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
+                    <div class="btn-group" role="group" aria-label="...">
+                        <div class="btn-group" role="group">
+                            @Html.DropDownListFor(model => model.IdFabricante, ViewBag.ListaHijo as SelectList, "Seleccione Fabricante", htmlAttributes: new { @class = "form-control" })
+                        </div>
+                        <button type="button" class="btn btn-success">+</button>
+                        @Html.ValidationMessageFor(model => model.IdFabricante, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
+                    <div class="btn-group" role="group" aria-label="...">
+                        <div class="btn-group" role="group">
+                            @Html.DropDownListFor(model => model.IdUnidad, ViewBag.ListaUnidades as SelectList, "Tipo de Unidad", htmlAttributes: new { @class = "form-control" })
+                        </div>
+                        <button type="button" class="btn btn-success" data-modal="" href="/GrupoDetalle/Create/38" id="btnCreate">+</button>
+                        @Html.ValidationMessageFor(model => model.IdUnidad, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
+                    @Html.EditorFor(model => model.Stock, new { htmlAttributes = new { @class = "form-control", @placeholder = "Inventario Inicial" } })
+                    @Html.ValidationMessageFor(model => model.Stock, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
+                    @Html.EditorFor(model => model.StockMin, new { htmlAttributes = new { @class = "form-control", @placeholder = "Inventario Minimo" } })
+                    @Html.ValidationMessageFor(model => model.StockMin, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
+                    @Html.EditorFor(model => model.Garantia, new { htmlAttributes = new { @class = "form-control", @placeholder = "Garantia en dias" } })
+                    @Html.ValidationMessageFor(model => model.Garantia, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
+                    @Html.EditorFor(model => model.PrecioCompra, new { htmlAttributes = new { @class = "form-control", @placeholder = "Precio de Compra" } })
+                    @Html.ValidationMessageFor(model => model.PrecioCompra, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
+                    @Html.EditorFor(model => model.PrecioVenta, new { htmlAttributes = new { @class = "form-control", @placeholder = "Precio de Venta" } })
+                    @Html.ValidationMessageFor(model => model.PrecioVenta, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
+                    @Html.LabelFor(model => model.Estatus, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-lg-10">
+                        @Html.CheckBoxFor(model => model.Estatus, new { htmlAttributes = new { @class = "form-control", @style = "margin: 11px 20px 0;" } })
+                    </div>
+                </div>
+            </div>
+            <div class=" row">
+
+                @Html.EditorFor(model => model.Icono, new { htmlAttributes = new { @class = "form-control", @placeholder = "Imagen", @type = "file" } })
+                @Html.ValidationMessageFor(model => model.Icono, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+    }
+</div>
+
+
+<div class="text-primary text-success text-center">
+    @ViewBag.MensajeExito
+</div>
+<div class="text-primary text-danger text-center">
+    @ViewBag.MensajeError
+</div>
+
+<script>
+    $("form").removeData("validator");
+    $("form").removeData("unobtrusiveValidation");
+    $.validator.unobtrusive.parse("form");
+</script>
+
+<div id='myModal' class='modal fade in'>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+</div>
+<script src="~/Content/js/PruebaModal.js"></script>
+

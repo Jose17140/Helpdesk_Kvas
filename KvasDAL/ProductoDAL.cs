@@ -79,32 +79,25 @@ namespace KvasDAL
         {
             try
             {
-                var query = (from m in db.GruposDetalles
-                             where m.IdGrupoDetalle == idProducto
-                             join p in db.PSDetalles on
-                             m.IdGrupoDetalle equals p.IdProducto
-                             select m).FirstOrDefault();
+                var query = db.sp_BuscarProducto(idProducto).FirstOrDefault();
                 var model = new ProductosEntity()
                 {
                     IdGrupoDetalle = idProducto,
                     Titulo = query.Nombre,
                     Descripcion = query.Descripcion,
-                    Orden = query.Orden,
+                    Orden = Convert.ToInt32(query.Orden),
                     IdGrupo = query.IdGrupo,
                     IdPadre = query.IdPadre,
                     Icono = query.Icono,
-                    UrlDetalle = query.UrlDetalle,
-                    //Sku = query.PSDetalles1,
-                    //IdDepartamento = query.PSDetalles,
-                    //IdFabricante = query.PSDetalles1,
-                    //Stock = query.,
-                    //IdUnidad = query.PSDetalles3,
-                    //StockMin = query.Email,
-                    //PrecioCompra = query.Email,
-                    //PrecioVenta = query.Email,
-                    //Garantia = query.Email,
-                    //PrecioVenta = query.Email,
-                    FechaRegistro = query.FechaRegistro
+                    Sku = query.Sku,
+                    IdFabricante = Convert.ToInt32(query.IdFabricante),
+                    Stock = Convert.ToInt32(query.Stock),
+                    IdUnidad = Convert.ToInt32(query.IdUnidad),
+                    StockMin = Convert.ToInt32(query.Stock_Min),
+                    PrecioCompra = Convert.ToDecimal(query.PrecioCompra),
+                    PrecioVenta = Convert.ToDecimal(query.PrecioVenta),
+                    Garantia = Convert.ToInt32(query.Garantia),
+                    FechaRegistro = Convert.ToDateTime(query.FechaRegistro)
                 };
                 return model;
             }
@@ -118,88 +111,37 @@ namespace KvasDAL
             }
         }
 
-        public IEnumerable<PersonasEntity> Listar()
+        public IEnumerable<ProductosEntityView> Listar()
         {
             try
             {
-                IList<PersonasEntity> lista = new List<PersonasEntity>();
-                var query = (from m in db.vw_Personas
-                             select m).ToList();
-                foreach (var personas in query)
+                IList<ProductosEntityView> lista = new List<ProductosEntityView>();
+                var query = db.sp_ListarProducto().ToList();
+                foreach (var producto in query)
                 {
-                    lista.Add(new PersonasEntity()
+                    lista.Add(new ProductosEntityView()
                     {
-                        IdPersona = personas.IdPersona,
-                        Nombres = personas.Nombres,
-                        Identificacion = personas.Cedula,
-                        Telefonos = personas.Telefonos,
-                        Direccion = personas.Direccion,
-                        Email = personas.Email,
-                        FechaRegistro = personas.FechaRegistro
-                    });
-                }
-                return lista;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-
-            }
-        }
-
-        public IEnumerable<PersonasEntity> ListarPorFabricante()
-        {
-            try
-            {
-                IList<PersonasEntity> lista = new List<PersonasEntity>();
-                var query = (from m in db.vw_Personas
-                             select m).ToList();
-                foreach (var personas in query)
-                {
-                    lista.Add(new PersonasEntity()
-                    {
-                        IdPersona = personas.IdPersona,
-                        Nombres = personas.Nombres,
-                        Identificacion = personas.Cedula,
-                        Telefonos = personas.Telefonos,
-                        Direccion = personas.Direccion,
-                        Email = personas.Email,
-                        FechaRegistro = personas.FechaRegistro
-                    });
-                }
-                return lista;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-
-            }
-        }
-
-        public IEnumerable<PersonasEntity> ListarPorDepartamento()
-        {
-            try
-            {
-                IList<PersonasEntity> lista = new List<PersonasEntity>();
-                var query = (from m in db.vw_Personas
-                             select m).ToList();
-                foreach (var personas in query)
-                {
-                    lista.Add(new PersonasEntity()
-                    {
-                        IdPersona = personas.IdPersona,
-                        Nombres = personas.Nombres,
-                        Identificacion = personas.Cedula,
-                        Telefonos = personas.Telefonos,
-                        Direccion = personas.Direccion,
-                        Email = personas.Email,
-                        FechaRegistro = personas.FechaRegistro
+                        IdGrupoDetalle = Convert.ToInt32(producto.IdProducto),
+                        Sku = producto.Sku,
+                        Titulo = producto.Nombre,
+                        Descripcion = producto.Descripcion,
+                        Orden = Convert.ToInt32(producto.Orden),
+                        IdGrupo = Convert.ToInt32(producto.IdGrupo),
+                        Grupo = producto.Grupo,
+                        IdPadre = Convert.ToInt32(producto.IdPadre),
+                        Padre = producto.Padre,
+                        Icono = producto.Icono,
+                        IdFabricante = Convert.ToInt32(producto.IdFabricante),
+                        Fabricante = producto.Fabricante,
+                        Stock = Convert.ToInt32(producto.Stock),
+                        StockMin = Convert.ToInt32(producto.Stock_Min),
+                        IdUnidad = Convert.ToInt32(producto.IdUnidad),
+                        Unidad = producto.Unidad,
+                        Garantia = Convert.ToInt32(producto.Garantia),
+                        PrecioCompra = Convert.ToDecimal(producto.PrecioCompra),
+                        PrecioVenta = Convert.ToDecimal(producto.PrecioVenta),
+                        Estatus = Convert.ToBoolean(producto.Estatus),
+                        FechaRegistro = Convert.ToDateTime(producto.FechaRegistro)
                     });
                 }
                 return lista;

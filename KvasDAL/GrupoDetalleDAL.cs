@@ -197,14 +197,14 @@ namespace KvasDAL
                 {
                     lista.Add(new GruposDetallesView()
                     {
-                        IdGrupoDetalle = grupos.IdGrupoDetalle,
+                        IdGrupoDetalle = Convert.ToInt32(grupos.IdGrupoDetalle),
                         Titulo = grupos.Nombre,
                         Descripcion = grupos.Descripcion,
-                        Orden = grupos.Orden,
-                        IdPadre = grupos.Categoria,
+                        Orden = Convert.ToInt32(grupos.Orden),
+                        Padre = grupos.Categoria,
                         Icono = grupos.Icono,
-                        Estatus = grupos.Estatus,
-                        FechaRegistro = grupos.FechaRegistro
+                        Estatus = Convert.ToBoolean(grupos.Estatus),
+                        FechaRegistro = Convert.ToDateTime(grupos.FechaRegistro)
                     });
                 }
                 return lista;

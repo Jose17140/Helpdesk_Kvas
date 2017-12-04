@@ -50,47 +50,12 @@ namespace KvasEntity
         public int Mensaje { get; set; }
     }
 
-    public class GruposDetallesView
-    {
-        [Key]
-        public int IdGrupoDetalle { get; set; }
-
-        [Required]
-        [StringLength(50)]
-        [Display(Name = "Nombre:")]
-        public string Titulo { get; set; }
-
-        [Required]
-        [StringLength(100)]
-        [Display(Name = "Descripcion Completa:")]
-        public string Descripcion { get; set; }
-
-        [Display(Name = "Orden:")]
-        public int Orden { get; set; }
-        
+    public class GruposDetallesView : GruposDetallesEntity
+    {   
         [Display(Name = "Entidad:")]
-        public string IdGrupo { get; set; }
+        public string Grupo { get; set; }
         
         [Display(Name = "Grupo Superior:")]
-        public string IdPadre { get; set; }
-
-        [StringLength(30)]
-        [Display(Name = "Icono:")]
-        public string Icono { get; set; }
-
-        [Required]
-        [StringLength(30)]
-        [Display(Name = "Url de la Entidad:")]
-        public string UrlDetalle { get; set; }
-
-        [Display(Name = "Estatus:")]
-        public bool Estatus { get; set; }
-
-        [DataType(DataType.DateTime)]
-        [Display(Name = "Fecha de Registro:")]
-        public DateTime FechaRegistro { get; set; }
-
-        public int Mensaje { get; set; }
-
+        public string Padre { get; set; }
     }
 }

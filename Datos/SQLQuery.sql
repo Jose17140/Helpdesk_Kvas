@@ -120,7 +120,7 @@ CREATE TABLE PSDetalles(
 	IdProducto INT NOT NULL,
 	Sku VARCHAR(24) NOT NULL,
 	IdFabricante INT NOT NULL,
-	Stock INT NULL,
+	Stock INT NOT NULL,
 	IdUnidad INT NOT NULL, -- UNIDAD DE VENTA
 	Stock_Min INT NULL,
 	PrecioCompra DECIMAL(8,2) NULL,
@@ -151,7 +151,7 @@ CREATE TABLE SerialesProductos(
 
 --SELECT GENERICOS
 SELECT * FROM Grupos;
-SELECT * FROM GruposDetalles;
+SELECT * FROM GruposDetalles where IdGrupo = 18 AND IdPadre = 0;
 SELECT * FROM Personas;
 SELECT * FROM Usuarios;
 SELECT * FROM PSDetalles;
@@ -174,7 +174,7 @@ SELECT ct.IdGrupoDetalle, ct.Nombre, ct.Descripcion, ct.Orden, c.Nombre AS Categ
 FROM Cte_Productos AS ct
 INNER JOIN Cte_Productos AS c ON ct.IdPadre = c.IdGrupoDetalle
 INNER JOIN Grupos AS g ON ct.IdGrupo = g.IdGrupo
-WHERE g.IdGrupo = 1
+WHERE g.IdGrupo = 9
 ORDER BY ct.LevelGrupo ASC
 
 SELECT gd.IdGrupoDetalle, gd.Nombre, gd.Descripcion, gd.Orden, gd.Nombre AS Categoria, gd.Icono, gd.UrlDetalle, gd.Estatus, gd.FechaRegistro, gd.IdPadre
@@ -191,3 +191,24 @@ SELECT gd.IdGrupoDetalle, gd.Nombre, gd.Descripcion, gd.Orden, gd.Nombre AS Cate
 --EXEC sp_AgregarProducto 'Chip Reset','Impresora Tx120',2,9,33,'fa fa-laptop','*',1,'30-11-2017','BAR123',33,64,100,96,0,50000,110000,10
 --EXEC sp_AgregarProducto 'Sistema de Tinta','Impresora Tx120',2,9,33,'fa fa-laptop','*',1,'30-11-2017','BAR123',33,64,100,96,0,50000,110000,10
 --EXEC sp_AgregarProducto 'Procesador','Pc',2,9,33,'fa fa-laptop','*',1,'30-11-2017','BAR123',33,64,100,96,0,50000,110000,10
+
+
+
+WITH Cte_Productos(IdGrupoDetalle,Nombre,Descripcion,Orden,IdGrupo,IdPadre,Icono,UrlDetalle,Estatus,FechaRegistro, LevelGrupo) AS (
+	SELECT g.IdGrupoDetalle, g.Nombre, g.Descripcion, g.Orden, g.IdGrupo, g.IdPadre, g.Icono, g.UrlDetalle, g.Estatus, g.FechaRegistro, 0 AS LevelGrupo
+	FROM GruposDetalles AS g
+	WHERE g.IdPadre is null
+	UNION ALL
+	SELECT gd.IdGrupoDetalle, gd.Nombre, gd.Descripcion, gd.Orden, gd.IdGrupo, gd.IdPadre, gd.Icono, gd.UrlDetalle, gd.Estatus, gd.FechaRegistro, LevelGrupo+1
+	FROM GruposDetalles AS gd
+	INNER JOIN Cte_Productos AS cte ON gd.IdPadre = cte.IdGrupoDetalle
+)
+SELECT ct.IdGrupoDetalle AS IdProducto, ps.Sku, ct.Nombre, ct.Descripcion, ct.Orden, ct.IdGrupo, g.Nombre AS Grupo, ct.IdPadre, c.Nombre AS Padre, ct.Icono, ct.UrlDetalle, ct.Estatus, 
+		ps.IdFabricante, gd.Nombre, ps.Stock, ps.Stock_Min, ps.IdUnidad, ps.Garantia, ps.PrecioCompra, ps.PrecioVenta, ct.FechaRegistro
+FROM Cte_Productos AS ct
+INNER JOIN Cte_Productos AS c ON ct.IdPadre = c.IdGrupoDetalle
+INNER JOIN Grupos AS g ON ct.IdGrupo = g.IdGrupo
+LEFT JOIN PSDetalles AS ps ON ct.IdGrupoDetalle = ps.IdProducto
+LEFT JOIN GruposDetalles AS gd ON ps.IdFabricante = gd.IdGrupoDetalle
+WHERE g.IdGrupo = 9 
+ORDER BY ct.LevelGrupo ASC
