@@ -116,6 +116,24 @@ namespace HelpDesk_Kvas.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var _producto = objProductoLogic.Buscar(id);
+            MensajeInicioRegistrar();
+            ViewBag.Id = id;
+            ViewBag.Grupo = 9;
+            ViewBag.Url = "*";
+            ViewBag.Orden = 0;
+            var _departamentoPadre = objGrupoDetalleLogic.Listar();
+            var _departamentoHijo = _departamentoPadre.Where(m => m.IdGrupo == 18 && m.IdPadre == 38).ToList();
+            var _fabricantes = _departamentoPadre.Where(m => m.IdGrupo == 12 && m.IdPadre == 0).ToList();
+            var _unidades = _departamentoPadre.Where(m => m.IdGrupo == 23 && m.IdPadre == 0).ToList();
+            //Departamento padre
+            SelectList listaDepartamento = new SelectList(_departamentoHijo, "IdGrupoDetalle", "Titulo");
+            //Departamento hijo
+            SelectList listaFabricantes = new SelectList(_fabricantes, "IdGrupoDetalle", "Titulo");
+            //Unidades 
+            SelectList listaUnidades = new SelectList(_unidades, "IdGrupoDetalle", "Titulo");
+            ViewBag.ListaDepartamento = listaDepartamento;
+            ViewBag.ListaHijo = listaFabricantes;
+            ViewBag.ListaUnidades = listaUnidades;
             if (_producto == null)
             {
                 return HttpNotFound();
@@ -141,15 +159,25 @@ namespace HelpDesk_Kvas.Controllers
         //// GET: Persona/Delete/5
         public ActionResult Delete(int id)
         {
-            if (id == Convert.ToInt32(null))
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             var _producto = objProductoLogic.Buscar(id);
-            if (_producto == null)
-            {
-                return HttpNotFound();
-            }
+            MensajeInicioRegistrar();
+            ViewBag.Id = id;
+            ViewBag.Grupo = 9;
+            ViewBag.Url = "*";
+            ViewBag.Orden = 0;
+            var _departamentoPadre = objGrupoDetalleLogic.Listar();
+            var _departamentoHijo = _departamentoPadre.Where(m => m.IdGrupo == 18 && m.IdPadre == 38).ToList();
+            var _fabricantes = _departamentoPadre.Where(m => m.IdGrupo == 12 && m.IdPadre == 0).ToList();
+            var _unidades = _departamentoPadre.Where(m => m.IdGrupo == 23 && m.IdPadre == 0).ToList();
+            //Departamento padre
+            SelectList listaDepartamento = new SelectList(_departamentoHijo, "IdGrupoDetalle", "Titulo");
+            //Departamento hijo
+            SelectList listaFabricantes = new SelectList(_fabricantes, "IdGrupoDetalle", "Titulo");
+            //Unidades 
+            SelectList listaUnidades = new SelectList(_unidades, "IdGrupoDetalle", "Titulo");
+            ViewBag.ListaDepartamento = listaDepartamento;
+            ViewBag.ListaHijo = listaFabricantes;
+            ViewBag.ListaUnidades = listaUnidades;
             return PartialView("Delete", _producto);
         }
 
@@ -169,6 +197,16 @@ namespace HelpDesk_Kvas.Controllers
             {
                 return Json(producto, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        public ActionResult MovimientoInventario()
+        {
+            return View();
+        }
+
+        public ActionResult SeleccionarProducto()
+        {
+            return View();
         }
 
         #region

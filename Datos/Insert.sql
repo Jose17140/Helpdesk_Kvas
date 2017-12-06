@@ -51,8 +51,8 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDet
 --PRODUCTOS MENU
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 ('Productos','Menu',1,'fa  fa-tablet',1,13,'/Producto/Index',GETDATE()),
-('Fabricantes','Menu',1,'fa fa-bank',2,13,'/',GETDATE()),
-('Departamentos','Menu',1,'fa fa-bookmark-o',3,13,'/',GETDATE()),
+--('Fabricantes','Menu',1,'fa fa-bank',2,13,'/',GETDATE()),
+--('Departamentos','Menu',1,'fa fa-bookmark-o',3,13,'/',GETDATE()),
 ('Movimiento de Inventario','Menu',1,'fa fa-pencil-square-o',4,13,'/',GETDATE());
 --SISTEMA MENU
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES

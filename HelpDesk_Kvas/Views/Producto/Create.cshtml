@@ -1,6 +1,7 @@
 ﻿@model KvasEntity.ProductosEntityView
 @{
     ViewBag.Title = "Create";
+    Layout = null;
 }
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -16,7 +17,7 @@
                 <input id="IdGrupo" name="IdGrupo" type="hidden" value="@ViewBag.Grupo" />
                 <input id="UrlDetalle" name="UrlDetalle" type="hidden" value="@ViewBag.Url" />
                 <input id="Orden" name="Orden" type="hidden" value="@ViewBag.Orden" />
-                <input id="Icono" name="Icono" type="hidden" value="fa fa-users" />
+                @*<input id="Icono" name="Icono" type="hidden" value="fa fa-users" />*@
             </div>
             <div class="row">
                 <div class="col-lg-3 col-md-3 col-sm-3" style="padding-bottom: 10px;">
@@ -100,8 +101,8 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
         </div>
     }
 </div>
