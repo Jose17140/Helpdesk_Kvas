@@ -10,12 +10,12 @@ using System.Web.Mvc;
 
 namespace HelpDesk_Kvas.Controllers
 {
-    public class ProductoController : Controller
+    public class ServicioController : Controller
     {
         GrupoDetalleLogic objGrupoDetalleLogic;
         GrupoLogic objGrupoLogic;
         ProductoLogic objProductoLogic;
-        public ProductoController()
+        public ServicioController()
         {
             objGrupoDetalleLogic = new GrupoDetalleLogic();
             objGrupoLogic = new GrupoLogic();
@@ -26,14 +26,14 @@ namespace HelpDesk_Kvas.Controllers
         public ActionResult Index(string filter = null, int page = 1, int pageSize = 15, string sort = "IdGrupoDetalle", string sortdir = "DESC")
         {
             //var id = 1;
-            
+
             var records = new PagedList<ProductosEntityView>();
             ViewBag.filter = filter;
             var productosList = objProductoLogic.Listar();
 
-            records.Content = productosList.Where(m => filter == null 
+            records.Content = productosList.Where(m => filter == null
                                 || (m.Titulo.ToUpper().Contains(filter.ToUpper()))
-                                || (m.Descripcion.ToUpper().Contains(filter.ToUpper())) 
+                                || (m.Descripcion.ToUpper().Contains(filter.ToUpper()))
                                 //|| (m.Fabricante.ToUpper().Contains(filter.ToUpper()))
                                 //|| (m.Padre.ToUpper().Contains(filter.ToUpper()))
                                 )
@@ -212,7 +212,7 @@ namespace HelpDesk_Kvas.Controllers
         #region
         public void MensajeInicioRegistrar()
         {
-            ViewBag.MensajeInicio = "Ingrese datos del Producto y Click en Guardar";
+            ViewBag.MensajeInicio = "Ingrese datos del Cliente y Click en Guardar";
         }
         public void MensajeErrorRegistrar(ProductosEntity objProducto)
         {
@@ -228,7 +228,7 @@ namespace HelpDesk_Kvas.Controllers
                     ViewBag.MensajeError = "No se permiten mas de 5 caracteres en al campo Codigo";
                     break;
                 case 20://campo nombre vacio
-                    ViewBag.MensajeError = "Ingrese Nombre del Producto";
+                    ViewBag.MensajeError = "Ingrese Nombre del Cliente";
                     break;
 
                 case 2://error de nombre

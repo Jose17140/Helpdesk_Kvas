@@ -7,8 +7,8 @@ INSERT INTO Grupos(Nombre,Descripcion,UrlGrupo,Icono,Estatus,FechaRegistro)VALUE
 ('Menu','Agrupa el Menu slidebar de la app','/','fa fa-bars',1,GETDATE()),
 ('TipoPersona','Tipo de Identificacion de los Usuarios','/','fa fa-pause',1,GETDATE()),
 ('Sexos','Genero de las personas','/','fa fa-venus-mars',1,GETDATE()),
-('Pais','Paises','/','fa fa-pause',1,GETDATE()),
-('Estados','Estamos de los paises','/','fa fa-pause',1,GETDATE()),
+('Pais','Paises','/','fa fa-globe',1,GETDATE()),
+('Estados','Estamos de los paises','/','fa fa-globe',1,GETDATE()),
 ('Categorias','Categorias de productos o servicio','/','fa fa-pause',1,GETDATE()),
 ('Equipos','Equipos a recibir','/','fa fa-laptop',1,GETDATE()),
 ('Servicios','Servicios que se realizan','/','fa fa-pause',1,GETDATE()),
@@ -26,7 +26,9 @@ INSERT INTO Grupos(Nombre,Descripcion,UrlGrupo,Icono,Estatus,FechaRegistro)VALUE
 ('Impuestos','Alicuota de Impuestas','/','fa fa-edit',1,GETDATE()),
 ('Roles','Roles de Usuario','/','fa fa-edit',1,GETDATE()),
 ('Permisos','Permisos por Usuarios','/','fa fa-edit',1,GETDATE()),
-('Unidades','Tipos de unidades de Venta','/','fa fa-edit',1,GETDATE());
+('Unidades','Tipos de unidades de Venta','/','fa fa-edit',1,GETDATE()),
+('Municipios','Agrupa Municipios','/','fa fa-globe',1,GETDATE()),
+('Ciudades','Agrupa Ciudades','/','fa fa-globe',1,GETDATE());
 --MENUS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 ('Cat. Superior','Agrupa los elementos padre GrupoDetalles',0,'Nulo',0,null,'/',GETDATE()),
@@ -47,13 +49,13 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDet
 --CATALOGO MENU
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 ('Productos','Menu',1,'fa fa-laptop',1,3,'/',GETDATE()),
-('Servicios','Menu',1,'fa fa-puzzle-piece',2,3,'/',GETDATE());
+('Servicios','Menu',1,'fa fa-puzzle-piece',2,3,'/Servicio',GETDATE());
 --PRODUCTOS MENU
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 ('Productos','Menu',1,'fa  fa-tablet',1,13,'/Producto/Index',GETDATE()),
---('Fabricantes','Menu',1,'fa fa-bank',2,13,'/',GETDATE()),
---('Departamentos','Menu',1,'fa fa-bookmark-o',3,13,'/',GETDATE()),
-('Movimiento de Inventario','Menu',1,'fa fa-pencil-square-o',4,13,'/',GETDATE());
+('Fabricantes','Menu',0,'fa fa-bank',2,0,'/',GETDATE()),
+('Departamentos','Menu',0,'fa fa-bookmark-o',3,0,'/',GETDATE()),
+('Movimiento de Inventario','Menu',1,'fa fa-pencil-square-o',4,13,'/Producto/movimientoinventario',GETDATE());
 --SISTEMA MENU
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 ('Configuracion','Menu',1,'fa fa-cog',1,8,'/',GETDATE()),
@@ -126,6 +128,76 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDet
 ('Fan Cooler','I7',9,'fa fa-archive',5,40,'*',GETDATE()),
 ('Disco Duro','500Gb',9,'fa fa-archive',6,40,'*',GETDATE()),
 ('Tinta 100ml','Tinta CM',9,'fa fa-archive',7,42,'*',GETDATE());
+--SEXOS
+INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
+('Femenino','Mujeres',3,'fa fa-venus',1,0,'*',GETDATE()),
+('Masculino','Hombres',3,'fa fa-mars-stroke',2,0,'*',GETDATE());
+--PREGUNTAS DE SEGURIDAD
+INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
+('¿Cómo se llama tu escuela primaria?','Pregunta de Seguridad',16,'fa fa-question',1,0,'*',GETDATE()),
+('¿Ano de Nacimiento de mi madre?','Pregunta de Seguridad',16,'fa fa-question',2,0,'*',GETDATE()),
+('¿Nombre de mi padre?','Pregunta de Seguridad',16,'fa fa-question',3,0,'*',GETDATE()),
+('¿Cuál es la profesión de mi abuelo?','Pregunta de Seguridad',16,'fa fa-question',4,0,'*',GETDATE()),
+('¿Cuál es el nombre de mi mascota?','Pregunta de Seguridad',16,'fa fa-question',5,0,'*',GETDATE()),
+('¿Cuál mi película favorita?','Pregunta de Seguridad',16,'fa fa-question',6,0,'*',GETDATE());
+--PREGUNTAS DE SEGURIDAD
+INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
+('Master','Control Total',21,'fa fa-user',1,0,'*',GETDATE()),
+('Supervisor','No Puede modificar grupos',21,'fa fa-user',2,0,'*',GETDATE()),
+('Analista','Recepcion de Equipos',21,'fa fa-user',3,0,'*',GETDATE()),
+('Tecnico','Atencion de Requerimiento y Recepcion',21,'fa fa-user',4,0,'*',GETDATE()),
+('Cliente','Estatus de Servicio',21,'fa fa-user',5,0,'*',GETDATE());
+--IMPUESTOS
+INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
+('12%','Iva 12% Pagos Efectivo',20,'fa fa-money',1,0,'*',GETDATE()),
+('9%','Iva 9% Pagos electronicos menores a 2M',20,'fa fa-money',2,0,'*',GETDATE()),
+('7%','Iva 7% Pagos electronicos mayores a 2M',20,'fa fa-money',3,0,'*',GETDATE());
+--TIPOS DE PAGO
+INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
+('Efectivo','Pagos en efectivo',10,'fa fa-money',1,0,'*',GETDATE()),
+('Debito','Tarjeta de debito',10,'fa fa-credit-card',2,0,'*',GETDATE()),
+('Transferencia','Transferencia bancaria',10,'fa fa-bank',3,0,'*',GETDATE()),
+('Credito','Tarejta de Credito',10,'fa fa-cc-visa',4,0,'*',GETDATE());
+--TIPOS DE ESTATUS
+INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
+('Recibido','Requerimiento Recibido y en espera',11,'fa fa-hourglass-o',1,0,'*',GETDATE()),
+('Asignado','Requerimiento asignado a un tecnico',11,'fa fa-hourglass-o',2,0,'*',GETDATE()),
+('Revisado','Requerimiento atendido y revisado',11,'fa fa-hourglass-o',3,0,'*',GETDATE()),
+('Reparado','Requerimiento Resuelto',11,'fa fa-hourglass-o',4,0,'*',GETDATE()),
+('Devuelto','Requerimiento Devuelto sin solucion',11,'fa fa-hourglass-o',5,0,'*',GETDATE()),
+('Entregado','Requerimiento Cerrado',11,'fa fa-hourglass-o',6,0,'*',GETDATE());
+--PAISES Y ESTADOS
+INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
+('Venezuela','Venezuela',4,'fa fa-globe',1,0,'*',GETDATE()),
+('DC','Disctrito Capital',5,'fa fa-globe',2,77,'*',GETDATE()),
+('Miranda','Miranda',5,'fa fa-globe',3,77,'*',GETDATE()),
+('Aragua','Aragua',5,'fa fa-globe',4,77,'*',GETDATE()),
+('Caracas','Ciudad de Caracas',25,'fa fa-globe',5,78,'*',GETDATE()),
+('Libertador','Municipio',24,'fa fa-globe',5,81,'*',GETDATE());
+--CARGOS
+INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
+('Atencion al Publico','Venezuela',19,'fa fa-users',1,0,'*',GETDATE()),
+('Tecnico','Disctrito Capital',19,'fa fa-users',2,0,'*',GETDATE()),
+('Administrativo','Miranda',19,'fa fa-users',3,0,'*',GETDATE());
+--ACCESORIOS
+INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
+('Raton','Raton',15,'fa fa-users',1,0,'*',GETDATE()),
+('Teclado','Teclado',15,'fa fa-users',2,0,'*',GETDATE()),
+('Sistema de Tinta','Sistema de Tinta',19,'fa fa-users',3,0,'*',GETDATE()),
+('Cargador','Cargador',15,'fa fa-users',4,0,'*',GETDATE()),
+('Cargador y Cable','Cargador mas Cable de poder',15,'fa fa-users',5,0,'*',GETDATE()),
+('Tinta','Envase de tinta',15,'fa fa-users',6,0,'*',GETDATE()),
+('CD/DVD','Driver y documentacion',15,'fa fa-users',7,0,'*',GETDATE()),
+('Cartuchos','Cartuchos de tinta',15,'fa fa-users',8,0,'*',GETDATE());
+
+
+
+
+
+
+
+
+
 
 
 
@@ -157,53 +229,4 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDet
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 ('Intel', '', 12, 'fa fa-laptop', 41, 0, 'intel', GETDATE()),
 ('MKI', ' ', 12, 'fa fa-laptop', 1, 0, 'MKI', GETDATE()),
-('Genius', '', 12, 'fa fa-laptop', 2, 0, 'Genius', GETDATE()),
-('Samsung', '', 12, 'fa fa-laptop', 3, 0, 'Samsung', GETDATE()),
-('AMD', '', 12, 'fa fa-laptop', 4, 0, 'http://www.amd.com/es-xl', GETDATE()),
-('AOC', '', 12, 'fa fa-laptop', 5, 0, 'latin.aoc.com/', GETDATE()),
-('Asrock', '', 12, 'fa fa-laptop', 6, 0, 'www.asrock.com/index.es.asp', GETDATE()),
-('Ati Radeon', '', 12, 'fa fa-laptop', 7, 0, 'http://support.amd.com/en-us/download', GETDATE()),
-('Benq', '', 12, 'fa fa-laptop', 8, 0, 'latam.benq.com/', GETDATE()),
-('Corsair', '', 12, 'fa fa-laptop', 9, 0, 'corsair', GETDATE()),
-('Dell', '', 12, 'fa fa-laptop', 10, 0, 'dell', GETDATE()),
-('Epson', '', 12, 'fa fa-laptop', 11, 0, 'epson', GETDATE()),
-('Fujifilm', '', 12, 'fa fa-laptop', 12, 0, 'fujifilm', GETDATE()),
-('Hp', '', 12, 'fa fa-laptop', 13, 0, 'hp', GETDATE()),
-('Microsoft', '', 12, 'fa fa-laptop', 14, 0, 'microsoft', GETDATE()),
-('MSI', '', 12, 'fa fa-laptop', 15, 0, 'msi', GETDATE()),
-('Nvidia', '', 12, 'fa fa-laptop', 16, 0, 'nvidia', GETDATE()),
-('PNY', '', 12, 'fa fa-laptop', 17, 0, 'pny', GETDATE()),
-('TpLink', '', 12, 'fa fa-laptop', 18, 0, 'tplink', GETDATE()),
-('Entercop', '', 12, 'fa fa-laptop', 19, 0, 'entercop', GETDATE()),
-('Lenovo', '', 12, 'fa fa-laptop', 20, 0, 'lenovo', GETDATE()),
-('D-Link', '', 12, 'fa fa-laptop', 21, 0, 'd-link', GETDATE()),
-('SanDisk', '', 12, 'fa fa-laptop', 22, 0, 'sandisk', GETDATE()),
-('Sapphire', '', 12, 'fa fa-laptop', 23, 0, 'sapphire', GETDATE()),
-('LG', '', 12, 'fa fa-laptop', 24, 0, 'lg', GETDATE()),
-('Lanpro', '', 12, 'fa fa-laptop', 25, 0, 'lanpro', GETDATE()),
-('Advantek', '', 12, 'fa fa-laptop', 26, 0, 'http://ww38.advanteknetworks.com/', GETDATE()),
-('Ecs', '', 12, 'fa fa-laptop', 27, 0, 'ecs', GETDATE()),
-('Biostar', '', 12, 'fa fa-laptop', 28, 0, 'www.biostar.com.tw/', GETDATE()),
-('Apex', '', 12, 'fa fa-laptop', 29, 0, 'http://www.apextechusa.com/', GETDATE()),
-('MYO', '', 12, 'fa fa-laptop', 30, 0, 'myo', GETDATE()),
-('Generico', '', 12, 'fa fa-laptop', 31, 0, 'generico', GETDATE()),
-('Argon', '', 12, 'fa fa-laptop', 32, 0, 'https://www.argomtech.com/', GETDATE()),
-('COBY', '', 12, 'fa fa-laptop', 33, 0, 'coby', GETDATE()),
-('Hitachi', '', 12, 'fa fa-laptop', 34, 0, 'hitachi', GETDATE()),
-('Seagate', '', 12, 'fa fa-laptop', 35, 0, 'seagate', GETDATE()),
-('Kingston', '', 12, 'fa fa-laptop', 36, 0, 'kingston', GETDATE()),
-('Ativen', '', 12, 'fa fa-laptop', 37, 0, 'www.ativen.com/', GETDATE()),
-('Printon', '', 12, 'fa fa-laptop', 38, 0, 'printon', GETDATE()),
-('Markvision', '', 12, 'fa fa-laptop', 39, 0, 'markvision', GETDATE()),
-('Toshiba', '', 12, 'fa fa-laptop', 40, 0, 'toshiba', GETDATE()),
-('QuickHeal', '', 12, 'fa fa-laptop', 42, 0, 'quickheal', GETDATE()),
-('ColorMarke', '', 12, 'fa fa-laptop', 43, 0, 'colormarke', GETDATE()),
-('Wash', '', 12, 'fa fa-laptop', 44, 0, 'wash', GETDATE()),
-('Havit', '', 12, 'fa fa-laptop', 45, 0, 'havit', GETDATE()),
-('Interprint', '', 12, 'fa fa-laptop', 46, 0, 'interprint', GETDATE()),
-('Alcatel', '', 12, 'fa fa-laptop', 47, 0, 'http://www.alcatel-mobile.com/global-en/', GETDATE()),
-('KODE', '', 12, 'fa fa-laptop', 48, 0, 'kode', GETDATE()),
-('AVANT', '', 12, 'fa fa-laptop', 49, 0, 'www.avanttechnology.com/', GETDATE()),
-('DOIT', '', 12, 'fa fa-laptop', 50, 0, 'doit', GETDATE()),
-('Yoobao', '', 12, 'fa fa-laptop', 51, 0, 'yoobao', GETDATE());
-
+('Genius', '', 12, 'fa fa-laptop', 2, 0, 'Genius', GETDATE());
