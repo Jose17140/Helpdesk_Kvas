@@ -59,7 +59,7 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDet
 --SISTEMA MENU
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 ('Configuracion','Menu',1,'fa fa-cog',1,8,'/',GETDATE()),
-('Usuarios','Menu',1,'fa fa-users',2,8,'/',GETDATE()),
+('Usuarios','Menu',1,'fa fa-users',2,8,'/Usuario/Index',GETDATE()),
 ('Herramientas','Menu',1,'fa fa-wrench',3,8,'/',GETDATE());
 --SUB MENU SISTEMA
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
@@ -140,7 +140,7 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDet
 ('¿Cuál es la profesión de mi abuelo?','Pregunta de Seguridad',16,'fa fa-question',4,0,'*',GETDATE()),
 ('¿Cuál es el nombre de mi mascota?','Pregunta de Seguridad',16,'fa fa-question',5,0,'*',GETDATE()),
 ('¿Cuál mi película favorita?','Pregunta de Seguridad',16,'fa fa-question',6,0,'*',GETDATE());
---PREGUNTAS DE SEGURIDAD
+--Roles DE SEGURIDAD
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 ('Master','Control Total',21,'fa fa-user',1,0,'*',GETDATE()),
 ('Supervisor','No Puede modificar grupos',21,'fa fa-user',2,0,'*',GETDATE()),

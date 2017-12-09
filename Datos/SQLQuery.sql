@@ -4,6 +4,8 @@ GO
 USE Helpdesk_Kvas;
 GO
 
+DROP TABLE IF EXISTS UsuariosRoles;
+DROP TABLE IF EXISTS Reportes;
 DROP TABLE IF EXISTS PermisoDenegadoPorRol;
 DROP TABLE IF EXISTS PermisosPorModulos;
 DROP TABLE IF EXISTS Usuarios;
@@ -75,7 +77,6 @@ CREATE TABLE Usuarios(
 	IdUsuario INT IDENTITY(1,1) NOT NULL,
 	NombreUsuario VARCHAR(30) NOT NULL,
 	Contrasena VARCHAR(100) NOT NULL,
-	IdRol INT NOT NULL,
 	IdPreguntaSeguridad INT NOT NULL,
 	RespuestaSeguridad VARCHAR(50) NOT NULL,
 	FechaLogin DATETIME NULL,
@@ -87,33 +88,22 @@ CREATE TABLE Usuarios(
 	CONSTRAINT UQ_NombreUsuario UNIQUE (NombreUsuario),
 	CONSTRAINT FK_Usuarios_GrupoDetalles_IdRespuestaSeguridad FOREIGN KEY(IdPreguntaSeguridad) REFERENCES GruposDetalles(IdGrupoDetalle)
 		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+);
+DROP TABLE IF EXISTS UsuariosRoles;
+CREATE TABLE UsuariosRoles(
+	IdUserRoles INT IDENTITY(1,1) NOT NULL,
+	IdUsuario INT NOT NULL,
+	IdRoles INT NOT NULL,
+	CONSTRAINT PK_Permisos PRIMARY KEY(IdUserRoles),
+	CONSTRAINT FK_UsuariosRoles_Usuarios_Usuario FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario)
+		ON DELETE NO ACTION
 		ON UPDATE NO ACTION,
-	CONSTRAINT FK_Usuarios_GrupoDetalles_IdRol FOREIGN KEY(IdRol) REFERENCES GruposDetalles(IdGrupoDetalle)
+	CONSTRAINT FK_UsuariosRoles_GruposDetalles_Roles FOREIGN KEY (IdRoles) REFERENCES GruposDetalles(IdGrupoDetalle)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
 );
---DROP TABLE IF EXISTS PermisosPorModulos;
---CREATE TABLE PermisosPorModulos(
---	IdPermiso INT IDENTITY(1,1) NOT NULL,
---	IdModulo INT NOT NULL,
---	Descripcion VARCHAR(80) NOT NULL,
---	CONSTRAINT PK_Permisos PRIMARY KEY(IdPermiso),
---	CONSTRAINT FK_Permisos_IdModulo FOREIGN KEY (IdModulo) REFERENCES GruposDetalles(IdGrupoDetalle)
---		ON DELETE NO ACTION
---		ON UPDATE NO ACTION
---);
---DROP TABLE IF EXISTS PermisoDenegadoPorRol;
---CREATE TABLE PermisoDenegadoPorRol(
---	IdRol INT NOT NULL,
---	IdPermiso INT NOT NULL,
---	CONSTRAINT PK_PermisoDenegadoPorRol PRIMARY KEY(IdRol,IdPermiso),
---	CONSTRAINT FK_PermisoDenegadoPorRol_GrupoDetalles_IdRol FOREIGN KEY (IdRol) REFERENCES GruposDetalles(IdGrupoDetalle)
---		ON DELETE NO ACTION
---		ON UPDATE NO ACTION,
---	CONSTRAINT FK_PermisoDenegadoPorRol_PermisosPorModulos_IdPermiso FOREIGN KEY (IdPermiso) REFERENCES PermisosPorModulos(IdPermiso)
---		ON DELETE NO ACTION
---		ON UPDATE NO ACTION
---);
+
 --PRODUCTOS Y SERVICIOS
 DROP TABLE IF EXISTS PSDetalles;
 CREATE TABLE PSDetalles(

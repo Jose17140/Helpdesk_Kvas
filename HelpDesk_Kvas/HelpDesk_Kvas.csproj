@@ -198,7 +198,6 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
@@ -220,16 +219,12 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DAL_Main.cs" />
     <Compile Include="Models\GruposDetalles.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\PermisosPorModulos.cs" />
     <Compile Include="Models\Usuarios.cs" />
+    <Compile Include="Models\UsuariosRoles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Seguridad\AutenticadoAttribute.cs" />
-    <Compile Include="Seguridad\PermisoAttribute.cs" />
-    <Compile Include="Seguridad\Permisos\FrontUser.cs" />
-    <Compile Include="Seguridad\Permisos\RolesPermisos.cs" />
-    <Compile Include="Seguridad\SessionHelper.cs" />
+    <Compile Include="Seguridad\Crypto.cs" />
+    <Compile Include="MyRoleProvider.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -2766,13 +2761,17 @@
     <Content Include="Views\Servicio\Details.cshtml" />
     <Content Include="Views\Servicio\Edit.cshtml" />
     <Content Include="Views\Servicio\Index.cshtml" />
+    <Content Include="Views\Usuario\Index.cshtml" />
+    <Content Include="Views\Usuario\Registrar.cshtml" />
+    <Content Include="Views\Usuario\Login.cshtml" />
+    <Content Include="Views\Usuario\RecuperarPass.cshtml" />
+    <Content Include="Views\Usuario\OlvidoPass.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\images\Productos\" />
     <Folder Include="Views\Default\" />
     <Folder Include="Views\Soporte\" />
-    <Folder Include="Views\Usuario\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -13,8 +13,8 @@ namespace HelpDesk_Kvas.Models
         }
 
         public virtual DbSet<GruposDetalles> GruposDetalles { get; set; }
-        public virtual DbSet<PermisosPorModulos> PermisosPorModulo { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
+        public virtual DbSet<UsuariosRoles> UsuariosRoles { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -36,32 +36,17 @@ namespace HelpDesk_Kvas.Models
                 .HasForeignKey(e => e.IdPadre);
 
             modelBuilder.Entity<GruposDetalles>()
-                .HasMany(e => e.Permisos_IdModulo)
-                .WithRequired(e => e.GruposDetalles)
-                .HasForeignKey(e => e.IdModulo)
-                .WillCascadeOnDelete(false);
-            
-            modelBuilder.Entity<GruposDetalles>()
                 .HasMany(e => e.Usuarios_Seg)
-                .WithRequired(e => e.GruposDetalles_Seg)
+                .WithRequired(e => e.PreguntaSeguridad)
                 .HasForeignKey(e => e.IdPreguntaSeguridad)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<GruposDetalles>()
                 .HasMany(e => e.Usuarios_Rol)
-                .WithRequired(e => e.GruposDetalles_Rol)
-                .HasForeignKey(e => e.IdRol)
+                .WithRequired(e => e.Roles)
+                .HasForeignKey(e => e.IdRoles)
                 .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<GruposDetalles>()
-                .HasMany(e => e.Permisos_IdPermisoDenegado)
-                .WithMany(e => e.GruposDetalles_IdModulo)
-                .Map(m => m.ToTable("PermisoDenegadoPorRol").MapLeftKey("IdPermiso").MapRightKey("IdRol"));
-
-            modelBuilder.Entity<PermisosPorModulos>()
-                .Property(e => e.Descripcion)
-                .IsUnicode(false);
-
+           
             modelBuilder.Entity<Usuarios>()
                 .Property(e => e.NombreUsuario)
                 .IsUnicode(false);
@@ -71,8 +56,21 @@ namespace HelpDesk_Kvas.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<Usuarios>()
+               .Property(e => e.IdEmail)
+               .IsUnicode(false);
+
+            modelBuilder.Entity<Usuarios>()
                 .Property(e => e.RespuestaSeguridad)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<Usuarios>()
+                .Property(e => e.Avatar)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Usuarios>()
+                .HasMany(e => e.UsuariosRoles)
+                .WithRequired(e => e.Usuarios)
+                .WillCascadeOnDelete(false);
         }
     }
 }

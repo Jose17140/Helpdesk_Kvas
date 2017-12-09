@@ -1,6 +1,5 @@
 namespace HelpDesk_Kvas.Models
 {
-    using HelpDesk_Kvas.Seguridad.Permisos;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -12,10 +11,8 @@ namespace HelpDesk_Kvas.Models
         public GruposDetalles()
         {
             ICollection = new HashSet<GruposDetalles>();
-            Permisos_IdModulo = new HashSet<PermisosPorModulos>();
-            Permisos_IdPermisoDenegado = new HashSet<PermisosPorModulos>();
             Usuarios_Seg = new HashSet<Usuarios>();
-            Usuarios_Rol = new HashSet<Usuarios>();
+            Usuarios_Rol = new HashSet<UsuariosRoles>();
         }
 
         [Key]
@@ -44,15 +41,9 @@ namespace HelpDesk_Kvas.Models
         public virtual GruposDetalles GruposDetallesR { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PermisosPorModulos> Permisos_IdModulo { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Usuarios> Usuarios_Seg { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Usuarios> Usuarios_Rol { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PermisosPorModulos> Permisos_IdPermisoDenegado { get; set; }
+        public virtual ICollection<UsuariosRoles> Usuarios_Rol { get; set; }
     }
 }
