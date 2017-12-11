@@ -1,7 +1,76 @@
-﻿
+﻿@*@using KvasEntity.Models.Usuarios*@
+@model KvasEntity.LoginUserEntity
 @{
-    ViewBag.Title = "Login";
-}
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    ViewBag.Title = "Iniciar sesión";
 
-<h2>Login</h2>
+}
+<div class="login-screen"></div>
+<div class="login-center">
+    <div class="container min-height" style="margin-top: 20px;">
+        <div class="row">
+            <div class="col-xs-4 col-md-offset-8">
+                <div class="login" id="card" style="perspective: 640px; position: relative; transform-style: preserve-3d;">
+                    <div class="front signin_form" style="height: 100%; width: 100%; backface-visibility: hidden; transform-style: preserve-3d; position: absolute; z-index: 1; transition: all 0.5s ease-out;">
+                        <br />
+                        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "login-form", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <h4>Use una cuenta local para iniciar sesión.</h4>
+                            <hr />
+                            <div class="form-group" style="backface-visibility: hidden;">
+                                <div class="input-group" style="backface-visibility: hidden;">
+                                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Corre electronico", style = "backface-visibility: hidden;" })
+
+                                    <span class="input-group-addon" style="backface-visibility: hidden;">
+                                        <i class="glyphicon glyphicon-user" style="backface-visibility: hidden;"></i>
+                                    </span>
+                                </div>
+                                <div class="col-md-10">
+                                    <span>@Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })</span>
+                                </div>
+                            </div>
+                            <div class="form-group" style="backface-visibility: hidden;">
+                                <div class="input-group" style="backface-visibility: hidden;">
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Contrasena", style = "backface-visibility: hidden;" })
+                                    <span class="input-group-addon" style="backface-visibility: hidden;">
+                                        <i class="glyphicon glyphicon-lock" style="backface-visibility: hidden;"></i>
+                                    </span>
+                                </div>
+                                <div class="col-md-10">
+                                    <span>@Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })</span>
+                                </div>
+                            </div>
+                            <div class="checkbox" style="backface-visibility: hidden;">
+                                <label asp-for="RememberMe">
+                                    @Html.CheckBoxFor(m => m.RememberMe)
+                                    @Html.LabelFor(m => m.RememberMe)
+                                </label>
+                            </div>
+                            <div class="form-group sign-btn" style="backface-visibility: hidden;">
+                                <input type="submit" class="btn" value="Iniciar Sesion" style="backface-visibility: hidden;">
+                                <br />
+                                <br />
+                                <p style="backface-visibility: hidden;">
+                                    <strong style="backface-visibility: hidden;">¿Problemas para iniciar sesion?</strong>
+                                    <br style="backface-visibility: hidden;">
+                                </p>
+                                <p>
+                                    @Html.ActionLink("Registrar como nuevo usuario", "Register")
+                                </p>
+                                <p>
+                                    @Html.ActionLink("¿Ha olvidado su contraseña?", "ForgotPassword")
+                                </p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
 

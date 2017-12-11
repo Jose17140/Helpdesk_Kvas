@@ -63,29 +63,4 @@
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UsuariosRoles> UsuariosRoles { get; set; }
     }
-
-    public class RegisterViewModel : Usuarios
-    {
-
-        [DataType(DataType.Password)]
-        [Display(Name = "Confirmar contraseña")]
-        [Compare("Password", ErrorMessage = "La contraseña y la contraseña de confirmación no coinciden.")]
-        public string ConfirmPassword { get; set; }
-    }
-
-    public class LoginViewModel
-    {
-        [Required]
-        [Display(Name = "Correo electrónico")]
-        [EmailAddress]
-        public string NombreUsuario { get; set; }
-
-        [Required]
-        [DataType(DataType.Password)]
-        [Display(Name = "Contraseña")]
-        public string Password { get; set; }
-
-        [Display(Name = "¿Recordar cuenta?")]
-        public bool RememberMe { get; set; }
-    }
 }

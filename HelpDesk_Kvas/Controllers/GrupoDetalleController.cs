@@ -88,6 +88,7 @@ namespace HelpDesk_Kvas.Controllers
             //LISTA DE GRUPO
             var listaGrupo = objGrupoLogic.ListarUnGrupo(id);
             var listaDetalle = objGrupoDetalleLogic.ListarPorGrupo(id);
+            //var listaDetalle = objGrupoDetalleLogic.Listar();
             SelectList grupos = new SelectList(listaGrupo,"IdGrupo", "Titulo");
             SelectList listaDetalles = new SelectList(listaDetalle, "IdGrupoDetalle","Titulo");
             ViewBag.Grupo = grupos;

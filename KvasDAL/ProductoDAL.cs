@@ -20,11 +20,13 @@ namespace KvasDAL
         {
             try
             {
+                producto.Icono = "fa fa-laptop";
+                producto.IdEquipo = null;
                 var fecha = DateTime.Now;
                 var insert = db.sp_AgregarProducto(producto.Titulo, producto.Descripcion, producto.Orden, producto.IdGrupo, producto.IdPadre,
-                                                    producto.Icono,producto.UrlDetalle,producto.Estatus,fecha,producto.Sku, producto.IdFabricante, 
-                                                    producto.Stock,producto.IdUnidad, producto.StockMin, producto.PrecioCompra, producto.PrecioVenta, 
-                                                    producto.Garantia);
+                                                    producto.Icono,producto.UrlDetalle,producto.Estatus,fecha,producto.Sku, producto.IdFabricante,
+                                                    producto.IdEquipo,producto.Stock,producto.IdUnidad, producto.StockMin, producto.PrecioCompra, 
+                                                    producto.PrecioVenta,producto.Garantia);
                 db.SubmitChanges();
             }
             catch (Exception)

@@ -278,20 +278,21 @@ CREATE PROCEDURE sp_AgregarProducto (
 	@FechaRegistro DATETIME,
 	@Sku VARCHAR(24),
 	@IdFabricante INT,
+	@IdEquipo INT,
 	@Stock INT,
 	@IdUnidad INT,
 	@StockMin INT,
 	@PrecioCompra DECIMAL(8,2),
 	@PrecioVenta DECIMAL(8,2),
 	@Garantia INT
-)	
+)
 	AS
 	BEGIN TRY
 		BEGIN TRAN Products
 			DECLARE @Id INT
 			INSERT INTO GruposDetalles VALUES(@Nombre,@Descripcion,@Orden,@IdGrupo,@IdPadre,@Icono,@UrlDetalle,@Estatus,@FechaRegistro)
 			SELECT @Id = SCOPE_IDENTITY();
-			INSERT INTO PSDetalles VALUES (@Id,@Sku,@IdFabricante,@Stock,@IdUnidad,@StockMin,@PrecioCompra,@PrecioVenta,@Garantia)
+			INSERT INTO PSDetalles VALUES (@Id,@Sku,@IdFabricante,@Stock,@IdUnidad,@IdEquipo,@StockMin,@PrecioCompra,@PrecioVenta,@Garantia)
 		COMMIT TRANSACTION Products
 	END TRY
 	BEGIN CATCH
@@ -322,6 +323,7 @@ CREATE PROCEDURE sp_ActualizarProducto (
 	@Estatus BIT,
 	@Sku VARCHAR(24),
 	@IdFabricante INT,
+	@IdEquipo INT,
 	@Stock INT,
 	@IdUnidad INT,
 	@StockMin INT,
@@ -474,4 +476,100 @@ CREATE PROCEDURE sp_ListarProducto
  END
  GO
 
- EXEC sp_ListarProducto
+SELECT *FROM Usuarios
+SELECT *FROM UsuariosRoles
+
+-- USUARIO
+DROP PROCEDURE IF EXISTS sp_AgregarUsuario;
+GO
+CREATE PROCEDURE sp_AgregarUsuario
+ (      
+    @NombreUsuario VARCHAR(30),      
+    @Contrasena VARCHAR(100),
+	@Email VARCHAR(60),
+	@IdPregunta INT,
+	@Respuesta VARCHAR(50),
+	@Avatar VARCHAR(30),
+	@Estatus BIT,
+	@FechaRegistro DATETIME,
+	@IdRole INT
+ )      
+ AS      
+ BEGIN
+	DECLARE @Id INT 
+    INSERT INTO Usuarios(NombreUsuario,Contrasena,IdEmail,IdPreguntaSeguridad,RespuestaSeguridad,Avatar,Estatus,FechaRegistro) VALUES
+	(@NombreUsuario,@Contrasena,@Email,@IdPregunta,@Respuesta,@Avatar,@Estatus,@FechaRegistro)
+	SELECT @Id = SCOPE_IDENTITY();
+	INSERT INTO UsuariosRoles(IdUsuario,IdRoles)VALUES(@Id,@IdRole)
+ END
+ GO
+
+DROP PROCEDURE IF EXISTS sp_ActualizarUsuario;
+GO
+CREATE PROCEDURE sp_ActualizarUsuario
+ (  
+	@IdUsuario INT,
+	@NombreUsuario VARCHAR(30),      
+    @Contrasena VARCHAR(100),
+	@Email VARCHAR(60),
+	@IdPregunta INT,
+	@Respuesta VARCHAR(50),
+	@Avatar VARCHAR(30),
+	@Estatus BIT,
+	@FechaRegistro DATETIME,
+	@IdRole INT   
+ )      
+ AS      
+ BEGIN      
+    UPDATE Usuarios      
+    SET Nombres=@Nombres,      
+		IdTipoPersona=@IdTipoPersona,      
+		CiRif=@CiRif,
+		Direccion=@Direccion,
+		Telefonos=@Telefonos,
+		Email=@Email
+		WHERE IdPersona = @IdPersona	
+ END
+ GO
+
+DROP PROCEDURE IF EXISTS sp_ActualizarPersonasSimple;
+GO
+CREATE PROCEDURE sp_ActualizarPersonasSimple
+ (  
+	@IdPersona INT,
+	@Nombres VARCHAR(50),
+	@Direccion VARCHAR(100),
+	@Telefonos VARCHAR(60),
+	@Email VARCHAR(60)   
+ )      
+ AS      
+ BEGIN      
+    UPDATE Personas      
+    SET Nombres=@Nombres,
+		Direccion=@Direccion,
+		Telefonos=@Telefonos,
+		Email=@Email
+		WHERE IdPersona = @IdPersona	
+ END
+ GO      
+     
+DROP PROCEDURE IF EXISTS sp_EliminarPersonas;
+GO   
+CREATE PROCEDURE sp_EliminarPersonas
+ (      
+    @IdPersona INT      
+ )      
+ AS      
+ BEGIN       
+    DELETE FROM Personas WHERE IdPersona=@IdPersona      
+ END
+ GO
+
+DROP PROCEDURE IF EXISTS sp_ListarPersonas;
+GO
+CREATE PROCEDURE sp_ListarPersonas
+ AS        
+ BEGIN        
+    SELECT * FROM Personas      
+ END
+ GO

@@ -1,4 +1,5 @@
-﻿using HelpDesk_Kvas.Models;
+﻿using KvasEntity;
+using KvasLogic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,14 @@ namespace HelpDesk_Kvas.Controllers
 {
     public class UsuarioController : Controller
     {
-        DAL_Main db = new DAL_Main();
+        UsuarioLogic objUsuarioLogic;
+        GrupoDetalleLogic objGrupoDetalleLogic;
+        public UsuarioController()
+        {
+            objUsuarioLogic = new UsuarioLogic();
+            objGrupoDetalleLogic = new GrupoDetalleLogic();
+        }
+
         // GET: Usuario
         public ActionResult Index()
         {
@@ -18,14 +26,23 @@ namespace HelpDesk_Kvas.Controllers
         }
 
         [HttpGet]
-        public ActionResult Registration()
+        public ActionResult Registrar()
         {
+            var _ListaDetalle = objGrupoDetalleLogic.Listar();
+            var _Roles = _ListaDetalle.Where(m => m.IdGrupo == 3).ToList();
+            var _Preguntas = _ListaDetalle.Where(m => m.IdGrupo == 15).ToList();
+            //Departamento Roles
+            SelectList listaRoles = new SelectList(_Roles, "IdGrupoDetalle", "Titulo");
+            //Departamento hijo
+            SelectList listaPreguntas = new SelectList(_Preguntas, "IdGrupoDetalle", "Titulo");
+            ViewBag.ListaRoles = listaRoles;
+            ViewBag.ListaPreguntas = listaPreguntas;
             return View();
         }
         //Registration POST action 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Registrar([Bind(Exclude = "FechaLogin,ContadorFallido,FechaModificacion")] RegisterViewModel user)
+        public ActionResult Registrar([Bind(Exclude = "FechaLogin,ContadorFallido,FechaModificacion")] RegisterUserEntity user)
         {
             string message = "";
             // Model Validation 
@@ -33,8 +50,10 @@ namespace HelpDesk_Kvas.Controllers
             {
 
                 #region //Email is already Exist 
-                var isExistEmail = IsEmailExist(user.IdEmail);
-                var isExistUser = IsUserExist(user.NombreUsuario);
+                var isExistEmail = objUsuarioLogic.IsEmailExist(user.Email);
+                var isExistUser = objUsuarioLogic.IsUserExist(user.UserName);
+                //var isExistEmail = IsEmailExist(user.Email);
+                //var isExistUser = IsUserExist(user.UserName);
                 if (isExistEmail)
                 {
                     ModelState.AddModelError("EmailExist", "Correo electronico ya esta registrado");
@@ -49,18 +68,15 @@ namespace HelpDesk_Kvas.Controllers
                 user.Avatar = "/Content/images/img/avatar.png";
                 
                 #region  Password Hashing 
-                user.Contrasena = Crypto.Hash(user.Contrasena);
+                user.Password = Crypto.Hash(user.Password);
                 user.ConfirmPassword = Crypto.Hash(user.ConfirmPassword);
                 #endregion
+
                 user.Estatus = false;
 
                 #region Save to Database
-                using (DAL_Main dc = new DAL_Main())
-                {
-                    dc.Usuarios.Add(user);
-                    dc.SaveChanges();
-                    message = "Registro exitoso";
-                }
+                objUsuarioLogic.Insertar(user);
+                message = "Registro exitoso";
                 #endregion
             }
             else
@@ -72,25 +88,25 @@ namespace HelpDesk_Kvas.Controllers
             return View(user);
         }
 
-        [NonAction]
-        public bool IsEmailExist(string emailID)
-        {
-            using (DAL_Main dc = new DAL_Main())
-            {
-                var v = dc.Usuarios.Where(a => a.IdEmail == emailID).FirstOrDefault();
-                return v != null;
-            }
-        }
+        //[NonAction]
+        //public bool IsEmailExist(string emailID)
+        //{
+        //    using (DAL_Main dc = new DAL_Main())
+        //    {
+        //        var v = dc.Usuarios.Where(a => a.IdEmail == emailID).FirstOrDefault();
+        //        return v != null;
+        //    }
+        //}
 
-        [NonAction]
-        public bool IsUserExist(string UserName)
-        {
-            using (DAL_Main dc = new DAL_Main())
-            {
-                var v = dc.Usuarios.Where(a => a.NombreUsuario == UserName).FirstOrDefault();
-                return v != null;
-            }
-        }
+        //[NonAction]
+        //public bool IsUserExist(string UserName)
+        //{
+        //    using (DAL_Main dc = new DAL_Main())
+        //    {
+        //        var v = dc.Usuarios.Where(a => a.NombreUsuario == UserName).FirstOrDefault();
+        //        return v != null;
+        //    }
+        //}
         //Verify Account  
         
         //Login 
@@ -100,56 +116,56 @@ namespace HelpDesk_Kvas.Controllers
             return View();
         }
 
-        //Login POST
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginViewModel login, string ReturnUrl = "")
-        {
-            string message = "";
-            using (DAL_Main dc = new DAL_Main())
-            {
-                var v = dc.Usuarios.Where(a => a.NombreUsuario == login.NombreUsuario).FirstOrDefault();
-                if (v != null)
-                {
-                    if (!v.Estatus)
-                    {
-                        ViewBag.Message = "Usuario Inactivo, comuniquese con el administrador";
-                        return View();
-                    }
+        ////Login POST
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Login(LoginViewModel login, string ReturnUrl = "")
+        //{
+        //    string message = "";
+        //    using (DAL_Main dc = new DAL_Main())
+        //    {
+        //        var v = dc.Usuarios.Where(a => a.NombreUsuario == login.NombreUsuario).FirstOrDefault();
+        //        if (v != null)
+        //        {
+        //            if (!v.Estatus)
+        //            {
+        //                ViewBag.Message = "Usuario Inactivo, comuniquese con el administrador";
+        //                return View();
+        //            }
 
-                    if (string.Compare(Crypto.Hash(login.Password), v.Contrasena) == 0)
-                    {
-                        int timeout = login.RememberMe ? 525600 : 20; // 525600 min = 1 year
-                        var ticket = new FormsAuthenticationTicket(login.NombreUsuario, login.RememberMe, timeout);
-                        string encrypted = FormsAuthentication.Encrypt(ticket);
-                        var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encrypted);
-                        cookie.Expires = DateTime.Now.AddMinutes(timeout);
-                        cookie.HttpOnly = true;
-                        Response.Cookies.Add(cookie);
+        //            if (string.Compare(Crypto.Hash(login.Password), v.Contrasena) == 0)
+        //            {
+        //                int timeout = login.RememberMe ? 525600 : 20; // 525600 min = 1 year
+        //                var ticket = new FormsAuthenticationTicket(login.NombreUsuario, login.RememberMe, timeout);
+        //                string encrypted = FormsAuthentication.Encrypt(ticket);
+        //                var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encrypted);
+        //                cookie.Expires = DateTime.Now.AddMinutes(timeout);
+        //                cookie.HttpOnly = true;
+        //                Response.Cookies.Add(cookie);
 
 
-                        if (Url.IsLocalUrl(ReturnUrl))
-                        {
-                            return Redirect(ReturnUrl);
-                        }
-                        else
-                        {
-                            return RedirectToAction("Index", "Home");
-                        }
-                    }
-                    else
-                    {
-                        message = "Usuario o ontrasena invalido";
-                    }
-                }
-                else
-                {
-                    message = "Usuario o ontrasena invalido";
-                }
-            }
-            ViewBag.Message = message;
-            return View();
-        }
+        //                if (Url.IsLocalUrl(ReturnUrl))
+        //                {
+        //                    return Redirect(ReturnUrl);
+        //                }
+        //                else
+        //                {
+        //                    return RedirectToAction("Index", "Home");
+        //                }
+        //            }
+        //            else
+        //            {
+        //                message = "Usuario o ontrasena invalido";
+        //            }
+        //        }
+        //        else
+        //        {
+        //            message = "Usuario o ontrasena invalido";
+        //        }
+        //    }
+        //    ViewBag.Message = message;
+        //    return View();
+        //}
 
         //Logout
         [Authorize]

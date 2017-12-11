@@ -52,6 +52,7 @@
     <Compile Include="PersonasEntity.cs" />
     <Compile Include="ProductosEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UsuariosEntity.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

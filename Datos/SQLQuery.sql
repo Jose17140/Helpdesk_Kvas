@@ -107,6 +107,7 @@ CREATE TABLE PSDetalles(
 	IdFabricante INT NOT NULL,
 	Stock INT NOT NULL,
 	IdUnidad INT NOT NULL, -- UNIDAD DE VENTA
+	IdEquipo INT NULL,
 	Stock_Min INT NULL,
 	PrecioCompra DECIMAL(8,2) NULL,
 	PrecioVenta DECIMAL(8,2) NOT NULL,
@@ -119,6 +120,9 @@ CREATE TABLE PSDetalles(
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION,
 	CONSTRAINT FK_Productos_Detalles_IdUnidad FOREIGN KEY (IdUnidad) REFERENCES GruposDetalles(IdGrupoDetalle)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION,
+	CONSTRAINT FK_Productos_Detalles_IdEquipo FOREIGN KEY (IdEquipo) REFERENCES GruposDetalles(IdGrupoDetalle)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
 );
@@ -150,7 +154,7 @@ CONSTRAINT PK_Reporte_Id PRIMARY KEY(IdReporte)
 
 --SELECT GENERICOS
 SELECT * FROM Grupos;
-SELECT * FROM GruposDetalles where IdGrupo = 18 AND IdPadre = 0;
+SELECT * FROM GruposDetalles where IdGrupo = 3 AND IdPadre = 0;
 SELECT * FROM Personas;
 SELECT * FROM Usuarios;
 SELECT * FROM PSDetalles;
@@ -211,3 +215,5 @@ LEFT JOIN PSDetalles AS ps ON ct.IdGrupoDetalle = ps.IdProducto
 LEFT JOIN GruposDetalles AS gd ON ps.IdFabricante = gd.IdGrupoDetalle
 WHERE g.IdGrupo = 9 
 ORDER BY ct.LevelGrupo ASC
+
+

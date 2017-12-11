@@ -45,6 +45,12 @@ namespace KvasDAL
     partial void InsertSerialesProductos(SerialesProductos instance);
     partial void UpdateSerialesProductos(SerialesProductos instance);
     partial void DeleteSerialesProductos(SerialesProductos instance);
+    partial void InsertUsuarios(Usuarios instance);
+    partial void UpdateUsuarios(Usuarios instance);
+    partial void DeleteUsuarios(Usuarios instance);
+    partial void InsertUsuariosRoles(UsuariosRoles instance);
+    partial void UpdateUsuariosRoles(UsuariosRoles instance);
+    partial void DeleteUsuariosRoles(UsuariosRoles instance);
     #endregion
 		
 		public dbDataContext() : 
@@ -122,6 +128,22 @@ namespace KvasDAL
 			get
 			{
 				return this.GetTable<SerialesProductos>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Usuarios> Usuarios
+		{
+			get
+			{
+				return this.GetTable<Usuarios>();
+			}
+		}
+		
+		public System.Data.Linq.Table<UsuariosRoles> UsuariosRoles
+		{
+			get
+			{
+				return this.GetTable<UsuariosRoles>();
 			}
 		}
 		
@@ -218,6 +240,7 @@ namespace KvasDAL
 					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="FechaRegistro", DbType="DateTime")] System.Nullable<System.DateTime> fechaRegistro, 
 					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Sku", DbType="VarChar(24)")] string sku, 
 					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdFabricante", DbType="Int")] System.Nullable<int> idFabricante, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdEquipo", DbType="Int")] System.Nullable<int> idEquipo, 
 					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Stock", DbType="Int")] System.Nullable<int> stock, 
 					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdUnidad", DbType="Int")] System.Nullable<int> idUnidad, 
 					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="StockMin", DbType="Int")] System.Nullable<int> stockMin, 
@@ -225,8 +248,15 @@ namespace KvasDAL
 					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="PrecioVenta", DbType="Decimal(8,2)")] System.Nullable<decimal> precioVenta, 
 					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Garantia", DbType="Int")] System.Nullable<int> garantia)
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), nombre, descripcion, orden, idGrupo, idPadre, icono, urlDetalle, estatus, fechaRegistro, sku, idFabricante, stock, idUnidad, stockMin, precioCompra, precioVenta, garantia);
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), nombre, descripcion, orden, idGrupo, idPadre, icono, urlDetalle, estatus, fechaRegistro, sku, idFabricante, idEquipo, stock, idUnidad, stockMin, precioCompra, precioVenta, garantia);
 			return ((ISingleResult<sp_AgregarProductoResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_BuscarProducto")]
+		public ISingleResult<sp_BuscarProductoResult> sp_BuscarProducto([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdProducto", DbType="Int")] System.Nullable<int> idProducto)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idProducto);
+			return ((ISingleResult<sp_BuscarProductoResult>)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_EliminarGrupo")]
@@ -292,11 +322,11 @@ namespace KvasDAL
 			return ((ISingleResult<sp_ListarProductoResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_BuscarProducto")]
-		public ISingleResult<sp_BuscarProductoResult> sp_BuscarProducto([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdProducto", DbType="Int")] System.Nullable<int> idProducto)
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_AgregarUsuario")]
+		public int sp_AgregarUsuario([global::System.Data.Linq.Mapping.ParameterAttribute(Name="NombreUsuario", DbType="VarChar(30)")] string nombreUsuario, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Contrasena", DbType="VarChar(100)")] string contrasena, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Email", DbType="VarChar(60)")] string email, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdPregunta", DbType="Int")] System.Nullable<int> idPregunta, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Respuesta", DbType="VarChar(50)")] string respuesta, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Avatar", DbType="VarChar(30)")] string avatar, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Estatus", DbType="Bit")] System.Nullable<bool> estatus, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="FechaRegistro", DbType="DateTime")] System.Nullable<System.DateTime> fechaRegistro, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdRole", DbType="Int")] System.Nullable<int> idRole)
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idProducto);
-			return ((ISingleResult<sp_BuscarProductoResult>)(result.ReturnValue));
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), nombreUsuario, contrasena, email, idPregunta, respuesta, avatar, estatus, fechaRegistro, idRole);
+			return ((int)(result.ReturnValue));
 		}
 	}
 	
@@ -594,6 +624,10 @@ namespace KvasDAL
 		
 		private EntitySet<PSDetalles> _PSDetalles2;
 		
+		private EntitySet<Usuarios> _Usuarios;
+		
+		private EntitySet<UsuariosRoles> _UsuariosRoles;
+		
 		private EntityRef<Grupos> _Grupos;
 		
 		private EntityRef<GruposDetalles> _GruposDetalles1;
@@ -631,6 +665,8 @@ namespace KvasDAL
 			this._PSDetalles = new EntitySet<PSDetalles>(new Action<PSDetalles>(this.attach_PSDetalles), new Action<PSDetalles>(this.detach_PSDetalles));
 			this._PSDetalles1 = default(EntityRef<PSDetalles>);
 			this._PSDetalles2 = new EntitySet<PSDetalles>(new Action<PSDetalles>(this.attach_PSDetalles2), new Action<PSDetalles>(this.detach_PSDetalles2));
+			this._Usuarios = new EntitySet<Usuarios>(new Action<Usuarios>(this.attach_Usuarios), new Action<Usuarios>(this.detach_Usuarios));
+			this._UsuariosRoles = new EntitySet<UsuariosRoles>(new Action<UsuariosRoles>(this.attach_UsuariosRoles), new Action<UsuariosRoles>(this.detach_UsuariosRoles));
 			this._Grupos = default(EntityRef<Grupos>);
 			this._GruposDetalles1 = default(EntityRef<GruposDetalles>);
 			OnCreated();
@@ -925,6 +961,32 @@ namespace KvasDAL
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_Usuarios", Storage="_Usuarios", ThisKey="IdGrupoDetalle", OtherKey="IdPreguntaSeguridad")]
+		public EntitySet<Usuarios> Usuarios
+		{
+			get
+			{
+				return this._Usuarios;
+			}
+			set
+			{
+				this._Usuarios.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_UsuariosRoles", Storage="_UsuariosRoles", ThisKey="IdGrupoDetalle", OtherKey="IdRoles")]
+		public EntitySet<UsuariosRoles> UsuariosRoles
+		{
+			get
+			{
+				return this._UsuariosRoles;
+			}
+			set
+			{
+				this._UsuariosRoles.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Grupos_GruposDetalles", Storage="_Grupos", ThisKey="IdGrupo", OtherKey="IdGrupo", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public Grupos Grupos
 		{
@@ -1059,6 +1121,30 @@ namespace KvasDAL
 		{
 			this.SendPropertyChanging();
 			entity.GruposDetalles2 = null;
+		}
+		
+		private void attach_Usuarios(Usuarios entity)
+		{
+			this.SendPropertyChanging();
+			entity.GruposDetalles = this;
+		}
+		
+		private void detach_Usuarios(Usuarios entity)
+		{
+			this.SendPropertyChanging();
+			entity.GruposDetalles = null;
+		}
+		
+		private void attach_UsuariosRoles(UsuariosRoles entity)
+		{
+			this.SendPropertyChanging();
+			entity.GruposDetalles = this;
+		}
+		
+		private void detach_UsuariosRoles(UsuariosRoles entity)
+		{
+			this.SendPropertyChanging();
+			entity.GruposDetalles = null;
 		}
 	}
 	
@@ -2048,6 +2134,593 @@ namespace KvasDAL
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Usuarios")]
+	public partial class Usuarios : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _IdUsuario;
+		
+		private string _NombreUsuario;
+		
+		private string _Contrasena;
+		
+		private string _IdEmail;
+		
+		private int _IdPreguntaSeguridad;
+		
+		private string _RespuestaSeguridad;
+		
+		private string _Avatar;
+		
+		private System.Nullable<System.DateTime> _FechaLogin;
+		
+		private int _ContadorFallido;
+		
+		private bool _Estatus;
+		
+		private System.DateTime _FechaRegistro;
+		
+		private System.Nullable<System.DateTime> _FechaModificacion;
+		
+		private EntitySet<UsuariosRoles> _UsuariosRoles;
+		
+		private EntityRef<GruposDetalles> _GruposDetalles;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdUsuarioChanging(int value);
+    partial void OnIdUsuarioChanged();
+    partial void OnNombreUsuarioChanging(string value);
+    partial void OnNombreUsuarioChanged();
+    partial void OnContrasenaChanging(string value);
+    partial void OnContrasenaChanged();
+    partial void OnIdEmailChanging(string value);
+    partial void OnIdEmailChanged();
+    partial void OnIdPreguntaSeguridadChanging(int value);
+    partial void OnIdPreguntaSeguridadChanged();
+    partial void OnRespuestaSeguridadChanging(string value);
+    partial void OnRespuestaSeguridadChanged();
+    partial void OnAvatarChanging(string value);
+    partial void OnAvatarChanged();
+    partial void OnFechaLoginChanging(System.Nullable<System.DateTime> value);
+    partial void OnFechaLoginChanged();
+    partial void OnContadorFallidoChanging(int value);
+    partial void OnContadorFallidoChanged();
+    partial void OnEstatusChanging(bool value);
+    partial void OnEstatusChanged();
+    partial void OnFechaRegistroChanging(System.DateTime value);
+    partial void OnFechaRegistroChanged();
+    partial void OnFechaModificacionChanging(System.Nullable<System.DateTime> value);
+    partial void OnFechaModificacionChanged();
+    #endregion
+		
+		public Usuarios()
+		{
+			this._UsuariosRoles = new EntitySet<UsuariosRoles>(new Action<UsuariosRoles>(this.attach_UsuariosRoles), new Action<UsuariosRoles>(this.detach_UsuariosRoles));
+			this._GruposDetalles = default(EntityRef<GruposDetalles>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdUsuario", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int IdUsuario
+		{
+			get
+			{
+				return this._IdUsuario;
+			}
+			set
+			{
+				if ((this._IdUsuario != value))
+				{
+					this.OnIdUsuarioChanging(value);
+					this.SendPropertyChanging();
+					this._IdUsuario = value;
+					this.SendPropertyChanged("IdUsuario");
+					this.OnIdUsuarioChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreUsuario", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
+		public string NombreUsuario
+		{
+			get
+			{
+				return this._NombreUsuario;
+			}
+			set
+			{
+				if ((this._NombreUsuario != value))
+				{
+					this.OnNombreUsuarioChanging(value);
+					this.SendPropertyChanging();
+					this._NombreUsuario = value;
+					this.SendPropertyChanged("NombreUsuario");
+					this.OnNombreUsuarioChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Contrasena", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
+		public string Contrasena
+		{
+			get
+			{
+				return this._Contrasena;
+			}
+			set
+			{
+				if ((this._Contrasena != value))
+				{
+					this.OnContrasenaChanging(value);
+					this.SendPropertyChanging();
+					this._Contrasena = value;
+					this.SendPropertyChanged("Contrasena");
+					this.OnContrasenaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdEmail", DbType="VarChar(60) NOT NULL", CanBeNull=false)]
+		public string IdEmail
+		{
+			get
+			{
+				return this._IdEmail;
+			}
+			set
+			{
+				if ((this._IdEmail != value))
+				{
+					this.OnIdEmailChanging(value);
+					this.SendPropertyChanging();
+					this._IdEmail = value;
+					this.SendPropertyChanged("IdEmail");
+					this.OnIdEmailChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPreguntaSeguridad", DbType="Int NOT NULL")]
+		public int IdPreguntaSeguridad
+		{
+			get
+			{
+				return this._IdPreguntaSeguridad;
+			}
+			set
+			{
+				if ((this._IdPreguntaSeguridad != value))
+				{
+					if (this._GruposDetalles.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIdPreguntaSeguridadChanging(value);
+					this.SendPropertyChanging();
+					this._IdPreguntaSeguridad = value;
+					this.SendPropertyChanged("IdPreguntaSeguridad");
+					this.OnIdPreguntaSeguridadChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RespuestaSeguridad", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string RespuestaSeguridad
+		{
+			get
+			{
+				return this._RespuestaSeguridad;
+			}
+			set
+			{
+				if ((this._RespuestaSeguridad != value))
+				{
+					this.OnRespuestaSeguridadChanging(value);
+					this.SendPropertyChanging();
+					this._RespuestaSeguridad = value;
+					this.SendPropertyChanged("RespuestaSeguridad");
+					this.OnRespuestaSeguridadChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Avatar", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
+		public string Avatar
+		{
+			get
+			{
+				return this._Avatar;
+			}
+			set
+			{
+				if ((this._Avatar != value))
+				{
+					this.OnAvatarChanging(value);
+					this.SendPropertyChanging();
+					this._Avatar = value;
+					this.SendPropertyChanged("Avatar");
+					this.OnAvatarChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaLogin", DbType="DateTime")]
+		public System.Nullable<System.DateTime> FechaLogin
+		{
+			get
+			{
+				return this._FechaLogin;
+			}
+			set
+			{
+				if ((this._FechaLogin != value))
+				{
+					this.OnFechaLoginChanging(value);
+					this.SendPropertyChanging();
+					this._FechaLogin = value;
+					this.SendPropertyChanged("FechaLogin");
+					this.OnFechaLoginChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ContadorFallido", DbType="Int NOT NULL")]
+		public int ContadorFallido
+		{
+			get
+			{
+				return this._ContadorFallido;
+			}
+			set
+			{
+				if ((this._ContadorFallido != value))
+				{
+					this.OnContadorFallidoChanging(value);
+					this.SendPropertyChanging();
+					this._ContadorFallido = value;
+					this.SendPropertyChanged("ContadorFallido");
+					this.OnContadorFallidoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estatus", DbType="Bit NOT NULL")]
+		public bool Estatus
+		{
+			get
+			{
+				return this._Estatus;
+			}
+			set
+			{
+				if ((this._Estatus != value))
+				{
+					this.OnEstatusChanging(value);
+					this.SendPropertyChanging();
+					this._Estatus = value;
+					this.SendPropertyChanged("Estatus");
+					this.OnEstatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaRegistro", DbType="DateTime NOT NULL")]
+		public System.DateTime FechaRegistro
+		{
+			get
+			{
+				return this._FechaRegistro;
+			}
+			set
+			{
+				if ((this._FechaRegistro != value))
+				{
+					this.OnFechaRegistroChanging(value);
+					this.SendPropertyChanging();
+					this._FechaRegistro = value;
+					this.SendPropertyChanged("FechaRegistro");
+					this.OnFechaRegistroChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaModificacion", DbType="DateTime")]
+		public System.Nullable<System.DateTime> FechaModificacion
+		{
+			get
+			{
+				return this._FechaModificacion;
+			}
+			set
+			{
+				if ((this._FechaModificacion != value))
+				{
+					this.OnFechaModificacionChanging(value);
+					this.SendPropertyChanging();
+					this._FechaModificacion = value;
+					this.SendPropertyChanged("FechaModificacion");
+					this.OnFechaModificacionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Usuarios_UsuariosRoles", Storage="_UsuariosRoles", ThisKey="IdUsuario", OtherKey="IdUsuario")]
+		public EntitySet<UsuariosRoles> UsuariosRoles
+		{
+			get
+			{
+				return this._UsuariosRoles;
+			}
+			set
+			{
+				this._UsuariosRoles.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_Usuarios", Storage="_GruposDetalles", ThisKey="IdPreguntaSeguridad", OtherKey="IdGrupoDetalle", IsForeignKey=true)]
+		public GruposDetalles GruposDetalles
+		{
+			get
+			{
+				return this._GruposDetalles.Entity;
+			}
+			set
+			{
+				GruposDetalles previousValue = this._GruposDetalles.Entity;
+				if (((previousValue != value) 
+							|| (this._GruposDetalles.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._GruposDetalles.Entity = null;
+						previousValue.Usuarios.Remove(this);
+					}
+					this._GruposDetalles.Entity = value;
+					if ((value != null))
+					{
+						value.Usuarios.Add(this);
+						this._IdPreguntaSeguridad = value.IdGrupoDetalle;
+					}
+					else
+					{
+						this._IdPreguntaSeguridad = default(int);
+					}
+					this.SendPropertyChanged("GruposDetalles");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_UsuariosRoles(UsuariosRoles entity)
+		{
+			this.SendPropertyChanging();
+			entity.Usuarios = this;
+		}
+		
+		private void detach_UsuariosRoles(UsuariosRoles entity)
+		{
+			this.SendPropertyChanging();
+			entity.Usuarios = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.UsuariosRoles")]
+	public partial class UsuariosRoles : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _IdUserRoles;
+		
+		private int _IdUsuario;
+		
+		private int _IdRoles;
+		
+		private EntityRef<GruposDetalles> _GruposDetalles;
+		
+		private EntityRef<Usuarios> _Usuarios;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdUserRolesChanging(int value);
+    partial void OnIdUserRolesChanged();
+    partial void OnIdUsuarioChanging(int value);
+    partial void OnIdUsuarioChanged();
+    partial void OnIdRolesChanging(int value);
+    partial void OnIdRolesChanged();
+    #endregion
+		
+		public UsuariosRoles()
+		{
+			this._GruposDetalles = default(EntityRef<GruposDetalles>);
+			this._Usuarios = default(EntityRef<Usuarios>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdUserRoles", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int IdUserRoles
+		{
+			get
+			{
+				return this._IdUserRoles;
+			}
+			set
+			{
+				if ((this._IdUserRoles != value))
+				{
+					this.OnIdUserRolesChanging(value);
+					this.SendPropertyChanging();
+					this._IdUserRoles = value;
+					this.SendPropertyChanged("IdUserRoles");
+					this.OnIdUserRolesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdUsuario", DbType="Int NOT NULL")]
+		public int IdUsuario
+		{
+			get
+			{
+				return this._IdUsuario;
+			}
+			set
+			{
+				if ((this._IdUsuario != value))
+				{
+					if (this._Usuarios.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIdUsuarioChanging(value);
+					this.SendPropertyChanging();
+					this._IdUsuario = value;
+					this.SendPropertyChanged("IdUsuario");
+					this.OnIdUsuarioChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdRoles", DbType="Int NOT NULL")]
+		public int IdRoles
+		{
+			get
+			{
+				return this._IdRoles;
+			}
+			set
+			{
+				if ((this._IdRoles != value))
+				{
+					if (this._GruposDetalles.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIdRolesChanging(value);
+					this.SendPropertyChanging();
+					this._IdRoles = value;
+					this.SendPropertyChanged("IdRoles");
+					this.OnIdRolesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_UsuariosRoles", Storage="_GruposDetalles", ThisKey="IdRoles", OtherKey="IdGrupoDetalle", IsForeignKey=true)]
+		public GruposDetalles GruposDetalles
+		{
+			get
+			{
+				return this._GruposDetalles.Entity;
+			}
+			set
+			{
+				GruposDetalles previousValue = this._GruposDetalles.Entity;
+				if (((previousValue != value) 
+							|| (this._GruposDetalles.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._GruposDetalles.Entity = null;
+						previousValue.UsuariosRoles.Remove(this);
+					}
+					this._GruposDetalles.Entity = value;
+					if ((value != null))
+					{
+						value.UsuariosRoles.Add(this);
+						this._IdRoles = value.IdGrupoDetalle;
+					}
+					else
+					{
+						this._IdRoles = default(int);
+					}
+					this.SendPropertyChanged("GruposDetalles");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Usuarios_UsuariosRoles", Storage="_Usuarios", ThisKey="IdUsuario", OtherKey="IdUsuario", IsForeignKey=true)]
+		public Usuarios Usuarios
+		{
+			get
+			{
+				return this._Usuarios.Entity;
+			}
+			set
+			{
+				Usuarios previousValue = this._Usuarios.Entity;
+				if (((previousValue != value) 
+							|| (this._Usuarios.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Usuarios.Entity = null;
+						previousValue.UsuariosRoles.Remove(this);
+					}
+					this._Usuarios.Entity = value;
+					if ((value != null))
+					{
+						value.UsuariosRoles.Add(this);
+						this._IdUsuario = value.IdUsuario;
+					}
+					else
+					{
+						this._IdUsuario = default(int);
+					}
+					this.SendPropertyChanged("Usuarios");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	public partial class sp_OperacionesInventarioProductoResult
 	{
 		
@@ -2391,6 +3064,392 @@ namespace KvasDAL
 				if ((this._errMessage != value))
 				{
 					this._errMessage = value;
+				}
+			}
+		}
+	}
+	
+	public partial class sp_BuscarProductoResult
+	{
+		
+		private System.Nullable<int> _IdProducto;
+		
+		private string _Sku;
+		
+		private string _Titulo;
+		
+		private string _Descripcion;
+		
+		private System.Nullable<int> _Orden;
+		
+		private System.Nullable<int> _IdGrupo;
+		
+		private string _Grupo;
+		
+		private System.Nullable<int> _IdPadre;
+		
+		private string _Padre;
+		
+		private string _Icono;
+		
+		private string _UrlDetalle;
+		
+		private System.Nullable<bool> _Estatus;
+		
+		private System.Nullable<int> _IdFabricante;
+		
+		private string _Fabricante;
+		
+		private System.Nullable<int> _Stock;
+		
+		private System.Nullable<int> _Stock_Min;
+		
+		private System.Nullable<int> _IdUnidad;
+		
+		private System.Nullable<int> _Garantia;
+		
+		private System.Nullable<decimal> _PrecioCompra;
+		
+		private System.Nullable<decimal> _PrecioVenta;
+		
+		private System.Nullable<System.DateTime> _FechaRegistro;
+		
+		public sp_BuscarProductoResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdProducto", DbType="Int")]
+		public System.Nullable<int> IdProducto
+		{
+			get
+			{
+				return this._IdProducto;
+			}
+			set
+			{
+				if ((this._IdProducto != value))
+				{
+					this._IdProducto = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sku", DbType="VarChar(24)")]
+		public string Sku
+		{
+			get
+			{
+				return this._Sku;
+			}
+			set
+			{
+				if ((this._Sku != value))
+				{
+					this._Sku = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Titulo", DbType="VarChar(50)")]
+		public string Titulo
+		{
+			get
+			{
+				return this._Titulo;
+			}
+			set
+			{
+				if ((this._Titulo != value))
+				{
+					this._Titulo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descripcion", DbType="VarChar(50)")]
+		public string Descripcion
+		{
+			get
+			{
+				return this._Descripcion;
+			}
+			set
+			{
+				if ((this._Descripcion != value))
+				{
+					this._Descripcion = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Orden", DbType="Int")]
+		public System.Nullable<int> Orden
+		{
+			get
+			{
+				return this._Orden;
+			}
+			set
+			{
+				if ((this._Orden != value))
+				{
+					this._Orden = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdGrupo", DbType="Int")]
+		public System.Nullable<int> IdGrupo
+		{
+			get
+			{
+				return this._IdGrupo;
+			}
+			set
+			{
+				if ((this._IdGrupo != value))
+				{
+					this._IdGrupo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Grupo", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Grupo
+		{
+			get
+			{
+				return this._Grupo;
+			}
+			set
+			{
+				if ((this._Grupo != value))
+				{
+					this._Grupo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPadre", DbType="Int")]
+		public System.Nullable<int> IdPadre
+		{
+			get
+			{
+				return this._IdPadre;
+			}
+			set
+			{
+				if ((this._IdPadre != value))
+				{
+					this._IdPadre = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Padre", DbType="VarChar(50)")]
+		public string Padre
+		{
+			get
+			{
+				return this._Padre;
+			}
+			set
+			{
+				if ((this._Padre != value))
+				{
+					this._Padre = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Icono", DbType="NVarChar(30)")]
+		public string Icono
+		{
+			get
+			{
+				return this._Icono;
+			}
+			set
+			{
+				if ((this._Icono != value))
+				{
+					this._Icono = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UrlDetalle", DbType="VarChar(100)")]
+		public string UrlDetalle
+		{
+			get
+			{
+				return this._UrlDetalle;
+			}
+			set
+			{
+				if ((this._UrlDetalle != value))
+				{
+					this._UrlDetalle = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estatus", DbType="Bit")]
+		public System.Nullable<bool> Estatus
+		{
+			get
+			{
+				return this._Estatus;
+			}
+			set
+			{
+				if ((this._Estatus != value))
+				{
+					this._Estatus = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdFabricante", DbType="Int")]
+		public System.Nullable<int> IdFabricante
+		{
+			get
+			{
+				return this._IdFabricante;
+			}
+			set
+			{
+				if ((this._IdFabricante != value))
+				{
+					this._IdFabricante = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fabricante", DbType="VarChar(50)")]
+		public string Fabricante
+		{
+			get
+			{
+				return this._Fabricante;
+			}
+			set
+			{
+				if ((this._Fabricante != value))
+				{
+					this._Fabricante = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Stock", DbType="Int")]
+		public System.Nullable<int> Stock
+		{
+			get
+			{
+				return this._Stock;
+			}
+			set
+			{
+				if ((this._Stock != value))
+				{
+					this._Stock = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Stock_Min", DbType="Int")]
+		public System.Nullable<int> Stock_Min
+		{
+			get
+			{
+				return this._Stock_Min;
+			}
+			set
+			{
+				if ((this._Stock_Min != value))
+				{
+					this._Stock_Min = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdUnidad", DbType="Int")]
+		public System.Nullable<int> IdUnidad
+		{
+			get
+			{
+				return this._IdUnidad;
+			}
+			set
+			{
+				if ((this._IdUnidad != value))
+				{
+					this._IdUnidad = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Garantia", DbType="Int")]
+		public System.Nullable<int> Garantia
+		{
+			get
+			{
+				return this._Garantia;
+			}
+			set
+			{
+				if ((this._Garantia != value))
+				{
+					this._Garantia = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PrecioCompra", DbType="Decimal(8,2)")]
+		public System.Nullable<decimal> PrecioCompra
+		{
+			get
+			{
+				return this._PrecioCompra;
+			}
+			set
+			{
+				if ((this._PrecioCompra != value))
+				{
+					this._PrecioCompra = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PrecioVenta", DbType="Decimal(8,2)")]
+		public System.Nullable<decimal> PrecioVenta
+		{
+			get
+			{
+				return this._PrecioVenta;
+			}
+			set
+			{
+				if ((this._PrecioVenta != value))
+				{
+					this._PrecioVenta = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaRegistro", DbType="DateTime")]
+		public System.Nullable<System.DateTime> FechaRegistro
+		{
+			get
+			{
+				return this._FechaRegistro;
+			}
+			set
+			{
+				if ((this._FechaRegistro != value))
+				{
+					this._FechaRegistro = value;
 				}
 			}
 		}
@@ -3441,392 +4500,6 @@ namespace KvasDAL
 				if ((this._Estatus != value))
 				{
 					this._Estatus = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaRegistro", DbType="DateTime")]
-		public System.Nullable<System.DateTime> FechaRegistro
-		{
-			get
-			{
-				return this._FechaRegistro;
-			}
-			set
-			{
-				if ((this._FechaRegistro != value))
-				{
-					this._FechaRegistro = value;
-				}
-			}
-		}
-	}
-	
-	public partial class sp_BuscarProductoResult
-	{
-		
-		private System.Nullable<int> _IdProducto;
-		
-		private string _Sku;
-		
-		private string _Titulo;
-		
-		private string _Descripcion;
-		
-		private System.Nullable<int> _Orden;
-		
-		private System.Nullable<int> _IdGrupo;
-		
-		private string _Grupo;
-		
-		private System.Nullable<int> _IdPadre;
-		
-		private string _Padre;
-		
-		private string _Icono;
-		
-		private string _UrlDetalle;
-		
-		private System.Nullable<bool> _Estatus;
-		
-		private System.Nullable<int> _IdFabricante;
-		
-		private string _Fabricante;
-		
-		private System.Nullable<int> _Stock;
-		
-		private System.Nullable<int> _Stock_Min;
-		
-		private System.Nullable<int> _IdUnidad;
-		
-		private System.Nullable<int> _Garantia;
-		
-		private System.Nullable<decimal> _PrecioCompra;
-		
-		private System.Nullable<decimal> _PrecioVenta;
-		
-		private System.Nullable<System.DateTime> _FechaRegistro;
-		
-		public sp_BuscarProductoResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdProducto", DbType="Int")]
-		public System.Nullable<int> IdProducto
-		{
-			get
-			{
-				return this._IdProducto;
-			}
-			set
-			{
-				if ((this._IdProducto != value))
-				{
-					this._IdProducto = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sku", DbType="VarChar(24)")]
-		public string Sku
-		{
-			get
-			{
-				return this._Sku;
-			}
-			set
-			{
-				if ((this._Sku != value))
-				{
-					this._Sku = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Titulo", DbType="VarChar(50)")]
-		public string Titulo
-		{
-			get
-			{
-				return this._Titulo;
-			}
-			set
-			{
-				if ((this._Titulo != value))
-				{
-					this._Titulo = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descripcion", DbType="VarChar(50)")]
-		public string Descripcion
-		{
-			get
-			{
-				return this._Descripcion;
-			}
-			set
-			{
-				if ((this._Descripcion != value))
-				{
-					this._Descripcion = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Orden", DbType="Int")]
-		public System.Nullable<int> Orden
-		{
-			get
-			{
-				return this._Orden;
-			}
-			set
-			{
-				if ((this._Orden != value))
-				{
-					this._Orden = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdGrupo", DbType="Int")]
-		public System.Nullable<int> IdGrupo
-		{
-			get
-			{
-				return this._IdGrupo;
-			}
-			set
-			{
-				if ((this._IdGrupo != value))
-				{
-					this._IdGrupo = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Grupo", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Grupo
-		{
-			get
-			{
-				return this._Grupo;
-			}
-			set
-			{
-				if ((this._Grupo != value))
-				{
-					this._Grupo = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPadre", DbType="Int")]
-		public System.Nullable<int> IdPadre
-		{
-			get
-			{
-				return this._IdPadre;
-			}
-			set
-			{
-				if ((this._IdPadre != value))
-				{
-					this._IdPadre = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Padre", DbType="VarChar(50)")]
-		public string Padre
-		{
-			get
-			{
-				return this._Padre;
-			}
-			set
-			{
-				if ((this._Padre != value))
-				{
-					this._Padre = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Icono", DbType="NVarChar(30)")]
-		public string Icono
-		{
-			get
-			{
-				return this._Icono;
-			}
-			set
-			{
-				if ((this._Icono != value))
-				{
-					this._Icono = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UrlDetalle", DbType="VarChar(100)")]
-		public string UrlDetalle
-		{
-			get
-			{
-				return this._UrlDetalle;
-			}
-			set
-			{
-				if ((this._UrlDetalle != value))
-				{
-					this._UrlDetalle = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estatus", DbType="Bit")]
-		public System.Nullable<bool> Estatus
-		{
-			get
-			{
-				return this._Estatus;
-			}
-			set
-			{
-				if ((this._Estatus != value))
-				{
-					this._Estatus = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdFabricante", DbType="Int")]
-		public System.Nullable<int> IdFabricante
-		{
-			get
-			{
-				return this._IdFabricante;
-			}
-			set
-			{
-				if ((this._IdFabricante != value))
-				{
-					this._IdFabricante = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fabricante", DbType="VarChar(50)")]
-		public string Fabricante
-		{
-			get
-			{
-				return this._Fabricante;
-			}
-			set
-			{
-				if ((this._Fabricante != value))
-				{
-					this._Fabricante = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Stock", DbType="Int")]
-		public System.Nullable<int> Stock
-		{
-			get
-			{
-				return this._Stock;
-			}
-			set
-			{
-				if ((this._Stock != value))
-				{
-					this._Stock = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Stock_Min", DbType="Int")]
-		public System.Nullable<int> Stock_Min
-		{
-			get
-			{
-				return this._Stock_Min;
-			}
-			set
-			{
-				if ((this._Stock_Min != value))
-				{
-					this._Stock_Min = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdUnidad", DbType="Int")]
-		public System.Nullable<int> IdUnidad
-		{
-			get
-			{
-				return this._IdUnidad;
-			}
-			set
-			{
-				if ((this._IdUnidad != value))
-				{
-					this._IdUnidad = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Garantia", DbType="Int")]
-		public System.Nullable<int> Garantia
-		{
-			get
-			{
-				return this._Garantia;
-			}
-			set
-			{
-				if ((this._Garantia != value))
-				{
-					this._Garantia = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PrecioCompra", DbType="Decimal(8,2)")]
-		public System.Nullable<decimal> PrecioCompra
-		{
-			get
-			{
-				return this._PrecioCompra;
-			}
-			set
-			{
-				if ((this._PrecioCompra != value))
-				{
-					this._PrecioCompra = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PrecioVenta", DbType="Decimal(8,2)")]
-		public System.Nullable<decimal> PrecioVenta
-		{
-			get
-			{
-				return this._PrecioVenta;
-			}
-			set
-			{
-				if ((this._PrecioVenta != value))
-				{
-					this._PrecioVenta = value;
 				}
 			}
 		}

@@ -23,6 +23,9 @@ namespace KvasEntity
         [Display(Name = "Unidad:")]
         public int? IdUnidad { get; set; }
 
+        [Display(Name = "Equipo:")]
+        public int? IdEquipo { get; set; }
+
         [Display(Name = "Inventario Minimo:")]
         public int? StockMin { get; set; }
 
@@ -38,6 +41,7 @@ namespace KvasEntity
 
     public class ProductosEntityView : ProductosEntity
     {
+        public string Equipo { get; set; }
         public string Grupo { get; set; }
         public string Padre { get; set; }
         public string Fabricante { get; set; }

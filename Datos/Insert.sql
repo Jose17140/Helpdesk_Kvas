@@ -2,7 +2,7 @@
 USE Helpdesk_Kvas
 GO
 --GRUPO DE MENU
-INSERT INTO Grupos(Nombre,Descripcion,UrlGrupo,Icono,Estatus,FechaRegistro)VALUES 
+INSERT INTO Grupos(Nombre,Descripcion,UrlGrupo,Icono,Estatus,FechaRegistro)VALUES
 ('Cat. Superior','Agrupa las Tablas Nulas','/','fa fa-bars',1,GETDATE()),
 ('Menu','Agrupa el Menu slidebar de la app','/','fa fa-bars',1,GETDATE()),
 ('TipoPersona','Tipo de Identificacion de los Usuarios','/','fa fa-pause',1,GETDATE()),
@@ -24,7 +24,8 @@ INSERT INTO Grupos(Nombre,Descripcion,UrlGrupo,Icono,Estatus,FechaRegistro)VALUE
 ('Impuestos','Alicuota de Impuestas','/','fa fa-edit',1,GETDATE()),
 ('Unidades','Tipos de unidades de Venta','/','fa fa-edit',1,GETDATE()),
 ('Municipios','Agrupa Municipios','/','fa fa-globe',1,GETDATE()),
-('Ciudades','Agrupa Ciudades','/','fa fa-globe',1,GETDATE());
+('Ciudades','Agrupa Ciudades','/','fa fa-globe',1,GETDATE()),
+('Equipos','Equipos de Servicio','/','fa fa-laptop',1,GETDATE());
 --MENUS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 ('Cat. Superior','Agrupa los elementos padre GrupoDetalles',0,'Nulo',0,null,'/',GETDATE()),
