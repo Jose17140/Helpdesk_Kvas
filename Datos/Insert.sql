@@ -6,26 +6,22 @@ INSERT INTO Grupos(Nombre,Descripcion,UrlGrupo,Icono,Estatus,FechaRegistro)VALUE
 ('Cat. Superior','Agrupa las Tablas Nulas','/','fa fa-bars',1,GETDATE()),
 ('Menu','Agrupa el Menu slidebar de la app','/','fa fa-bars',1,GETDATE()),
 ('TipoPersona','Tipo de Identificacion de los Usuarios','/','fa fa-pause',1,GETDATE()),
+('Roles','Roles de Usuario','/','fa fa-edit',1,GETDATE()),
 ('Sexos','Genero de las personas','/','fa fa-venus-mars',1,GETDATE()),
+('Departamentos','Departamentos de servicio','/','fa fa-pause',1,GETDATE()),
 ('Pais','Paises','/','fa fa-globe',1,GETDATE()),
 ('Estados','Estamos de los paises','/','fa fa-globe',1,GETDATE()),
-('Categorias','Categorias de productos o servicio','/','fa fa-pause',1,GETDATE()),
-('Equipos','Equipos a recibir','/','fa fa-laptop',1,GETDATE()),
 ('Servicios','Servicios que se realizan','/','fa fa-pause',1,GETDATE()),
 ('Productos','Agrupa Productos','/','fa fa-edit',1,GETDATE()),
 ('Tipos de Pagos','tipos de Pago','/','fa fa-cc-visa',1,GETDATE()),
 ('Estatus','Estatus de los requerimientos','/','fa fa-pause',1,GETDATE()),
 ('Fabricantes','fabricantes de los equipos','/','fa fa-shopping-cart',1,GETDATE()),
-('Modelos','Modelo de los equipos','/','fa fa-pause',1,GETDATE()),
 ('Fallas','Agrupa Fallas de sistema','/','fa fa-wrench',1,GETDATE()),
 ('Accesorios','Accesorios que se entregan con el equipo','/','fa fa-pause',1,GETDATE()),
 ('Preguntas de Seguridad','Pregunta de seguridad al login','/','fa fa-question-circle',1,GETDATE()),
 ('Prioridades','Prioridad del requerimiento','/','fa fa-pause',1,GETDATE()),
-('Departamentos','Departamentos de servicio','/','fa fa-pause',1,GETDATE()),
 ('Cargos','Cargo de los empleados','/','fa fa-pause',1,GETDATE()),
 ('Impuestos','Alicuota de Impuestas','/','fa fa-edit',1,GETDATE()),
-('Roles','Roles de Usuario','/','fa fa-edit',1,GETDATE()),
-('Permisos','Permisos por Usuarios','/','fa fa-edit',1,GETDATE()),
 ('Unidades','Tipos de unidades de Venta','/','fa fa-edit',1,GETDATE()),
 ('Municipios','Agrupa Municipios','/','fa fa-globe',1,GETDATE()),
 ('Ciudades','Agrupa Ciudades','/','fa fa-globe',1,GETDATE());
@@ -59,7 +55,7 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDet
 --SISTEMA MENU
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 ('Configuracion','Menu',1,'fa fa-cog',1,8,'/',GETDATE()),
-('Usuarios','Menu',1,'fa fa-users',2,8,'/Usuario/Index',GETDATE()),
+('Usuarios','Menu',1,'fa fa-users',2,8,'/',GETDATE()),
 ('Herramientas','Menu',1,'fa fa-wrench',3,8,'/',GETDATE());
 --SUB MENU SISTEMA
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
@@ -69,8 +65,8 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDet
 ('Log','Menu',1,'fa fa-circle-o',2,21,'/',GETDATE());
 --USUARIOS Y ROLES MENU
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
-('Usuarios','Menu',1,'fa fa-user',1,20,'/',GETDATE()),
-('Roles','Menu',1,'fa fa-archive',3,20,'/',GETDATE());
+('Usuarios','Menu',1,'fa fa-user',1,20,'/Usuario/Index',GETDATE()),
+('Roles','Menu',1,'fa fa-archive',3,20,'/Roles/Index',GETDATE());
 --TIPOS DE PERSONAS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 ('V','Venezolano',2,'fa fa-flag-o',1,0,'*',GETDATE()),
@@ -79,11 +75,11 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDet
 ('G','Gubernamental',2,'fa fa-flag-o',4,0,'*',GETDATE());
 --UNIDADES DE MEDIDA
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
-('Unidad','Una Pieza',23,'fa fa-user',1,0,'*',GETDATE()),
-('Metro','Un metro',23,'fa fa-archive',2,0,'*',GETDATE()),
-('Hora','Hora de Servicio',23,'fa fa-archive',3,0,'*',GETDATE()),
-('Litro','Litro de Tinta',23,'fa fa-archive',4,0,'*',GETDATE()),
-('Mililitro','Tinta por mililitro',23,'fa fa-archive',5,0,'*',GETDATE());
+('Unidad','Una Pieza',19,'fa fa-archive',1,0,'*',GETDATE()),
+('Metro','Un metro',19,'fa fa-archive',2,0,'*',GETDATE()),
+('Hora','Hora de Servicio',19,'fa fa-archive',3,0,'*',GETDATE()),
+('Litro','Litro de Tinta',19,'fa fa-archive',4,0,'*',GETDATE()),
+('Mililitro','Tinta por mililitro',19,'fa fa-archive',5,0,'*',GETDATE());
 --INSERTAR PERSONAS
 INSERT personas (Nombres, IdTipoPersona, CiRif, Direccion, Telefonos, Email, FechaRegistro) VALUES 
 ( N'JUAN ARCOS', 28, N'22012345', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
@@ -101,28 +97,25 @@ INSERT personas (Nombres, IdTipoPersona, CiRif, Direccion, Telefonos, Email, Fec
 ( N'DOUGLAS GARCIA', 28, N'21018668', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
 ( N'YERALDINE PAEZ', 28, N'21018669', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
 ( N'ELIECER JARABA', 28, N'21018672', N'Caracas', N'04265556677', N'help@help.com', GETDATE());
-
-SELECT * FROM Grupos WHERE  IdGrupo = 18; --DEPARTAMENTO 1 NIVEL 
-SELECT * FROM Grupos WHERE  IdGrupo = 24; --HARDWARE O SOFTWARE 2 NIVEL
-SELECT * FROM Grupos WHERE  IdGrupo = 12; --FABRICANTE 3 NIVEL
-SELECT * FROM Grupos WHERE  IdGrupo =  9; --PRODUCTO 4 NIVEL
-SELECT * FROM GruposDetalles WHERE IdGrupo = 18
---37 Soporte 38 Inventario
 --DEPARTAMENTOS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
-('Soporte','Departamento de Soporte Tecnico',18,'fa fa-archive',1,0,'/',GETDATE()),
-('Inventario','Departamento Inventario',18,'fa fa-archive',2,0,'/',GETDATE());
+('Soporte','Departamento de Soporte Tecnico',5,'fa fa-archive',1,0,'/',GETDATE()),
+('Inventario','Departamento Inventario',5,'fa fa-archive',2,0,'/',GETDATE());
 --SUB DEPARTAMENTOS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
-('Redes','Departamentos',18,'fa fa-archive',1,38,'/',GETDATE()),
-('Partes y Piezas','Departamentos',18,'fa fa-archive',2,38,'/',GETDATE()),
-('Accesorios','Departamentos',18,'fa fa-archive',4,38,'/',GETDATE()),
-('Consumibles','Departamentos',18,'fa fa-archive',5,38,'/',GETDATE()),
-('Impresoras','Departamentos',18,'fa fa-archive',6,38,'/',GETDATE());
+('Redes','Departamentos',5,'fa fa-archive',1,38,'/',GETDATE()),
+('Partes y Piezas','Departamentos',5,'fa fa-archive',2,38,'/',GETDATE()),
+('Accesorios','Departamentos',5,'fa fa-archive',3,38,'/',GETDATE()),
+('Consumibles','Departamentos',5,'fa fa-archive',4,38,'/',GETDATE()),
+('Impresoras','Departamentos',5,'fa fa-archive',5,38,'/',GETDATE()),
+--SPORTE
+('Soporte Impresoras','Departamento de soporte impresoras tintas',5,'fa fa-archive',6,37,'/',GETDATE()),
+('Soporte Computacion','Departamento soporte computacion',5,'fa fa-archive',7,37,'/',GETDATE()),
+('Soporte Redes','Departamento area de redes',5,'fa fa-archive',8,37,'/',GETDATE());
 -- PRODUCTOS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
-('Procesador','I7',9,'fa fa-user',1,40,'*',GETDATE()),
-('Reset Impresoras','Xp201',9,'fa fa-archive',2,43,'*',GETDATE()),
+('Procesador','I7',9,'fa fa-archive',1,40,'*',GETDATE()),
+('Chip 196RG','Xp201/Xp211',9,'fa fa-archive',2,43,'*',GETDATE()),
 ('Memoria Ram','DDR3',9,'fa fa-archive',3,40,'*',GETDATE()),
 ('Tarjeta Red','Lan 1000',9,'fa fa-archive',4,39,'*',GETDATE()),
 ('Fan Cooler','I7',9,'fa fa-archive',5,40,'*',GETDATE()),
@@ -130,28 +123,28 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDet
 ('Tinta 100ml','Tinta CM',9,'fa fa-archive',7,42,'*',GETDATE());
 --SEXOS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
-('Femenino','Mujeres',3,'fa fa-venus',1,0,'*',GETDATE()),
-('Masculino','Hombres',3,'fa fa-mars-stroke',2,0,'*',GETDATE());
+('Femenino','Mujeres',4,'fa fa-venus',1,0,'*',GETDATE()),
+('Masculino','Hombres',4,'fa fa-mars-stroke',2,0,'*',GETDATE());
 --PREGUNTAS DE SEGURIDAD
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
-('¿Cómo se llama tu escuela primaria?','Pregunta de Seguridad',16,'fa fa-question',1,0,'*',GETDATE()),
-('¿Ano de Nacimiento de mi madre?','Pregunta de Seguridad',16,'fa fa-question',2,0,'*',GETDATE()),
-('¿Nombre de mi padre?','Pregunta de Seguridad',16,'fa fa-question',3,0,'*',GETDATE()),
-('¿Cuál es la profesión de mi abuelo?','Pregunta de Seguridad',16,'fa fa-question',4,0,'*',GETDATE()),
-('¿Cuál es el nombre de mi mascota?','Pregunta de Seguridad',16,'fa fa-question',5,0,'*',GETDATE()),
-('¿Cuál mi película favorita?','Pregunta de Seguridad',16,'fa fa-question',6,0,'*',GETDATE());
+('¿Cómo se llama tu escuela primaria?','Pregunta de Seguridad',15,'fa fa-question',1,0,'*',GETDATE()),
+('¿Ano de Nacimiento de mi madre?','Pregunta de Seguridad',15,'fa fa-question',2,0,'*',GETDATE()),
+('¿Nombre de mi padre?','Pregunta de Seguridad',15,'fa fa-question',3,0,'*',GETDATE()),
+('¿Cuál es la profesión de mi abuelo?','Pregunta de Seguridad',15,'fa fa-question',4,0,'*',GETDATE()),
+('¿Cuál es el nombre de mi mascota?','Pregunta de Seguridad',15,'fa fa-question',5,0,'*',GETDATE()),
+('¿Cuál mi película favorita?','Pregunta de Seguridad',15,'fa fa-question',6,0,'*',GETDATE());
 --Roles DE SEGURIDAD
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
-('Master','Control Total',21,'fa fa-user',1,0,'*',GETDATE()),
-('Supervisor','No Puede modificar grupos',21,'fa fa-user',2,0,'*',GETDATE()),
-('Analista','Recepcion de Equipos',21,'fa fa-user',3,0,'*',GETDATE()),
-('Tecnico','Atencion de Requerimiento y Recepcion',21,'fa fa-user',4,0,'*',GETDATE()),
-('Cliente','Estatus de Servicio',21,'fa fa-user',5,0,'*',GETDATE());
+('Master','Control Total',3,'fa fa-user',1,0,'*',GETDATE()),
+('Supervisor','No Puede modificar grupos',3,'fa fa-user',2,0,'*',GETDATE()),
+('Analista','Recepcion de Equipos',3,'fa fa-user',3,0,'*',GETDATE()),
+('Tecnico','Atencion de Requerimiento y Recepcion',3,'fa fa-user',4,0,'*',GETDATE()),
+('Cliente','Estatus de Servicio',3,'fa fa-user',5,0,'*',GETDATE());
 --IMPUESTOS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
-('12%','Iva 12% Pagos Efectivo',20,'fa fa-money',1,0,'*',GETDATE()),
-('9%','Iva 9% Pagos electronicos menores a 2M',20,'fa fa-money',2,0,'*',GETDATE()),
-('7%','Iva 7% Pagos electronicos mayores a 2M',20,'fa fa-money',3,0,'*',GETDATE());
+('12%','Iva 12% Pagos Efectivo',18,'fa fa-money',1,0,'*',GETDATE()),
+('9%','Iva 9% Pagos electronicos menores a 2M',18,'fa fa-money',2,0,'*',GETDATE()),
+('7%','Iva 7% Pagos electronicos mayores a 2M',18,'fa fa-money',3,0,'*',GETDATE());
 --TIPOS DE PAGO
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 ('Efectivo','Pagos en efectivo',10,'fa fa-money',1,0,'*',GETDATE()),
@@ -168,37 +161,27 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDet
 ('Entregado','Requerimiento Cerrado',11,'fa fa-hourglass-o',6,0,'*',GETDATE());
 --PAISES Y ESTADOS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
-('Venezuela','Venezuela',4,'fa fa-globe',1,0,'*',GETDATE()),
-('DC','Disctrito Capital',5,'fa fa-globe',2,77,'*',GETDATE()),
-('Miranda','Miranda',5,'fa fa-globe',3,77,'*',GETDATE()),
-('Aragua','Aragua',5,'fa fa-globe',4,77,'*',GETDATE()),
-('Caracas','Ciudad de Caracas',25,'fa fa-globe',5,78,'*',GETDATE()),
-('Libertador','Municipio',24,'fa fa-globe',5,81,'*',GETDATE());
+('Venezuela','Venezuela',6,'fa fa-globe',1,0,'*',GETDATE()),
+('DC','Disctrito Capital',7,'fa fa-globe',2,80,'*',GETDATE()),
+('Miranda','Miranda',7,'fa fa-globe',3,80,'*',GETDATE()),
+('Aragua','Aragua',7,'fa fa-globe',4,80,'*',GETDATE()),
+('Caracas','Ciudad de Caracas',21,'fa fa-globe',5,81,'*',GETDATE()),
+('Libertador','Municipio',20,'fa fa-globe',5,84,'*',GETDATE());
 --CARGOS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
-('Atencion al Publico','Venezuela',19,'fa fa-users',1,0,'*',GETDATE()),
-('Tecnico','Disctrito Capital',19,'fa fa-users',2,0,'*',GETDATE()),
-('Administrativo','Miranda',19,'fa fa-users',3,0,'*',GETDATE());
+('Atencion al Publico','Venezuela',17,'fa fa-users',1,0,'*',GETDATE()),
+('Tecnico','Disctrito Capital',17,'fa fa-users',2,0,'*',GETDATE()),
+('Administrativo','Miranda',17,'fa fa-users',3,0,'*',GETDATE());
 --ACCESORIOS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
-('Raton','Raton',15,'fa fa-users',1,0,'*',GETDATE()),
-('Teclado','Teclado',15,'fa fa-users',2,0,'*',GETDATE()),
+('Raton','Raton',14,'fa fa-users',1,0,'*',GETDATE()),
+('Teclado','Teclado',14,'fa fa-users',2,0,'*',GETDATE()),
 ('Sistema de Tinta','Sistema de Tinta',19,'fa fa-users',3,0,'*',GETDATE()),
-('Cargador','Cargador',15,'fa fa-users',4,0,'*',GETDATE()),
-('Cargador y Cable','Cargador mas Cable de poder',15,'fa fa-users',5,0,'*',GETDATE()),
-('Tinta','Envase de tinta',15,'fa fa-users',6,0,'*',GETDATE()),
-('CD/DVD','Driver y documentacion',15,'fa fa-users',7,0,'*',GETDATE()),
-('Cartuchos','Cartuchos de tinta',15,'fa fa-users',8,0,'*',GETDATE());
-
-
-
-
-
-
-
-
-
-
+('Cargador','Cargador',14,'fa fa-users',4,0,'*',GETDATE()),
+('Cargador y Cable','Cargador mas Cable de poder',14,'fa fa-users',5,0,'*',GETDATE()),
+('Tinta','Envase de tinta',14,'fa fa-users',6,0,'*',GETDATE()),
+('CD/DVD','Driver y documentacion',14,'fa fa-users',7,0,'*',GETDATE()),
+('Cartuchos','Cartuchos de tinta',14,'fa fa-users',8,0,'*',GETDATE());
 
 
 --SERVICIOS
@@ -209,20 +192,13 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDet
 --('Limpieza','Limpieza de Inyectores',8,'fa fa-archive',4,32,'*',GETDATE()),
 --('Mantenimiento','Preventivo',8,'fa fa-archive',5,32,'*',GETDATE());
 
---PRODUCTOS
---INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
---('Memoria','Repuestos de Computadoras',9,'fa fa-user',1,0,'/',GETDATE()),
---('Procesador','Menu',1,'fa fa-archive',3,13,'/',GETDATE());
 
---GRUPOS
--- 8 SERVICIO
--- 9 PRODUCTO
--- 18 DEPARTAMENTO
-
---GRUPOSDETALLES
--- 32 SERVICIOS
--- 33 VENTAS
-
+SELECT * FROM Grupos WHERE  IdGrupo = 18; --DEPARTAMENTO 1 NIVEL 
+SELECT * FROM Grupos WHERE  IdGrupo = 24; --HARDWARE O SOFTWARE 2 NIVEL
+SELECT * FROM Grupos WHERE  IdGrupo = 12; --FABRICANTE 3 NIVEL
+SELECT * FROM Grupos WHERE  IdGrupo =  9; --PRODUCTO 4 NIVEL
+SELECT * FROM GruposDetalles WHERE IdGrupo = 18
+--37 Soporte 38 Inventario
 --EQUIPOS
 
 --FABRICANTES

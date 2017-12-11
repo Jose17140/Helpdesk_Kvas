@@ -229,13 +229,6 @@ namespace KvasDAL
 			return ((ISingleResult<sp_AgregarProductoResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_BuscarProducto")]
-		public ISingleResult<sp_BuscarProductoResult> sp_BuscarProducto([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdProducto", DbType="Int")] System.Nullable<int> idProducto)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idProducto);
-			return ((ISingleResult<sp_BuscarProductoResult>)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_EliminarGrupo")]
 		public int sp_EliminarGrupo([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdGrupo", DbType="Int")] System.Nullable<int> idGrupo)
 		{
@@ -297,6 +290,13 @@ namespace KvasDAL
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
 			return ((ISingleResult<sp_ListarProductoResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_BuscarProducto")]
+		public ISingleResult<sp_BuscarProductoResult> sp_BuscarProducto([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdProducto", DbType="Int")] System.Nullable<int> idProducto)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idProducto);
+			return ((ISingleResult<sp_BuscarProductoResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -2396,392 +2396,6 @@ namespace KvasDAL
 		}
 	}
 	
-	public partial class sp_BuscarProductoResult
-	{
-		
-		private System.Nullable<int> _IdProducto;
-		
-		private string _Sku;
-		
-		private string _Nombre;
-		
-		private string _Descripcion;
-		
-		private System.Nullable<int> _Orden;
-		
-		private System.Nullable<int> _IdGrupo;
-		
-		private string _Grupo;
-		
-		private System.Nullable<int> _IdPadre;
-		
-		private string _Padre;
-		
-		private string _Icono;
-		
-		private string _UrlDetalle;
-		
-		private System.Nullable<bool> _Estatus;
-		
-		private System.Nullable<int> _IdFabricante;
-		
-		private string _Nombre1;
-		
-		private System.Nullable<int> _Stock;
-		
-		private System.Nullable<int> _Stock_Min;
-		
-		private System.Nullable<int> _IdUnidad;
-		
-		private System.Nullable<int> _Garantia;
-		
-		private System.Nullable<decimal> _PrecioCompra;
-		
-		private System.Nullable<decimal> _PrecioVenta;
-		
-		private System.Nullable<System.DateTime> _FechaRegistro;
-		
-		public sp_BuscarProductoResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdProducto", DbType="Int")]
-		public System.Nullable<int> IdProducto
-		{
-			get
-			{
-				return this._IdProducto;
-			}
-			set
-			{
-				if ((this._IdProducto != value))
-				{
-					this._IdProducto = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sku", DbType="VarChar(24)")]
-		public string Sku
-		{
-			get
-			{
-				return this._Sku;
-			}
-			set
-			{
-				if ((this._Sku != value))
-				{
-					this._Sku = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(50)")]
-		public string Nombre
-		{
-			get
-			{
-				return this._Nombre;
-			}
-			set
-			{
-				if ((this._Nombre != value))
-				{
-					this._Nombre = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descripcion", DbType="VarChar(50)")]
-		public string Descripcion
-		{
-			get
-			{
-				return this._Descripcion;
-			}
-			set
-			{
-				if ((this._Descripcion != value))
-				{
-					this._Descripcion = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Orden", DbType="Int")]
-		public System.Nullable<int> Orden
-		{
-			get
-			{
-				return this._Orden;
-			}
-			set
-			{
-				if ((this._Orden != value))
-				{
-					this._Orden = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdGrupo", DbType="Int")]
-		public System.Nullable<int> IdGrupo
-		{
-			get
-			{
-				return this._IdGrupo;
-			}
-			set
-			{
-				if ((this._IdGrupo != value))
-				{
-					this._IdGrupo = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Grupo", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Grupo
-		{
-			get
-			{
-				return this._Grupo;
-			}
-			set
-			{
-				if ((this._Grupo != value))
-				{
-					this._Grupo = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPadre", DbType="Int")]
-		public System.Nullable<int> IdPadre
-		{
-			get
-			{
-				return this._IdPadre;
-			}
-			set
-			{
-				if ((this._IdPadre != value))
-				{
-					this._IdPadre = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Padre", DbType="VarChar(50)")]
-		public string Padre
-		{
-			get
-			{
-				return this._Padre;
-			}
-			set
-			{
-				if ((this._Padre != value))
-				{
-					this._Padre = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Icono", DbType="NVarChar(30)")]
-		public string Icono
-		{
-			get
-			{
-				return this._Icono;
-			}
-			set
-			{
-				if ((this._Icono != value))
-				{
-					this._Icono = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UrlDetalle", DbType="VarChar(100)")]
-		public string UrlDetalle
-		{
-			get
-			{
-				return this._UrlDetalle;
-			}
-			set
-			{
-				if ((this._UrlDetalle != value))
-				{
-					this._UrlDetalle = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estatus", DbType="Bit")]
-		public System.Nullable<bool> Estatus
-		{
-			get
-			{
-				return this._Estatus;
-			}
-			set
-			{
-				if ((this._Estatus != value))
-				{
-					this._Estatus = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdFabricante", DbType="Int")]
-		public System.Nullable<int> IdFabricante
-		{
-			get
-			{
-				return this._IdFabricante;
-			}
-			set
-			{
-				if ((this._IdFabricante != value))
-				{
-					this._IdFabricante = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre1", DbType="VarChar(50)")]
-		public string Nombre1
-		{
-			get
-			{
-				return this._Nombre1;
-			}
-			set
-			{
-				if ((this._Nombre1 != value))
-				{
-					this._Nombre1 = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Stock", DbType="Int")]
-		public System.Nullable<int> Stock
-		{
-			get
-			{
-				return this._Stock;
-			}
-			set
-			{
-				if ((this._Stock != value))
-				{
-					this._Stock = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Stock_Min", DbType="Int")]
-		public System.Nullable<int> Stock_Min
-		{
-			get
-			{
-				return this._Stock_Min;
-			}
-			set
-			{
-				if ((this._Stock_Min != value))
-				{
-					this._Stock_Min = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdUnidad", DbType="Int")]
-		public System.Nullable<int> IdUnidad
-		{
-			get
-			{
-				return this._IdUnidad;
-			}
-			set
-			{
-				if ((this._IdUnidad != value))
-				{
-					this._IdUnidad = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Garantia", DbType="Int")]
-		public System.Nullable<int> Garantia
-		{
-			get
-			{
-				return this._Garantia;
-			}
-			set
-			{
-				if ((this._Garantia != value))
-				{
-					this._Garantia = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PrecioCompra", DbType="Decimal(8,2)")]
-		public System.Nullable<decimal> PrecioCompra
-		{
-			get
-			{
-				return this._PrecioCompra;
-			}
-			set
-			{
-				if ((this._PrecioCompra != value))
-				{
-					this._PrecioCompra = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PrecioVenta", DbType="Decimal(8,2)")]
-		public System.Nullable<decimal> PrecioVenta
-		{
-			get
-			{
-				return this._PrecioVenta;
-			}
-			set
-			{
-				if ((this._PrecioVenta != value))
-				{
-					this._PrecioVenta = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaRegistro", DbType="DateTime")]
-		public System.Nullable<System.DateTime> FechaRegistro
-		{
-			get
-			{
-				return this._FechaRegistro;
-			}
-			set
-			{
-				if ((this._FechaRegistro != value))
-				{
-					this._FechaRegistro = value;
-				}
-			}
-		}
-	}
-	
 	public partial class sp_ListarDetalles_x_GrupoResult
 	{
 		
@@ -3827,6 +3441,392 @@ namespace KvasDAL
 				if ((this._Estatus != value))
 				{
 					this._Estatus = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaRegistro", DbType="DateTime")]
+		public System.Nullable<System.DateTime> FechaRegistro
+		{
+			get
+			{
+				return this._FechaRegistro;
+			}
+			set
+			{
+				if ((this._FechaRegistro != value))
+				{
+					this._FechaRegistro = value;
+				}
+			}
+		}
+	}
+	
+	public partial class sp_BuscarProductoResult
+	{
+		
+		private System.Nullable<int> _IdProducto;
+		
+		private string _Sku;
+		
+		private string _Titulo;
+		
+		private string _Descripcion;
+		
+		private System.Nullable<int> _Orden;
+		
+		private System.Nullable<int> _IdGrupo;
+		
+		private string _Grupo;
+		
+		private System.Nullable<int> _IdPadre;
+		
+		private string _Padre;
+		
+		private string _Icono;
+		
+		private string _UrlDetalle;
+		
+		private System.Nullable<bool> _Estatus;
+		
+		private System.Nullable<int> _IdFabricante;
+		
+		private string _Fabricante;
+		
+		private System.Nullable<int> _Stock;
+		
+		private System.Nullable<int> _Stock_Min;
+		
+		private System.Nullable<int> _IdUnidad;
+		
+		private System.Nullable<int> _Garantia;
+		
+		private System.Nullable<decimal> _PrecioCompra;
+		
+		private System.Nullable<decimal> _PrecioVenta;
+		
+		private System.Nullable<System.DateTime> _FechaRegistro;
+		
+		public sp_BuscarProductoResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdProducto", DbType="Int")]
+		public System.Nullable<int> IdProducto
+		{
+			get
+			{
+				return this._IdProducto;
+			}
+			set
+			{
+				if ((this._IdProducto != value))
+				{
+					this._IdProducto = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sku", DbType="VarChar(24)")]
+		public string Sku
+		{
+			get
+			{
+				return this._Sku;
+			}
+			set
+			{
+				if ((this._Sku != value))
+				{
+					this._Sku = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Titulo", DbType="VarChar(50)")]
+		public string Titulo
+		{
+			get
+			{
+				return this._Titulo;
+			}
+			set
+			{
+				if ((this._Titulo != value))
+				{
+					this._Titulo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descripcion", DbType="VarChar(50)")]
+		public string Descripcion
+		{
+			get
+			{
+				return this._Descripcion;
+			}
+			set
+			{
+				if ((this._Descripcion != value))
+				{
+					this._Descripcion = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Orden", DbType="Int")]
+		public System.Nullable<int> Orden
+		{
+			get
+			{
+				return this._Orden;
+			}
+			set
+			{
+				if ((this._Orden != value))
+				{
+					this._Orden = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdGrupo", DbType="Int")]
+		public System.Nullable<int> IdGrupo
+		{
+			get
+			{
+				return this._IdGrupo;
+			}
+			set
+			{
+				if ((this._IdGrupo != value))
+				{
+					this._IdGrupo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Grupo", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Grupo
+		{
+			get
+			{
+				return this._Grupo;
+			}
+			set
+			{
+				if ((this._Grupo != value))
+				{
+					this._Grupo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPadre", DbType="Int")]
+		public System.Nullable<int> IdPadre
+		{
+			get
+			{
+				return this._IdPadre;
+			}
+			set
+			{
+				if ((this._IdPadre != value))
+				{
+					this._IdPadre = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Padre", DbType="VarChar(50)")]
+		public string Padre
+		{
+			get
+			{
+				return this._Padre;
+			}
+			set
+			{
+				if ((this._Padre != value))
+				{
+					this._Padre = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Icono", DbType="NVarChar(30)")]
+		public string Icono
+		{
+			get
+			{
+				return this._Icono;
+			}
+			set
+			{
+				if ((this._Icono != value))
+				{
+					this._Icono = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UrlDetalle", DbType="VarChar(100)")]
+		public string UrlDetalle
+		{
+			get
+			{
+				return this._UrlDetalle;
+			}
+			set
+			{
+				if ((this._UrlDetalle != value))
+				{
+					this._UrlDetalle = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estatus", DbType="Bit")]
+		public System.Nullable<bool> Estatus
+		{
+			get
+			{
+				return this._Estatus;
+			}
+			set
+			{
+				if ((this._Estatus != value))
+				{
+					this._Estatus = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdFabricante", DbType="Int")]
+		public System.Nullable<int> IdFabricante
+		{
+			get
+			{
+				return this._IdFabricante;
+			}
+			set
+			{
+				if ((this._IdFabricante != value))
+				{
+					this._IdFabricante = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fabricante", DbType="VarChar(50)")]
+		public string Fabricante
+		{
+			get
+			{
+				return this._Fabricante;
+			}
+			set
+			{
+				if ((this._Fabricante != value))
+				{
+					this._Fabricante = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Stock", DbType="Int")]
+		public System.Nullable<int> Stock
+		{
+			get
+			{
+				return this._Stock;
+			}
+			set
+			{
+				if ((this._Stock != value))
+				{
+					this._Stock = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Stock_Min", DbType="Int")]
+		public System.Nullable<int> Stock_Min
+		{
+			get
+			{
+				return this._Stock_Min;
+			}
+			set
+			{
+				if ((this._Stock_Min != value))
+				{
+					this._Stock_Min = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdUnidad", DbType="Int")]
+		public System.Nullable<int> IdUnidad
+		{
+			get
+			{
+				return this._IdUnidad;
+			}
+			set
+			{
+				if ((this._IdUnidad != value))
+				{
+					this._IdUnidad = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Garantia", DbType="Int")]
+		public System.Nullable<int> Garantia
+		{
+			get
+			{
+				return this._Garantia;
+			}
+			set
+			{
+				if ((this._Garantia != value))
+				{
+					this._Garantia = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PrecioCompra", DbType="Decimal(8,2)")]
+		public System.Nullable<decimal> PrecioCompra
+		{
+			get
+			{
+				return this._PrecioCompra;
+			}
+			set
+			{
+				if ((this._PrecioCompra != value))
+				{
+					this._PrecioCompra = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PrecioVenta", DbType="Decimal(8,2)")]
+		public System.Nullable<decimal> PrecioVenta
+		{
+			get
+			{
+				return this._PrecioVenta;
+			}
+			set
+			{
+				if ((this._PrecioVenta != value))
+				{
+					this._PrecioVenta = value;
 				}
 			}
 		}

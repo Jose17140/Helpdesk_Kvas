@@ -78,9 +78,9 @@ namespace HelpDesk_Kvas.Controllers
             ViewBag.Url = "*";
             ViewBag.Orden = 0;
             var _departamentoPadre = objGrupoDetalleLogic.Listar();
-            var _departamentoHijo = _departamentoPadre.Where(m => m.IdGrupo == 18 && m.IdPadre == 38).ToList();
+            var _departamentoHijo = _departamentoPadre.Where(m => m.IdGrupo == 5 && m.IdPadre == 38).ToList();
             var _fabricantes = _departamentoPadre.Where(m => m.IdGrupo == 12 && m.IdPadre == 0).ToList();
-            var _unidades = _departamentoPadre.Where(m => m.IdGrupo == 23 && m.IdPadre == 0).ToList();
+            var _unidades = _departamentoPadre.Where(m => m.IdGrupo == 19 && m.IdPadre == 0).ToList();
             //Departamento padre
             SelectList listaDepartamento = new SelectList(_departamentoHijo, "IdGrupoDetalle", "Titulo");
             //Departamento hijo
@@ -122,9 +122,9 @@ namespace HelpDesk_Kvas.Controllers
             ViewBag.Url = "*";
             ViewBag.Orden = 0;
             var _departamentoPadre = objGrupoDetalleLogic.Listar();
-            var _departamentoHijo = _departamentoPadre.Where(m => m.IdGrupo == 18 && m.IdPadre == 38).ToList();
+            var _departamentoHijo = _departamentoPadre.Where(m => m.IdGrupo == 5 && m.IdPadre == 38).ToList();
             var _fabricantes = _departamentoPadre.Where(m => m.IdGrupo == 12 && m.IdPadre == 0).ToList();
-            var _unidades = _departamentoPadre.Where(m => m.IdGrupo == 23 && m.IdPadre == 0).ToList();
+            var _unidades = _departamentoPadre.Where(m => m.IdGrupo == 19 && m.IdPadre == 0).ToList();
             //Departamento padre
             SelectList listaDepartamento = new SelectList(_departamentoHijo, "IdGrupoDetalle", "Titulo");
             //Departamento hijo

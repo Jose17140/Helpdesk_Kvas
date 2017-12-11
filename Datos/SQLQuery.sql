@@ -4,6 +4,7 @@ GO
 USE Helpdesk_Kvas;
 GO
 
+--DROP TABLE IF EXISTS Empleados;
 DROP TABLE IF EXISTS UsuariosRoles;
 DROP TABLE IF EXISTS Reportes;
 DROP TABLE IF EXISTS PermisoDenegadoPorRol;
@@ -15,14 +16,6 @@ DROP TABLE IF EXISTS PSDetalles;
 DROP TABLE IF EXISTS GruposDetalles;
 DROP TABLE IF EXISTS Grupos;
 
---DROP TABLE IF EXISTS Empleados;
---CREATE TABLE Empleados(
---IdPersona INT NOT NULL,
---IdUsuario INT NOT NULL,
---CONSTRAINT PK_Empleados PRIMARY KEY(IdPersona,IdUsuario),
---CONSTRAINT FK_Empleados_Personas_Id FOREIGN KEY (IdPersona) REFERENCES Personas(IdPersona),
---CONSTRAINT FK_Empleados_Usuarios_Id FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario)
---);
 
 DROP TABLE IF EXISTS Grupos;
 CREATE TABLE Grupos(
@@ -77,8 +70,10 @@ CREATE TABLE Usuarios(
 	IdUsuario INT IDENTITY(1,1) NOT NULL,
 	NombreUsuario VARCHAR(30) NOT NULL,
 	Contrasena VARCHAR(100) NOT NULL,
+	IdEmail VARCHAR(60) NOT NULL,
 	IdPreguntaSeguridad INT NOT NULL,
 	RespuestaSeguridad VARCHAR(50) NOT NULL,
+	Avatar VARCHAR(30) NOT NULL,
 	FechaLogin DATETIME NULL,
 	ContadorFallido INT NOT NULL DEFAULT 0,
 	Estatus BIT NOT NULL DEFAULT 0,
@@ -144,6 +139,15 @@ IdReporte INT IDENTITY(1,1) NOT NULL
 CONSTRAINT PK_Reporte_Id PRIMARY KEY(IdReporte)
 );
 
+--DROP TABLE IF EXISTS Empleados;
+--CREATE TABLE Empleados(
+--IdPersona INT NOT NULL,
+--IdUsuario INT NOT NULL,
+--CONSTRAINT PK_Empleados PRIMARY KEY(IdPersona,IdUsuario),
+--CONSTRAINT FK_Empleados_Personas_Id FOREIGN KEY (IdPersona) REFERENCES Personas(IdPersona),
+--CONSTRAINT FK_Empleados_Usuarios_Id FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario)
+--);
+
 --SELECT GENERICOS
 SELECT * FROM Grupos;
 SELECT * FROM GruposDetalles where IdGrupo = 18 AND IdPadre = 0;
@@ -153,7 +157,7 @@ SELECT * FROM PSDetalles;
 SELECT * FROM SerialesProductos;
 SELECT * FROM vw_Personas;
 
-
+INSERT INTO PSDetalles VALUES(47,'123456789',97,1,32,0,15000,50000,10)
 
 
 WITH Cte_Productos(IdGrupoDetalle,Nombre,Descripcion,Orden,IdGrupo,IdPadre,Icono,UrlDetalle,Estatus,FechaRegistro, LevelGrupo) AS (

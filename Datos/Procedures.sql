@@ -434,8 +434,8 @@ CREATE PROCEDURE sp_BuscarProducto
 		FROM GruposDetalles AS gd
 		INNER JOIN Cte_Productos AS cte ON gd.IdPadre = cte.IdGrupoDetalle
 	)
-	SELECT ct.IdGrupoDetalle AS IdProducto, ps.Sku, ct.Nombre, ct.Descripcion, ct.Orden, ct.IdGrupo, g.Nombre AS Grupo, ct.IdPadre, c.Nombre AS Padre, ct.Icono, ct.UrlDetalle, ct.Estatus, 
-			ps.IdFabricante, gd.Nombre, ps.Stock, ps.Stock_Min, ps.IdUnidad, ps.Garantia, ps.PrecioCompra, ps.PrecioVenta, ct.FechaRegistro
+	SELECT ct.IdGrupoDetalle AS IdProducto, ps.Sku, ct.Nombre AS Titulo, ct.Descripcion, ct.Orden, ct.IdGrupo, g.Nombre AS Grupo, ct.IdPadre, c.Nombre AS Padre, ct.Icono, ct.UrlDetalle, ct.Estatus, 
+			ps.IdFabricante, gd.Nombre AS Fabricante, ps.Stock, ps.Stock_Min, ps.IdUnidad, ps.Garantia, ps.PrecioCompra, ps.PrecioVenta, ct.FechaRegistro
 	FROM Cte_Productos AS ct
 	INNER JOIN Cte_Productos AS c ON ct.IdPadre = c.IdGrupoDetalle
 	INNER JOIN Grupos AS g ON ct.IdGrupo = g.IdGrupo

@@ -83,7 +83,7 @@ namespace KvasDAL
                 var model = new ProductosEntity()
                 {
                     IdGrupoDetalle = idProducto,
-                    Titulo = query.Nombre,
+                    Titulo = query.Titulo,
                     Descripcion = query.Descripcion,
                     Orden = Convert.ToInt32(query.Orden),
                     IdGrupo = query.IdGrupo,

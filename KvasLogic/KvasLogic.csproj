@@ -30,9 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Helper">
-      <HintPath>..\Helper\bin\Debug\Helper.dll</HintPath>
-    </Reference>
     <Reference Include="KvasDAL">
       <HintPath>..\KvasDAL\bin\Debug\KvasDAL.dll</HintPath>
     </Reference>
