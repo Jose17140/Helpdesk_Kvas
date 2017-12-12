@@ -513,7 +513,6 @@ CREATE PROCEDURE sp_ActualizarUsuario
 	@Email VARCHAR(60),
 	@IdPregunta INT,
 	@Respuesta VARCHAR(50),
-	@Avatar VARCHAR(30),
 	@Estatus BIT,
 	@FechaModificacion DATETIME,
 	@IdRole INT
@@ -525,7 +524,6 @@ CREATE PROCEDURE sp_ActualizarUsuario
 		IdEmail=@Email,      
 		IdPreguntaSeguridad=@IdPregunta,
 		RespuestaSeguridad=@Respuesta,
-		Avatar=@Avatar,
 		Estatus=@Estatus,
 		FechaModificacion = @FechaModificacion
 		WHERE IdUsuario = @IdUsuario;

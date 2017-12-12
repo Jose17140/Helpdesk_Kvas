@@ -217,3 +217,12 @@ WHERE g.IdGrupo = 9
 ORDER BY ct.LevelGrupo ASC
 
 
+
+SELECT u.IdUsuario, u.NombreUsuario, u.Contrasena, u.IdEmail AS Correo, ur.IdRoles,gd.Nombre AS NombreRol, u.IdPreguntaSeguridad AS IdPregunta, gdd.Nombre AS Pregunta, u.RespuestaSeguridad,
+		u.Avatar, u.FechaLogin, u.ContadorFallido, u.Estatus, u.FechaRegistro, u.FechaModificacion
+FROM Usuarios AS u
+INNER JOIN UsuariosRoles AS ur ON u.IdUsuario = ur.IdUsuario
+INNER JOIN GruposDetalles AS gd ON ur.IdRoles = gd.IdGrupoDetalle
+INNER JOIN GruposDetalles AS gdd ON u.IdPreguntaSeguridad = gdd.IdGrupoDetalle
+
+
