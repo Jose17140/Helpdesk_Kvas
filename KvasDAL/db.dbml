@@ -113,16 +113,6 @@
       <Association Name="Usuarios_UsuariosRoles" Member="Usuarios" ThisKey="IdUsuario" OtherKey="IdUsuario" Type="Usuarios" IsForeignKey="true" />
     </Type>
   </Table>
-  <Function Name="dbo.sp_ActualizarGrupo" Method="sp_ActualizarGrupo">
-    <Parameter Name="IdGrupo" Parameter="idGrupo" Type="System.Int32" DbType="Int" />
-    <Parameter Name="Titulo" Parameter="titulo" Type="System.String" DbType="VarChar(50)" />
-    <Parameter Name="Descripcion" Parameter="descripcion" Type="System.String" DbType="VarChar(100)" />
-    <Parameter Name="Orden" Parameter="orden" Type="System.Int32" DbType="Int" />
-    <Parameter Name="Icono" Parameter="icono" Type="System.String" DbType="VarChar(30)" />
-    <Parameter Name="UrlGrupo" Parameter="urlGrupo" Type="System.String" DbType="VarChar(50)" />
-    <Parameter Name="Estatus" Parameter="estatus" Type="System.Boolean" DbType="Bit" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.sp_OperacionesInventarioProducto" Method="sp_OperacionesInventarioProducto">
     <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
     <Parameter Name="Operador" Parameter="operador" Type="System.Int32" DbType="Int" />
@@ -137,6 +127,16 @@
       <Column Name="errLine" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="errMessage" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
     </ElementType>
+  </Function>
+  <Function Name="dbo.sp_ActualizarGrupo" Method="sp_ActualizarGrupo">
+    <Parameter Name="IdGrupo" Parameter="idGrupo" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Titulo" Parameter="titulo" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Descripcion" Parameter="descripcion" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="Orden" Parameter="orden" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Icono" Parameter="icono" Type="System.String" DbType="VarChar(30)" />
+    <Parameter Name="UrlGrupo" Parameter="urlGrupo" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Estatus" Parameter="estatus" Type="System.Boolean" DbType="Bit" />
+    <Return Type="System.Int32" />
   </Function>
   <Function Name="dbo.sp_ActualizarGrupoDetalle" Method="sp_ActualizarGrupoDetalle">
     <Parameter Name="IdGrupoDetalle" Parameter="idGrupoDetalle" Type="System.Int32" DbType="Int" />
@@ -255,6 +255,18 @@
       <Column Name="errMessage" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
     </ElementType>
   </Function>
+  <Function Name="dbo.sp_AgregarUsuario" Method="sp_AgregarUsuario">
+    <Parameter Name="NombreUsuario" Parameter="nombreUsuario" Type="System.String" DbType="VarChar(30)" />
+    <Parameter Name="Contrasena" Parameter="contrasena" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="Email" Parameter="email" Type="System.String" DbType="VarChar(60)" />
+    <Parameter Name="IdPregunta" Parameter="idPregunta" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Respuesta" Parameter="respuesta" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Avatar" Parameter="avatar" Type="System.String" DbType="VarChar(30)" />
+    <Parameter Name="Estatus" Parameter="estatus" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="FechaRegistro" Parameter="fechaRegistro" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="IdRole" Parameter="idRole" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
   <Function Name="dbo.sp_BuscarProducto" Method="sp_BuscarProducto">
     <Parameter Name="IdProducto" Parameter="idProducto" Type="System.Int32" DbType="Int" />
     <ElementType Name="sp_BuscarProductoResult">
@@ -281,6 +293,26 @@
       <Column Name="FechaRegistro" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </ElementType>
   </Function>
+  <Function Name="dbo.sp_BuscarUsuarios" Method="sp_BuscarUsuarios">
+    <Parameter Name="id" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_BuscarUsuariosResult">
+      <Column Name="IdUsuario" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NombreUsuario" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Contrasena" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Correo" Type="System.String" DbType="VarChar(60) NOT NULL" CanBeNull="false" />
+      <Column Name="IdRoles" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NombreRol" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="IdPregunta" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Pregunta" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="RespuestaSeguridad" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Avatar" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="FechaLogin" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ContadorFallido" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Estatus" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="FechaRegistro" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="FechaModificacion" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
   <Function Name="dbo.sp_EliminarGrupo" Method="sp_EliminarGrupo">
     <Parameter Name="IdGrupo" Parameter="idGrupo" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
@@ -295,6 +327,10 @@
   </Function>
   <Function Name="dbo.sp_EliminarProducto" Method="sp_EliminarProducto">
     <Parameter Name="IdProducto" Parameter="idProducto" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_EliminarUsuario" Method="sp_EliminarUsuario">
+    <Parameter Name="IdUsuario" Parameter="idUsuario" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
   <Function Name="dbo.sp_ListarDetalles_x_Grupo" Method="sp_ListarDetalles_x_Grupo">
@@ -375,15 +411,33 @@
       <Column Name="FechaRegistro" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </ElementType>
   </Function>
-  <Function Name="dbo.sp_AgregarUsuario" Method="sp_AgregarUsuario">
-    <Parameter Name="NombreUsuario" Parameter="nombreUsuario" Type="System.String" DbType="VarChar(30)" />
+  <Function Name="dbo.sp_ListarUsuarios" Method="sp_ListarUsuarios">
+    <ElementType Name="sp_ListarUsuariosResult">
+      <Column Name="IdUsuario" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NombreUsuario" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Contrasena" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Correo" Type="System.String" DbType="VarChar(60) NOT NULL" CanBeNull="false" />
+      <Column Name="IdRoles" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NombreRol" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="IdPregunta" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Pregunta" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="RespuestaSeguridad" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Avatar" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="FechaLogin" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ContadorFallido" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Estatus" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="FechaRegistro" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="FechaModificacion" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_ActualizarUsuario" Method="sp_ActualizarUsuario">
+    <Parameter Name="IdUsuario" Parameter="idUsuario" Type="System.Int32" DbType="Int" />
     <Parameter Name="Contrasena" Parameter="contrasena" Type="System.String" DbType="VarChar(100)" />
     <Parameter Name="Email" Parameter="email" Type="System.String" DbType="VarChar(60)" />
     <Parameter Name="IdPregunta" Parameter="idPregunta" Type="System.Int32" DbType="Int" />
     <Parameter Name="Respuesta" Parameter="respuesta" Type="System.String" DbType="VarChar(50)" />
-    <Parameter Name="Avatar" Parameter="avatar" Type="System.String" DbType="VarChar(30)" />
     <Parameter Name="Estatus" Parameter="estatus" Type="System.Boolean" DbType="Bit" />
-    <Parameter Name="FechaRegistro" Parameter="fechaRegistro" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="FechaModificacion" Parameter="fechaModificacion" Type="System.DateTime" DbType="DateTime" />
     <Parameter Name="IdRole" Parameter="idRole" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>

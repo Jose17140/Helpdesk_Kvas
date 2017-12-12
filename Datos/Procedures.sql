@@ -509,67 +509,72 @@ GO
 CREATE PROCEDURE sp_ActualizarUsuario
  (  
 	@IdUsuario INT,
-	@NombreUsuario VARCHAR(30),      
     @Contrasena VARCHAR(100),
 	@Email VARCHAR(60),
 	@IdPregunta INT,
 	@Respuesta VARCHAR(50),
 	@Avatar VARCHAR(30),
 	@Estatus BIT,
-	@FechaRegistro DATETIME,
-	@IdRole INT   
+	@FechaModificacion DATETIME,
+	@IdRole INT
  )      
  AS      
  BEGIN      
     UPDATE Usuarios      
-    SET Nombres=@Nombres,      
-		IdTipoPersona=@IdTipoPersona,      
-		CiRif=@CiRif,
-		Direccion=@Direccion,
-		Telefonos=@Telefonos,
-		Email=@Email
-		WHERE IdPersona = @IdPersona	
+    SET Contrasena=@Contrasena,      
+		IdEmail=@Email,      
+		IdPreguntaSeguridad=@IdPregunta,
+		RespuestaSeguridad=@Respuesta,
+		Avatar=@Avatar,
+		Estatus=@Estatus,
+		FechaModificacion = @FechaModificacion
+		WHERE IdUsuario = @IdUsuario;
+	UPDATE UsuariosRoles
+	SET IdRoles = @IdRole
+	WHERE IdUsuario = @IdUsuario
  END
  GO
 
-DROP PROCEDURE IF EXISTS sp_ActualizarPersonasSimple;
-GO
-CREATE PROCEDURE sp_ActualizarPersonasSimple
- (  
-	@IdPersona INT,
-	@Nombres VARCHAR(50),
-	@Direccion VARCHAR(100),
-	@Telefonos VARCHAR(60),
-	@Email VARCHAR(60)   
- )      
- AS      
- BEGIN      
-    UPDATE Personas      
-    SET Nombres=@Nombres,
-		Direccion=@Direccion,
-		Telefonos=@Telefonos,
-		Email=@Email
-		WHERE IdPersona = @IdPersona	
- END
- GO      
-     
-DROP PROCEDURE IF EXISTS sp_EliminarPersonas;
+DROP PROCEDURE IF EXISTS sp_EliminarUsuario;
 GO   
-CREATE PROCEDURE sp_EliminarPersonas
+CREATE PROCEDURE sp_EliminarUsuario
  (      
-    @IdPersona INT      
+    @IdUsuario INT      
  )      
  AS      
  BEGIN       
-    DELETE FROM Personas WHERE IdPersona=@IdPersona      
+    DELETE FROM Usuarios WHERE IdUsuario=@IdUsuario      
  END
  GO
 
-DROP PROCEDURE IF EXISTS sp_ListarPersonas;
+DROP PROCEDURE IF EXISTS sp_ListarUsuarios;
 GO
-CREATE PROCEDURE sp_ListarPersonas
+CREATE PROCEDURE sp_ListarUsuarios
  AS        
  BEGIN        
-    SELECT * FROM Personas      
+    SELECT u.IdUsuario, u.NombreUsuario, u.Contrasena, u.IdEmail AS Correo, ur.IdRoles,gd.Nombre AS NombreRol, u.IdPreguntaSeguridad AS IdPregunta, gdd.Nombre AS Pregunta, u.RespuestaSeguridad,
+		u.Avatar, u.FechaLogin, u.ContadorFallido, u.Estatus, u.FechaRegistro, u.FechaModificacion
+	FROM Usuarios AS u
+	INNER JOIN UsuariosRoles AS ur ON u.IdUsuario = ur.IdUsuario
+	INNER JOIN GruposDetalles AS gd ON ur.IdRoles = gd.IdGrupoDetalle
+	INNER JOIN GruposDetalles AS gdd ON u.IdPreguntaSeguridad = gdd.IdGrupoDetalle      
+ END
+ GO
+
+DROP PROCEDURE IF EXISTS sp_BuscarUsuarios;
+GO
+CREATE PROCEDURE sp_BuscarUsuarios
+( 
+	@id INT
+)
+ AS        
+ BEGIN        
+    SELECT u.IdUsuario, u.NombreUsuario, u.Contrasena, u.IdEmail AS Correo, ur.IdRoles,gd.Nombre AS NombreRol, u.IdPreguntaSeguridad AS IdPregunta, gdd.Nombre AS Pregunta, u.RespuestaSeguridad,
+		u.Avatar, u.FechaLogin, u.ContadorFallido, u.Estatus, u.FechaRegistro, u.FechaModificacion
+	FROM Usuarios AS u
+	INNER JOIN UsuariosRoles AS ur ON u.IdUsuario = ur.IdUsuario
+	INNER JOIN GruposDetalles AS gd ON ur.IdRoles = gd.IdGrupoDetalle
+	INNER JOIN GruposDetalles AS gdd ON u.IdPreguntaSeguridad = gdd.IdGrupoDetalle
+	WHERE u.IdUsuario = @id      
  END
  GO

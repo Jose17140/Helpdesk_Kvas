@@ -4,6 +4,10 @@
     ViewBag.Title = "Registrarse";
 }
 <div class="login-screen"></div>
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 class="modal-title">@ViewBag.Title</h3>
+</div>
 <div class="modal-body">
 @using (Ajax.BeginForm("Registrar", "Usuario", new AjaxOptions { HttpMethod = "POST", OnSuccess = "onAjaxRequestSuccess" }, new { @id = "AjaxformId", @class = "form-horizontal", role = "form" }))
 {
@@ -40,13 +44,13 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-5 col-md-5 col-sm-5" style="padding-bottom: 10px;">
+            <div class="col-lg-6 col-md-6 col-sm-6" style="padding-bottom: 10px;">
                 @Html.LabelFor(m => m.Password)
                 @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Contrasena", style = "backface-visibility: hidden;" })
                 <span>@Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })</span>
                 <br />
             </div>
-            <div class="col-lg-7 col-md-7 col-sm-7" style="padding-bottom: 10px;">
+            <div class="col-lg-6 col-md-6 col-sm-6" style="padding-bottom: 10px;">
                 @Html.LabelFor(m => m.ConfirmPassword)
                 @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Confirme Contrasena", style = "backface-visibility: hidden;" })
                 <span>@Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })</span>
@@ -82,17 +86,9 @@
             </div>
         </div>
     </div>
-    <div class="form-group sign-btn" style="backface-visibility: hidden;">
-        <input type="submit" class="btn" value="Registrar" style="backface-visibility: hidden;">
-        <br />
-        <br />
-        <p style="backface-visibility: hidden;">
-            <strong style="backface-visibility: hidden;">Problemas para iniciar sesion?</strong>
-            <br style="backface-visibility: hidden;">
-        </p>
-        <p>
-            @Html.ActionLink("Iniciar Sesion", "Login")
-        </p>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
     </div>
 }
 </div>

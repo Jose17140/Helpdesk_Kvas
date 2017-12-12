@@ -43,5 +43,10 @@ namespace KvasLogic
             var v = db.Usuarios.Where(a => a.NombreUsuario == UserName).FirstOrDefault();
             return v != null;
         }
+
+        public IEnumerable<LoginUserEntity> ListarLogin()
+        {
+            return objUsuarioDAL.Login();
+        }
     }
 }

@@ -35,23 +35,11 @@ namespace KvasDAL
             }
         }
 
-        public bool IsEmailExist(string emailID)
-        {
-            var v = db.Usuarios.Where(a => a.IdEmail == emailID).FirstOrDefault();
-            return v != null;
-        }
-
-        public bool IsUserExist(string UserName)
-        {
-            var v = db.Usuarios.Where(a => a.NombreUsuario == UserName).FirstOrDefault();
-            return v != null;
-        }
-
-        public void Eliminar(GruposEntity grupo)
+        public void Eliminar(UsuariosEntity user)
         {
             try
             {
-                db.sp_EliminarGrupo(grupo.IdGrupo);
+                db.Usuarios.Where(x => x.IdUsuario == user.IdUsuario).SingleOrDefault();
                 db.SubmitChanges();
             }
             catch (Exception)
@@ -64,18 +52,12 @@ namespace KvasDAL
             }
         }
 
-        public void Actualizar(GruposEntity grupo)
+        public void Actualizar(RegisterUserEntity user)
         {
             try
             {
-                db.sp_ActualizarGrupo(grupo.IdGrupo, grupo.Titulo, grupo.Descripcion, grupo.Orden, grupo.Icono, grupo.UrlGrupo, grupo.Estatus);
-                //Grupos query = db.Grupos.Where(m => m.IdGrupo == grupo.IdGrupo).SingleOrDefault();
-                //query.Nombre = grupo.Titulo;
-                //query.Descripcion = grupo.Descripcion;
-                //query.Orden = grupo.Orden;
-                //query.Icono = grupo.Icono;
-                //query.UrlGrupo = grupo.UrlGrupo;
-                //query.Estatus = grupo.Estatus;
+                var fecha = DateTime.Now;
+                db.sp_ActualizarUsuario(user.IdUsuario,user.Password,user.Email,user.IdPregunta,user.RespuestaSeguridad,user.Estatus,fecha,user.IdRoles);
                 db.SubmitChanges();
             }
             catch (Exception)
@@ -88,22 +70,26 @@ namespace KvasDAL
             }
         }
 
-        public GruposEntity Buscar(int idGrupo)
+        public UsuariosEntityView Buscar(int idUsuario)
         {
             try
             {
-
-                var query = (from m in db.Grupos
-                             where m.IdGrupo == idGrupo
-                             select m).FirstOrDefault();
-                var model = new GruposEntity()
+                var query = db.sp_BuscarUsuarios(idUsuario).SingleOrDefault();
+                var model = new UsuariosEntityView()
                 {
-                    IdGrupo = idGrupo,
-                    Titulo = query.Nombre,
-                    Descripcion = query.Descripcion,
-                    Orden = query.Orden,
-                    Icono = query.Icono,
-                    UrlGrupo = query.UrlGrupo,
+                    IdUsuario = idUsuario,
+                    UserName = query.NombreUsuario,
+                    Password = query.Contrasena,
+                    Email = query.Correo,
+                    IdRoles = query.IdRoles,
+                    Roles = query.NombreRol,
+                    IdPregunta = query.IdPregunta,
+                    Pregunta = query.Pregunta,
+                    RespuestaSeguridad = query.RespuestaSeguridad,
+                    Avatar = query.Avatar,
+                    FechaLogin = query.FechaLogin,
+                    ContadorFallido = query.ContadorFallido,
+                    FechaModificacion = query.FechaModificacion,
                     Estatus = query.Estatus,
                     FechaRegistro = query.FechaRegistro
                 };
@@ -119,25 +105,56 @@ namespace KvasDAL
             }
         }
 
-        public IEnumerable<GruposEntity> Listar()
+        public IEnumerable<LoginUserEntity> Login()
         {
             try
             {
-                IList<GruposEntity> lista = new List<GruposEntity>();
-                //var query = db.sp_ListarGrupo().ToList();
-                var query = (from m in db.Grupos
-                             where m.Estatus == true && m.IdGrupo > 0 && m.IdGrupo != 9 && m.IdGrupo != 3 && m.IdGrupo != 8
-                             select m).ToList();
+                IList<LoginUserEntity> lista = new List<LoginUserEntity>();
+                var query = db.sp_ListarUsuarios().ToList();
                 foreach (var grupos in query)
                 {
-                    lista.Add(new GruposEntity()
+                    lista.Add(new LoginUserEntity()
                     {
-                        IdGrupo = grupos.IdGrupo,
-                        Titulo = grupos.Nombre,
-                        Descripcion = grupos.Descripcion,
-                        Orden = grupos.Orden,
-                        Icono = grupos.Icono,
-                        UrlGrupo = grupos.UrlGrupo,
+                        IdUsuario = grupos.IdUsuario,
+                        UserName = grupos.NombreUsuario,
+                        Email = grupos.Correo,
+                        ContadorFallido = grupos.ContadorFallido,
+                        Estatus = grupos.Estatus,
+                        FechaLogin = grupos.FechaLogin
+                    });
+                }
+                return lista;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+
+            }
+        }
+
+        public void LoginFail(LoginUserEntity user)
+        {
+
+        }
+
+        public IEnumerable<UsuariosEntityView> Listar()
+        {
+            try
+            {
+                IList<UsuariosEntityView> lista = new List<UsuariosEntityView>();
+                var query = db.sp_ListarUsuarios().ToList();
+                foreach (var grupos in query)
+                {
+                    lista.Add(new UsuariosEntityView()
+                    {
+                        IdUsuario = grupos.IdUsuario,
+                        UserName = grupos.NombreUsuario,
+                        Email = grupos.Correo,
+                        IdRoles = grupos.IdRoles,
+                        Roles = grupos.NombreRol,
                         Estatus = grupos.Estatus,
                         FechaRegistro = grupos.FechaRegistro
                     });

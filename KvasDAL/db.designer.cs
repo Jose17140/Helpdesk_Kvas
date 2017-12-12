@@ -147,18 +147,18 @@ namespace KvasDAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_ActualizarGrupo")]
-		public int sp_ActualizarGrupo([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdGrupo", DbType="Int")] System.Nullable<int> idGrupo, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Titulo", DbType="VarChar(50)")] string titulo, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Descripcion", DbType="VarChar(100)")] string descripcion, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Orden", DbType="Int")] System.Nullable<int> orden, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Icono", DbType="VarChar(30)")] string icono, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="UrlGrupo", DbType="VarChar(50)")] string urlGrupo, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Estatus", DbType="Bit")] System.Nullable<bool> estatus)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idGrupo, titulo, descripcion, orden, icono, urlGrupo, estatus);
-			return ((int)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_OperacionesInventarioProducto")]
 		public ISingleResult<sp_OperacionesInventarioProductoResult> sp_OperacionesInventarioProducto([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Id", DbType="Int")] System.Nullable<int> id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Operador", DbType="Int")] System.Nullable<int> operador, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Stock", DbType="Int")] System.Nullable<int> stock, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PrecioCompra", DbType="Decimal(8,2)")] System.Nullable<decimal> precioCompra, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PrecioVenta", DbType="Decimal(8,2)")] System.Nullable<decimal> precioVenta)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, operador, stock, precioCompra, precioVenta);
 			return ((ISingleResult<sp_OperacionesInventarioProductoResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_ActualizarGrupo")]
+		public int sp_ActualizarGrupo([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdGrupo", DbType="Int")] System.Nullable<int> idGrupo, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Titulo", DbType="VarChar(50)")] string titulo, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Descripcion", DbType="VarChar(100)")] string descripcion, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Orden", DbType="Int")] System.Nullable<int> orden, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Icono", DbType="VarChar(30)")] string icono, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="UrlGrupo", DbType="VarChar(50)")] string urlGrupo, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Estatus", DbType="Bit")] System.Nullable<bool> estatus)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idGrupo, titulo, descripcion, orden, icono, urlGrupo, estatus);
+			return ((int)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_ActualizarGrupoDetalle")]
@@ -252,11 +252,25 @@ namespace KvasDAL
 			return ((ISingleResult<sp_AgregarProductoResult>)(result.ReturnValue));
 		}
 		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_AgregarUsuario")]
+		public int sp_AgregarUsuario([global::System.Data.Linq.Mapping.ParameterAttribute(Name="NombreUsuario", DbType="VarChar(30)")] string nombreUsuario, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Contrasena", DbType="VarChar(100)")] string contrasena, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Email", DbType="VarChar(60)")] string email, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdPregunta", DbType="Int")] System.Nullable<int> idPregunta, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Respuesta", DbType="VarChar(50)")] string respuesta, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Avatar", DbType="VarChar(30)")] string avatar, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Estatus", DbType="Bit")] System.Nullable<bool> estatus, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="FechaRegistro", DbType="DateTime")] System.Nullable<System.DateTime> fechaRegistro, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdRole", DbType="Int")] System.Nullable<int> idRole)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), nombreUsuario, contrasena, email, idPregunta, respuesta, avatar, estatus, fechaRegistro, idRole);
+			return ((int)(result.ReturnValue));
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_BuscarProducto")]
 		public ISingleResult<sp_BuscarProductoResult> sp_BuscarProducto([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdProducto", DbType="Int")] System.Nullable<int> idProducto)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idProducto);
 			return ((ISingleResult<sp_BuscarProductoResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_BuscarUsuarios")]
+		public ISingleResult<sp_BuscarUsuariosResult> sp_BuscarUsuarios([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> id)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id);
+			return ((ISingleResult<sp_BuscarUsuariosResult>)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_EliminarGrupo")]
@@ -284,6 +298,13 @@ namespace KvasDAL
 		public int sp_EliminarProducto([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdProducto", DbType="Int")] System.Nullable<int> idProducto)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idProducto);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_EliminarUsuario")]
+		public int sp_EliminarUsuario([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdUsuario", DbType="Int")] System.Nullable<int> idUsuario)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUsuario);
 			return ((int)(result.ReturnValue));
 		}
 		
@@ -322,10 +343,17 @@ namespace KvasDAL
 			return ((ISingleResult<sp_ListarProductoResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_AgregarUsuario")]
-		public int sp_AgregarUsuario([global::System.Data.Linq.Mapping.ParameterAttribute(Name="NombreUsuario", DbType="VarChar(30)")] string nombreUsuario, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Contrasena", DbType="VarChar(100)")] string contrasena, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Email", DbType="VarChar(60)")] string email, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdPregunta", DbType="Int")] System.Nullable<int> idPregunta, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Respuesta", DbType="VarChar(50)")] string respuesta, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Avatar", DbType="VarChar(30)")] string avatar, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Estatus", DbType="Bit")] System.Nullable<bool> estatus, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="FechaRegistro", DbType="DateTime")] System.Nullable<System.DateTime> fechaRegistro, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdRole", DbType="Int")] System.Nullable<int> idRole)
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_ListarUsuarios")]
+		public ISingleResult<sp_ListarUsuariosResult> sp_ListarUsuarios()
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), nombreUsuario, contrasena, email, idPregunta, respuesta, avatar, estatus, fechaRegistro, idRole);
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((ISingleResult<sp_ListarUsuariosResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_ActualizarUsuario")]
+		public int sp_ActualizarUsuario([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdUsuario", DbType="Int")] System.Nullable<int> idUsuario, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Contrasena", DbType="VarChar(100)")] string contrasena, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Email", DbType="VarChar(60)")] string email, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdPregunta", DbType="Int")] System.Nullable<int> idPregunta, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Respuesta", DbType="VarChar(50)")] string respuesta, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Estatus", DbType="Bit")] System.Nullable<bool> estatus, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="FechaModificacion", DbType="DateTime")] System.Nullable<System.DateTime> fechaModificacion, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdRole", DbType="Int")] System.Nullable<int> idRole)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUsuario, contrasena, email, idPregunta, respuesta, estatus, fechaModificacion, idRole);
 			return ((int)(result.ReturnValue));
 		}
 	}
@@ -3455,6 +3483,284 @@ namespace KvasDAL
 		}
 	}
 	
+	public partial class sp_BuscarUsuariosResult
+	{
+		
+		private int _IdUsuario;
+		
+		private string _NombreUsuario;
+		
+		private string _Contrasena;
+		
+		private string _Correo;
+		
+		private int _IdRoles;
+		
+		private string _NombreRol;
+		
+		private int _IdPregunta;
+		
+		private string _Pregunta;
+		
+		private string _RespuestaSeguridad;
+		
+		private string _Avatar;
+		
+		private System.Nullable<System.DateTime> _FechaLogin;
+		
+		private int _ContadorFallido;
+		
+		private bool _Estatus;
+		
+		private System.DateTime _FechaRegistro;
+		
+		private System.Nullable<System.DateTime> _FechaModificacion;
+		
+		public sp_BuscarUsuariosResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdUsuario", DbType="Int NOT NULL")]
+		public int IdUsuario
+		{
+			get
+			{
+				return this._IdUsuario;
+			}
+			set
+			{
+				if ((this._IdUsuario != value))
+				{
+					this._IdUsuario = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreUsuario", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
+		public string NombreUsuario
+		{
+			get
+			{
+				return this._NombreUsuario;
+			}
+			set
+			{
+				if ((this._NombreUsuario != value))
+				{
+					this._NombreUsuario = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Contrasena", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
+		public string Contrasena
+		{
+			get
+			{
+				return this._Contrasena;
+			}
+			set
+			{
+				if ((this._Contrasena != value))
+				{
+					this._Contrasena = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Correo", DbType="VarChar(60) NOT NULL", CanBeNull=false)]
+		public string Correo
+		{
+			get
+			{
+				return this._Correo;
+			}
+			set
+			{
+				if ((this._Correo != value))
+				{
+					this._Correo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdRoles", DbType="Int NOT NULL")]
+		public int IdRoles
+		{
+			get
+			{
+				return this._IdRoles;
+			}
+			set
+			{
+				if ((this._IdRoles != value))
+				{
+					this._IdRoles = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreRol", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string NombreRol
+		{
+			get
+			{
+				return this._NombreRol;
+			}
+			set
+			{
+				if ((this._NombreRol != value))
+				{
+					this._NombreRol = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPregunta", DbType="Int NOT NULL")]
+		public int IdPregunta
+		{
+			get
+			{
+				return this._IdPregunta;
+			}
+			set
+			{
+				if ((this._IdPregunta != value))
+				{
+					this._IdPregunta = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Pregunta", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Pregunta
+		{
+			get
+			{
+				return this._Pregunta;
+			}
+			set
+			{
+				if ((this._Pregunta != value))
+				{
+					this._Pregunta = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RespuestaSeguridad", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string RespuestaSeguridad
+		{
+			get
+			{
+				return this._RespuestaSeguridad;
+			}
+			set
+			{
+				if ((this._RespuestaSeguridad != value))
+				{
+					this._RespuestaSeguridad = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Avatar", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
+		public string Avatar
+		{
+			get
+			{
+				return this._Avatar;
+			}
+			set
+			{
+				if ((this._Avatar != value))
+				{
+					this._Avatar = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaLogin", DbType="DateTime")]
+		public System.Nullable<System.DateTime> FechaLogin
+		{
+			get
+			{
+				return this._FechaLogin;
+			}
+			set
+			{
+				if ((this._FechaLogin != value))
+				{
+					this._FechaLogin = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ContadorFallido", DbType="Int NOT NULL")]
+		public int ContadorFallido
+		{
+			get
+			{
+				return this._ContadorFallido;
+			}
+			set
+			{
+				if ((this._ContadorFallido != value))
+				{
+					this._ContadorFallido = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estatus", DbType="Bit NOT NULL")]
+		public bool Estatus
+		{
+			get
+			{
+				return this._Estatus;
+			}
+			set
+			{
+				if ((this._Estatus != value))
+				{
+					this._Estatus = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaRegistro", DbType="DateTime NOT NULL")]
+		public System.DateTime FechaRegistro
+		{
+			get
+			{
+				return this._FechaRegistro;
+			}
+			set
+			{
+				if ((this._FechaRegistro != value))
+				{
+					this._FechaRegistro = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaModificacion", DbType="DateTime")]
+		public System.Nullable<System.DateTime> FechaModificacion
+		{
+			get
+			{
+				return this._FechaModificacion;
+			}
+			set
+			{
+				if ((this._FechaModificacion != value))
+				{
+					this._FechaModificacion = value;
+				}
+			}
+		}
+	}
+	
 	public partial class sp_ListarDetalles_x_GrupoResult
 	{
 		
@@ -4516,6 +4822,284 @@ namespace KvasDAL
 				if ((this._FechaRegistro != value))
 				{
 					this._FechaRegistro = value;
+				}
+			}
+		}
+	}
+	
+	public partial class sp_ListarUsuariosResult
+	{
+		
+		private int _IdUsuario;
+		
+		private string _NombreUsuario;
+		
+		private string _Contrasena;
+		
+		private string _Correo;
+		
+		private int _IdRoles;
+		
+		private string _NombreRol;
+		
+		private int _IdPregunta;
+		
+		private string _Pregunta;
+		
+		private string _RespuestaSeguridad;
+		
+		private string _Avatar;
+		
+		private System.Nullable<System.DateTime> _FechaLogin;
+		
+		private int _ContadorFallido;
+		
+		private bool _Estatus;
+		
+		private System.DateTime _FechaRegistro;
+		
+		private System.Nullable<System.DateTime> _FechaModificacion;
+		
+		public sp_ListarUsuariosResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdUsuario", DbType="Int NOT NULL")]
+		public int IdUsuario
+		{
+			get
+			{
+				return this._IdUsuario;
+			}
+			set
+			{
+				if ((this._IdUsuario != value))
+				{
+					this._IdUsuario = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreUsuario", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
+		public string NombreUsuario
+		{
+			get
+			{
+				return this._NombreUsuario;
+			}
+			set
+			{
+				if ((this._NombreUsuario != value))
+				{
+					this._NombreUsuario = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Contrasena", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
+		public string Contrasena
+		{
+			get
+			{
+				return this._Contrasena;
+			}
+			set
+			{
+				if ((this._Contrasena != value))
+				{
+					this._Contrasena = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Correo", DbType="VarChar(60) NOT NULL", CanBeNull=false)]
+		public string Correo
+		{
+			get
+			{
+				return this._Correo;
+			}
+			set
+			{
+				if ((this._Correo != value))
+				{
+					this._Correo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdRoles", DbType="Int NOT NULL")]
+		public int IdRoles
+		{
+			get
+			{
+				return this._IdRoles;
+			}
+			set
+			{
+				if ((this._IdRoles != value))
+				{
+					this._IdRoles = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreRol", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string NombreRol
+		{
+			get
+			{
+				return this._NombreRol;
+			}
+			set
+			{
+				if ((this._NombreRol != value))
+				{
+					this._NombreRol = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPregunta", DbType="Int NOT NULL")]
+		public int IdPregunta
+		{
+			get
+			{
+				return this._IdPregunta;
+			}
+			set
+			{
+				if ((this._IdPregunta != value))
+				{
+					this._IdPregunta = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Pregunta", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Pregunta
+		{
+			get
+			{
+				return this._Pregunta;
+			}
+			set
+			{
+				if ((this._Pregunta != value))
+				{
+					this._Pregunta = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RespuestaSeguridad", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string RespuestaSeguridad
+		{
+			get
+			{
+				return this._RespuestaSeguridad;
+			}
+			set
+			{
+				if ((this._RespuestaSeguridad != value))
+				{
+					this._RespuestaSeguridad = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Avatar", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
+		public string Avatar
+		{
+			get
+			{
+				return this._Avatar;
+			}
+			set
+			{
+				if ((this._Avatar != value))
+				{
+					this._Avatar = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaLogin", DbType="DateTime")]
+		public System.Nullable<System.DateTime> FechaLogin
+		{
+			get
+			{
+				return this._FechaLogin;
+			}
+			set
+			{
+				if ((this._FechaLogin != value))
+				{
+					this._FechaLogin = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ContadorFallido", DbType="Int NOT NULL")]
+		public int ContadorFallido
+		{
+			get
+			{
+				return this._ContadorFallido;
+			}
+			set
+			{
+				if ((this._ContadorFallido != value))
+				{
+					this._ContadorFallido = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estatus", DbType="Bit NOT NULL")]
+		public bool Estatus
+		{
+			get
+			{
+				return this._Estatus;
+			}
+			set
+			{
+				if ((this._Estatus != value))
+				{
+					this._Estatus = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaRegistro", DbType="DateTime NOT NULL")]
+		public System.DateTime FechaRegistro
+		{
+			get
+			{
+				return this._FechaRegistro;
+			}
+			set
+			{
+				if ((this._FechaRegistro != value))
+				{
+					this._FechaRegistro = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaModificacion", DbType="DateTime")]
+		public System.Nullable<System.DateTime> FechaModificacion
+		{
+			get
+			{
+				return this._FechaModificacion;
+			}
+			set
+			{
+				if ((this._FechaModificacion != value))
+				{
+					this._FechaModificacion = value;
 				}
 			}
 		}
