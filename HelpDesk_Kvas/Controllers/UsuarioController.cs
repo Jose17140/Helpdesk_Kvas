@@ -1,5 +1,5 @@
-﻿using KvasEntity;
-using KvasLogic;
+﻿using HelpDesk_Kvas.Models.Datos.Entity;
+using HelpDesk_Kvas.Models.Datos.Logica;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Web.Security;
 
 namespace HelpDesk_Kvas.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class UsuarioController : Controller
     {
         UsuarioLogic objUsuarioLogic;
@@ -85,7 +85,7 @@ namespace HelpDesk_Kvas.Controllers
                 }
                 #endregion
                 user.Avatar = "/Content/images/img/avatar.png";
-                
+
                 #region  Password Hashing 
                 user.Password = Crypto.Hash(user.Password);
                 user.ConfirmPassword = Crypto.Hash(user.ConfirmPassword);
@@ -105,8 +105,8 @@ namespace HelpDesk_Kvas.Controllers
             }
             ViewBag.Message = message;
             return View(user);
-        }  
-        
+        }
+
         //Login 
         [HttpGet]
         public ActionResult Login()
@@ -126,13 +126,20 @@ namespace HelpDesk_Kvas.Controllers
                 var user = log.Where(x => x.UserName == login.UserName).FirstOrDefault();
                 if (user != null)
                 {
+                    if (login.ContadorFallido>5)
+                    {
+                        ViewBag.Message = "Usuario Bloqueado por 5 minutos";
+                        return View();
+                    }
                     if (!user.Estatus)
                     {
                         ViewBag.Message = "Usuario Inactivo, comuniquese con el administrador";
                         return View();
                     }
-                    if (string.Compare(Crypto.Hash(login.Password), user.Password) ==0)
+                    if (string.Compare(Crypto.Hash(login.Password), user.Password) == 0)
                     {
+                        login.ContadorFallido = 0;
+                        objUsuarioLogic.LoginControl(login);
                         int session = login.RememberMe ? 525600 : 20; //Equivale a un ano
                         var ticket = new FormsAuthenticationTicket(login.UserName, login.RememberMe, session);
                         string descifrado = FormsAuthentication.Encrypt(ticket);
@@ -151,6 +158,8 @@ namespace HelpDesk_Kvas.Controllers
                     }
                     else
                     {
+                        login.ContadorFallido = user.ContadorFallido + 1;
+                        objUsuarioLogic.LoginControl(login);
                         message = "Usuario o ontrasena invalido";
                     }
 

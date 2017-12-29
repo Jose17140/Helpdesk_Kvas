@@ -28,7 +28,7 @@ namespace HelpDesk_Kvas.Models
 
         public int? IdPadre { get; set; }
 
-        public string Icono { get; set; }
+        public string Imagen { get; set; }
 
         public string UrlDetalle { get; set; }
 

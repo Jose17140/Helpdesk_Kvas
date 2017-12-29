@@ -1,9 +1,9 @@
-﻿using KvasEntity;
+﻿using HelpDesk_Kvas.Models.Datos.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace KvasDAL
+namespace HelpDesk_Kvas.Models.Datos.DAL
 {
     public class GrupoDetalleDAL : Obligatorios<GruposDetallesEntity>
     {
@@ -18,12 +18,23 @@ namespace KvasDAL
         {
             try
             {
-                var fecha = DateTime.Now;
                 if (grupo.IdPadre == null)
                 {
                     grupo.IdPadre = 0;
                 }
-                db.sp_AgregarGrupoDetalle(grupo.Titulo,grupo.Descripcion,grupo.Orden,grupo.IdGrupo,grupo.IdPadre,grupo.Icono,grupo.UrlDetalle,grupo.Estatus,fecha);
+                GruposDetalles _grupo = new GruposDetalles()
+                {
+                    Nombre = grupo.Titulo,
+                    Descripcion = grupo.Descripcion,
+                    Orden = grupo.Orden,
+                    IdGrupo = Convert.ToInt32(grupo.IdGrupo),
+                    IdPadre = grupo.IdPadre,
+                    Imagen = grupo.Icono,
+                    UrlDetalle = grupo.UrlDetalle,
+                    Estatus = grupo.Estatus,
+                    FechaRegistro = DateTime.Now
+                };
+                db.GruposDetalles.InsertOnSubmit(_grupo);
                 db.SubmitChanges();
             }
             catch (Exception)
@@ -65,7 +76,7 @@ namespace KvasDAL
                 query.IdGrupo = Convert.ToInt32(grupo.IdGrupo);
                 query.IdPadre = grupo.IdPadre;
                 query.UrlDetalle = grupo.UrlDetalle;
-                query.Icono = grupo.Icono;
+                query.Imagen = grupo.Icono;
                 query.Estatus = grupo.Estatus;
                 db.SubmitChanges();
             }
@@ -95,7 +106,7 @@ namespace KvasDAL
                     IdGrupo = query.IdGrupo,
                     IdPadre = Convert.ToInt32(query.IdPadre),
                     UrlDetalle = query.UrlDetalle,
-                    Icono = query.Icono,
+                    Icono = query.Imagen,
                     Estatus = query.Estatus,
                     FechaRegistro = query.FechaRegistro
                 };
@@ -132,7 +143,7 @@ namespace KvasDAL
                         IdGrupo = grupos.IdGrupo,
                         IdPadre = grupos.IdPadre,
                         UrlDetalle = grupos.UrlDetalle,
-                        Icono = grupos.Icono,
+                        Icono = grupos.Imagen,
                         Estatus = grupos.Estatus,
                         FechaRegistro = grupos.FechaRegistro
                     });
@@ -170,7 +181,7 @@ namespace KvasDAL
                         IdGrupo = grupos.IdGrupo,
                         IdPadre = Convert.ToInt32(grupos.IdPadre),
                         UrlDetalle = grupos.UrlDetalle,
-                        Icono = grupos.Icono,
+                        Icono = grupos.Imagen,
                         Estatus = grupos.Estatus,
                         FechaRegistro = grupos.FechaRegistro
                     });
@@ -192,7 +203,7 @@ namespace KvasDAL
             try
             {
                 IList<GruposDetallesView> lista = new List<GruposDetallesView>();
-                var query = db.sp_ListarDetalles_x_Grupo(idGrupo);
+                var query = db.vw_GruposDetalles.Where(m=>m.IdGrupo== idGrupo).ToList();
                 foreach (var grupos in query)
                 {
                     lista.Add(new GruposDetallesView()
@@ -203,12 +214,87 @@ namespace KvasDAL
                         Orden = Convert.ToInt32(grupos.Orden),
                         IdPadre = grupos.IdGrupoPadre,
                         Padre = grupos.Categoria,
-                        Icono = grupos.Icono,
+                        IdGrupo = grupos.IdGrupo,
+                        Icono = grupos.Imagen,
                         Estatus = Convert.ToBoolean(grupos.Estatus),
                         FechaRegistro = Convert.ToDateTime(grupos.FechaRegistro)
                     });
                 }
                 return lista;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+
+            }
+        }
+
+        public IEnumerable<GruposDetallesView> ListarView()
+        {
+            try
+            {
+                IList<GruposDetallesView> lista = new List<GruposDetallesView>();
+                var query = (from m in db.GruposDetalles
+                             join g in db.Grupos on
+                             m.IdGrupo equals g.IdGrupo
+                             where m.IdGrupo > 0
+                             select m).ToList();
+                foreach (var grupos in query)
+                {
+                    lista.Add(new GruposDetallesView()
+                    {
+                        IdGrupoDetalle = grupos.IdGrupoDetalle,
+                        Titulo = grupos.Nombre,
+                        Descripcion = grupos.Descripcion,
+                        Orden = grupos.Orden,
+                        IdGrupo = grupos.IdGrupo,
+                        IdPadre = Convert.ToInt32(grupos.IdPadre),
+                        UrlDetalle = grupos.UrlDetalle,
+                        Icono = grupos.Imagen,
+                        Estatus = grupos.Estatus,
+                        FechaRegistro = grupos.FechaRegistro
+                    });
+                }
+                return lista;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+
+            }
+        }
+
+        public GruposDetallesView BuscarPadre(int idGrupo)
+        {
+            try
+            {
+                var query = db.vw_GruposDetalles.Where(m => m.IdGrupo == idGrupo).FirstOrDefault();
+                if (query == null)
+                {
+                    var vacio = db.GruposDetalles.Where(x => x.IdPadre == 0).FirstOrDefault();
+                    var modelo = new GruposDetallesView()
+                    {
+                        IdGrupoDetalle = idGrupo,
+                        Titulo = vacio.Nombre,
+                        IdGrupo = Convert.ToInt32(vacio.IdGrupo),
+                        IdPadre = Convert.ToInt32(vacio.IdPadre)
+                    };
+                    return modelo;
+                }
+                var model = new GruposDetallesView()
+                {
+                    IdGrupoDetalle = idGrupo,
+                    Titulo = query.Nombre,
+                    IdGrupo = Convert.ToInt32(query.IdGrupo),
+                    IdPadre = Convert.ToInt32(query.IdPadre)
+                };
+                return model;
             }
             catch (Exception)
             {

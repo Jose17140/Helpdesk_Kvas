@@ -1,4 +1,4 @@
-﻿@model KvasEntity.GruposEntity
+﻿@model HelpDesk_Kvas.Models.Datos.Entity.GruposEntity
 
 @{ 
  
@@ -25,14 +25,6 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.Orden)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Orden)
-            </dd>
-
-            <dt>
                 @Html.DisplayNameFor(model => model.Icono)
             </dt>
 
@@ -41,11 +33,11 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.UrlGrupo)
+                @Html.DisplayNameFor(model => model.IdPadre)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.UrlGrupo)
+                @ViewBag.ListaGrupo
             </dd>
 
             <dt>

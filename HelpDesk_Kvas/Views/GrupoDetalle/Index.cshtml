@@ -1,6 +1,5 @@
-﻿@*@model IEnumerable<KvasEntity.GruposDetallesView>*@
+﻿@model HelpDesk_Kvas.DataGrid.PagedList< HelpDesk_Kvas.Models.Datos.Entity.GruposDetallesView>
 
-@model HelpDesk_Kvas.DataGrid.PagedList<KvasEntity.GruposDetallesView>
 @{
     ViewBag.Title = "Lista de Tablas";
 }
@@ -8,22 +7,16 @@
 @Styles.Render("~/Content/css/Grupos.css")
 @Scripts.Render("~/bundles/jquery")
 
-
-
-
 <section class="content-header">
     <h1>
         Tablero
-        <small>@ViewBag.Title</small>
+        <small>@ViewBag.Nombre</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
         <li class="active">Dashboard</li>
     </ol>
     <br />
-    @*<button type="button" class="btn btn-info" aria-pressed="false" autocomplete="off" data-toggle="modal" data-target="#squarespaceModal">
-        Agregar
-    </button>*@
 </section>
 <br />
 
@@ -31,7 +24,7 @@
     @using (Html.BeginForm("index", null, FormMethod.Get))
     {
         <div class="row">
-            <div class="col-sm-8">
+            <div class="col-sm-3">
                 <div class="input-group">
 
                     <input type="text"
@@ -64,7 +57,7 @@
                 grid.Bind(Model.Content, rowCount: Model.TotalRecords, autoSortAndPage: false);
                 grid.Pager(WebGridPagerModes.All);
 
-                @grid.GetHtml(htmlAttributes: new { id = "grid" },   // id for ajaxUpdateContainerId parameter
+                @grid.GetHtml(htmlAttributes: new { id = "grid" },
             fillEmptyRows: false,
             tableStyle: "table table-bordered table-hover",
             mode: WebGridPagerModes.All,
@@ -83,15 +76,113 @@
                 @Html.Raw("<a data-modal='' href='/GrupoDetalle/edit/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Edit'> <span class='glyphicon glyphicon-edit'> </span> </a>")
                 @Html.Raw("<a data-modal='' href='/GrupoDetalle/delete/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Delete'> <span class='glyphicon glyphicon-trash'> </span> </a>")
                 </text>)
-
             ));
             }
-
-
         </div>
-                }
+    }
 </div>
 
+@*@if (Model.Content2 != null)
+{
+    <div class="well">
+        @using (Ajax.BeginForm("Index", "GrupoDetalle", new AjaxOptions { HttpMethod = "POST", OnSuccess = "onAjaxRequestSuccess" }, new { @id = "AjaxformId", @class = "form-horizontal", role = "form" }))
+        {
+            <div class="row">
+                <div class="pull-right col-lg-1">
+                    <a class="btn btn-success" data-modal="" href="/GrupoDetalle/Create/@ViewBag.Nv2" id="btnCreate">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>
+                </div>
+            </div>
+
+            <div style="margin-top:17px;">
+                @{
+                    var grid = new WebGrid(
+                                canPage: true,
+                                rowsPerPage: Model.PageSize,
+                                canSort: true,
+                                ajaxUpdateContainerId: "grid");
+
+                    grid.Bind(Model.Content2, rowCount: Model.TotalRecords, autoSortAndPage: false);
+                    grid.Pager(WebGridPagerModes.All);
+
+                    @grid.GetHtml(htmlAttributes: new { id = "grid" },   // id for ajaxUpdateContainerId parameter
+            fillEmptyRows: false,
+            tableStyle: "table table-bordered table-hover",
+            mode: WebGridPagerModes.All,
+            columns: grid.Columns(
+              grid.Column("IdGrupoDetalle", "ID"),
+              grid.Column("Titulo", "Titulo"),
+              grid.Column("Descripcion", "Descripcion"),
+              grid.Column("Orden", "Orden"),
+              grid.Column("Padre", "Cat. Superior"),
+              grid.Column("Icono", header: "Icono", format: @<text>@Html.Raw("<span class='" + item.Icono + "'></span>")</text>),
+              grid.Column("Estatus", "Estatus"),
+              grid.Column("FechaRegistro", header: "Fecha", format: @<text>@String.Format("{0:MM/dd/yy}", item.FechaRegistro) </text>),
+              grid.Column(header: "Acciones", canSort: false, style: "action",
+                format: @<text>
+                @Html.ActionLink("Select", "Index", new { Nv2 = ViewBag.Nv2, Nv3 = item.IdGrupoDetalle }) |
+                @Html.Raw("<a data-modal='' href='/GrupoDetalle/details/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Detail'> <span class='glyphicon glyphicon-search'> </span> </a>")
+                @Html.Raw("<a data-modal='' href='/GrupoDetalle/edit/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Edit'> <span class='glyphicon glyphicon-edit'> </span> </a>")
+                @Html.Raw("<a data-modal='' href='/GrupoDetalle/delete/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Delete'> <span class='glyphicon glyphicon-trash'> </span> </a>")
+                </text>)
+            ));
+                }
+            </div>
+                    }
+    </div>
+                    }
+
+@if (Model.Content3 != null)
+{
+    <div class="well">
+        @using (Ajax.BeginForm("Index", "GrupoDetalle", new AjaxOptions { HttpMethod = "POST", OnSuccess = "onAjaxRequestSuccess" }, new { @id = "AjaxformId", @class = "form-horizontal", role = "form" }))
+        {
+            <div class="row">
+                
+                <div class="pull-right col-lg-1">
+                    <a class="btn btn-success" data-modal="" href="/GrupoDetalle/Create/@ViewBag.Nv3" id="btnCreate">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>
+                </div>
+            </div>
+
+            <div style="margin-top:17px;">
+                @{
+                    var grid = new WebGrid(
+                                canPage: true,
+                                rowsPerPage: Model.PageSize,
+                                canSort: true,
+                                ajaxUpdateContainerId: "grid");
+
+                    grid.Bind(Model.Content3, rowCount: Model.TotalRecords, autoSortAndPage: false);
+                    grid.Pager(WebGridPagerModes.All);
+
+                    @grid.GetHtml(htmlAttributes: new { id = "grid" },   // id for ajaxUpdateContainerId parameter
+            fillEmptyRows: false,
+            tableStyle: "table table-bordered table-hover",
+            mode: WebGridPagerModes.All,
+            columns: grid.Columns(
+              grid.Column("IdGrupoDetalle", "ID"),
+              grid.Column("Titulo", "Titulo"),
+              grid.Column("Descripcion", "Descripcion"),
+              grid.Column("Orden", "Orden"),
+              grid.Column("Padre", "Cat. Superior"),
+              grid.Column("Icono", header: "Icono", format: @<text>@Html.Raw("<span class='" + item.Icono + "'></span>")</text>),
+              grid.Column("Estatus", "Estatus"),
+              grid.Column("FechaRegistro", header: "Fecha", format: @<text>@String.Format("{0:MM/dd/yy}", item.FechaRegistro) </text>),
+              grid.Column(header: "Acciones", canSort: false, style: "action",
+                format: @<text>
+                @Html.Raw("<a data-modal='' href='/GrupoDetalle/details/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Detail'> <span class='glyphicon glyphicon-search'> </span> </a>")
+                @Html.Raw("<a data-modal='' href='/GrupoDetalle/edit/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Edit'> <span class='glyphicon glyphicon-edit'> </span> </a>")
+                @Html.Raw("<a data-modal='' href='/GrupoDetalle/delete/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Delete'> <span class='glyphicon glyphicon-trash'> </span> </a>")
+                </text>)
+            ));
+                }
+            </div>
+                    }
+    </div>
+                    }*@
 
 <!-- modal placeholder-->
 <div id='myModal' class='modal fade in'>

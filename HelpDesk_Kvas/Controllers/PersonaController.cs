@@ -1,6 +1,6 @@
 ﻿using HelpDesk_Kvas.DataGrid;
-using KvasEntity;
-using KvasLogic;
+using HelpDesk_Kvas.Models.Datos.Entity;
+using HelpDesk_Kvas.Models.Datos.Logica;
 using System;
 using System.Collections.Generic;
 using System.Linq;

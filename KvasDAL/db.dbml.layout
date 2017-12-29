@@ -93,7 +93,7 @@
         <elementListCompartment Id="6e8ca9b0-2ef3-494d-ae64-c4a9271cd41a" absoluteBounds="5.64, 4.96, 1.9700000000000002, 2.5570068359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(3.78906375 : 3.73240397135417); (3.78906375 : 4.8071945336914); (5.625 : 4.8071945336914)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(3.78906375 : 3.73240397135417); (3.78906375 : 4.8071945336914); (5.06897435897437 : 4.8071945336914 : JumpStart); (5.23564102564103 : 4.8071945336914 : JumpEnd); (5.625 : 4.8071945336914)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/dbDataContext/GruposDetalles/GruposDetalles_Usuarios" />
       <nodes>
         <classShapeMoniker Id="5b1ab4ad-f4e6-4105-8e9e-1223664b4d2b" />

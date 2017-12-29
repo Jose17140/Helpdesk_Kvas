@@ -333,20 +333,6 @@
     <Parameter Name="IdUsuario" Parameter="idUsuario" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.sp_ListarDetalles_x_Grupo" Method="sp_ListarDetalles_x_Grupo">
-    <Parameter Name="IdGrupo" Parameter="idGrupo" Type="System.Int32" DbType="Int" />
-    <ElementType Name="sp_ListarDetalles_x_GrupoResult">
-      <Column Name="IdGrupoDetalle" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Nombre" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Descripcion" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Orden" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Categoria" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Icono" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
-      <Column Name="UrlDetalle" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-      <Column Name="Estatus" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="FechaRegistro" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.sp_ListarGrupo" Method="sp_ListarGrupo">
     <ElementType Name="sp_ListarGrupoResult">
       <Column Name="IdGrupo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
@@ -440,5 +426,21 @@
     <Parameter Name="FechaModificacion" Parameter="fechaModificacion" Type="System.DateTime" DbType="DateTime" />
     <Parameter Name="IdRole" Parameter="idRole" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_ListarDetalles_x_Grupo" Method="sp_ListarDetalles_x_Grupo">
+    <Parameter Name="IdGrupo" Parameter="idGrupo" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_ListarDetalles_x_GrupoResult">
+      <Column Name="IdGrupoDetalle" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Descripcion" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Orden" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdPadre" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdGrupoPadre" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Categoria" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Icono" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="UrlDetalle" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Estatus" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="FechaRegistro" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
   </Function>
 </Database>

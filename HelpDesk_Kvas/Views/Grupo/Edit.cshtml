@@ -1,4 +1,4 @@
-﻿@model KvasEntity.GruposEntity
+﻿@model HelpDesk_Kvas.Models.Datos.Entity.GruposEntity
 
 @{
     ViewBag.Title = "Modulo de Actualizacion de Categoria";
@@ -40,10 +40,10 @@
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.Orden, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.IdPadre, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
-                    @Html.EditorFor(model => model.Orden, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Orden, "", new { @class = "text-danger" })
+                    @Html.DropDownListFor(model => model.IdPadre, ViewBag.ListaGrupo as SelectList, "Seleccione Categoria Padre", htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.IdPadre, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group">
@@ -51,13 +51,6 @@
                 <div class="col-md-6">
                     @Html.EditorFor(model => model.Icono, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Icono, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.UrlGrupo, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-6">
-                    @Html.EditorFor(model => model.UrlGrupo, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.UrlGrupo, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group">

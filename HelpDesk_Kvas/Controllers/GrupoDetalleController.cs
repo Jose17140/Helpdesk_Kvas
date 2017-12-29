@@ -1,7 +1,7 @@
 ﻿using HelpDesk_Kvas.DataGrid;
-using KvasEntity;
-using KvasLogic;
-//using PagedList;
+using HelpDesk_Kvas.Models;
+using HelpDesk_Kvas.Models.Datos.Entity;
+using HelpDesk_Kvas.Models.Datos.Logica;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,28 +15,50 @@ namespace HelpDesk_Kvas.Controllers
     {
         GrupoDetalleLogic objGrupoDetalleLogic;
         GrupoLogic objGrupoLogic;
+        DAL_Main db;
         public GrupoDetalleController()
         {
             objGrupoDetalleLogic = new GrupoDetalleLogic();
             objGrupoLogic = new GrupoLogic();
+            db = new DAL_Main();
         }
 
-        //GET: Grupo
-        //public ActionResult Index(int id)
+        //public ActionResult Index(int id, int? Nv2, int? Nv3, string filter = null, int page = 1, int pageSize = 15, string sort = "IdGrupoDetalle")
         //{
         //    ViewBag.Id = id;
-        //    var grupos = objGrupoDetalleLogic.ListarPorGrupo(id);
-        //    return View(grupos);
+        //    var lista = new PagedList<GruposDetallesView>();
+        //    var _grupo = objGrupoDetalleLogic.ListarView();
+        //    lista.Content = _grupo.Where(m => m.IdGrupo == id).ToList();
+        //    //PROGRAMAR FILTRO DE 3 NIVELES EN LA RECURSIVIDAD, ID PARA AGREGAR HIJOS Y VALIDAD
+        //    if (Nv2 != null)
+        //    {
+        //        ViewBag.Nv2 = Nv2.Value;
+        //        lista.Content2 = _grupo.Where(m => m.IdPadre == Nv2).ToList();
+        //    }
+        //    if (Nv3 != null)
+        //    {
+        //        ViewBag.Nv3 = Nv3.Value;
+        //        lista.Content3 = _grupo.Where(m => m.IdPadre == Nv3).ToList();
+        //    }
+        //    //var grupos = objGrupoLogic.Listar();
+
+        //    lista.CurrentPage = page;
+        //    lista.PageSize = pageSize;
+        //    return View(lista);
+
         //}
 
         public ActionResult Index(int id, string filter = null, int page = 1, int pageSize = 15, string sort = "IdGrupoDetalle")
         {
-            //var id = 1;
-            //, string sortdir = "DESC"
             var records = new PagedList<GruposDetallesView>();
             ViewBag.Id = id;
             ViewBag.filter = filter;
             var grupos = objGrupoDetalleLogic.ListarPorGrupo(id);
+            var l = objGrupoLogic.Buscar(id);
+            var n = l.Titulo;
+            ViewBag.Nombre = n;
+
+            var _grupos = objGrupoDetalleLogic.ListarView();
             records.Content = grupos.Where(m => filter == null || (m.Titulo.ToUpper().Contains(filter.ToUpper()))
                                 || m.Descripcion.ToUpper().Contains(filter.ToUpper())
                                 )
@@ -53,26 +75,7 @@ namespace HelpDesk_Kvas.Controllers
             records.PageSize = pageSize;
 
             return View(records);
-
         }
-
-        public JsonResult Lista(int id)
-        {
-            ViewBag.Id = id;
-            return Json(objGrupoDetalleLogic.ListarPorGrupo(id), JsonRequestBehavior.AllowGet);
-        } 
-
-        public ActionResult ListaGrupo(int _id)
-        {
-            var grupos = objGrupoDetalleLogic.ListarPorGrupo(_id);
-            return View(grupos);
-        }
-
-        //public JsonResult Lista()
-        //{
-        //    var grupos = objGrupoDetalleLogic.Listar();
-        //    return Json(grupos, JsonRequestBehavior.AllowGet);
-        //}
 
         // GET: Grupo/Details/5
         public ActionResult Details(int id)
@@ -85,13 +88,14 @@ namespace HelpDesk_Kvas.Controllers
         public ActionResult Create(int id)
         {
             ViewBag.Id = id;
-            //LISTA DE GRUPO
-            var listaGrupo = objGrupoLogic.ListarUnGrupo(id);
-            var listaDetalle = objGrupoDetalleLogic.ListarPorGrupo(id);
-            //var listaDetalle = objGrupoDetalleLogic.Listar();
-            SelectList grupos = new SelectList(listaGrupo,"IdGrupo", "Titulo");
-            SelectList listaDetalles = new SelectList(listaDetalle, "IdGrupoDetalle","Titulo");
-            ViewBag.Grupo = grupos;
+            var m = objGrupoLogic.Buscar(id);
+            var n = m.Titulo;
+            ViewBag.Nombre = n;
+            var j = m.IdPadre;
+            ViewBag.IdPadre = j;
+            
+            var listaPdres = objGrupoDetalleLogic.ListarPorGrupo(Convert.ToInt32(m.IdPadre));
+            SelectList listaDetalles = new SelectList(listaPdres, "IdGrupoDetalle", "Titulo");
             ViewBag.ListaGruposDetalles = listaDetalles;
             MensajeInicioRegistrar();
             return PartialView("Create");
@@ -125,18 +129,23 @@ namespace HelpDesk_Kvas.Controllers
             }
             ViewBag.Id = id;
             MensajeInicioActualizar();
+
             GruposDetallesEntity _grupo = objGrupoDetalleLogic.Buscar(id);
-            var listaDetalle = objGrupoDetalleLogic.Listar();
-            var filtro = listaDetalle.Where(m => m.IdGrupo == _grupo.IdGrupo).ToList();
-            //listaDetalle.Where(m => m.)
-            
-            SelectList listaDetalles = new SelectList(filtro, "IdGrupoDetalle", "Titulo");
+            var i = _grupo.IdGrupo;
+            var m = objGrupoLogic.Buscar(Convert.ToInt32(i));
+            var n = m.Titulo;
+            ViewBag.Nombre = n;
+            var j = m.IdPadre;
+            ViewBag.IdPadre = j;
+
+            var listaPdres = objGrupoDetalleLogic.ListarPorGrupo(Convert.ToInt32(m.IdPadre)).ToList();
+            SelectList listaDetalles = new SelectList(listaPdres, "IdGrupoDetalle", "Titulo");
             ViewBag.ListaGruposDetalles = listaDetalles;
             if (_grupo == null)
             {
                 return HttpNotFound();
             }
-            return PartialView("Edit",_grupo);
+            return PartialView("Edit", _grupo);
         }
 
         // POST: Grupo/Edit/5
@@ -174,7 +183,7 @@ namespace HelpDesk_Kvas.Controllers
             {
                 return HttpNotFound();
             }
-            return PartialView("Delete",_grupo);
+            return PartialView("Delete", _grupo);
         }
 
         // POST: Grupo/Delete/5
@@ -202,7 +211,7 @@ namespace HelpDesk_Kvas.Controllers
         {
             if (disposing)
             {
-                
+
             }
             base.Dispose(disposing);
         }

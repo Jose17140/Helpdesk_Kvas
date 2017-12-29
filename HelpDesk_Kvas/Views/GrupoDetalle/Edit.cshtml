@@ -1,4 +1,4 @@
-﻿@model KvasEntity.GruposDetallesEntity
+﻿@model HelpDesk_Kvas.Models.Datos.Entity.GruposDetallesEntity
 
 @{
     ViewBag.Title = "Modulo de Actualizacion de Categoria";
@@ -15,6 +15,7 @@
         @Html.AntiForgeryToken()
         <div class="form-horizontal">
             <fieldset>
+                <input id="UrlDetalle" name="UrlDetalle" type="hidden" value="*" />
                 <div class="form-group">
                     <div class="col-md-6">
                         @Html.HiddenFor(model => model.IdGrupoDetalle, new { htmlAttributes = new { @class = "form-control" } })
@@ -49,13 +50,17 @@
                         @*@Html.ValidationMessageFor(model => model.IdGrupo, "", new { @class = "text-danger" })*@
                     </div>
                 </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.IdPadre, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-6">
-                        @*@Html.EditorFor(model => model.IdPadre, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.IdPadre, "", new { @class = "text-danger" })*@
-                        @Html.DropDownListFor(model => model.IdPadre, ViewBag.ListaGruposDetalles as SelectList, "Seleccione Categoria Padre", htmlAttributes: new { @class = "form-control" })                    </div>
-                </div>
+                @if (ViewBag.IdPadre != 0)
+                {
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.IdPadre, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-6">
+                            @*@Html.EditorFor(model => model.IdPadre, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.IdPadre, "", new { @class = "text-danger" })*@
+                            @Html.DropDownListFor(model => model.IdPadre, ViewBag.ListaGruposDetalles as SelectList, "Seleccione Categoria Padre", htmlAttributes: new { @class = "form-control" })
+                        </div>
+                    </div>
+                }
                 <div class="form-group">
                     @Html.LabelFor(model => model.Icono, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-6">
@@ -63,24 +68,32 @@
                         @Html.ValidationMessageFor(model => model.Icono, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                <div class="form-group">
+                @*<div class="form-group">
                     @Html.LabelFor(model => model.UrlDetalle, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-6">
                         @Html.EditorFor(model => model.UrlDetalle, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.UrlDetalle, "", new { @class = "text-danger" })
                     </div>
-                </div>
+                </div>*@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Estatus, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-6">
                         @Html.CheckBoxFor(model => model.Estatus, new { htmlAttributes = new { @class = "form-control" } })
                     </div>
                 </div>
-                <div class="form-actions col-md-offset-2">
+                @*<div class="form-actions col-md-offset-2">
                     <input class="btn btn-primary" type="submit" name="btnguardar" value="Guardar" />|
-                    @*@Html.ActionLink("Regresar al Listado", "Index")*@
-                </div>
+                    @Html.ActionLink("Regresar al Listado", "Index")
+                </div>*@
             </fieldset>
+        </div>
+        <div class="btn-group btn-group-justified" role="group" aria-label="group button">
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-default" data-dismiss="modal" role="button">Cerrar</button>
+            </div>
+            <div class="btn-group" role="group">
+                <button type="submit" id="saveImage" class="btn btn-default btn-hover-green" data-action="save" role="button">Guardar</button>
+            </div>
         </div>
     }
 </div>

@@ -1,12 +1,12 @@
-﻿using KvasEntity;
-using KvasLogic;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using PagedList;
+using HelpDesk_Kvas.Models.Datos.Logica;
+using HelpDesk_Kvas.Models.Datos.Entity;
 
 namespace HelpDesk_Kvas.Controllers
 {
@@ -45,6 +45,7 @@ namespace HelpDesk_Kvas.Controllers
                                        || s.Descripcion.ToUpper().Contains(searchString.ToUpper()));
 
             }
+
             switch (sortOrder)
             {
                 case "id_grupo":
@@ -52,12 +53,6 @@ namespace HelpDesk_Kvas.Controllers
                     break;
                 case "name_desc":
                     grupos = grupos.OrderByDescending(s => s.Titulo);
-                    break;
-                case "Date":
-                    grupos = grupos.OrderBy(s => s.Orden);
-                    break;
-                case "date_desc":
-                    grupos = grupos.OrderByDescending(s => s.Orden);
                     break;
                 default:  // Name ascending 
                     grupos = grupos.OrderBy(s => s.Titulo);
@@ -77,12 +72,20 @@ namespace HelpDesk_Kvas.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             GruposEntity _grupo = objGrupoLogic.Buscar(id);
+
+            var lista = objGrupoLogic.Listar();
+            var filtro = lista.Where(m => m.IdGrupo == _grupo.IdPadre).FirstOrDefault();
+            //SelectList list = new SelectList(lista, "IdGrupo", "Titulo");
+            ViewBag.ListaGrupo = filtro.Titulo;
             return View(_grupo);
         }
         
         [ChildActionOnly]
         public ActionResult Create()
         {
+            var lista = objGrupoLogic.Listar();
+            SelectList list = new SelectList(lista, "IdGrupo", "Titulo");
+            ViewBag.ListaGrupo = list;
             MensajeInicioRegistrar();
             return PartialView();
         }
@@ -92,15 +95,32 @@ namespace HelpDesk_Kvas.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(GruposEntity objGrupo)
         {
-            if (ModelState.IsValid)
+            var nivel = objGrupoLogic.ListarNivel(Convert.ToInt32(objGrupo.IdPadre)).SingleOrDefault();
+            if (nivel==null)
             {
-                // TODO: Add insert logic here
-                MensajeInicioRegistrar();
-                objGrupoLogic.Insertar(objGrupo);
-                MensajeErrorRegistrar(objGrupo);
-                var text = "Agregado Exitosamente";
-                return this.Json(new { EnableSuccess = true, SuccessTitle = "Success", SuccessMsg = text });
+                nivel = objGrupo;
+                nivel.Nivel = 0;
             }
+            if (nivel.Nivel < 3)
+            {
+                if (ModelState.IsValid)
+                {
+                    // TODO: Add insert logic here
+                    if (objGrupo.IdPadre == null)
+                    {
+                        objGrupo.IdPadre = 0;
+                    }
+                    MensajeInicioRegistrar();
+                    objGrupoLogic.Insertar(objGrupo);
+                    MensajeErrorRegistrar(objGrupo);
+                    var text = "Agregado Exitosamente";
+                    return this.Json(new { EnableSuccess = true, SuccessTitle = "Success", SuccessMsg = text });
+                }
+            }
+            objGrupo.Mensaje = 30;
+            MensajeErrorRegistrar(objGrupo);
+
+
             return this.Json(new { EnableError = true, ErrorTitle = "Error", ErrorMsg = "Verifique los datos he intente nuevamente" });
         }
 
@@ -112,6 +132,10 @@ namespace HelpDesk_Kvas.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             GruposEntity _grupo = objGrupoLogic.Buscar(id);
+            var lista = objGrupoLogic.Listar();
+            var filtro = lista.Where(m => m.IdGrupo == _grupo.IdGrupo).ToList();
+            SelectList list = new SelectList(lista, "IdGrupo", "Titulo");
+            ViewBag.ListaGrupo = list;
             if (_grupo == null)
             {
                 return HttpNotFound();
@@ -126,20 +150,34 @@ namespace HelpDesk_Kvas.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
+                var nivel = objGrupoLogic.ListarNivel(Convert.ToInt32(objGrupo.IdPadre)).SingleOrDefault();
+                if (nivel == null)
                 {
-                    MensajeInicioActualizar();
-                    objGrupoLogic.Actualizar(objGrupo);
-                    MensajeErrorActualizar(objGrupo);
-                    //var text = "Agregado Exitosamente";
-                    //return this.Json(new { EnableSuccess = true, SuccessTitle = "Success", SuccessMsg = text });
-                    return RedirectToAction("Index");
+                    nivel = objGrupo;
+                    nivel.Nivel = 0;
                 }
+                if (nivel.Nivel < 3) {
+                    if (ModelState.IsValid)
+                    {
+                        MensajeInicioActualizar();
+                        objGrupoLogic.Actualizar(objGrupo);
+                        MensajeErrorActualizar(objGrupo);
+                        //var text = "Agregado Exitosamente";
+                        //return this.Json(new { EnableSuccess = true, SuccessTitle = "Success", SuccessMsg = text });
+                        return RedirectToAction("Index");
+                    }
+                }
+                    
             }
             catch
             {
                 return View();
             }
+            GruposEntity _grupo = objGrupoLogic.Buscar(objGrupo.IdGrupo);
+            var lista = objGrupoLogic.Listar();
+            var filtro = lista.Where(m => m.IdGrupo == _grupo.IdGrupo).ToList();
+            SelectList list = new SelectList(lista, "IdGrupo", "Titulo");
+            ViewBag.ListaGrupo = list;
             //return this.Json(new { EnableError = true, ErrorTitle = "Error", ErrorMsg = "Verifique los datos he intente nuevamente" });
             return View(objGrupo);
         }
@@ -170,7 +208,6 @@ namespace HelpDesk_Kvas.Controllers
                 objGrupoLogic.Eliminar(objGrupo);
                 MensajeErrorActualizar(objGrupo);
                 // TODO: Add delete logic here
-
                 return RedirectToAction("Index");
             }
             catch
@@ -180,7 +217,7 @@ namespace HelpDesk_Kvas.Controllers
         }
 
         [Authorize]
-        public JsonResult DeleteJ(int id)
+        public JsonResult Deletes(int id)
         {
             GruposEntity _grupo = objGrupoLogic.Buscar(id);
             objGrupoLogic.Eliminar(_grupo);
