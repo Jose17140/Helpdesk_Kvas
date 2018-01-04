@@ -42,18 +42,18 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
     partial void InsertPersonas(Personas instance);
     partial void UpdatePersonas(Personas instance);
     partial void DeletePersonas(Personas instance);
-    partial void InsertProductoServicios(ProductoServicios instance);
-    partial void UpdateProductoServicios(ProductoServicios instance);
-    partial void DeleteProductoServicios(ProductoServicios instance);
     partial void InsertReportes(Reportes instance);
     partial void UpdateReportes(Reportes instance);
     partial void DeleteReportes(Reportes instance);
-    partial void InsertSerialesProductos(SerialesProductos instance);
-    partial void UpdateSerialesProductos(SerialesProductos instance);
-    partial void DeleteSerialesProductos(SerialesProductos instance);
     partial void InsertUsuarios(Usuarios instance);
     partial void UpdateUsuarios(Usuarios instance);
     partial void DeleteUsuarios(Usuarios instance);
+    partial void InsertProductoServicios(ProductoServicios instance);
+    partial void UpdateProductoServicios(ProductoServicios instance);
+    partial void DeleteProductoServicios(ProductoServicios instance);
+    partial void InsertSerialesProductos(SerialesProductos instance);
+    partial void UpdateSerialesProductos(SerialesProductos instance);
+    partial void DeleteSerialesProductos(SerialesProductos instance);
     #endregion
 		
 		public dbDataContext() : 
@@ -150,27 +150,11 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 			}
 		}
 		
-		public System.Data.Linq.Table<ProductoServicios> ProductoServicios
-		{
-			get
-			{
-				return this.GetTable<ProductoServicios>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Reportes> Reportes
 		{
 			get
 			{
 				return this.GetTable<Reportes>();
-			}
-		}
-		
-		public System.Data.Linq.Table<SerialesProductos> SerialesProductos
-		{
-			get
-			{
-				return this.GetTable<SerialesProductos>();
 			}
 		}
 		
@@ -195,6 +179,22 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 			get
 			{
 				return this.GetTable<vw_Menu>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ProductoServicios> ProductoServicios
+		{
+			get
+			{
+				return this.GetTable<ProductoServicios>();
+			}
+		}
+		
+		public System.Data.Linq.Table<SerialesProductos> SerialesProductos
+		{
+			get
+			{
+				return this.GetTable<SerialesProductos>();
 			}
 		}
 		
@@ -1888,6 +1888,8 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 		
 		private EntitySet<Personas> _Personas;
 		
+		private EntitySet<Usuarios> _Usuarios;
+		
 		private EntitySet<ProductoServicios> _ProductoServicios;
 		
 		private EntitySet<ProductoServicios> _ProductoServicios1;
@@ -1895,8 +1897,6 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 		private EntitySet<ProductoServicios> _ProductoServicios2;
 		
 		private EntitySet<ProductoServicios> _ProductoServicios3;
-		
-		private EntitySet<Usuarios> _Usuarios;
 		
 		private EntityRef<Grupos> _Grupos;
 		
@@ -1933,11 +1933,11 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 			this._UsuariosRoles = new EntitySet<UsuariosRoles>(new Action<UsuariosRoles>(this.attach_UsuariosRoles), new Action<UsuariosRoles>(this.detach_UsuariosRoles));
 			this._GruposDetalles2 = new EntitySet<GruposDetalles>(new Action<GruposDetalles>(this.attach_GruposDetalles2), new Action<GruposDetalles>(this.detach_GruposDetalles2));
 			this._Personas = new EntitySet<Personas>(new Action<Personas>(this.attach_Personas), new Action<Personas>(this.detach_Personas));
+			this._Usuarios = new EntitySet<Usuarios>(new Action<Usuarios>(this.attach_Usuarios), new Action<Usuarios>(this.detach_Usuarios));
 			this._ProductoServicios = new EntitySet<ProductoServicios>(new Action<ProductoServicios>(this.attach_ProductoServicios), new Action<ProductoServicios>(this.detach_ProductoServicios));
 			this._ProductoServicios1 = new EntitySet<ProductoServicios>(new Action<ProductoServicios>(this.attach_ProductoServicios1), new Action<ProductoServicios>(this.detach_ProductoServicios1));
 			this._ProductoServicios2 = new EntitySet<ProductoServicios>(new Action<ProductoServicios>(this.attach_ProductoServicios2), new Action<ProductoServicios>(this.detach_ProductoServicios2));
 			this._ProductoServicios3 = new EntitySet<ProductoServicios>(new Action<ProductoServicios>(this.attach_ProductoServicios3), new Action<ProductoServicios>(this.detach_ProductoServicios3));
-			this._Usuarios = new EntitySet<Usuarios>(new Action<Usuarios>(this.attach_Usuarios), new Action<Usuarios>(this.detach_Usuarios));
 			this._Grupos = default(EntityRef<Grupos>);
 			this._GruposDetalles1 = default(EntityRef<GruposDetalles>);
 			OnCreated();
@@ -2190,6 +2190,19 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_Usuarios", Storage="_Usuarios", ThisKey="IdGrupoDetalle", OtherKey="IdPreguntaSeguridad")]
+		public EntitySet<Usuarios> Usuarios
+		{
+			get
+			{
+				return this._Usuarios;
+			}
+			set
+			{
+				this._Usuarios.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_ProductoServicios", Storage="_ProductoServicios", ThisKey="IdGrupoDetalle", OtherKey="IdCategoria")]
 		public EntitySet<ProductoServicios> ProductoServicios
 		{
@@ -2239,19 +2252,6 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 			set
 			{
 				this._ProductoServicios3.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_Usuarios", Storage="_Usuarios", ThisKey="IdGrupoDetalle", OtherKey="IdPreguntaSeguridad")]
-		public EntitySet<Usuarios> Usuarios
-		{
-			get
-			{
-				return this._Usuarios;
-			}
-			set
-			{
-				this._Usuarios.Assign(value);
 			}
 		}
 		
@@ -2379,6 +2379,18 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 			entity.GruposDetalles = null;
 		}
 		
+		private void attach_Usuarios(Usuarios entity)
+		{
+			this.SendPropertyChanging();
+			entity.GruposDetalles = this;
+		}
+		
+		private void detach_Usuarios(Usuarios entity)
+		{
+			this.SendPropertyChanging();
+			entity.GruposDetalles = null;
+		}
+		
 		private void attach_ProductoServicios(ProductoServicios entity)
 		{
 			this.SendPropertyChanging();
@@ -2425,18 +2437,6 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 		{
 			this.SendPropertyChanging();
 			entity.GruposDetalles3 = null;
-		}
-		
-		private void attach_Usuarios(Usuarios entity)
-		{
-			this.SendPropertyChanging();
-			entity.GruposDetalles = this;
-		}
-		
-		private void detach_Usuarios(Usuarios entity)
-		{
-			this.SendPropertyChanging();
-			entity.GruposDetalles = null;
 		}
 	}
 	
@@ -2711,572 +2711,6 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ProductoServicios")]
-	public partial class ProductoServicios : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _IdProducto;
-		
-		private string _Sku;
-		
-		private int _IdCategoria;
-		
-		private int _IdGrupo;
-		
-		private string _Nombre;
-		
-		private int _IdFabricante;
-		
-		private int _IdUnidad;
-		
-		private string _Imagen;
-		
-		private int _Stock;
-		
-		private System.Nullable<int> _Stock_Min;
-		
-		private System.Nullable<decimal> _PrecioCompra;
-		
-		private decimal _PrecioVenta;
-		
-		private int _Garantia;
-		
-		private System.DateTime _FechaRegistro;
-		
-		private EntitySet<SerialesProductos> _SerialesProductos;
-		
-		private EntityRef<GruposDetalles> _GruposDetalles;
-		
-		private EntityRef<GruposDetalles> _GruposDetalles1;
-		
-		private EntityRef<GruposDetalles> _GruposDetalles2;
-		
-		private EntityRef<GruposDetalles> _GruposDetalles3;
-		
-    #region Definiciones de métodos de extensibilidad
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdProductoChanging(int value);
-    partial void OnIdProductoChanged();
-    partial void OnSkuChanging(string value);
-    partial void OnSkuChanged();
-    partial void OnIdCategoriaChanging(int value);
-    partial void OnIdCategoriaChanged();
-    partial void OnIdGrupoChanging(int value);
-    partial void OnIdGrupoChanged();
-    partial void OnNombreChanging(string value);
-    partial void OnNombreChanged();
-    partial void OnIdFabricanteChanging(int value);
-    partial void OnIdFabricanteChanged();
-    partial void OnIdUnidadChanging(int value);
-    partial void OnIdUnidadChanged();
-    partial void OnImagenChanging(string value);
-    partial void OnImagenChanged();
-    partial void OnStockChanging(int value);
-    partial void OnStockChanged();
-    partial void OnStock_MinChanging(System.Nullable<int> value);
-    partial void OnStock_MinChanged();
-    partial void OnPrecioCompraChanging(System.Nullable<decimal> value);
-    partial void OnPrecioCompraChanged();
-    partial void OnPrecioVentaChanging(decimal value);
-    partial void OnPrecioVentaChanged();
-    partial void OnGarantiaChanging(int value);
-    partial void OnGarantiaChanged();
-    partial void OnFechaRegistroChanging(System.DateTime value);
-    partial void OnFechaRegistroChanged();
-    #endregion
-		
-		public ProductoServicios()
-		{
-			this._SerialesProductos = new EntitySet<SerialesProductos>(new Action<SerialesProductos>(this.attach_SerialesProductos), new Action<SerialesProductos>(this.detach_SerialesProductos));
-			this._GruposDetalles = default(EntityRef<GruposDetalles>);
-			this._GruposDetalles1 = default(EntityRef<GruposDetalles>);
-			this._GruposDetalles2 = default(EntityRef<GruposDetalles>);
-			this._GruposDetalles3 = default(EntityRef<GruposDetalles>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdProducto", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int IdProducto
-		{
-			get
-			{
-				return this._IdProducto;
-			}
-			set
-			{
-				if ((this._IdProducto != value))
-				{
-					this.OnIdProductoChanging(value);
-					this.SendPropertyChanging();
-					this._IdProducto = value;
-					this.SendPropertyChanged("IdProducto");
-					this.OnIdProductoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sku", DbType="VarChar(24) NOT NULL", CanBeNull=false)]
-		public string Sku
-		{
-			get
-			{
-				return this._Sku;
-			}
-			set
-			{
-				if ((this._Sku != value))
-				{
-					this.OnSkuChanging(value);
-					this.SendPropertyChanging();
-					this._Sku = value;
-					this.SendPropertyChanged("Sku");
-					this.OnSkuChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdCategoria", DbType="Int NOT NULL")]
-		public int IdCategoria
-		{
-			get
-			{
-				return this._IdCategoria;
-			}
-			set
-			{
-				if ((this._IdCategoria != value))
-				{
-					if (this._GruposDetalles.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnIdCategoriaChanging(value);
-					this.SendPropertyChanging();
-					this._IdCategoria = value;
-					this.SendPropertyChanged("IdCategoria");
-					this.OnIdCategoriaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdGrupo", DbType="Int NOT NULL")]
-		public int IdGrupo
-		{
-			get
-			{
-				return this._IdGrupo;
-			}
-			set
-			{
-				if ((this._IdGrupo != value))
-				{
-					if (this._GruposDetalles2.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnIdGrupoChanging(value);
-					this.SendPropertyChanging();
-					this._IdGrupo = value;
-					this.SendPropertyChanged("IdGrupo");
-					this.OnIdGrupoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Nombre
-		{
-			get
-			{
-				return this._Nombre;
-			}
-			set
-			{
-				if ((this._Nombre != value))
-				{
-					this.OnNombreChanging(value);
-					this.SendPropertyChanging();
-					this._Nombre = value;
-					this.SendPropertyChanged("Nombre");
-					this.OnNombreChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdFabricante", DbType="Int NOT NULL")]
-		public int IdFabricante
-		{
-			get
-			{
-				return this._IdFabricante;
-			}
-			set
-			{
-				if ((this._IdFabricante != value))
-				{
-					if (this._GruposDetalles1.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnIdFabricanteChanging(value);
-					this.SendPropertyChanging();
-					this._IdFabricante = value;
-					this.SendPropertyChanged("IdFabricante");
-					this.OnIdFabricanteChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdUnidad", DbType="Int NOT NULL")]
-		public int IdUnidad
-		{
-			get
-			{
-				return this._IdUnidad;
-			}
-			set
-			{
-				if ((this._IdUnidad != value))
-				{
-					if (this._GruposDetalles3.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnIdUnidadChanging(value);
-					this.SendPropertyChanging();
-					this._IdUnidad = value;
-					this.SendPropertyChanged("IdUnidad");
-					this.OnIdUnidadChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Imagen", DbType="VarChar(40)")]
-		public string Imagen
-		{
-			get
-			{
-				return this._Imagen;
-			}
-			set
-			{
-				if ((this._Imagen != value))
-				{
-					this.OnImagenChanging(value);
-					this.SendPropertyChanging();
-					this._Imagen = value;
-					this.SendPropertyChanged("Imagen");
-					this.OnImagenChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Stock", DbType="Int NOT NULL")]
-		public int Stock
-		{
-			get
-			{
-				return this._Stock;
-			}
-			set
-			{
-				if ((this._Stock != value))
-				{
-					this.OnStockChanging(value);
-					this.SendPropertyChanging();
-					this._Stock = value;
-					this.SendPropertyChanged("Stock");
-					this.OnStockChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Stock_Min", DbType="Int")]
-		public System.Nullable<int> Stock_Min
-		{
-			get
-			{
-				return this._Stock_Min;
-			}
-			set
-			{
-				if ((this._Stock_Min != value))
-				{
-					this.OnStock_MinChanging(value);
-					this.SendPropertyChanging();
-					this._Stock_Min = value;
-					this.SendPropertyChanged("Stock_Min");
-					this.OnStock_MinChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PrecioCompra", DbType="Decimal(8,2)")]
-		public System.Nullable<decimal> PrecioCompra
-		{
-			get
-			{
-				return this._PrecioCompra;
-			}
-			set
-			{
-				if ((this._PrecioCompra != value))
-				{
-					this.OnPrecioCompraChanging(value);
-					this.SendPropertyChanging();
-					this._PrecioCompra = value;
-					this.SendPropertyChanged("PrecioCompra");
-					this.OnPrecioCompraChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PrecioVenta", DbType="Decimal(8,2) NOT NULL")]
-		public decimal PrecioVenta
-		{
-			get
-			{
-				return this._PrecioVenta;
-			}
-			set
-			{
-				if ((this._PrecioVenta != value))
-				{
-					this.OnPrecioVentaChanging(value);
-					this.SendPropertyChanging();
-					this._PrecioVenta = value;
-					this.SendPropertyChanged("PrecioVenta");
-					this.OnPrecioVentaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Garantia", DbType="Int NOT NULL")]
-		public int Garantia
-		{
-			get
-			{
-				return this._Garantia;
-			}
-			set
-			{
-				if ((this._Garantia != value))
-				{
-					this.OnGarantiaChanging(value);
-					this.SendPropertyChanging();
-					this._Garantia = value;
-					this.SendPropertyChanged("Garantia");
-					this.OnGarantiaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaRegistro", DbType="DateTime NOT NULL")]
-		public System.DateTime FechaRegistro
-		{
-			get
-			{
-				return this._FechaRegistro;
-			}
-			set
-			{
-				if ((this._FechaRegistro != value))
-				{
-					this.OnFechaRegistroChanging(value);
-					this.SendPropertyChanging();
-					this._FechaRegistro = value;
-					this.SendPropertyChanged("FechaRegistro");
-					this.OnFechaRegistroChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ProductoServicios_SerialesProductos", Storage="_SerialesProductos", ThisKey="IdProducto", OtherKey="IdProducto")]
-		public EntitySet<SerialesProductos> SerialesProductos
-		{
-			get
-			{
-				return this._SerialesProductos;
-			}
-			set
-			{
-				this._SerialesProductos.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_ProductoServicios", Storage="_GruposDetalles", ThisKey="IdCategoria", OtherKey="IdGrupoDetalle", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public GruposDetalles GruposDetalles
-		{
-			get
-			{
-				return this._GruposDetalles.Entity;
-			}
-			set
-			{
-				GruposDetalles previousValue = this._GruposDetalles.Entity;
-				if (((previousValue != value) 
-							|| (this._GruposDetalles.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._GruposDetalles.Entity = null;
-						previousValue.ProductoServicios.Remove(this);
-					}
-					this._GruposDetalles.Entity = value;
-					if ((value != null))
-					{
-						value.ProductoServicios.Add(this);
-						this._IdCategoria = value.IdGrupoDetalle;
-					}
-					else
-					{
-						this._IdCategoria = default(int);
-					}
-					this.SendPropertyChanged("GruposDetalles");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_ProductoServicios1", Storage="_GruposDetalles1", ThisKey="IdFabricante", OtherKey="IdGrupoDetalle", IsForeignKey=true)]
-		public GruposDetalles GruposDetalles1
-		{
-			get
-			{
-				return this._GruposDetalles1.Entity;
-			}
-			set
-			{
-				GruposDetalles previousValue = this._GruposDetalles1.Entity;
-				if (((previousValue != value) 
-							|| (this._GruposDetalles1.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._GruposDetalles1.Entity = null;
-						previousValue.ProductoServicios1.Remove(this);
-					}
-					this._GruposDetalles1.Entity = value;
-					if ((value != null))
-					{
-						value.ProductoServicios1.Add(this);
-						this._IdFabricante = value.IdGrupoDetalle;
-					}
-					else
-					{
-						this._IdFabricante = default(int);
-					}
-					this.SendPropertyChanged("GruposDetalles1");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_ProductoServicios2", Storage="_GruposDetalles2", ThisKey="IdGrupo", OtherKey="IdGrupoDetalle", IsForeignKey=true)]
-		public GruposDetalles GruposDetalles2
-		{
-			get
-			{
-				return this._GruposDetalles2.Entity;
-			}
-			set
-			{
-				GruposDetalles previousValue = this._GruposDetalles2.Entity;
-				if (((previousValue != value) 
-							|| (this._GruposDetalles2.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._GruposDetalles2.Entity = null;
-						previousValue.ProductoServicios2.Remove(this);
-					}
-					this._GruposDetalles2.Entity = value;
-					if ((value != null))
-					{
-						value.ProductoServicios2.Add(this);
-						this._IdGrupo = value.IdGrupoDetalle;
-					}
-					else
-					{
-						this._IdGrupo = default(int);
-					}
-					this.SendPropertyChanged("GruposDetalles2");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_ProductoServicios3", Storage="_GruposDetalles3", ThisKey="IdUnidad", OtherKey="IdGrupoDetalle", IsForeignKey=true)]
-		public GruposDetalles GruposDetalles3
-		{
-			get
-			{
-				return this._GruposDetalles3.Entity;
-			}
-			set
-			{
-				GruposDetalles previousValue = this._GruposDetalles3.Entity;
-				if (((previousValue != value) 
-							|| (this._GruposDetalles3.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._GruposDetalles3.Entity = null;
-						previousValue.ProductoServicios3.Remove(this);
-					}
-					this._GruposDetalles3.Entity = value;
-					if ((value != null))
-					{
-						value.ProductoServicios3.Add(this);
-						this._IdUnidad = value.IdGrupoDetalle;
-					}
-					else
-					{
-						this._IdUnidad = default(int);
-					}
-					this.SendPropertyChanged("GruposDetalles3");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_SerialesProductos(SerialesProductos entity)
-		{
-			this.SendPropertyChanging();
-			entity.ProductoServicios = this;
-		}
-		
-		private void detach_SerialesProductos(SerialesProductos entity)
-		{
-			this.SendPropertyChanging();
-			entity.ProductoServicios = null;
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Reportes")]
 	public partial class Reportes : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -3314,181 +2748,6 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 					this._IdReporte = value;
 					this.SendPropertyChanged("IdReporte");
 					this.OnIdReporteChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SerialesProductos")]
-	public partial class SerialesProductos : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _IdSerial;
-		
-		private int _IdProducto;
-		
-		private string _Serial;
-		
-		private bool _Estatus;
-		
-		private EntityRef<ProductoServicios> _ProductoServicios;
-		
-    #region Definiciones de métodos de extensibilidad
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdSerialChanging(int value);
-    partial void OnIdSerialChanged();
-    partial void OnIdProductoChanging(int value);
-    partial void OnIdProductoChanged();
-    partial void OnSerialChanging(string value);
-    partial void OnSerialChanged();
-    partial void OnEstatusChanging(bool value);
-    partial void OnEstatusChanged();
-    #endregion
-		
-		public SerialesProductos()
-		{
-			this._ProductoServicios = default(EntityRef<ProductoServicios>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdSerial", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int IdSerial
-		{
-			get
-			{
-				return this._IdSerial;
-			}
-			set
-			{
-				if ((this._IdSerial != value))
-				{
-					this.OnIdSerialChanging(value);
-					this.SendPropertyChanging();
-					this._IdSerial = value;
-					this.SendPropertyChanged("IdSerial");
-					this.OnIdSerialChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdProducto", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int IdProducto
-		{
-			get
-			{
-				return this._IdProducto;
-			}
-			set
-			{
-				if ((this._IdProducto != value))
-				{
-					if (this._ProductoServicios.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnIdProductoChanging(value);
-					this.SendPropertyChanging();
-					this._IdProducto = value;
-					this.SendPropertyChanged("IdProducto");
-					this.OnIdProductoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Serial", DbType="VarChar(40) NOT NULL", CanBeNull=false)]
-		public string Serial
-		{
-			get
-			{
-				return this._Serial;
-			}
-			set
-			{
-				if ((this._Serial != value))
-				{
-					this.OnSerialChanging(value);
-					this.SendPropertyChanging();
-					this._Serial = value;
-					this.SendPropertyChanged("Serial");
-					this.OnSerialChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estatus", DbType="Bit NOT NULL")]
-		public bool Estatus
-		{
-			get
-			{
-				return this._Estatus;
-			}
-			set
-			{
-				if ((this._Estatus != value))
-				{
-					this.OnEstatusChanging(value);
-					this.SendPropertyChanging();
-					this._Estatus = value;
-					this.SendPropertyChanged("Estatus");
-					this.OnEstatusChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ProductoServicios_SerialesProductos", Storage="_ProductoServicios", ThisKey="IdProducto", OtherKey="IdProducto", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public ProductoServicios ProductoServicios
-		{
-			get
-			{
-				return this._ProductoServicios.Entity;
-			}
-			set
-			{
-				ProductoServicios previousValue = this._ProductoServicios.Entity;
-				if (((previousValue != value) 
-							|| (this._ProductoServicios.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._ProductoServicios.Entity = null;
-						previousValue.SerialesProductos.Remove(this);
-					}
-					this._ProductoServicios.Entity = value;
-					if ((value != null))
-					{
-						value.SerialesProductos.Add(this);
-						this._IdProducto = value.IdProducto;
-					}
-					else
-					{
-						this._IdProducto = default(int);
-					}
-					this.SendPropertyChanged("ProductoServicios");
 				}
 			}
 		}
@@ -4409,6 +3668,795 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 				{
 					this._LevelGrupo = value;
 				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ProductoServicios")]
+	public partial class ProductoServicios : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _IdProducto;
+		
+		private string _Sku;
+		
+		private int _IdCategoria;
+		
+		private int _IdGrupo;
+		
+		private string _Nombre;
+		
+		private string _Descripcion;
+		
+		private int _IdFabricante;
+		
+		private int _IdUnidad;
+		
+		private string _Imagen;
+		
+		private int _Stock;
+		
+		private System.Nullable<int> _StockMin;
+		
+		private System.Nullable<decimal> _PrecioCompra;
+		
+		private decimal _PrecioVenta;
+		
+		private int _Garantia;
+		
+		private bool _Estatus;
+		
+		private System.DateTime _FechaRegistro;
+		
+		private EntitySet<SerialesProductos> _SerialesProductos;
+		
+		private EntityRef<GruposDetalles> _GruposDetalles;
+		
+		private EntityRef<GruposDetalles> _GruposDetalles1;
+		
+		private EntityRef<GruposDetalles> _GruposDetalles2;
+		
+		private EntityRef<GruposDetalles> _GruposDetalles3;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdProductoChanging(int value);
+    partial void OnIdProductoChanged();
+    partial void OnSkuChanging(string value);
+    partial void OnSkuChanged();
+    partial void OnIdCategoriaChanging(int value);
+    partial void OnIdCategoriaChanged();
+    partial void OnIdGrupoChanging(int value);
+    partial void OnIdGrupoChanged();
+    partial void OnNombreChanging(string value);
+    partial void OnNombreChanged();
+    partial void OnDescripcionChanging(string value);
+    partial void OnDescripcionChanged();
+    partial void OnIdFabricanteChanging(int value);
+    partial void OnIdFabricanteChanged();
+    partial void OnIdUnidadChanging(int value);
+    partial void OnIdUnidadChanged();
+    partial void OnImagenChanging(string value);
+    partial void OnImagenChanged();
+    partial void OnStockChanging(int value);
+    partial void OnStockChanged();
+    partial void OnStockMinChanging(System.Nullable<int> value);
+    partial void OnStockMinChanged();
+    partial void OnPrecioCompraChanging(System.Nullable<decimal> value);
+    partial void OnPrecioCompraChanged();
+    partial void OnPrecioVentaChanging(decimal value);
+    partial void OnPrecioVentaChanged();
+    partial void OnGarantiaChanging(int value);
+    partial void OnGarantiaChanged();
+    partial void OnEstatusChanging(bool value);
+    partial void OnEstatusChanged();
+    partial void OnFechaRegistroChanging(System.DateTime value);
+    partial void OnFechaRegistroChanged();
+    #endregion
+		
+		public ProductoServicios()
+		{
+			this._SerialesProductos = new EntitySet<SerialesProductos>(new Action<SerialesProductos>(this.attach_SerialesProductos), new Action<SerialesProductos>(this.detach_SerialesProductos));
+			this._GruposDetalles = default(EntityRef<GruposDetalles>);
+			this._GruposDetalles1 = default(EntityRef<GruposDetalles>);
+			this._GruposDetalles2 = default(EntityRef<GruposDetalles>);
+			this._GruposDetalles3 = default(EntityRef<GruposDetalles>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdProducto", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int IdProducto
+		{
+			get
+			{
+				return this._IdProducto;
+			}
+			set
+			{
+				if ((this._IdProducto != value))
+				{
+					this.OnIdProductoChanging(value);
+					this.SendPropertyChanging();
+					this._IdProducto = value;
+					this.SendPropertyChanged("IdProducto");
+					this.OnIdProductoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sku", DbType="VarChar(24) NOT NULL", CanBeNull=false)]
+		public string Sku
+		{
+			get
+			{
+				return this._Sku;
+			}
+			set
+			{
+				if ((this._Sku != value))
+				{
+					this.OnSkuChanging(value);
+					this.SendPropertyChanging();
+					this._Sku = value;
+					this.SendPropertyChanged("Sku");
+					this.OnSkuChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdCategoria", DbType="Int NOT NULL")]
+		public int IdCategoria
+		{
+			get
+			{
+				return this._IdCategoria;
+			}
+			set
+			{
+				if ((this._IdCategoria != value))
+				{
+					if (this._GruposDetalles.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIdCategoriaChanging(value);
+					this.SendPropertyChanging();
+					this._IdCategoria = value;
+					this.SendPropertyChanged("IdCategoria");
+					this.OnIdCategoriaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdGrupo", DbType="Int NOT NULL")]
+		public int IdGrupo
+		{
+			get
+			{
+				return this._IdGrupo;
+			}
+			set
+			{
+				if ((this._IdGrupo != value))
+				{
+					if (this._GruposDetalles2.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIdGrupoChanging(value);
+					this.SendPropertyChanging();
+					this._IdGrupo = value;
+					this.SendPropertyChanged("IdGrupo");
+					this.OnIdGrupoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Nombre
+		{
+			get
+			{
+				return this._Nombre;
+			}
+			set
+			{
+				if ((this._Nombre != value))
+				{
+					this.OnNombreChanging(value);
+					this.SendPropertyChanging();
+					this._Nombre = value;
+					this.SendPropertyChanged("Nombre");
+					this.OnNombreChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descripcion", DbType="VarChar(100)")]
+		public string Descripcion
+		{
+			get
+			{
+				return this._Descripcion;
+			}
+			set
+			{
+				if ((this._Descripcion != value))
+				{
+					this.OnDescripcionChanging(value);
+					this.SendPropertyChanging();
+					this._Descripcion = value;
+					this.SendPropertyChanged("Descripcion");
+					this.OnDescripcionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdFabricante", DbType="Int NOT NULL")]
+		public int IdFabricante
+		{
+			get
+			{
+				return this._IdFabricante;
+			}
+			set
+			{
+				if ((this._IdFabricante != value))
+				{
+					if (this._GruposDetalles1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIdFabricanteChanging(value);
+					this.SendPropertyChanging();
+					this._IdFabricante = value;
+					this.SendPropertyChanged("IdFabricante");
+					this.OnIdFabricanteChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdUnidad", DbType="Int NOT NULL")]
+		public int IdUnidad
+		{
+			get
+			{
+				return this._IdUnidad;
+			}
+			set
+			{
+				if ((this._IdUnidad != value))
+				{
+					if (this._GruposDetalles3.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIdUnidadChanging(value);
+					this.SendPropertyChanging();
+					this._IdUnidad = value;
+					this.SendPropertyChanged("IdUnidad");
+					this.OnIdUnidadChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Imagen", DbType="VarChar(40)")]
+		public string Imagen
+		{
+			get
+			{
+				return this._Imagen;
+			}
+			set
+			{
+				if ((this._Imagen != value))
+				{
+					this.OnImagenChanging(value);
+					this.SendPropertyChanging();
+					this._Imagen = value;
+					this.SendPropertyChanged("Imagen");
+					this.OnImagenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Stock", DbType="Int NOT NULL")]
+		public int Stock
+		{
+			get
+			{
+				return this._Stock;
+			}
+			set
+			{
+				if ((this._Stock != value))
+				{
+					this.OnStockChanging(value);
+					this.SendPropertyChanging();
+					this._Stock = value;
+					this.SendPropertyChanged("Stock");
+					this.OnStockChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StockMin", DbType="Int")]
+		public System.Nullable<int> StockMin
+		{
+			get
+			{
+				return this._StockMin;
+			}
+			set
+			{
+				if ((this._StockMin != value))
+				{
+					this.OnStockMinChanging(value);
+					this.SendPropertyChanging();
+					this._StockMin = value;
+					this.SendPropertyChanged("StockMin");
+					this.OnStockMinChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PrecioCompra", DbType="Decimal(8,2)")]
+		public System.Nullable<decimal> PrecioCompra
+		{
+			get
+			{
+				return this._PrecioCompra;
+			}
+			set
+			{
+				if ((this._PrecioCompra != value))
+				{
+					this.OnPrecioCompraChanging(value);
+					this.SendPropertyChanging();
+					this._PrecioCompra = value;
+					this.SendPropertyChanged("PrecioCompra");
+					this.OnPrecioCompraChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PrecioVenta", DbType="Decimal(8,2) NOT NULL")]
+		public decimal PrecioVenta
+		{
+			get
+			{
+				return this._PrecioVenta;
+			}
+			set
+			{
+				if ((this._PrecioVenta != value))
+				{
+					this.OnPrecioVentaChanging(value);
+					this.SendPropertyChanging();
+					this._PrecioVenta = value;
+					this.SendPropertyChanged("PrecioVenta");
+					this.OnPrecioVentaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Garantia", DbType="Int NOT NULL")]
+		public int Garantia
+		{
+			get
+			{
+				return this._Garantia;
+			}
+			set
+			{
+				if ((this._Garantia != value))
+				{
+					this.OnGarantiaChanging(value);
+					this.SendPropertyChanging();
+					this._Garantia = value;
+					this.SendPropertyChanged("Garantia");
+					this.OnGarantiaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estatus", DbType="Bit NOT NULL")]
+		public bool Estatus
+		{
+			get
+			{
+				return this._Estatus;
+			}
+			set
+			{
+				if ((this._Estatus != value))
+				{
+					this.OnEstatusChanging(value);
+					this.SendPropertyChanging();
+					this._Estatus = value;
+					this.SendPropertyChanged("Estatus");
+					this.OnEstatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaRegistro", DbType="DateTime NOT NULL")]
+		public System.DateTime FechaRegistro
+		{
+			get
+			{
+				return this._FechaRegistro;
+			}
+			set
+			{
+				if ((this._FechaRegistro != value))
+				{
+					this.OnFechaRegistroChanging(value);
+					this.SendPropertyChanging();
+					this._FechaRegistro = value;
+					this.SendPropertyChanged("FechaRegistro");
+					this.OnFechaRegistroChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ProductoServicios_SerialesProductos", Storage="_SerialesProductos", ThisKey="IdProducto", OtherKey="IdProducto")]
+		public EntitySet<SerialesProductos> SerialesProductos
+		{
+			get
+			{
+				return this._SerialesProductos;
+			}
+			set
+			{
+				this._SerialesProductos.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_ProductoServicios", Storage="_GruposDetalles", ThisKey="IdCategoria", OtherKey="IdGrupoDetalle", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public GruposDetalles GruposDetalles
+		{
+			get
+			{
+				return this._GruposDetalles.Entity;
+			}
+			set
+			{
+				GruposDetalles previousValue = this._GruposDetalles.Entity;
+				if (((previousValue != value) 
+							|| (this._GruposDetalles.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._GruposDetalles.Entity = null;
+						previousValue.ProductoServicios.Remove(this);
+					}
+					this._GruposDetalles.Entity = value;
+					if ((value != null))
+					{
+						value.ProductoServicios.Add(this);
+						this._IdCategoria = value.IdGrupoDetalle;
+					}
+					else
+					{
+						this._IdCategoria = default(int);
+					}
+					this.SendPropertyChanged("GruposDetalles");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_ProductoServicios1", Storage="_GruposDetalles1", ThisKey="IdFabricante", OtherKey="IdGrupoDetalle", IsForeignKey=true)]
+		public GruposDetalles GruposDetalles1
+		{
+			get
+			{
+				return this._GruposDetalles1.Entity;
+			}
+			set
+			{
+				GruposDetalles previousValue = this._GruposDetalles1.Entity;
+				if (((previousValue != value) 
+							|| (this._GruposDetalles1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._GruposDetalles1.Entity = null;
+						previousValue.ProductoServicios1.Remove(this);
+					}
+					this._GruposDetalles1.Entity = value;
+					if ((value != null))
+					{
+						value.ProductoServicios1.Add(this);
+						this._IdFabricante = value.IdGrupoDetalle;
+					}
+					else
+					{
+						this._IdFabricante = default(int);
+					}
+					this.SendPropertyChanged("GruposDetalles1");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_ProductoServicios2", Storage="_GruposDetalles2", ThisKey="IdGrupo", OtherKey="IdGrupoDetalle", IsForeignKey=true)]
+		public GruposDetalles GruposDetalles2
+		{
+			get
+			{
+				return this._GruposDetalles2.Entity;
+			}
+			set
+			{
+				GruposDetalles previousValue = this._GruposDetalles2.Entity;
+				if (((previousValue != value) 
+							|| (this._GruposDetalles2.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._GruposDetalles2.Entity = null;
+						previousValue.ProductoServicios2.Remove(this);
+					}
+					this._GruposDetalles2.Entity = value;
+					if ((value != null))
+					{
+						value.ProductoServicios2.Add(this);
+						this._IdGrupo = value.IdGrupoDetalle;
+					}
+					else
+					{
+						this._IdGrupo = default(int);
+					}
+					this.SendPropertyChanged("GruposDetalles2");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_ProductoServicios3", Storage="_GruposDetalles3", ThisKey="IdUnidad", OtherKey="IdGrupoDetalle", IsForeignKey=true)]
+		public GruposDetalles GruposDetalles3
+		{
+			get
+			{
+				return this._GruposDetalles3.Entity;
+			}
+			set
+			{
+				GruposDetalles previousValue = this._GruposDetalles3.Entity;
+				if (((previousValue != value) 
+							|| (this._GruposDetalles3.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._GruposDetalles3.Entity = null;
+						previousValue.ProductoServicios3.Remove(this);
+					}
+					this._GruposDetalles3.Entity = value;
+					if ((value != null))
+					{
+						value.ProductoServicios3.Add(this);
+						this._IdUnidad = value.IdGrupoDetalle;
+					}
+					else
+					{
+						this._IdUnidad = default(int);
+					}
+					this.SendPropertyChanged("GruposDetalles3");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_SerialesProductos(SerialesProductos entity)
+		{
+			this.SendPropertyChanging();
+			entity.ProductoServicios = this;
+		}
+		
+		private void detach_SerialesProductos(SerialesProductos entity)
+		{
+			this.SendPropertyChanging();
+			entity.ProductoServicios = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SerialesProductos")]
+	public partial class SerialesProductos : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _IdSerial;
+		
+		private int _IdProducto;
+		
+		private string _Serial;
+		
+		private bool _Estatus;
+		
+		private EntityRef<ProductoServicios> _ProductoServicios;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdSerialChanging(int value);
+    partial void OnIdSerialChanged();
+    partial void OnIdProductoChanging(int value);
+    partial void OnIdProductoChanged();
+    partial void OnSerialChanging(string value);
+    partial void OnSerialChanged();
+    partial void OnEstatusChanging(bool value);
+    partial void OnEstatusChanged();
+    #endregion
+		
+		public SerialesProductos()
+		{
+			this._ProductoServicios = default(EntityRef<ProductoServicios>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdSerial", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int IdSerial
+		{
+			get
+			{
+				return this._IdSerial;
+			}
+			set
+			{
+				if ((this._IdSerial != value))
+				{
+					this.OnIdSerialChanging(value);
+					this.SendPropertyChanging();
+					this._IdSerial = value;
+					this.SendPropertyChanged("IdSerial");
+					this.OnIdSerialChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdProducto", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int IdProducto
+		{
+			get
+			{
+				return this._IdProducto;
+			}
+			set
+			{
+				if ((this._IdProducto != value))
+				{
+					if (this._ProductoServicios.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIdProductoChanging(value);
+					this.SendPropertyChanging();
+					this._IdProducto = value;
+					this.SendPropertyChanged("IdProducto");
+					this.OnIdProductoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Serial", DbType="VarChar(40) NOT NULL", CanBeNull=false)]
+		public string Serial
+		{
+			get
+			{
+				return this._Serial;
+			}
+			set
+			{
+				if ((this._Serial != value))
+				{
+					this.OnSerialChanging(value);
+					this.SendPropertyChanging();
+					this._Serial = value;
+					this.SendPropertyChanged("Serial");
+					this.OnSerialChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estatus", DbType="Bit NOT NULL")]
+		public bool Estatus
+		{
+			get
+			{
+				return this._Estatus;
+			}
+			set
+			{
+				if ((this._Estatus != value))
+				{
+					this.OnEstatusChanging(value);
+					this.SendPropertyChanging();
+					this._Estatus = value;
+					this.SendPropertyChanged("Estatus");
+					this.OnEstatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ProductoServicios_SerialesProductos", Storage="_ProductoServicios", ThisKey="IdProducto", OtherKey="IdProducto", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public ProductoServicios ProductoServicios
+		{
+			get
+			{
+				return this._ProductoServicios.Entity;
+			}
+			set
+			{
+				ProductoServicios previousValue = this._ProductoServicios.Entity;
+				if (((previousValue != value) 
+							|| (this._ProductoServicios.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._ProductoServicios.Entity = null;
+						previousValue.SerialesProductos.Remove(this);
+					}
+					this._ProductoServicios.Entity = value;
+					if ((value != null))
+					{
+						value.SerialesProductos.Add(this);
+						this._IdProducto = value.IdProducto;
+					}
+					else
+					{
+						this._IdProducto = default(int);
+					}
+					this.SendPropertyChanged("ProductoServicios");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}

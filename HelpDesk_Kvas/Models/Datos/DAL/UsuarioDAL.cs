@@ -88,8 +88,8 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
                     Pregunta = query.Pregunta,
                     RespuestaSeguridad = query.RespuestaSeguridad,
                     Avatar = query.Avatar,
-                    FechaLogin = query.FechaLogin,
-                    ContadorFallido = query.ContadorFallido,
+                    //FechaLogin = query.FechaLogin,
+                    //ContadorFallido = query.ContadorFallido,
                     FechaModificacion = query.FechaModificacion,
                     Estatus = query.Estatus,
                     FechaRegistro = query.FechaRegistro
@@ -117,9 +117,10 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
                 {
                     lista.Add(new LoginUserEntity()
                     {
-                        IdUsuario = grupos.IdUsuario,
+                        //IdUsuario = grupos.IdUsuario,
                         UserName = grupos.NombreUsuario,
-                        Email = grupos.Email,
+                        //Email = grupos.Email,
+                        Password = grupos.Contrasena,
                         ContadorFallido = grupos.ContadorFallido,
                         Estatus = grupos.Estatus,
                         FechaLogin = grupos.FechaLogin

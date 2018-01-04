@@ -115,11 +115,11 @@
       <Association Name="GruposDetalles_UsuariosRoles" Member="UsuariosRoles" ThisKey="IdGrupoDetalle" OtherKey="IdRoles" Type="UsuariosRoles" />
       <Association Name="GruposDetalles_GruposDetalles" Member="GruposDetalles2" ThisKey="IdGrupoDetalle" OtherKey="IdPadre" Type="GruposDetalles" />
       <Association Name="GruposDetalles_Personas" Member="Personas" ThisKey="IdGrupoDetalle" OtherKey="IdTipoPersona" Type="Personas" />
+      <Association Name="GruposDetalles_Usuarios" Member="Usuarios" ThisKey="IdGrupoDetalle" OtherKey="IdPreguntaSeguridad" Type="Usuarios" />
       <Association Name="GruposDetalles_ProductoServicios" Member="ProductoServicios" ThisKey="IdGrupoDetalle" OtherKey="IdCategoria" Type="ProductoServicios" />
       <Association Name="GruposDetalles_ProductoServicios1" Member="ProductoServicios1" ThisKey="IdGrupoDetalle" OtherKey="IdFabricante" Type="ProductoServicios" />
       <Association Name="GruposDetalles_ProductoServicios2" Member="ProductoServicios2" ThisKey="IdGrupoDetalle" OtherKey="IdGrupo" Type="ProductoServicios" />
       <Association Name="GruposDetalles_ProductoServicios3" Member="ProductoServicios3" ThisKey="IdGrupoDetalle" OtherKey="IdUnidad" Type="ProductoServicios" />
-      <Association Name="GruposDetalles_Usuarios" Member="Usuarios" ThisKey="IdGrupoDetalle" OtherKey="IdPreguntaSeguridad" Type="Usuarios" />
       <Association Name="Grupos_GruposDetalles" Member="Grupos" ThisKey="IdGrupo" OtherKey="IdGrupo" Type="Grupos" IsForeignKey="true" />
       <Association Name="GruposDetalles_GruposDetalles" Member="GruposDetalles1" ThisKey="IdPadre" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" />
     </Type>
@@ -137,41 +137,9 @@
       <Association Name="GruposDetalles_Personas" Member="GruposDetalles" ThisKey="IdTipoPersona" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.ProductoServicios" Member="ProductoServicios">
-    <Type Name="ProductoServicios">
-      <Column Name="IdProducto" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Sku" Type="System.String" DbType="VarChar(24) NOT NULL" CanBeNull="false" />
-      <Column Name="IdCategoria" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="IdGrupo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Nombre" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="IdFabricante" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="IdUnidad" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Imagen" Type="System.String" DbType="VarChar(40)" CanBeNull="true" />
-      <Column Name="Stock" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Stock_Min" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="PrecioCompra" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
-      <Column Name="PrecioVenta" Type="System.Decimal" DbType="Decimal(8,2) NOT NULL" CanBeNull="false" />
-      <Column Name="Garantia" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="FechaRegistro" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Association Name="ProductoServicios_SerialesProductos" Member="SerialesProductos" ThisKey="IdProducto" OtherKey="IdProducto" Type="SerialesProductos" />
-      <Association Name="GruposDetalles_ProductoServicios" Member="GruposDetalles" ThisKey="IdCategoria" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
-      <Association Name="GruposDetalles_ProductoServicios1" Member="GruposDetalles1" ThisKey="IdFabricante" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" />
-      <Association Name="GruposDetalles_ProductoServicios2" Member="GruposDetalles2" ThisKey="IdGrupo" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" />
-      <Association Name="GruposDetalles_ProductoServicios3" Member="GruposDetalles3" ThisKey="IdUnidad" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Reportes" Member="Reportes">
     <Type Name="Reportes">
       <Column Name="IdReporte" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-    </Type>
-  </Table>
-  <Table Name="dbo.SerialesProductos" Member="SerialesProductos">
-    <Type Name="SerialesProductos">
-      <Column Name="IdSerial" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="IdProducto" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Serial" Type="System.String" DbType="VarChar(40) NOT NULL" CanBeNull="false" />
-      <Column Name="Estatus" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Association Name="ProductoServicios_SerialesProductos" Member="ProductoServicios" ThisKey="IdProducto" OtherKey="IdProducto" Type="ProductoServicios" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.Usuarios" Member="Usuarios">
@@ -225,6 +193,40 @@
       <Column Name="Estatus" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="FechaRegistro" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="LevelGrupo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ProductoServicios" Member="ProductoServicios">
+    <Type Name="ProductoServicios">
+      <Column Name="IdProducto" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Sku" Type="System.String" DbType="VarChar(24) NOT NULL" CanBeNull="false" />
+      <Column Name="IdCategoria" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdGrupo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Descripcion" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="IdFabricante" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdUnidad" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Imagen" Type="System.String" DbType="VarChar(40)" CanBeNull="true" />
+      <Column Name="Stock" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StockMin" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PrecioCompra" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
+      <Column Name="PrecioVenta" Type="System.Decimal" DbType="Decimal(8,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Garantia" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Estatus" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="FechaRegistro" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="ProductoServicios_SerialesProductos" Member="SerialesProductos" ThisKey="IdProducto" OtherKey="IdProducto" Type="SerialesProductos" />
+      <Association Name="GruposDetalles_ProductoServicios" Member="GruposDetalles" ThisKey="IdCategoria" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="GruposDetalles_ProductoServicios1" Member="GruposDetalles1" ThisKey="IdFabricante" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" />
+      <Association Name="GruposDetalles_ProductoServicios2" Member="GruposDetalles2" ThisKey="IdGrupo" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" />
+      <Association Name="GruposDetalles_ProductoServicios3" Member="GruposDetalles3" ThisKey="IdUnidad" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SerialesProductos" Member="SerialesProductos">
+    <Type Name="SerialesProductos">
+      <Column Name="IdSerial" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdProducto" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Serial" Type="System.String" DbType="VarChar(40) NOT NULL" CanBeNull="false" />
+      <Column Name="Estatus" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="ProductoServicios_SerialesProductos" Member="ProductoServicios" ThisKey="IdProducto" OtherKey="IdProducto" Type="ProductoServicios" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Function Name="dbo.sp_ActualizarUsuario" Method="sp_ActualizarUsuario">

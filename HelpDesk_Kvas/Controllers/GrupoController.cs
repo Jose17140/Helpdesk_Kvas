@@ -10,6 +10,7 @@ using HelpDesk_Kvas.Models.Datos.Entity;
 
 namespace HelpDesk_Kvas.Controllers
 {
+    //[Authorize]
     public class GrupoController : Controller
     {
         GrupoLogic objGrupoLogic;
@@ -80,6 +81,7 @@ namespace HelpDesk_Kvas.Controllers
             return View(_grupo);
         }
         
+        //[Authorize(Users ="Master")]
         [ChildActionOnly]
         public ActionResult Create()
         {

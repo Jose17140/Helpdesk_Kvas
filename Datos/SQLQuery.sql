@@ -106,16 +106,19 @@ CREATE TABLE ProductoServicios(
 	IdCategoria INT NOT NULL,
 	IdGrupo INT NOT NULL,
 	Nombre VARCHAR(50) NOT NULL,
+	Descripcion VARCHAR(100) NULL,
 	IdFabricante INT NOT NULL,
 	IdUnidad INT NOT NULL, -- UNIDAD DE VENTA
 	Imagen VARCHAR(40) NULL,
 	Stock INT NOT NULL,
-	Stock_Min INT NULL,
+	StockMin INT NULL,
 	PrecioCompra DECIMAL(8,2) NULL,
 	PrecioVenta DECIMAL(8,2) NOT NULL,
 	Garantia INT NOT NULL DEFAULT 0,
+	Estatus BIT NOT NULL DEFAULT 1,
 	FechaRegistro DATETIME NOT NULL,
 	CONSTRAINT PK_Productos PRIMARY KEY(IdProducto),
+	CONSTRAINT UQ_ProductosServicios_Sku UNIQUE(Sku),
 	CONSTRAINT FK_Productos_Detalles_IdCategoria FOREIGN KEY (IdCategoria) REFERENCES GruposDetalles(IdGrupoDetalle)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
@@ -155,33 +158,55 @@ CONSTRAINT PK_Reporte_Id PRIMARY KEY(IdReporte)
 --CONSTRAINT FK_Empleados_Usuarios_Id FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario)
 --);
 
-
-
-
---pais 6
---estado 7
---ciudad 21
---municipio 20
 SELECT * FROM Grupos;
-SELECT * FROM GruposDetalles WHERE IdGrupo = 8;
+SELECT * FROM GruposDetalles where IdGrupo =2;
 SELECT * FROM ProductoServicios;
 SELECT * FROM Personas;
 SELECT * FROM Usuarios;
 SELECT * FROM UsuariosRoles;
+
+
+ --PRODUCTOS
+DROP VIEW IF EXISTS vw_ListarProductos;
 GO
-CREATE VIEW vw_Menu AS
-WITH Cte_GruposDetalles(IdGrupoDetalle,Nombre,Descripcion,Orden,IdGrupo,IdPadre,Imagen,UrlDetalle,Estatus,FechaRegistro, LevelGrupo) AS (
-		SELECT g.IdGrupoDetalle, g.Nombre, g.Descripcion, g.Orden, g.IdGrupo, g.IdPadre, g.Imagen, g.UrlDetalle, g.Estatus, g.FechaRegistro, 0 AS LevelGrupo
-		FROM GruposDetalles AS g
+CREATE VIEW vw_ListarProductos     
+ AS     
+    WITH Cte_Productos(IdProducto,Sku,IdCategoria,IdGrupo,Nombre,Descripcion,IdFabricante,IdUnidad,Imagen,Stock,StockMin,PrecioCompra,PrecioVenta,Garantia,Estatus,FechaRegistro, LevelGrupo) AS (
+		SELECT IdProducto,Sku,IdCategoria,IdGrupo,Nombre,Descripcion,IdFabricante,IdUnidad,Imagen,Stock,StockMin,PrecioCompra,PrecioVenta,Garantia,Estatus,FechaRegistro, 0 AS LevelGrupo
+		FROM ProductoServicios AS g
 		WHERE g.IdPadre is null
 		UNION ALL
-		SELECT gd.IdGrupoDetalle, gd.Nombre, gd.Descripcion, gd.Orden, gd.IdGrupo, gd.IdPadre, gd.Imagen, gd.UrlDetalle, gd.Estatus, gd.FechaRegistro, LevelGrupo+1
-		FROM GruposDetalles AS gd
-		INNER JOIN Cte_GruposDetalles AS cte ON gd.IdPadre = cte.IdGrupoDetalle
+		SELECT gd.IdGrupoDetalle, gd.Nombre, gd.Descripcion, gd.Orden, gd.IdGrupo, gd.IdPadre, gd.Icono, gd.UrlDetalle, gd.Estatus, gd.FechaRegistro, LevelGrupo+1
+		FROM ProductoServicios AS gd
+		INNER JOIN Cte_Productos AS cte ON gd.IdPadre = cte.IdGrupoDetalle
 	)
-	SELECT ct.IdGrupoDetalle, ct.Nombre, ct.Descripcion, ct.Orden, ct.IdGrupo, g.Nombre AS NombreGrupo, ct.IdPadre, c.IdGrupo AS IdGrupoPadre, c.Nombre AS Categoria, ct.Imagen, ct.UrlDetalle, ct.Estatus, ct.FechaRegistro, ct.LevelGrupo
-	FROM Cte_GruposDetalles AS ct
-	INNER JOIN Cte_GruposDetalles AS c ON ct.IdPadre = c.IdGrupoDetalle
+	SELECT ct.IdGrupoDetalle AS IdProducto, ps.Sku, ct.Nombre, ct.Descripcion, ct.Orden, ct.IdGrupo, g.Nombre AS Grupo, ct.IdPadre, c.Nombre AS Padre, ct.Icono, ct.UrlDetalle, 
+			ps.IdFabricante, gd.Nombre AS Fabricante, ps.Stock, ps.Stock_Min, ps.IdUnidad, gdd.Nombre AS Unidad, ps.Garantia, ps.PrecioCompra, ps.PrecioVenta, ct.Estatus, ct.FechaRegistro
+	FROM Cte_Productos AS ct
+	INNER JOIN Cte_Productos AS c ON ct.IdPadre = c.IdGrupoDetalle
 	INNER JOIN Grupos AS g ON ct.IdGrupo = g.IdGrupo
-	WHERE ct.IdGrupo IN(1,2)
-GO
+	LEFT JOIN PSDetalles AS ps ON ct.IdGrupoDetalle = ps.IdProducto
+	LEFT JOIN GruposDetalles AS gd ON ps.IdFabricante = gd.IdGrupoDetalle
+	LEFT JOIN GruposDetalles AS gdd ON ps.IdUnidad = gdd.IdGrupoDetalle
+	WHERE ct.IdGrupo = 9    
+ GO
+
+
+
+ INSERT INTO ProductoServicios (Sku,IdCategoria,IdGrupo,Nombre,Descripcion,IdFabricante,IdUnidad,Imagen,Stock,StockMin,PrecioCompra,PrecioVenta,Garantia,Estatus,FechaRegistro) VALUES
+('Procesador',0,0,'','',0,0,'',0,0,0,0,0,1,'2018-01-03 19:45:28.087');
+
+
+SELECT * FROM Grupos
+SELECT * FROM GruposDetalles
+
+
+---- PRODUCTOS
+--INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
+--('Procesador','I7',9,'fa fa-archive',1,40,'*',GETDATE()),
+--('Chip 196RG','Xp201/Xp211',9,'fa fa-archive',2,43,'*',GETDATE()),
+--('Memoria Ram','DDR3',9,'fa fa-archive',3,40,'*',GETDATE()),
+--('Tarjeta Red','Lan 1000',9,'fa fa-archive',4,39,'*',GETDATE()),
+--('Fan Cooler','I7',9,'fa fa-archive',5,40,'*',GETDATE()),
+--('Disco Duro','500Gb',9,'fa fa-archive',6,40,'*',GETDATE()),
+--('Tinta 100ml','Tinta CM',9,'fa fa-archive',7,42,'*',GETDATE());

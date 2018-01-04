@@ -1,5 +1,4 @@
-﻿@*@using KvasEntity.Models.Usuarios*@
-@model KvasEntity.LoginUserEntity
+﻿@model HelpDesk_Kvas.Models.Datos.Entity.LoginUserEntity
 @{
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
     ViewBag.Title = "Iniciar sesión";
@@ -13,7 +12,7 @@
                 <div class="login" id="card" style="perspective: 640px; position: relative; transform-style: preserve-3d;">
                     <div class="front signin_form" style="height: 100%; width: 100%; backface-visibility: hidden; transform-style: preserve-3d; position: absolute; z-index: 1; transition: all 0.5s ease-out;">
                         <br />
-                        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "login-form", role = "form" }))
+                        @using (Html.BeginForm("Login", "Usuario", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "login-form", role = "form" }))
                         {
                             @Html.AntiForgeryToken()
                             <h4>Use una cuenta local para iniciar sesión.</h4>

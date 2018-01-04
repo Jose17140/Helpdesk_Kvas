@@ -3,72 +3,74 @@
 @{
     ViewBag.Title = "Modulo de Actualizacion de Categoria";
 }
-
-<div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 class="modal-title">Editar Entidad</h3>
-</div>
-
-<br />
-<div class="well well-sm text-primary text-center">
-    @ViewBag.MensajeInicio
-</div>
-
-@using (Html.BeginForm())
+@if (User.Identity.IsAuthenticated)
 {
-    @Html.AntiForgeryToken()
-    <div class="form-horizontal">
-        <fieldset>
-            <div class="form-group">
-                <div class="col-md-6">
-                    @Html.HiddenFor(model => model.IdGrupo, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.Titulo, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-6">
-                    @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control" } })
-
-                    @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-6">
-                    @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.IdPadre, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-6">
-                    @Html.DropDownListFor(model => model.IdPadre, ViewBag.ListaGrupo as SelectList, "Seleccione Categoria Padre", htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.IdPadre, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.Icono, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-6">
-                    @Html.EditorFor(model => model.Icono, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Icono, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.Estatus, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-6">
-                    @Html.CheckBoxFor(model => model.Estatus, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>
-            <div class="form-actions col-md-offset-2">
-                <input class="btn btn-primary" type="submit" name="btnguardar" value="Actualizar" />|
-                @Html.ActionLink("Regresar al Listado", "Index")
-            </div>
-        </fieldset>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 class="modal-title">Editar Entidad</h3>
     </div>
-}
-<div class="text-primary text-success text-center">
-    @ViewBag.MensajeExito
-</div>
-<div class="text-primary text-danger text-center">
-    @ViewBag.MensajeError
-</div>   
+
+    <br />
+    <div class="well well-sm text-primary text-center">
+        @ViewBag.MensajeInicio
+    </div>
+
+    using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            <fieldset>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        @Html.HiddenFor(model => model.IdGrupo, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Titulo, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control" } })
+
+                        @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IdPadre, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.DropDownListFor(model => model.IdPadre, ViewBag.ListaGrupo as SelectList, "Seleccione Categoria Padre", htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.IdPadre, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Icono, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Icono, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Icono, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Estatus, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.CheckBoxFor(model => model.Estatus, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <div class="form-actions col-md-offset-2">
+                    <input class="btn btn-primary" type="submit" name="btnguardar" value="Actualizar" />|
+                    @Html.ActionLink("Regresar al Listado", "Index")
+                </div>
+            </fieldset>
+        </div>
+    }
+    <div class="text-primary text-success text-center">
+        @ViewBag.MensajeExito
+    </div>
+    <div class="text-primary text-danger text-center">
+        @ViewBag.MensajeError
+    </div>
+}   

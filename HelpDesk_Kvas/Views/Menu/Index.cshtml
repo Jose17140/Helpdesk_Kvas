@@ -1,4 +1,8 @@
-﻿@Styles.Render("~/Content/css/Grupos.css")
+﻿@model HelpDesk_Kvas.DataGrid.PagedList<HelpDesk_Kvas.Models.Datos.Entity.GruposDetallesView>
+@{ 
+    
+}
+@Styles.Render("~/Content/css/Grupos.css")
 @Scripts.Render("~/bundles/jquery")
 
 <section class="content-header">
@@ -15,12 +19,11 @@
 <br />
 <section class="content">
     <div class="well">
-        @using (Html.BeginForm("index", null, FormMethod.Get))
+        @using (Ajax.BeginForm("Index", "Menu", new AjaxOptions { HttpMethod = "POST", OnSuccess = "onAjaxRequestSuccess" }, new { @id = "AjaxformId", @class = "form-horizontal", role = "form" }))
         {
             <div class="row">
                 <div class="col-sm-3">
                     <div class="input-group">
-
                         <input type="text"
                                name="filter"
                                value="@ViewBag.filter"
@@ -30,16 +33,14 @@
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="submit">Go</button>
                         </span>
-
                     </div>
                 </div>
                 <div class="pull-right col-lg-1">
-                    <a class="btn btn-success" data-modal="" href="/GrupoDetalle/Create/@ViewBag.Id" id="btnCreate">
+                    <a class="btn btn-success" data-modal="" href="/Menu/CreateMenu/@ViewBag.Id" id="btnCreate">
                         <span class="glyphicon glyphicon-plus"></span>
                     </a>
                 </div>
             </div>
-
             <div style="margin-top:17px;">
                 @{
                     var grid = new WebGrid(
@@ -61,39 +62,36 @@
               grid.Column("Descripcion", "Descripcion"),
               grid.Column("Orden", "Orden"),
               grid.Column("Icono", header: "Icono", format: @<text>@Html.Raw("<span class='" + item.Icono + "'></span>")</text>),
+              grid.Column("UrlDetalle", "Url"), 
               grid.Column("Estatus", "Estatus"),
               grid.Column("FechaRegistro", header: "Fecha", format: @<text>@String.Format("{0:MM/dd/yy}", item.FechaRegistro) </text>),
               grid.Column(header: "Acciones", canSort: false, style: "action",
                 format: @<text>
                 @Html.ActionLink("Select", "Index", new { Nv2 = item.IdGrupoDetalle })
-                @Html.Raw("<a data-modal='' href='/GrupoDetalle/details/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Detail'> <span class='glyphicon glyphicon-search'> </span> </a>")
-                @Html.Raw("<a data-modal='' href='/GrupoDetalle/edit/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Edit'> <span class='glyphicon glyphicon-edit'> </span> </a>")
-                @Html.Raw("<a data-modal='' href='/GrupoDetalle/delete/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Delete'> <span class='glyphicon glyphicon-trash'> </span> </a>")
+                @Html.Raw("<a data-modal='' href='/Menu/detailsMenu/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Detail'> <span class='glyphicon glyphicon-search'> </span> </a>")
+                @Html.Raw("<a data-modal='' href='/Menu/editMenu/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Edit'> <span class='glyphicon glyphicon-edit'> </span> </a>")
+                @Html.Raw("<a data-modal='' href='/Menu/deleteMenu/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Delete'> <span class='glyphicon glyphicon-trash'> </span> </a>")
                 </text>)
             ));
 
                 }
             </div>
-
-                    }
+        }
     </div>
-
-
 
     @if (Model.Content2 != null)
     {
         <h3>Sub Menu de <strong>@ViewBag.SelectPadre</strong></h3>
         <div class="well">
-            @using (Ajax.BeginForm("Index", "GrupoDetalle", new AjaxOptions { HttpMethod = "POST", OnSuccess = "onAjaxRequestSuccess" }, new { @id = "AjaxformId", @class = "form-horizontal", role = "form" }))
+            @using (Ajax.BeginForm("Index", "Menu", new AjaxOptions { HttpMethod = "POST", OnSuccess = "onAjaxRequestSuccess" }, new { @id = "AjaxformId2", @class = "form-horizontal", role = "form" }))
             {
                 <div class="row">
                     <div class="pull-right col-lg-1">
-                        <a class="btn btn-success" data-modal="" href="/GrupoDetalle/Create/@ViewBag.Nv2" id="btnCreate">
+                        <a class="btn btn-success" data-modal="" href="/Menu/CreateSubMenu/@ViewBag.Nv2" id="btnCreate">
                             <span class="glyphicon glyphicon-plus"></span>
                         </a>
                     </div>
                 </div>
-
                 <div style="margin-top:17px;">
                     @{
                         var grid = new WebGrid(
@@ -114,33 +112,34 @@
                   grid.Column("Titulo", "Titulo"),
                   grid.Column("Descripcion", "Descripcion"),
                   grid.Column("Orden", "Orden"),
-                  grid.Column("Padre", "Cat. Superior"),
+                  grid.Column("UrlDetalle", "Url"),
                   grid.Column("Icono", header: "Icono", format: @<text>@Html.Raw("<span class='" + item.Icono + "'></span>")</text>),
                   grid.Column("Estatus", "Estatus"),
                   grid.Column("FechaRegistro", header: "Fecha", format: @<text>@String.Format("{0:MM/dd/yy}", item.FechaRegistro) </text>),
                   grid.Column(header: "Acciones", canSort: false, style: "action",
                     format: @<text>
                     @Html.ActionLink("Select", "Index", new { Nv2 = ViewBag.Nv2, Nv3 = item.IdGrupoDetalle }) |
-                    @Html.Raw("<a data-modal='' href='/GrupoDetalle/details/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Detail'> <span class='glyphicon glyphicon-search'> </span> </a>")
-                    @Html.Raw("<a data-modal='' href='/GrupoDetalle/edit/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Edit'> <span class='glyphicon glyphicon-edit'> </span> </a>")
-                    @Html.Raw("<a data-modal='' href='/GrupoDetalle/delete/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Delete'> <span class='glyphicon glyphicon-trash'> </span> </a>")
+                    @Html.Raw("<a data-modal='' href='/Menu/detailsSubMenu/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Detail'> <span class='glyphicon glyphicon-search'> </span> </a>")
+                    @Html.Raw("<a data-modal='' href='/Menu/editSubMenu/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Edit'> <span class='glyphicon glyphicon-edit'> </span> </a>")
+                    @Html.Raw("<a data-modal='' href='/Menu/deleteSubMenu/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Delete'> <span class='glyphicon glyphicon-trash'> </span> </a>")
                     </text>)
                 ));
                     }
                 </div>
-                        }
+            }
         </div>
-                        }
+    }
 
     @if (Model.Content3 != null)
     {
+        <h3>Sub Menu de <strong>@ViewBag.SelectHijo</strong></h3>
         <div class="well">
-            @using (Ajax.BeginForm("Index", "GrupoDetalle", new AjaxOptions { HttpMethod = "POST", OnSuccess = "onAjaxRequestSuccess" }, new { @id = "AjaxformId", @class = "form-horizontal", role = "form" }))
+            @using (Ajax.BeginForm("Index", "Menu", new AjaxOptions { HttpMethod = "POST", OnSuccess = "onAjaxRequestSuccess" }, new { @id = "AjaxformId3", @class = "form-horizontal", role = "form" }))
             {
                 <div class="row">
 
                     <div class="pull-right col-lg-1">
-                        <a class="btn btn-success" data-modal="" href="/GrupoDetalle/Create/@ViewBag.Nv3" id="btnCreate">
+                        <a class="btn btn-success" data-modal="" href="/Menu/CreateSubMenu/@ViewBag.Nv3" id="btnCreate">
                             <span class="glyphicon glyphicon-plus"></span>
                         </a>
                     </div>
@@ -172,16 +171,16 @@
                   grid.Column("FechaRegistro", header: "Fecha", format: @<text>@String.Format("{0:MM/dd/yy}", item.FechaRegistro) </text>),
                   grid.Column(header: "Acciones", canSort: false, style: "action",
                     format: @<text>
-                    @Html.Raw("<a data-modal='' href='/GrupoDetalle/details/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Detail'> <span class='glyphicon glyphicon-search'> </span> </a>")
-                    @Html.Raw("<a data-modal='' href='/GrupoDetalle/edit/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Edit'> <span class='glyphicon glyphicon-edit'> </span> </a>")
-                    @Html.Raw("<a data-modal='' href='/GrupoDetalle/delete/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Delete'> <span class='glyphicon glyphicon-trash'> </span> </a>")
+                    @Html.Raw("<a data-modal='' href='/Menu/detailsSubMenu/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Detail'> <span class='glyphicon glyphicon-search'> </span> </a>")
+                    @Html.Raw("<a data-modal='' href='/Menu/editSubMenu/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Edit'> <span class='glyphicon glyphicon-edit'> </span> </a>")
+                    @Html.Raw("<a data-modal='' href='/Menu/deleteSubMenu/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Delete'> <span class='glyphicon glyphicon-trash'> </span> </a>")
                     </text>)
                 ));
                     }
                 </div>
                         }
         </div>
-                        }
+    }
 </section>
 <!-- modal placeholder-->
 <div id='myModal' class='modal fade in'>

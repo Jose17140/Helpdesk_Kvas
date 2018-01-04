@@ -25,7 +25,9 @@ INSERT INTO Grupos(Nombre,Descripcion,IdPadre,Icono,Estatus,FechaRegistro)VALUES
 ('Prioridades','Prioridad del requerimiento',0,'fa fa-pause',1,GETDATE()),
 ('Cargos','Cargo de los empleados',0,'fa fa-pause',1,GETDATE()),
 ('Impuestos','Alicuota de Impuestas',0,'fa fa-edit',1,GETDATE()),
-('Unidades','Tipos de unidades de Venta',0,'fa fa-edit',1,GETDATE());
+('Unidades','Tipos de unidades de Venta',0,'fa fa-edit',1,GETDATE()),
+('Cat. Productos','Categorias de los Productos',0,'fa fa-edit',1,GETDATE()),
+('Cat. Servicio','Categoria de los Servicios',0,'fa fa-edit',1,GETDATE());
 --NULOS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 ('Cat. Superior','Agrupa los elementos padre GrupoDetalles',0,'Nulo',0,null,'*',GETDATE());
@@ -169,13 +171,28 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDe
 ('Tinta','Envase de tinta',11,'fa fa-users',6,0,'*',GETDATE()),
 ('CD/DVD','Driver y documentacion',11,'fa fa-users',7,0,'*',GETDATE()),
 ('Cartuchos','Cartuchos de tinta',11,'fa fa-users',8,0,'*',GETDATE());
+--CATEGORIAS DE PRODUCTOS Y SERVICIOS
+INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
+('Raton','Raton',11,'fa fa-users',1,0,'*',GETDATE()),
+('Teclado','Teclado',11,'fa fa-users',2,0,'*',GETDATE()),
+('Sistema de Tinta','Sistema de Tinta',11,'fa fa-users',3,0,'*',GETDATE()),
+('Cargador','Cargador',11,'fa fa-users',4,0,'*',GETDATE()),
+('Cargador y Cable','Cargador mas Cable de poder',11,'fa fa-users',5,0,'*',GETDATE()),
+('Tinta','Envase de tinta',11,'fa fa-users',6,0,'*',GETDATE()),
+('CD/DVD','Driver y documentacion',11,'fa fa-users',7,0,'*',GETDATE()),
+('Cartuchos','Cartuchos de tinta',11,'fa fa-users',8,0,'*',GETDATE());
+--USUARIOS
+EXEC sp_AgregarUsuario 'Master','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=','Master@hotmail.com',40,'edmundo romero','/Content/images/img/avatar.png',1,'2018-01-03 19:45:28.087',1
+EXEC sp_AgregarUsuario 'Admin','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=','Admin@hotmail.com',40,'edmundo romero','/Content/images/img/avatar.png',1,'2018-01-03 19:45:28.087',1
+EXEC sp_AgregarUsuario 'Tecnico','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=','Tecnico@hotmail.com',40,'edmundo romero','/Content/images/img/avatar.png',1,'2018-01-03 19:45:28.087',1
+EXEC sp_AgregarUsuario 'Cliente','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=','Cliente@hotmail.com',40,'edmundo romero','/Content/images/img/avatar.png',1,'2018-01-03 19:45:28.087',1
+--PRODUCTOS
+INSERT INTO ProductoServicios (Sku,IdCategoria,IdGrupo,Nombre,IdFabricante,IdUnidad,Imagen,Stock,Stock_Min,PrecioCompra,PrecioVenta,Garantia,FechaRegistro) VALUES
+('',0,0,'',0,0,'',0,0,0,0,0,'2018-01-03 19:45:28.087');
 
 
-
-select * from gruposdetalles;
-
-
-
+SELECT * FROM Grupos
+SELECT * FROM GruposDetalles
 
 
 ---- PRODUCTOS

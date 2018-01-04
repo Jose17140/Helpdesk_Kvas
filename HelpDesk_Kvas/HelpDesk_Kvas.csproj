@@ -201,6 +201,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PersonaController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\ServicioController.cs" />
     <Compile Include="Controllers\SoporteController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
@@ -2790,11 +2791,24 @@
     <Content Include="Views\Usuario\RecuperarPass.cshtml" />
     <Content Include="Views\Usuario\OlvidoPass.cshtml" />
     <Content Include="Views\Menu\Index.cshtml" />
+    <Content Include="Views\Menu\CreateMenu.cshtml" />
+    <Content Include="Views\Menu\Create.cshtml" />
+    <Content Include="Views\Menu\CreateSubMenu.cshtml" />
+    <Content Include="Views\Menu\EditMenu.cshtml" />
+    <Content Include="Views\Menu\DeleteMenu.cshtml" />
+    <Content Include="Views\Menu\DetailsMenu.cshtml" />
+    <Content Include="Views\Menu\EditSubMenu.cshtml" />
+    <Content Include="Views\Menu\DeleteSubMenu.cshtml" />
+    <Content Include="Views\Menu\DetailsSubMenu.cshtml" />
+    <Content Include="Views\Roles\Create.cshtml" />
+    <Content Include="Views\Roles\Delete.cshtml" />
+    <Content Include="Views\Roles\Details.cshtml" />
+    <Content Include="Views\Roles\Edit.cshtml" />
+    <Content Include="Views\Roles\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\images\Productos\" />
-    <Folder Include="Views\Prueba\" />
     <Folder Include="Views\Soporte\" />
   </ItemGroup>
   <ItemGroup>

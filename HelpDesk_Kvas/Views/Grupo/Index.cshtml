@@ -35,12 +35,15 @@
     <br /><br /><br />
     <div class="box">
         <div class="box-body">
-            <div class="btn dropdown">
-                <a class="btn btn-apps" data-toggle="modal" data-target="#squarespaceModal"">
-                    <span class="fa fa-plus-square fa-4x"></span>
-                    <span class="glyphicon-class">Nueva Entidad</span>
-                </a>
-            </div>
+            @if (User.IsInRole("Master"))
+            {
+                <div class="btn dropdown">
+                    <a class="btn btn-apps" data-toggle="modal" data-target="#squarespaceModal">
+                        <span class="fa fa-plus-square fa-4x"></span>
+                        <span class="glyphicon-class">Nueva Entidad</span>
+                    </a>
+                </div>
+            }
             @foreach (var g in Model)
             {
                 <div class="btn dropdown">
@@ -51,8 +54,14 @@
                     <ul class="dropdown-menu">
                         <li><a href="/GrupoDetalle/index/@g.IdGrupo">Listar</a></li>
                         <li><a href="/Grupo/Details/@g.IdGrupo">Detalle</a></li>
-                        <li><a href="/Grupo/Edit/@g.IdGrupo">Editar</a></li>
-                        <li><a href="/Grupo/Delete/@g.IdGrupo">Eliminar</a></li>
+                        @if (User.IsInRole("Master") || User.IsInRole("Supervisor"))
+                        {
+                            <li><a href="/Grupo/Edit/@g.IdGrupo">Editar</a></li>
+                        }
+                        @if (User.IsInRole("Master"))
+                        {
+                            <li><a href="/Grupo/Delete/@g.IdGrupo">Eliminar</a></li>
+                        }
                     </ul>
                 </div>
             }
@@ -65,14 +74,17 @@
         <!-- /.box-body -->
     </div>
 </section>
-
-<div class="modal fade" id="squarespaceModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
-                @{ Html.RenderAction("Create", "Grupo");}
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="modal fade" id="squarespaceModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    @{ Html.RenderAction("Create", "Grupo");}
+                </div>
+                <br /><br />
             </div>
-            <br /><br />
         </div>
     </div>
-</div>
+}
+

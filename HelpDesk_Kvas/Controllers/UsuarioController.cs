@@ -9,7 +9,7 @@ using System.Web.Security;
 
 namespace HelpDesk_Kvas.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class UsuarioController : Controller
     {
         UsuarioLogic objUsuarioLogic;
@@ -30,8 +30,8 @@ namespace HelpDesk_Kvas.Controllers
         public ActionResult Registrar()
         {
             var _ListaDetalle = objGrupoDetalleLogic.Listar();
-            var _Roles = _ListaDetalle.Where(m => m.IdGrupo == 3).ToList();
-            var _Preguntas = _ListaDetalle.Where(m => m.IdGrupo == 15).ToList();
+            var _Roles = _ListaDetalle.Where(m => m.IdGrupo == 4).ToList();
+            var _Preguntas = _ListaDetalle.Where(m => m.IdGrupo == 12).ToList();
             //Departamento Roles
             SelectList listaRoles = new SelectList(_Roles, "IdGrupoDetalle", "Titulo");
             //Departamento hijo
@@ -59,8 +59,8 @@ namespace HelpDesk_Kvas.Controllers
                 {
                     ModelState.AddModelError("EmailExist", "Correo electronico ya esta registrado");
                     var _ListaDetalle = objGrupoDetalleLogic.Listar();
-                    var _Roles = _ListaDetalle.Where(m => m.IdGrupo == 3).ToList();
-                    var _Preguntas = _ListaDetalle.Where(m => m.IdGrupo == 15).ToList();
+                    var _Roles = _ListaDetalle.Where(m => m.IdGrupo == 4).ToList();
+                    var _Preguntas = _ListaDetalle.Where(m => m.IdGrupo == 12).ToList();
                     //Departamento Roles
                     SelectList listaRoles = new SelectList(_Roles, "IdGrupoDetalle", "Titulo");
                     //Departamento hijo
@@ -73,8 +73,8 @@ namespace HelpDesk_Kvas.Controllers
                 {
                     ModelState.AddModelError("UserExist", "El nombre de usuario ya se encuantra registrado");
                     var _ListaDetalle = objGrupoDetalleLogic.Listar();
-                    var _Roles = _ListaDetalle.Where(m => m.IdGrupo == 3).ToList();
-                    var _Preguntas = _ListaDetalle.Where(m => m.IdGrupo == 15).ToList();
+                    var _Roles = _ListaDetalle.Where(m => m.IdGrupo == 4).ToList();
+                    var _Preguntas = _ListaDetalle.Where(m => m.IdGrupo == 12).ToList();
                     //Departamento Roles
                     SelectList listaRoles = new SelectList(_Roles, "IdGrupoDetalle", "Titulo");
                     //Departamento hijo
@@ -97,7 +97,9 @@ namespace HelpDesk_Kvas.Controllers
                 objUsuarioLogic.Insertar(user);
                 message = "Registro exitoso";
                 #endregion
-                return RedirectToAction("Index", "Home");
+                //return RedirectToAction("Index", "Home");
+                var text = "Agregado Exitosamente";
+                return this.Json(new { EnableSuccess = true, SuccessTitle = "Success", SuccessMsg = text });
             }
             else
             {
@@ -147,6 +149,7 @@ namespace HelpDesk_Kvas.Controllers
                         cookie.Expires = DateTime.Now.AddMinutes(session);
                         cookie.HttpOnly = true;
                         Response.Cookies.Add(cookie);
+
                         if (Url.IsLocalUrl(ReturnUrl))
                         {
                             return Redirect(ReturnUrl);

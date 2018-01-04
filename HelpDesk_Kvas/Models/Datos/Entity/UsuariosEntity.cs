@@ -42,13 +42,7 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
         [StringLength(30)]
         [Display(Name = "Avatar")]
         public string Avatar { get; set; }
-
-        [DataType(DataType.DateTime)]
-        [Display(Name = "Fecha de Login:")]
-        public DateTime? FechaLogin { get; set; }
-
-        public int? ContadorFallido { get; set; }
-
+        
         [Required]
         [Display(Name = "Estatus")]
         public bool Estatus { get; set; }
@@ -71,10 +65,33 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
         public string UserName { get; set; }
     }
 
-    public class LoginUserEntity : UsuariosEntity
+    public class LoginUserEntity
     {
+        [Required]
+        [StringLength(30)]
+        [Display(Name = "Nombre de Usuario")]
+        public string UserName { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "El número de caracteres de {0} debe ser al menos {2}.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Contraseña")]
+        public string Password { get; set; }
+
+        [DataType(DataType.DateTime)]
+        [Display(Name = "Fecha de Login:")]
+        public DateTime? FechaLogin { get; set; }
+
+        public int? ContadorFallido { get; set; }
+
+        [Required]
+        [Display(Name = "Estatus")]
+        public bool Estatus { get; set; }
+
         [Display(Name = "¿Recordar cuenta?")]
         public bool RememberMe { get; set; }
+
+        public int? Mensaje { get; set; }
     }
 
     public class RegisterUserEntity : UsuariosEntity

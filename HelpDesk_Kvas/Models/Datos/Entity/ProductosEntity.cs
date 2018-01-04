@@ -17,17 +17,26 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
         [Display(Name = "Codigo del Producto:")]
         public string Sku { get; set; }
 
+        [Display(Name = "Categoria del Producto:")]
         public int IdCategoria { get; set; }
 
+        [Display(Name = "Producto o Servicio:")]
         public int IdGrupo { get; set; }
 
+        [Display(Name = "Nombre:")]
         public string Nombre { get; set; }
+
+        [Display(Name = "Descripcion:")]
+        public string Descripcion { get; set; }
 
         [Display(Name = "Fabricante:")]
         public int IdFabricante { get; set; }
 
         [Display(Name = "Unidad:")]
         public int IdUnidad { get; set; }
+
+        [Display(Name = "Imagen:")]
+        public string Imagen { get; set; }
 
         [Display(Name = "Inventario:")]
         public int Stock { get; set; }
@@ -43,6 +52,15 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
 
         [Display(Name = "Dias de Garantia:")]
         public int? Garantia { get; set; }
+
+        [DataType(DataType.DateTime)]
+        [Display(Name = "Fecha de Registro:")]
+        public DateTime FechaRegistro { get; set; }
+
+        [Display(Name = "Estatus:")]
+        public bool Estatus { get; set; }
+
+        public int Mensaje { get; set; }
     }
 
     public class ProductosEntityView : ProductosEntity
