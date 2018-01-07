@@ -142,12 +142,9 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
         {
             try
             {
-                Usuarios usuario = new Usuarios()
-                {
-                    ContadorFallido = Convert.ToInt32(user.ContadorFallido),
-                    FechaLogin = DateTime.Now
-                };
-                db.Usuarios.InsertOnSubmit(usuario);
+                var query = db.Usuarios.Where(m => m.NombreUsuario == user.UserName).SingleOrDefault();
+                query.ContadorFallido = Convert.ToInt32(user.ContadorFallido);
+                query.FechaLogin = DateTime.Now;
                 db.SubmitChanges();
             }
             catch (Exception)

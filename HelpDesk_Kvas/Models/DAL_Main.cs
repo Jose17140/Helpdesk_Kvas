@@ -8,7 +8,7 @@ namespace HelpDesk_Kvas.Models
     public partial class DAL_Main : DbContext
     {
         public DAL_Main()
-            : base("name=DefaultConnection")
+            : base("name=Helpdesk_Kvas")
         {
         }
 

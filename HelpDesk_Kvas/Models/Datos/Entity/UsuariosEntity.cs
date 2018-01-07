@@ -83,8 +83,7 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
         public DateTime? FechaLogin { get; set; }
 
         public int? ContadorFallido { get; set; }
-
-        [Required]
+        
         [Display(Name = "Estatus")]
         public bool Estatus { get; set; }
 

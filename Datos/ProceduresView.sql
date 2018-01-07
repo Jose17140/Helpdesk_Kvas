@@ -34,7 +34,6 @@ AS
 	FROM Personas AS p
 	INNER JOIN GruposDetalles AS gd ON P.IdTipoPersona = gd.IdGrupoDetalle
 GO
-
 --GRUPOSDETALLES
 DROP VIEW IF EXISTS vw_GruposDetalles;
 GO
@@ -156,30 +155,19 @@ CREATE VIEW vw_ListarUsuarios
 	INNER JOIN GruposDetalles AS gdd ON u.IdPreguntaSeguridad = gdd.IdGrupoDetalle         
  GO
 
--- --PRODUCTOS
---DROP VIEW IF EXISTS vw_ListarProductos;
---GO
---CREATE VIEW vw_ListarProductos     
--- AS     
---    WITH Cte_Productos(IdGrupoDetalle,Nombre,Descripcion,Orden,IdGrupo,IdPadre,Icono,UrlDetalle,Estatus,FechaRegistro, LevelGrupo) AS (
---		SELECT g.IdGrupoDetalle, g.Nombre, g.Descripcion, g.Orden, g.IdGrupo, g.IdPadre, g.Icono, g.UrlDetalle, g.Estatus, g.FechaRegistro, 0 AS LevelGrupo
---		FROM GruposDetalles AS g
---		WHERE g.IdPadre is null
---		UNION ALL
---		SELECT gd.IdGrupoDetalle, gd.Nombre, gd.Descripcion, gd.Orden, gd.IdGrupo, gd.IdPadre, gd.Icono, gd.UrlDetalle, gd.Estatus, gd.FechaRegistro, LevelGrupo+1
---		FROM GruposDetalles AS gd
---		INNER JOIN Cte_Productos AS cte ON gd.IdPadre = cte.IdGrupoDetalle
---	)
---	SELECT ct.IdGrupoDetalle AS IdProducto, ps.Sku, ct.Nombre, ct.Descripcion, ct.Orden, ct.IdGrupo, g.Nombre AS Grupo, ct.IdPadre, c.Nombre AS Padre, ct.Icono, ct.UrlDetalle, 
---			ps.IdFabricante, gd.Nombre AS Fabricante, ps.Stock, ps.Stock_Min, ps.IdUnidad, gdd.Nombre AS Unidad, ps.Garantia, ps.PrecioCompra, ps.PrecioVenta, ct.Estatus, ct.FechaRegistro
---	FROM Cte_Productos AS ct
---	INNER JOIN Cte_Productos AS c ON ct.IdPadre = c.IdGrupoDetalle
---	INNER JOIN Grupos AS g ON ct.IdGrupo = g.IdGrupo
---	LEFT JOIN PSDetalles AS ps ON ct.IdGrupoDetalle = ps.IdProducto
---	LEFT JOIN GruposDetalles AS gd ON ps.IdFabricante = gd.IdGrupoDetalle
---	LEFT JOIN GruposDetalles AS gdd ON ps.IdUnidad = gdd.IdGrupoDetalle
---	WHERE ct.IdGrupo = 9    
--- GO
+ --PRODUCTOS
+DROP VIEW IF EXISTS vw_ListarProductos;
+GO
+	CREATE VIEW vw_ListarProductos     
+	AS
+		 SELECT p.IdProducto, p.Sku,p.IdCategoria, gc.Nombre AS Categoria, p.IdGrupo, GP.Nombre AS Grupo, p.Nombre,p.Descripcion,p.IdFabricante, gf.Nombre AS Fabricante,
+		 p.IdUnidad,gu.Nombre AS Unidad, p.Imagen,p.Stock,p.StockMin,p.PrecioCompra,p.PrecioVenta,p.Garantia,p.Estatus,p.FechaRegistro
+		 FROM ProductoServicios AS p
+		 INNER JOIN GruposDetalles AS gc ON p.IdCategoria = gc.IdGrupoDetalle
+		 INNER JOIN Grupos AS gp ON p.IdGrupo = GP.IdGrupo
+		 INNER JOIN GruposDetalles AS gf ON p.IdFabricante = gf.IdGrupoDetalle
+		 INNER JOIN GruposDetalles AS gu ON p.IdUnidad = gu.IdGrupoDetalle
+GO
 
 --DROP PROCEDURE IF EXISTS sp_BuscarProducto;
 --GO   

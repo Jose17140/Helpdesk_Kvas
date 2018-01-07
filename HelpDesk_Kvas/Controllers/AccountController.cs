@@ -1,4 +1,4 @@
-﻿using HelpDesk_Kvas.Models.Datos.DAL;
+﻿
 using HelpDesk_Kvas.Models.Datos.Entity;
 using HelpDesk_Kvas.Models.Datos.Logica;
 using System;
@@ -11,11 +11,11 @@ using System.Web.Security;
 namespace HelpDesk_Kvas.Controllers
 {
     //[Authorize]
-    public class UsuarioController : Controller
+    public class AccountController : Controller
     {
         UsuarioLogic objUsuarioLogic;
         GrupoDetalleLogic objGrupoDetalleLogic;
-        public UsuarioController()
+        public AccountController()
         {
             objUsuarioLogic = new UsuarioLogic();
             objGrupoDetalleLogic = new GrupoDetalleLogic();
@@ -41,7 +41,7 @@ namespace HelpDesk_Kvas.Controllers
             ViewBag.ListaPreguntas = listaPreguntas;
             return View();
         }
-        //Registration POST action 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Registrar([Bind(Exclude = "FechaLogin,ContadorFallido,FechaModificacion")] RegisterUserEntity user)
@@ -109,15 +109,13 @@ namespace HelpDesk_Kvas.Controllers
             ViewBag.Message = message;
             return View(user);
         }
-
-        //Login 
+        
         [HttpGet]
         public ActionResult Login()
         {
             return View();
         }
-
-        ////Login POST
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginUserEntity login, string ReturnUrl = "")
@@ -125,61 +123,20 @@ namespace HelpDesk_Kvas.Controllers
             string message = "";
             if (ModelState.IsValid)
             {
-
-                //using (dbDataContext dc = new dbDataContext())
-                //{
-                //    var v = dc.Usuarios.Where(a => a.NombreUsuario == login.UserName).FirstOrDefault();
-                //    if (v != null)
-                //    {
-                //        if (!v.Estatus)
-                //        {
-                //            ViewBag.Message = "Please verify your email first";
-                //            return View();
-                //        }
-
-                //        if (string.Compare(Crypto.Hash(login.Password), v.Contrasena) == 0)
-                //        {
-                //            int timeout = login.RememberMe ? 525600 : 20; // 525600 min = 1 year
-                //            var ticket = new FormsAuthenticationTicket(login.UserName, login.RememberMe, timeout);
-                //            string encrypted = FormsAuthentication.Encrypt(ticket);
-                //            var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encrypted);
-                //            cookie.Expires = DateTime.Now.AddMinutes(timeout);
-                //            cookie.HttpOnly = true;
-                //            Response.Cookies.Add(cookie);
-
-
-                //            if (Url.IsLocalUrl(ReturnUrl))
-                //            {
-                //                return Redirect(ReturnUrl);
-                //            }
-                //            else
-                //            {
-                //                return RedirectToAction("Index", "Home");
-                //            }
-                //        }
-                //        else
-                //        {
-                //            message = "Invalid credential provided";
-                //        }
-                //    }
-                //    else
-                //    {
-                //        message = "Invalid credential provided";
-                //    }
-                //}
-
                 var log = objUsuarioLogic.ListarLogin();
                 var user = log.Where(x => x.UserName == login.UserName).FirstOrDefault();
                 if (user != null)
                 {
-                    if (login.ContadorFallido > 5)
+                    if (user.ContadorFallido > 5)
                     {
                         ViewBag.Message = "Usuario Bloqueado por 5 minutos";
+                        ModelState.AddModelError("Exceso de Fallos", "Usuario Bloqueado por 5 minutos");
                         return View();
                     }
                     if (!user.Estatus)
                     {
                         ViewBag.Message = "Usuario Inactivo, comuniquese con el administrador";
+                        ModelState.AddModelError("Exceso de Fallos", "Usuario Bloqueado Para desbloquear contacte al administrador");
                         return View();
                     }
                     if (string.Compare(Crypto.Hash(login.Password), user.Password) == 0)
@@ -205,11 +162,11 @@ namespace HelpDesk_Kvas.Controllers
                     }
                     else
                     {
-                        login.ContadorFallido = user.ContadorFallido + 1;
+                        var con = user.ContadorFallido + 1;
+                        login.ContadorFallido = con;
                         objUsuarioLogic.LoginControl(login);
                         message = "Usuario o ontrasena invalido";
                     }
-
                 }
                 else
                 {
@@ -219,14 +176,13 @@ namespace HelpDesk_Kvas.Controllers
             ViewBag.Message = message;
             return View();
         }
-
-        //Logout
+        
         [Authorize]
         [HttpPost]
-        public ActionResult Logout()
+        public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("Login", "Usuario");
+            return RedirectToAction("Login", "Account");
         }
 
     }

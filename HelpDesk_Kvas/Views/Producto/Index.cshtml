@@ -1,6 +1,6 @@
 ﻿@model HelpDesk_Kvas.DataGrid.PagedList<HelpDesk_Kvas.Models.Datos.Entity.ProductosEntityView>
 @{
-    ViewBag.Title = "Lista de Tablas";
+    ViewBag.Title = "Listado de Productos";
 }
 
 @Styles.Render("~/Content/css/Grupos.css")
@@ -15,16 +15,13 @@
         <li class="active">Dashboard</li>
     </ol>
     <br />
-    @*<button type="button" class="btn btn-info" aria-pressed="false" autocomplete="off" data-toggle="modal" data-target="#squarespaceModal">
-            Agregar
-        </button>*@
 </section>
 <br />
 <div class="well">
     @using (Html.BeginForm("index", null, FormMethod.Get))
     {
         <div class="row">
-            <div class="col-sm-8">
+            <div class="col-sm-4">
                 <div class="input-group">
 
                     <input type="text"
@@ -62,29 +59,29 @@
             tableStyle: "table table-bordered table-hover",
             mode: WebGridPagerModes.All,
             columns: grid.Columns(
-              grid.Column("IdGrupoDetalle", "ID"),
-              grid.Column("Titulo", "Titulo"),
-              grid.Column("Descripcion", "Descripcion"),
-              grid.Column("Padre", "Departamento"),
-              grid.Column("Icono", header: "Icono", format: @<text>@Html.Raw("<span class='" + item.Icono + "'></span>")</text>),
+              grid.Column("IdProducto", "ID"),
+              grid.Column("Sku", "Sku"),
+              grid.Column("Nombre", "Nombre"),
+              grid.Column("Fabricante", "Fabricante"),
+              grid.Column("Categoria", "Categoria"),
+              grid.Column("Stock", "Inventario"),
+              grid.Column("PrecioCompra", "Pvp. Compra", format: @<text>@Html.Raw("<text>Bs. " + item.PrecioCompra + "</text>")</text>),
+              grid.Column("PrecioVenta", "Pvp. Venta", format: @<text>@Html.Raw("<text>Bs. " + item.PrecioVenta + "</text>")</text>),
+              grid.Column("Imagen", header: "Imagen", format: @<text>@Html.Raw("<span class='" + item.Imagen + "'></span>")</text>),
               grid.Column("Estatus", "Estatus"),
-              grid.Column("FechaRegistro", header: "Fecha", format: @<text>@String.Format("{0:MM/dd/yy}", item.FechaRegistro) </text>),
+              @*grid.Column("FechaRegistro", header: "Fecha", format: @<text>@String.Format("{0:MM/dd/yy}", item.FechaRegistro) </text>),*@
               grid.Column(header: "Acciones", canSort: false, style: "action",
                 format: @<text>
-                @Html.Raw("<a data-modal='' href='/Producto/details/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Detail'> <span class='glyphicon glyphicon-search'> </span> </a>")
-                @Html.Raw("<a data-modal='' href='/Producto/edit/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Edit'> <span class='glyphicon glyphicon-edit'> </span> </a>")
-                @Html.Raw("<a data-modal='' href='/Producto/delete/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Delete'> <span class='glyphicon glyphicon-trash'> </span> </a>")
+                @Html.Raw("<a data-modal='' href='/Producto/details/" + item.IdProducto + "' id='" + item.IdProducto + "' title='Detail'> <span class='glyphicon glyphicon-search'> </span> </a>")
+                @Html.Raw("<a data-modal='' href='/Producto/edit/" + item.IdProducto + "' id='" + item.IdProducto + "' title='Edit'> <span class='glyphicon glyphicon-edit'> </span> </a>")
+                @Html.Raw("<a data-modal='' href='/Producto/delete/" + item.IdProducto + "' id='" + item.IdProducto + "' title='Delete'> <span class='glyphicon glyphicon-trash'> </span> </a>")
                 </text>)
 
             ));
             }
-
-
         </div>
-                }
+     }
 </div>
-
-
 <!-- modal placeholder-->
 <div id='myModal' class='modal fade in'>
     <div class="modal-dialog modal-lg">
@@ -94,5 +91,3 @@
     </div>
 </div>
 <script src="~/Content/js/PruebaModal.js"></script>
-
-

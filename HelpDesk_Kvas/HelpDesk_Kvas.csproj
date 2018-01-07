@@ -193,6 +193,7 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
@@ -2740,10 +2741,10 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Account\ResetPassword.cshtml" />
-    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Off\Login.cshtml" />
+    <Content Include="Views\Account\Off\Register.cshtml" />
+    <Content Include="Views\Account\Off\ResetPassword.cshtml" />
+    <Content Include="Views\Account\Off\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />
@@ -2780,16 +2781,12 @@
     <Content Include="Views\Producto\Edit.cshtml" />
     <Content Include="Views\Producto\Delete.cshtml" />
     <Content Include="Views\Producto\MovimientoInventario.cshtml" />
-    <Content Include="Views\Servicio\Create.cshtml" />
-    <Content Include="Views\Servicio\Delete.cshtml" />
-    <Content Include="Views\Servicio\Details.cshtml" />
-    <Content Include="Views\Servicio\Edit.cshtml" />
     <Content Include="Views\Servicio\Index.cshtml" />
-    <Content Include="Views\Usuario\Index.cshtml" />
-    <Content Include="Views\Usuario\Registrar.cshtml" />
-    <Content Include="Views\Usuario\Login.cshtml" />
-    <Content Include="Views\Usuario\RecuperarPass.cshtml" />
-    <Content Include="Views\Usuario\OlvidoPass.cshtml" />
+    <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Account\Registrar.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\RecuperarPass.cshtml" />
+    <Content Include="Views\Account\OlvidoPass.cshtml" />
     <Content Include="Views\Menu\Index.cshtml" />
     <Content Include="Views\Menu\CreateMenu.cshtml" />
     <Content Include="Views\Menu\Create.cshtml" />
@@ -2805,11 +2802,16 @@
     <Content Include="Views\Roles\Details.cshtml" />
     <Content Include="Views\Roles\Edit.cshtml" />
     <Content Include="Views\Roles\Index.cshtml" />
+    <Content Include="Views\Servicio\Create.cshtml" />
+    <Content Include="Views\Servicio\Delete.cshtml" />
+    <Content Include="Views\Servicio\Details.cshtml" />
+    <Content Include="Views\Servicio\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\images\Productos\" />
     <Folder Include="Views\Soporte\" />
+    <Folder Include="Views\Usuario\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

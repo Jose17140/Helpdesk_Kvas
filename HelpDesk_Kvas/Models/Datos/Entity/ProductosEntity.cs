@@ -65,10 +65,16 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
 
     public class ProductosEntityView : ProductosEntity
     {
-        public string Equipo { get; set; }
+        [Display(Name = "Categoria:")]
+        public string Categoria { get; set; }
+
+        [Display(Name = "Grupo:")]
         public string Grupo { get; set; }
-        public string Padre { get; set; }
+
+        [Display(Name = "Fabricante:")]
         public string Fabricante { get; set; }
+
+        [Display(Name = "Unidad:")]
         public string Unidad { get; set; }
     }
 }

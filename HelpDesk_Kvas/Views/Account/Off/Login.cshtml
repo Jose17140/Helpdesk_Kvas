@@ -1,4 +1,5 @@
-﻿@model HelpDesk_Kvas.Models.Datos.Entity.LoginUserEntity
+﻿@*@using HelpDesk_Kvas.Models.Usuarios
+@model LoginViewModel*@
 @{
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
     ViewBag.Title = "Iniciar sesión";
@@ -12,21 +13,21 @@
                 <div class="login" id="card" style="perspective: 640px; position: relative; transform-style: preserve-3d;">
                     <div class="front signin_form" style="height: 100%; width: 100%; backface-visibility: hidden; transform-style: preserve-3d; position: absolute; z-index: 1; transition: all 0.5s ease-out;">
                         <br />
-                        @using (Html.BeginForm("Login", "Usuario", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "login-form", role = "form" }))
+                        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "login-form", role = "form" }))
                         {
                             @Html.AntiForgeryToken()
                             <h4>Use una cuenta local para iniciar sesión.</h4>
                             <hr />
                             <div class="form-group" style="backface-visibility: hidden;">
                                 <div class="input-group" style="backface-visibility: hidden;">
-                                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Corre electronico", style = "backface-visibility: hidden;" })
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Corre electronico", style = "backface-visibility: hidden;" })
 
                                     <span class="input-group-addon" style="backface-visibility: hidden;">
                                         <i class="glyphicon glyphicon-user" style="backface-visibility: hidden;"></i>
                                     </span>
                                 </div>
                                 <div class="col-md-10">
-                                    <span>@Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })</span>
+                                    <span>@Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })</span>
                                 </div>
                             </div>
                             <div class="form-group" style="backface-visibility: hidden;">
@@ -72,4 +73,3 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
-

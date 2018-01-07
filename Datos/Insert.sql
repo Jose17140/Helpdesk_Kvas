@@ -30,7 +30,7 @@ INSERT INTO Grupos(Nombre,Descripcion,IdPadre,Icono,Estatus,FechaRegistro)VALUES
 ('Cat. Servicio','Categoria de los Servicios',0,'fa fa-edit',1,GETDATE());
 --NULOS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
-('Cat. Superior','Agrupa los elementos padre GrupoDetalles',0,'Nulo',0,null,'*',GETDATE());
+('---','Agrupa los elementos padre GrupoDetalles',0,'Nulo',0,null,'*',GETDATE());
 --MENUS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 ('Registro','Registro de Clientes, Ticket y Organizaciones',1,'fa fa-plus-circle',1,0,'/',GETDATE()),
@@ -69,7 +69,7 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDe
 ('Log','Menu',2,'fa fa-circle-o',2,19,'/',GETDATE());
 --USUARIOS Y ROLES MENU
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
-('Usuarios','Menu',2,'fa fa-user',1,18,'/Usuario/Index',GETDATE()),
+('Usuarios','Menu',2,'fa fa-user',1,18,'/Account/Index',GETDATE()),
 ('Roles','Menu',2,'fa fa-archive',3,18,'/Roles/Index',GETDATE());
 --TIPOS DE PERSONAS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
@@ -145,10 +145,21 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDe
 ('Entregado','Requerimiento Cerrado',18,'fa fa-hourglass-o',6,0,'*',GETDATE());
 --FABRICANTES
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
-('Intel', 'Intel', 10, 'fa fa-laptop', 1, 0, '*', GETDATE()),
-('MKI', 'MKI', 10, 'fa fa-laptop', 2, 0, '*', GETDATE()),
-('Genius', 'Genius', 10, 'fa fa-laptop', 3, 0, '*', GETDATE()),
-('Entercop', 'Entercop', 10, 'fa fa-laptop', 4, 0, '*', GETDATE());
+('Intel', 'Intel', 10, 'glyphicon glyphicon-cog', 1, 0, '*', GETDATE()),
+('MKI', 'MKI', 10, 'glyphicon glyphicon-cog', 2, 0, '*', GETDATE()),
+('Genius', 'Genius', 10, 'glyphicon glyphicon-cog', 3, 0, '*', GETDATE()),
+('Entercop', 'Entercop', 10, 'glyphicon glyphicon-cog', 4, 0, '*', GETDATE()),
+('Epson', 'Epson', 10, 'glyphicon glyphicon-cog', 5, 0, '*', GETDATE()),
+('Hp', 'Hp', 10, 'glyphicon glyphicon-cog', 6, 0, '*', GETDATE()),
+('TpLink', 'TpLink', 10, 'glyphicon glyphicon-cog', 7, 0, '*', GETDATE()),
+('Color Make', 'Color Make', 10, 'glyphicon glyphicon-cog', 8, 0, '*', GETDATE()),
+('Printon', 'Printon', 10, 'glyphicon glyphicon-cog', 9, 0, '*', GETDATE()),
+('Inverprint', 'Inverprint', 10, 'glyphicon glyphicon-cog', 10, 0, '*', GETDATE()),
+('Generico', 'Generico', 10, 'glyphicon glyphicon-cog', 11, 0, '*', GETDATE()),
+('Microsoft', 'Microsoft', 10, 'glyphicon glyphicon-cog', 12, 0, '*', GETDATE()),
+('AMD', 'AMD', 10, 'glyphicon glyphicon-cog', 13, 0, '*', GETDATE()),
+('Samsung', 'Samsung', 10, 'glyphicon glyphicon-cog', 14, 0, '*', GETDATE()),
+('Vit', 'Vit', 10, 'glyphicon glyphicon-cog', 15, 0, '*', GETDATE());
 --PAISES Y ESTADOS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 ('Venezuela','Venezuela',7,'fa fa-globe',1,0,'*',GETDATE()),
@@ -186,9 +197,24 @@ EXEC sp_AgregarUsuario 'Master','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=','
 EXEC sp_AgregarUsuario 'Admin','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=','Admin@hotmail.com',40,'edmundo romero','/Content/images/img/avatar.png',1,'2018-01-03 19:45:28.087',1
 EXEC sp_AgregarUsuario 'Tecnico','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=','Tecnico@hotmail.com',40,'edmundo romero','/Content/images/img/avatar.png',1,'2018-01-03 19:45:28.087',1
 EXEC sp_AgregarUsuario 'Cliente','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=','Cliente@hotmail.com',40,'edmundo romero','/Content/images/img/avatar.png',1,'2018-01-03 19:45:28.087',1
+--CAT PRODUCTOS Y SERVICIOS
+INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
+--CAT PRODUCTOS
+('Almacenamiento','Dispositivos de almacenamiento',23,'glyphicon glyphicon-tags',1,0,'*',GETDATE()),
+('Redes','Equipos de red y comunicaciones',23,'glyphicon glyphicon-tags',2,0,'*',GETDATE()),
+('Partes y Piezas','Piezas de pc, impresoras, otros',23,'glyphicon glyphicon-tags',3,0,'*',GETDATE()),
+('Accesorios','Accesorios de mano',23,'glyphicon glyphicon-tags',4,0,'*',GETDATE()),
+('Consumibles','Tintas, cartuchos',23,'glyphicon glyphicon-tags',5,0,'*',GETDATE()),
+--CAT SERVICIOS
+('Redes','Equipos de red y comunicaciones',24,'glyphicon glyphicon-tags',1,0,'*',GETDATE()),
+('Computadoras','Computadoras y laptop',24,'glyphicon glyphicon-tags',2,0,'*',GETDATE()),
+('Impresoras','Equipos de impresion',24,'glyphicon glyphicon-tags',3,0,'*',GETDATE());
 --PRODUCTOS
-INSERT INTO ProductoServicios (Sku,IdCategoria,IdGrupo,Nombre,IdFabricante,IdUnidad,Imagen,Stock,Stock_Min,PrecioCompra,PrecioVenta,Garantia,FechaRegistro) VALUES
-('',0,0,'',0,0,'',0,0,0,0,0,'2018-01-03 19:45:28.087');
+INSERT INTO ProductoServicios (Sku,IdCategoria,IdGrupo,Nombre,Descripcion,IdFabricante,IdUnidad,Imagen,Stock,StockMin,PrecioCompra,PrecioVenta,Garantia,Estatus,FechaRegistro) VALUES
+('123456789',105,16,'Procesador I7','Procesador I7 XXXX LGA123',64,31,'IMAGEN',10,1,200000,500000,10,1,'2018-01-03 19:45:28.087');
+--SERVICIO
+INSERT INTO ProductoServicios (Sku,IdCategoria,IdGrupo,Nombre,Descripcion,IdFabricante,IdUnidad,Imagen,Stock,StockMin,PrecioCompra,PrecioVenta,Garantia,Estatus,FechaRegistro) VALUES
+('987654321',110,17,'Limpieza de Cabezal','Solvente y ultrasonido',67,31,'glyphicon glyphicon-wrench',0,0,200000,500000,15,1,'2018-01-03 19:45:28.087');
 
 
 SELECT * FROM Grupos

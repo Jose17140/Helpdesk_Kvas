@@ -73,3 +73,22 @@
     </div>
     <!-- /.row -->
 </section>
+
+Welcome @HttpContext.Current.User.Identity.Name
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { id = "logoutForm" }))
+    {
+        <a href="javascript:document.getElementById('logoutForm').submit()">Logout</a>
+    }
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+    <h1>Login</h1>
+}
+
+@if (User.IsInRole("Master"))
+{
+    <h1>Login is master</h1>
+}

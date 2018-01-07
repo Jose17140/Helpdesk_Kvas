@@ -74,11 +74,22 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
             try
             {
 
-                //var insert = db.sp_ActualizarProducto(producto.IdGrupoDetalle, producto.Titulo, producto.Descripcion, producto.Orden, 
-                //                                    producto.IdGrupo, producto.IdPadre, producto.Icono, producto.UrlDetalle, producto.Estatus, 
-                //                                    producto.Sku, producto.IdFabricante, producto.Stock, producto.IdUnidad, producto.StockMin, 
-                //                                    producto.PrecioCompra, producto.PrecioVenta, producto.Garantia);
-                //db.SubmitChanges();
+                var query = db.ProductoServicios.Where(m => m.IdProducto == producto.IdProducto).SingleOrDefault();
+                query.Sku = producto.Sku;
+                query.IdCategoria = producto.IdCategoria;
+                query.IdGrupo = producto.IdGrupo;
+                query.Nombre = producto.Nombre;
+                query.Descripcion = producto.Descripcion;
+                query.IdFabricante = producto.IdFabricante;
+                query.IdUnidad = producto.IdUnidad;
+                query.Imagen = producto.Imagen;
+                query.Stock = producto.Stock;
+                query.StockMin = Convert.ToInt32(producto.StockMin);
+                query.PrecioCompra = Convert.ToDecimal(producto.PrecioCompra);
+                query.PrecioVenta = producto.PrecioVenta;
+                query.Garantia = Convert.ToInt32(producto.Garantia);
+                query.Estatus = producto.Estatus;
+                db.SubmitChanges();
             }
             catch (Exception)
             {
@@ -95,6 +106,7 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
             try
             {
                 var producto = (from m in db.ProductoServicios
+                                where m.IdProducto == idProducto
                              select m).SingleOrDefault();
                 var model = new ProductosEntity()
                 {
@@ -137,27 +149,26 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
                 {
                     lista.Add(new ProductosEntityView()
                     {
-                        IdGrupoDetalle = Convert.ToInt32(producto.IdProducto),
+                        IdProducto = Convert.ToInt32(producto.IdProducto),
                         Sku = producto.Sku,
-                        Titulo = producto.Nombre,
-                        Descripcion = producto.Descripcion,
-                        Orden = Convert.ToInt32(producto.Orden),
-                        IdGrupo = Convert.ToInt32(producto.IdGrupo),
+                        IdCategoria = producto.IdCategoria,
+                        Categoria = producto.Categoria,
+                        IdGrupo = producto.IdGrupo,
                         Grupo = producto.Grupo,
-                        IdPadre = Convert.ToInt32(producto.IdPadre),
-                        Padre = producto.Padre,
-                        Icono = producto.Icono,
-                        IdFabricante = Convert.ToInt32(producto.IdFabricante),
+                        Nombre = producto.Nombre,
+                        Descripcion = producto.Descripcion,
+                        IdFabricante = producto.IdFabricante,
                         Fabricante = producto.Fabricante,
-                        Stock = Convert.ToInt32(producto.Stock),
-                        StockMin = Convert.ToInt32(producto.Stock_Min),
-                        IdUnidad = Convert.ToInt32(producto.IdUnidad),
+                        IdUnidad = producto.IdUnidad,
                         Unidad = producto.Unidad,
-                        Garantia = Convert.ToInt32(producto.Garantia),
+                        Imagen = producto.Imagen,
+                        Stock = producto.Stock,
+                        StockMin = Convert.ToInt32(producto.StockMin),
                         PrecioCompra = Convert.ToDecimal(producto.PrecioCompra),
-                        PrecioVenta = Convert.ToDecimal(producto.PrecioVenta),
-                        Estatus = Convert.ToBoolean(producto.Estatus),
-                        FechaRegistro = Convert.ToDateTime(producto.FechaRegistro)
+                        PrecioVenta = producto.PrecioVenta,
+                        Garantia = Convert.ToInt32(producto.Garantia),
+                        Estatus = producto.Estatus,
+                        FechaRegistro = DateTime.Now
                     });
                 }
                 return lista;

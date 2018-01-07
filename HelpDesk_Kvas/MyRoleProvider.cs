@@ -1,4 +1,4 @@
-﻿using HelpDesk_Kvas.Models;
+﻿using HelpDesk_Kvas.Models.Datos.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -62,12 +62,12 @@ namespace HelpDesk_Kvas
                 return (string[])HttpRuntime.Cache[cacheKey];
             }
             string[] roles = new string[]{};
-            using (DAL_Main dc = new DAL_Main())
+            using (dbDataContext dc = new dbDataContext())
             {
                 roles = (from g in dc.GruposDetalles
                          join u in dc.UsuariosRoles on g.IdGrupoDetalle equals u.IdRoles
-                         join s in dc.Usuarios on u.IdRoles equals s.IdUsuario
-                         where s.NombreUsuario.Equals(username) && g.IdGrupo == 21
+                         join s in dc.Usuarios on u.IdUsuario equals s.IdUsuario
+                         where s.NombreUsuario.Equals(username) && g.IdGrupo == 4
                          select g.Nombre).ToArray<string>();
                 if (roles.Count() > 0)
                 {

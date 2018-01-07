@@ -1,24 +1,25 @@
-﻿@model KvasEntity.ProductosEntity
+﻿@model HelpDesk_Kvas.Models.Datos.Entity.ProductosEntity
 @{
     ViewBag.Title = "Delete";
+    Layout = null;
 }
-
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 class="modal-title">@ViewBag.MensajeInicio</h3>
+    <h3 class="modal-title">@ViewBag.MensajeInicialEliminar</h3>
 </div>
 
 <div class="modal-body">
-    @using (Ajax.BeginForm("Delete", "Producto", new AjaxOptions { HttpMethod = "POST", OnSuccess = "onAjaxRequestSuccess" }, new { @id = "AjaxformId", @class = "form-horizontal", role = "form" }))
+    @using (Ajax.BeginForm("Delete", "Servicio", new AjaxOptions { HttpMethod = "POST", OnSuccess = "onAjaxRequestSuccess" }, new { @id = "AjaxformId", @class = "form-horizontal", role = "form" }))
     {
         @Html.AntiForgeryToken()
         <div class="modal-body" style="padding: 5px;">
             <div class="row">
-                <input id="IdGrupoDetalle" name="IdGrupoDetalle" type="hidden" value="@ViewBag.Id" />
+                <div>@Html.ValidationSummary("", new { @class = "text-danger" })</div>
                 <input id="IdGrupo" name="IdGrupo" type="hidden" value="@ViewBag.Grupo" />
-                <input id="UrlDetalle" name="UrlDetalle" type="hidden" value="@ViewBag.Url" />
-                <input id="Orden" name="Orden" type="hidden" value="@ViewBag.Orden" />
-                <input id="Icono" name="Icono" type="hidden" value="fa fa-users" />
+                <input id="IdFabricante" name="IdFabricante" type="hidden" value="67" />
+                <input id="Stock" name="Stock" type="hidden" value="0" />
+                <input id="StockMin" name="StockMin" type="hidden" value="0" />
+                <input id="Imagen" name="Imagen" type="hidden" value="glyphicon glyphicon-wrench" />
             </div>
             <div class="row">
                 <div class="col-lg-3 col-md-3 col-sm-3" style="padding-bottom: 10px;">
@@ -29,9 +30,9 @@
             </div>
             <div class="row">
                 <div class="col-lg-5 col-md-5 col-sm-5" style="padding-bottom: 10px;">
-                    @Html.LabelFor(m => m.Titulo)
-                    @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nombre" } })
-                    @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
+                    @Html.LabelFor(m => m.Nombre)
+                    @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nombre" } })
+                    @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-lg-7 col-md-7 col-sm-7" style="padding-bottom: 10px;">
                     @Html.LabelFor(m => m.Descripcion)
@@ -43,21 +44,11 @@
                 <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
                     <div class="btn-group" role="group" aria-label="...">
                         <div class="btn-group" role="group">
-                            @Html.LabelFor(m => m.IdPadre)
-                            @Html.DropDownListFor(model => model.IdPadre, ViewBag.ListaDepartamento as SelectList, "Seleccione Departamento", htmlAttributes: new { @class = "form-control" })
+                            <label>Categoria del Servicio:</label>
+                            @Html.DropDownListFor(model => model.IdCategoria, ViewBag.ListaDepartamento as SelectList, "Seleccione Departamento", htmlAttributes: new { @class = "form-control" })
                         </div>
                         @*<button type="button" class="btn btn-success" data-modal="" href="/GrupoDetalle/Create/38" id="btnCreate">+</button>*@
-                        @Html.ValidationMessageFor(model => model.IdPadre, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
-                    <div class="btn-group" role="group" aria-label="...">
-                        <div class="btn-group" role="group">
-                            @Html.LabelFor(m => m.IdFabricante)
-                            @Html.DropDownListFor(model => model.IdFabricante, ViewBag.ListaHijo as SelectList, "Seleccione Fabricante", htmlAttributes: new { @class = "form-control" })
-                        </div>
-                        @*<button type="button" class="btn btn-success">+</button>*@
-                        @Html.ValidationMessageFor(model => model.IdFabricante, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(model => model.IdCategoria, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
@@ -70,18 +61,6 @@
                         @Html.ValidationMessageFor(model => model.IdUnidad, "", new { @class = "text-danger" })
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
-                    @Html.LabelFor(m => m.Stock)
-                    @Html.EditorFor(model => model.Stock, new { htmlAttributes = new { @class = "form-control", @placeholder = "Inventario Inicial" } })
-                    @Html.ValidationMessageFor(model => model.Stock, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
-                    @Html.LabelFor(m => m.StockMin)
-                    @Html.EditorFor(model => model.StockMin, new { htmlAttributes = new { @class = "form-control", @placeholder = "Inventario Minimo" } })
-                    @Html.ValidationMessageFor(model => model.StockMin, "", new { @class = "text-danger" })
-                </div>
                 <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
                     @Html.LabelFor(m => m.Garantia)
                     @Html.EditorFor(model => model.Garantia, new { htmlAttributes = new { @class = "form-control", @placeholder = "Garantia en dias" } })
@@ -90,8 +69,8 @@
             </div>
             <div class="row">
                 <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
-                    @Html.LabelFor(m => m.PrecioCompra)
-                    @Html.EditorFor(model => model.PrecioCompra, new { htmlAttributes = new { @class = "form-control", @placeholder = "Precio de Compra" } })
+                    <label>Precio de Costo:</label>
+                    @Html.EditorFor(model => model.PrecioCompra, new { htmlAttributes = new { @class = "form-control", @placeholder = "Precio Costo:" } })
                     @Html.ValidationMessageFor(model => model.PrecioCompra, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
@@ -106,26 +85,19 @@
                     </div>
                 </div>
             </div>
-            <div class=" row">
-                <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
-                    @Html.LabelFor(m => m.Icono)
-                    @Html.EditorFor(model => model.Icono, new { htmlAttributes = new { @class = "form-control", @placeholder = "Imagen", @type = "file" } })
-                    @Html.ValidationMessageFor(model => model.Icono, "", new { @class = "text-danger" })
-                </div>
-            </div>
         </div>
         <div class="form-group">
             <div class="col-sm-9 col-sm-offset-3">
                 <h3>
                     <span class="label label-danger">
-                        Desea eliminar el registro @ViewBag.Nombre?
+                        Desea eliminar el registro @Html.DisplayTextFor(m => m.Nombre)?
                     </span>
                 </h3>
             </div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            <button type="submit" class="btn btn-primary">Eliminar</button>
+            <button type="submit" class="btn btn-danger">Eliminar</button>
         </div>
     }
 </div>
@@ -143,4 +115,3 @@
     $("form").removeData("unobtrusiveValidation");
     $.validator.unobtrusive.parse("form");
 </script>
-

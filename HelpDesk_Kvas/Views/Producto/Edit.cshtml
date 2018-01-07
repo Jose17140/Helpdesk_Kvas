@@ -1,4 +1,4 @@
-﻿@model KvasEntity.ProductosEntity
+﻿@model HelpDesk_Kvas.Models.Datos.Entity.ProductosEntity
 @{
     ViewBag.Title = "Editar";
 }
@@ -13,11 +13,8 @@
         @Html.AntiForgeryToken()
         <div class="modal-body" style="padding: 5px;">
             <div class="row">
-                <input id="IdGrupoDetalle" name="IdGrupoDetalle" type="hidden" value="@ViewBag.Id" />
-                <input id="IdGrupo" name="IdGrupo" type="hidden" value="@ViewBag.Grupo" />
-                <input id="UrlDetalle" name="UrlDetalle" type="hidden" value="@ViewBag.Url" />
-                <input id="Orden" name="Orden" type="hidden" value="@ViewBag.Orden" />
-                <input id="Icono" name="Icono" type="hidden" value="fa fa-users" />
+                @Html.HiddenFor(m=>m.IdProducto)
+                @Html.HiddenFor(m => m.IdGrupo)
             </div>
             <div class="row">
                 <div class="col-lg-3 col-md-3 col-sm-3" style="padding-bottom: 10px;">
@@ -28,9 +25,9 @@
             </div>
             <div class="row">
                 <div class="col-lg-5 col-md-5 col-sm-5" style="padding-bottom: 10px;">
-                    @Html.LabelFor(m => m.Titulo)
-                    @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nombre" } })
-                    @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
+                    @Html.LabelFor(m => m.Nombre)
+                    @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nombre" } })
+                    @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-lg-7 col-md-7 col-sm-7" style="padding-bottom: 10px;">
                     @Html.LabelFor(m => m.Descripcion)
@@ -42,11 +39,11 @@
                 <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
                     <div class="btn-group" role="group" aria-label="...">
                         <div class="btn-group" role="group">
-                            @Html.LabelFor(m => m.IdPadre)
-                            @Html.DropDownListFor(model => model.IdPadre, ViewBag.ListaDepartamento as SelectList, "Seleccione Departamento", htmlAttributes: new { @class = "form-control" })
+                            @Html.LabelFor(m => m.IdCategoria)
+                            @Html.DropDownListFor(model => model.IdCategoria, ViewBag.ListaDepartamento as SelectList, "Seleccione Departamento", htmlAttributes: new { @class = "form-control" })
                         </div>
                         @*<button type="button" class="btn btn-success" data-modal="" href="/GrupoDetalle/Create/38" id="btnCreate">+</button>*@
-                        @Html.ValidationMessageFor(model => model.IdPadre, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(model => model.IdCategoria, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
@@ -107,9 +104,9 @@
             </div>
             <div class=" row">
                 <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
-                    @Html.LabelFor(m => m.Icono)
-                    @Html.EditorFor(model => model.Icono, new { htmlAttributes = new { @class = "form-control", @placeholder = "Imagen", @type = "file" } })
-                    @Html.ValidationMessageFor(model => model.Icono, "", new { @class = "text-danger" })
+                    @Html.LabelFor(m => m.Imagen)
+                    @Html.EditorFor(model => model.Imagen, new { htmlAttributes = new { @class = "form-control", @placeholder = "Imagen", @type = "file" } })
+                    @Html.ValidationMessageFor(model => model.Imagen, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>

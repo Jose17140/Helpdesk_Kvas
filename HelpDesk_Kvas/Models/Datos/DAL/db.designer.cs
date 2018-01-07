@@ -42,22 +42,19 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
     partial void InsertPersonas(Personas instance);
     partial void UpdatePersonas(Personas instance);
     partial void DeletePersonas(Personas instance);
-    partial void InsertReportes(Reportes instance);
-    partial void UpdateReportes(Reportes instance);
-    partial void DeleteReportes(Reportes instance);
-    partial void InsertUsuarios(Usuarios instance);
-    partial void UpdateUsuarios(Usuarios instance);
-    partial void DeleteUsuarios(Usuarios instance);
     partial void InsertProductoServicios(ProductoServicios instance);
     partial void UpdateProductoServicios(ProductoServicios instance);
     partial void DeleteProductoServicios(ProductoServicios instance);
     partial void InsertSerialesProductos(SerialesProductos instance);
     partial void UpdateSerialesProductos(SerialesProductos instance);
     partial void DeleteSerialesProductos(SerialesProductos instance);
+    partial void InsertUsuarios(Usuarios instance);
+    partial void UpdateUsuarios(Usuarios instance);
+    partial void DeleteUsuarios(Usuarios instance);
     #endregion
 		
 		public dbDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["Helpdesk_Kvas"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -84,38 +81,6 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 				base(connection, mappingSource)
 		{
 			OnCreated();
-		}
-		
-		public System.Data.Linq.Table<vw_ProductoSimple> vw_ProductoSimple
-		{
-			get
-			{
-				return this.GetTable<vw_ProductoSimple>();
-			}
-		}
-		
-		public System.Data.Linq.Table<vw_ListarProductos> vw_ListarProductos
-		{
-			get
-			{
-				return this.GetTable<vw_ListarProductos>();
-			}
-		}
-		
-		public System.Data.Linq.Table<vw_ListarUsuarios> vw_ListarUsuarios
-		{
-			get
-			{
-				return this.GetTable<vw_ListarUsuarios>();
-			}
-		}
-		
-		public System.Data.Linq.Table<vw_Personas> vw_Personas
-		{
-			get
-			{
-				return this.GetTable<vw_Personas>();
-			}
 		}
 		
 		public System.Data.Linq.Table<Grupos> Grupos
@@ -150,11 +115,19 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 			}
 		}
 		
-		public System.Data.Linq.Table<Reportes> Reportes
+		public System.Data.Linq.Table<ProductoServicios> ProductoServicios
 		{
 			get
 			{
-				return this.GetTable<Reportes>();
+				return this.GetTable<ProductoServicios>();
+			}
+		}
+		
+		public System.Data.Linq.Table<SerialesProductos> SerialesProductos
+		{
+			get
+			{
+				return this.GetTable<SerialesProductos>();
 			}
 		}
 		
@@ -174,6 +147,30 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 			}
 		}
 		
+		public System.Data.Linq.Table<vw_Personas> vw_Personas
+		{
+			get
+			{
+				return this.GetTable<vw_Personas>();
+			}
+		}
+		
+		public System.Data.Linq.Table<vw_ListarProductos> vw_ListarProductos
+		{
+			get
+			{
+				return this.GetTable<vw_ListarProductos>();
+			}
+		}
+		
+		public System.Data.Linq.Table<vw_ListarUsuarios> vw_ListarUsuarios
+		{
+			get
+			{
+				return this.GetTable<vw_ListarUsuarios>();
+			}
+		}
+		
 		public System.Data.Linq.Table<vw_Menu> vw_Menu
 		{
 			get
@@ -182,27 +179,18 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 			}
 		}
 		
-		public System.Data.Linq.Table<ProductoServicios> ProductoServicios
-		{
-			get
-			{
-				return this.GetTable<ProductoServicios>();
-			}
-		}
-		
-		public System.Data.Linq.Table<SerialesProductos> SerialesProductos
-		{
-			get
-			{
-				return this.GetTable<SerialesProductos>();
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_ActualizarUsuario")]
 		public int sp_ActualizarUsuario([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdUsuario", DbType="Int")] System.Nullable<int> idUsuario, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Contrasena", DbType="VarChar(100)")] string contrasena, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Email", DbType="VarChar(60)")] string email, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdPregunta", DbType="Int")] System.Nullable<int> idPregunta, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Respuesta", DbType="VarChar(50)")] string respuesta, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Estatus", DbType="Bit")] System.Nullable<bool> estatus, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="FechaModificacion", DbType="DateTime")] System.Nullable<System.DateTime> fechaModificacion, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdRole", DbType="Int")] System.Nullable<int> idRole)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUsuario, contrasena, email, idPregunta, respuesta, estatus, fechaModificacion, idRole);
 			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_ListarNivelGrupo")]
+		public ISingleResult<sp_ListarNivelGrupoResult> sp_ListarNivelGrupo([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdGrupo", DbType="Int")] System.Nullable<int> idGrupo)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idGrupo);
+			return ((ISingleResult<sp_ListarNivelGrupoResult>)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_AgregarUsuario")]
@@ -217,1147 +205,6 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id);
 			return ((ISingleResult<sp_BuscarUsuariosResult>)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_ListarNivelGrupo")]
-		public ISingleResult<sp_ListarNivelGrupoResult> sp_ListarNivelGrupo([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdGrupo", DbType="Int")] System.Nullable<int> idGrupo)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idGrupo);
-			return ((ISingleResult<sp_ListarNivelGrupoResult>)(result.ReturnValue));
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vw_ProductoSimple")]
-	public partial class vw_ProductoSimple
-	{
-		
-		private int _IdProducto;
-		
-		private string _Nombre;
-		
-		private string _Descripcion;
-		
-		private int _Orden;
-		
-		private int _IdGrupo;
-		
-		private System.Nullable<int> _IdPadre;
-		
-		private string _Icono;
-		
-		private string _Sku;
-		
-		private System.Nullable<int> _IdFabricante;
-		
-		private System.Nullable<int> _Stock;
-		
-		private System.Nullable<int> _IdUnidad;
-		
-		private System.Nullable<int> _Stock_Min;
-		
-		private System.Nullable<decimal> _PrecioCompra;
-		
-		private System.Nullable<decimal> _PrecioVenta;
-		
-		private System.Nullable<int> _Garantia;
-		
-		private bool _Estatus;
-		
-		private System.DateTime _FechaRegistro;
-		
-		public vw_ProductoSimple()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdProducto", DbType="Int NOT NULL")]
-		public int IdProducto
-		{
-			get
-			{
-				return this._IdProducto;
-			}
-			set
-			{
-				if ((this._IdProducto != value))
-				{
-					this._IdProducto = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Nombre
-		{
-			get
-			{
-				return this._Nombre;
-			}
-			set
-			{
-				if ((this._Nombre != value))
-				{
-					this._Nombre = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descripcion", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Descripcion
-		{
-			get
-			{
-				return this._Descripcion;
-			}
-			set
-			{
-				if ((this._Descripcion != value))
-				{
-					this._Descripcion = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Orden", DbType="Int NOT NULL")]
-		public int Orden
-		{
-			get
-			{
-				return this._Orden;
-			}
-			set
-			{
-				if ((this._Orden != value))
-				{
-					this._Orden = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdGrupo", DbType="Int NOT NULL")]
-		public int IdGrupo
-		{
-			get
-			{
-				return this._IdGrupo;
-			}
-			set
-			{
-				if ((this._IdGrupo != value))
-				{
-					this._IdGrupo = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPadre", DbType="Int")]
-		public System.Nullable<int> IdPadre
-		{
-			get
-			{
-				return this._IdPadre;
-			}
-			set
-			{
-				if ((this._IdPadre != value))
-				{
-					this._IdPadre = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Icono", DbType="NVarChar(30)")]
-		public string Icono
-		{
-			get
-			{
-				return this._Icono;
-			}
-			set
-			{
-				if ((this._Icono != value))
-				{
-					this._Icono = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sku", DbType="VarChar(24)")]
-		public string Sku
-		{
-			get
-			{
-				return this._Sku;
-			}
-			set
-			{
-				if ((this._Sku != value))
-				{
-					this._Sku = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdFabricante", DbType="Int")]
-		public System.Nullable<int> IdFabricante
-		{
-			get
-			{
-				return this._IdFabricante;
-			}
-			set
-			{
-				if ((this._IdFabricante != value))
-				{
-					this._IdFabricante = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Stock", DbType="Int")]
-		public System.Nullable<int> Stock
-		{
-			get
-			{
-				return this._Stock;
-			}
-			set
-			{
-				if ((this._Stock != value))
-				{
-					this._Stock = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdUnidad", DbType="Int")]
-		public System.Nullable<int> IdUnidad
-		{
-			get
-			{
-				return this._IdUnidad;
-			}
-			set
-			{
-				if ((this._IdUnidad != value))
-				{
-					this._IdUnidad = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Stock_Min", DbType="Int")]
-		public System.Nullable<int> Stock_Min
-		{
-			get
-			{
-				return this._Stock_Min;
-			}
-			set
-			{
-				if ((this._Stock_Min != value))
-				{
-					this._Stock_Min = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PrecioCompra", DbType="Decimal(8,2)")]
-		public System.Nullable<decimal> PrecioCompra
-		{
-			get
-			{
-				return this._PrecioCompra;
-			}
-			set
-			{
-				if ((this._PrecioCompra != value))
-				{
-					this._PrecioCompra = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PrecioVenta", DbType="Decimal(8,2)")]
-		public System.Nullable<decimal> PrecioVenta
-		{
-			get
-			{
-				return this._PrecioVenta;
-			}
-			set
-			{
-				if ((this._PrecioVenta != value))
-				{
-					this._PrecioVenta = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Garantia", DbType="Int")]
-		public System.Nullable<int> Garantia
-		{
-			get
-			{
-				return this._Garantia;
-			}
-			set
-			{
-				if ((this._Garantia != value))
-				{
-					this._Garantia = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estatus", DbType="Bit NOT NULL")]
-		public bool Estatus
-		{
-			get
-			{
-				return this._Estatus;
-			}
-			set
-			{
-				if ((this._Estatus != value))
-				{
-					this._Estatus = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaRegistro", DbType="DateTime NOT NULL")]
-		public System.DateTime FechaRegistro
-		{
-			get
-			{
-				return this._FechaRegistro;
-			}
-			set
-			{
-				if ((this._FechaRegistro != value))
-				{
-					this._FechaRegistro = value;
-				}
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vw_ListarProductos")]
-	public partial class vw_ListarProductos
-	{
-		
-		private System.Nullable<int> _IdProducto;
-		
-		private string _Sku;
-		
-		private string _Nombre;
-		
-		private string _Descripcion;
-		
-		private System.Nullable<int> _Orden;
-		
-		private System.Nullable<int> _IdGrupo;
-		
-		private string _Grupo;
-		
-		private System.Nullable<int> _IdPadre;
-		
-		private string _Padre;
-		
-		private string _Icono;
-		
-		private string _UrlDetalle;
-		
-		private System.Nullable<int> _IdFabricante;
-		
-		private string _Fabricante;
-		
-		private System.Nullable<int> _Stock;
-		
-		private System.Nullable<int> _Stock_Min;
-		
-		private System.Nullable<int> _IdUnidad;
-		
-		private string _Unidad;
-		
-		private System.Nullable<int> _Garantia;
-		
-		private System.Nullable<decimal> _PrecioCompra;
-		
-		private System.Nullable<decimal> _PrecioVenta;
-		
-		private System.Nullable<bool> _Estatus;
-		
-		private System.Nullable<System.DateTime> _FechaRegistro;
-		
-		public vw_ListarProductos()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdProducto", DbType="Int")]
-		public System.Nullable<int> IdProducto
-		{
-			get
-			{
-				return this._IdProducto;
-			}
-			set
-			{
-				if ((this._IdProducto != value))
-				{
-					this._IdProducto = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sku", DbType="VarChar(24)")]
-		public string Sku
-		{
-			get
-			{
-				return this._Sku;
-			}
-			set
-			{
-				if ((this._Sku != value))
-				{
-					this._Sku = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(50)")]
-		public string Nombre
-		{
-			get
-			{
-				return this._Nombre;
-			}
-			set
-			{
-				if ((this._Nombre != value))
-				{
-					this._Nombre = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descripcion", DbType="VarChar(50)")]
-		public string Descripcion
-		{
-			get
-			{
-				return this._Descripcion;
-			}
-			set
-			{
-				if ((this._Descripcion != value))
-				{
-					this._Descripcion = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Orden", DbType="Int")]
-		public System.Nullable<int> Orden
-		{
-			get
-			{
-				return this._Orden;
-			}
-			set
-			{
-				if ((this._Orden != value))
-				{
-					this._Orden = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdGrupo", DbType="Int")]
-		public System.Nullable<int> IdGrupo
-		{
-			get
-			{
-				return this._IdGrupo;
-			}
-			set
-			{
-				if ((this._IdGrupo != value))
-				{
-					this._IdGrupo = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Grupo", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Grupo
-		{
-			get
-			{
-				return this._Grupo;
-			}
-			set
-			{
-				if ((this._Grupo != value))
-				{
-					this._Grupo = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPadre", DbType="Int")]
-		public System.Nullable<int> IdPadre
-		{
-			get
-			{
-				return this._IdPadre;
-			}
-			set
-			{
-				if ((this._IdPadre != value))
-				{
-					this._IdPadre = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Padre", DbType="VarChar(50)")]
-		public string Padre
-		{
-			get
-			{
-				return this._Padre;
-			}
-			set
-			{
-				if ((this._Padre != value))
-				{
-					this._Padre = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Icono", DbType="NVarChar(30)")]
-		public string Icono
-		{
-			get
-			{
-				return this._Icono;
-			}
-			set
-			{
-				if ((this._Icono != value))
-				{
-					this._Icono = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UrlDetalle", DbType="VarChar(100)")]
-		public string UrlDetalle
-		{
-			get
-			{
-				return this._UrlDetalle;
-			}
-			set
-			{
-				if ((this._UrlDetalle != value))
-				{
-					this._UrlDetalle = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdFabricante", DbType="Int")]
-		public System.Nullable<int> IdFabricante
-		{
-			get
-			{
-				return this._IdFabricante;
-			}
-			set
-			{
-				if ((this._IdFabricante != value))
-				{
-					this._IdFabricante = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fabricante", DbType="VarChar(50)")]
-		public string Fabricante
-		{
-			get
-			{
-				return this._Fabricante;
-			}
-			set
-			{
-				if ((this._Fabricante != value))
-				{
-					this._Fabricante = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Stock", DbType="Int")]
-		public System.Nullable<int> Stock
-		{
-			get
-			{
-				return this._Stock;
-			}
-			set
-			{
-				if ((this._Stock != value))
-				{
-					this._Stock = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Stock_Min", DbType="Int")]
-		public System.Nullable<int> Stock_Min
-		{
-			get
-			{
-				return this._Stock_Min;
-			}
-			set
-			{
-				if ((this._Stock_Min != value))
-				{
-					this._Stock_Min = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdUnidad", DbType="Int")]
-		public System.Nullable<int> IdUnidad
-		{
-			get
-			{
-				return this._IdUnidad;
-			}
-			set
-			{
-				if ((this._IdUnidad != value))
-				{
-					this._IdUnidad = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Unidad", DbType="VarChar(50)")]
-		public string Unidad
-		{
-			get
-			{
-				return this._Unidad;
-			}
-			set
-			{
-				if ((this._Unidad != value))
-				{
-					this._Unidad = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Garantia", DbType="Int")]
-		public System.Nullable<int> Garantia
-		{
-			get
-			{
-				return this._Garantia;
-			}
-			set
-			{
-				if ((this._Garantia != value))
-				{
-					this._Garantia = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PrecioCompra", DbType="Decimal(8,2)")]
-		public System.Nullable<decimal> PrecioCompra
-		{
-			get
-			{
-				return this._PrecioCompra;
-			}
-			set
-			{
-				if ((this._PrecioCompra != value))
-				{
-					this._PrecioCompra = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PrecioVenta", DbType="Decimal(8,2)")]
-		public System.Nullable<decimal> PrecioVenta
-		{
-			get
-			{
-				return this._PrecioVenta;
-			}
-			set
-			{
-				if ((this._PrecioVenta != value))
-				{
-					this._PrecioVenta = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estatus", DbType="Bit")]
-		public System.Nullable<bool> Estatus
-		{
-			get
-			{
-				return this._Estatus;
-			}
-			set
-			{
-				if ((this._Estatus != value))
-				{
-					this._Estatus = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaRegistro", DbType="DateTime")]
-		public System.Nullable<System.DateTime> FechaRegistro
-		{
-			get
-			{
-				return this._FechaRegistro;
-			}
-			set
-			{
-				if ((this._FechaRegistro != value))
-				{
-					this._FechaRegistro = value;
-				}
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vw_ListarUsuarios")]
-	public partial class vw_ListarUsuarios
-	{
-		
-		private int _IdUsuario;
-		
-		private string _NombreUsuario;
-		
-		private string _Contrasena;
-		
-		private string _Correo;
-		
-		private int _IdRoles;
-		
-		private string _NombreRol;
-		
-		private int _IdPregunta;
-		
-		private string _Pregunta;
-		
-		private string _RespuestaSeguridad;
-		
-		private string _Avatar;
-		
-		private System.Nullable<System.DateTime> _FechaLogin;
-		
-		private int _ContadorFallido;
-		
-		private bool _Estatus;
-		
-		private System.DateTime _FechaRegistro;
-		
-		private System.Nullable<System.DateTime> _FechaModificacion;
-		
-		public vw_ListarUsuarios()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdUsuario", DbType="Int NOT NULL")]
-		public int IdUsuario
-		{
-			get
-			{
-				return this._IdUsuario;
-			}
-			set
-			{
-				if ((this._IdUsuario != value))
-				{
-					this._IdUsuario = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreUsuario", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
-		public string NombreUsuario
-		{
-			get
-			{
-				return this._NombreUsuario;
-			}
-			set
-			{
-				if ((this._NombreUsuario != value))
-				{
-					this._NombreUsuario = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Contrasena", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
-		public string Contrasena
-		{
-			get
-			{
-				return this._Contrasena;
-			}
-			set
-			{
-				if ((this._Contrasena != value))
-				{
-					this._Contrasena = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Correo", DbType="VarChar(60) NOT NULL", CanBeNull=false)]
-		public string Correo
-		{
-			get
-			{
-				return this._Correo;
-			}
-			set
-			{
-				if ((this._Correo != value))
-				{
-					this._Correo = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdRoles", DbType="Int NOT NULL")]
-		public int IdRoles
-		{
-			get
-			{
-				return this._IdRoles;
-			}
-			set
-			{
-				if ((this._IdRoles != value))
-				{
-					this._IdRoles = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreRol", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string NombreRol
-		{
-			get
-			{
-				return this._NombreRol;
-			}
-			set
-			{
-				if ((this._NombreRol != value))
-				{
-					this._NombreRol = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPregunta", DbType="Int NOT NULL")]
-		public int IdPregunta
-		{
-			get
-			{
-				return this._IdPregunta;
-			}
-			set
-			{
-				if ((this._IdPregunta != value))
-				{
-					this._IdPregunta = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Pregunta", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Pregunta
-		{
-			get
-			{
-				return this._Pregunta;
-			}
-			set
-			{
-				if ((this._Pregunta != value))
-				{
-					this._Pregunta = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RespuestaSeguridad", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string RespuestaSeguridad
-		{
-			get
-			{
-				return this._RespuestaSeguridad;
-			}
-			set
-			{
-				if ((this._RespuestaSeguridad != value))
-				{
-					this._RespuestaSeguridad = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Avatar", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
-		public string Avatar
-		{
-			get
-			{
-				return this._Avatar;
-			}
-			set
-			{
-				if ((this._Avatar != value))
-				{
-					this._Avatar = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaLogin", DbType="DateTime")]
-		public System.Nullable<System.DateTime> FechaLogin
-		{
-			get
-			{
-				return this._FechaLogin;
-			}
-			set
-			{
-				if ((this._FechaLogin != value))
-				{
-					this._FechaLogin = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ContadorFallido", DbType="Int NOT NULL")]
-		public int ContadorFallido
-		{
-			get
-			{
-				return this._ContadorFallido;
-			}
-			set
-			{
-				if ((this._ContadorFallido != value))
-				{
-					this._ContadorFallido = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estatus", DbType="Bit NOT NULL")]
-		public bool Estatus
-		{
-			get
-			{
-				return this._Estatus;
-			}
-			set
-			{
-				if ((this._Estatus != value))
-				{
-					this._Estatus = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaRegistro", DbType="DateTime NOT NULL")]
-		public System.DateTime FechaRegistro
-		{
-			get
-			{
-				return this._FechaRegistro;
-			}
-			set
-			{
-				if ((this._FechaRegistro != value))
-				{
-					this._FechaRegistro = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaModificacion", DbType="DateTime")]
-		public System.Nullable<System.DateTime> FechaModificacion
-		{
-			get
-			{
-				return this._FechaModificacion;
-			}
-			set
-			{
-				if ((this._FechaModificacion != value))
-				{
-					this._FechaModificacion = value;
-				}
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vw_Personas")]
-	public partial class vw_Personas
-	{
-		
-		private int _IdPersona;
-		
-		private string _Nombres;
-		
-		private string _Cedula;
-		
-		private string _Direccion;
-		
-		private string _Telefonos;
-		
-		private string _Email;
-		
-		private System.DateTime _FechaRegistro;
-		
-		public vw_Personas()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPersona", DbType="Int NOT NULL")]
-		public int IdPersona
-		{
-			get
-			{
-				return this._IdPersona;
-			}
-			set
-			{
-				if ((this._IdPersona != value))
-				{
-					this._IdPersona = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombres", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Nombres
-		{
-			get
-			{
-				return this._Nombres;
-			}
-			set
-			{
-				if ((this._Nombres != value))
-				{
-					this._Nombres = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cedula", DbType="VarChar(61) NOT NULL", CanBeNull=false)]
-		public string Cedula
-		{
-			get
-			{
-				return this._Cedula;
-			}
-			set
-			{
-				if ((this._Cedula != value))
-				{
-					this._Cedula = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Direccion", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
-		public string Direccion
-		{
-			get
-			{
-				return this._Direccion;
-			}
-			set
-			{
-				if ((this._Direccion != value))
-				{
-					this._Direccion = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Telefonos", DbType="VarChar(60) NOT NULL", CanBeNull=false)]
-		public string Telefonos
-		{
-			get
-			{
-				return this._Telefonos;
-			}
-			set
-			{
-				if ((this._Telefonos != value))
-				{
-					this._Telefonos = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="VarChar(60)")]
-		public string Email
-		{
-			get
-			{
-				return this._Email;
-			}
-			set
-			{
-				if ((this._Email != value))
-				{
-					this._Email = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaRegistro", DbType="DateTime NOT NULL")]
-		public System.DateTime FechaRegistro
-		{
-			get
-			{
-				return this._FechaRegistro;
-			}
-			set
-			{
-				if ((this._FechaRegistro != value))
-				{
-					this._FechaRegistro = value;
-				}
-			}
 		}
 	}
 	
@@ -1888,8 +735,6 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 		
 		private EntitySet<Personas> _Personas;
 		
-		private EntitySet<Usuarios> _Usuarios;
-		
 		private EntitySet<ProductoServicios> _ProductoServicios;
 		
 		private EntitySet<ProductoServicios> _ProductoServicios1;
@@ -1897,6 +742,8 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 		private EntitySet<ProductoServicios> _ProductoServicios2;
 		
 		private EntitySet<ProductoServicios> _ProductoServicios3;
+		
+		private EntitySet<Usuarios> _Usuarios;
 		
 		private EntityRef<Grupos> _Grupos;
 		
@@ -1933,11 +780,11 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 			this._UsuariosRoles = new EntitySet<UsuariosRoles>(new Action<UsuariosRoles>(this.attach_UsuariosRoles), new Action<UsuariosRoles>(this.detach_UsuariosRoles));
 			this._GruposDetalles2 = new EntitySet<GruposDetalles>(new Action<GruposDetalles>(this.attach_GruposDetalles2), new Action<GruposDetalles>(this.detach_GruposDetalles2));
 			this._Personas = new EntitySet<Personas>(new Action<Personas>(this.attach_Personas), new Action<Personas>(this.detach_Personas));
-			this._Usuarios = new EntitySet<Usuarios>(new Action<Usuarios>(this.attach_Usuarios), new Action<Usuarios>(this.detach_Usuarios));
 			this._ProductoServicios = new EntitySet<ProductoServicios>(new Action<ProductoServicios>(this.attach_ProductoServicios), new Action<ProductoServicios>(this.detach_ProductoServicios));
 			this._ProductoServicios1 = new EntitySet<ProductoServicios>(new Action<ProductoServicios>(this.attach_ProductoServicios1), new Action<ProductoServicios>(this.detach_ProductoServicios1));
 			this._ProductoServicios2 = new EntitySet<ProductoServicios>(new Action<ProductoServicios>(this.attach_ProductoServicios2), new Action<ProductoServicios>(this.detach_ProductoServicios2));
 			this._ProductoServicios3 = new EntitySet<ProductoServicios>(new Action<ProductoServicios>(this.attach_ProductoServicios3), new Action<ProductoServicios>(this.detach_ProductoServicios3));
+			this._Usuarios = new EntitySet<Usuarios>(new Action<Usuarios>(this.attach_Usuarios), new Action<Usuarios>(this.detach_Usuarios));
 			this._Grupos = default(EntityRef<Grupos>);
 			this._GruposDetalles1 = default(EntityRef<GruposDetalles>);
 			OnCreated();
@@ -2190,19 +1037,6 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_Usuarios", Storage="_Usuarios", ThisKey="IdGrupoDetalle", OtherKey="IdPreguntaSeguridad")]
-		public EntitySet<Usuarios> Usuarios
-		{
-			get
-			{
-				return this._Usuarios;
-			}
-			set
-			{
-				this._Usuarios.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_ProductoServicios", Storage="_ProductoServicios", ThisKey="IdGrupoDetalle", OtherKey="IdCategoria")]
 		public EntitySet<ProductoServicios> ProductoServicios
 		{
@@ -2252,6 +1086,19 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 			set
 			{
 				this._ProductoServicios3.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_Usuarios", Storage="_Usuarios", ThisKey="IdGrupoDetalle", OtherKey="IdPreguntaSeguridad")]
+		public EntitySet<Usuarios> Usuarios
+		{
+			get
+			{
+				return this._Usuarios;
+			}
+			set
+			{
+				this._Usuarios.Assign(value);
 			}
 		}
 		
@@ -2379,18 +1226,6 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 			entity.GruposDetalles = null;
 		}
 		
-		private void attach_Usuarios(Usuarios entity)
-		{
-			this.SendPropertyChanging();
-			entity.GruposDetalles = this;
-		}
-		
-		private void detach_Usuarios(Usuarios entity)
-		{
-			this.SendPropertyChanging();
-			entity.GruposDetalles = null;
-		}
-		
 		private void attach_ProductoServicios(ProductoServicios entity)
 		{
 			this.SendPropertyChanging();
@@ -2437,6 +1272,18 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 		{
 			this.SendPropertyChanging();
 			entity.GruposDetalles3 = null;
+		}
+		
+		private void attach_Usuarios(Usuarios entity)
+		{
+			this.SendPropertyChanging();
+			entity.GruposDetalles = this;
+		}
+		
+		private void detach_Usuarios(Usuarios entity)
+		{
+			this.SendPropertyChanging();
+			entity.GruposDetalles = null;
 		}
 	}
 	
@@ -2707,967 +1554,6 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 			if ((this.PropertyChanged != null))
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Reportes")]
-	public partial class Reportes : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _IdReporte;
-		
-    #region Definiciones de métodos de extensibilidad
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdReporteChanging(int value);
-    partial void OnIdReporteChanged();
-    #endregion
-		
-		public Reportes()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdReporte", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int IdReporte
-		{
-			get
-			{
-				return this._IdReporte;
-			}
-			set
-			{
-				if ((this._IdReporte != value))
-				{
-					this.OnIdReporteChanging(value);
-					this.SendPropertyChanging();
-					this._IdReporte = value;
-					this.SendPropertyChanged("IdReporte");
-					this.OnIdReporteChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Usuarios")]
-	public partial class Usuarios : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _IdUsuario;
-		
-		private string _NombreUsuario;
-		
-		private string _Contrasena;
-		
-		private string _Email;
-		
-		private int _IdPreguntaSeguridad;
-		
-		private string _RespuestaSeguridad;
-		
-		private string _Avatar;
-		
-		private System.Nullable<System.DateTime> _FechaLogin;
-		
-		private int _ContadorFallido;
-		
-		private bool _Estatus;
-		
-		private System.DateTime _FechaRegistro;
-		
-		private System.Nullable<System.DateTime> _FechaModificacion;
-		
-		private EntitySet<UsuariosRoles> _UsuariosRoles;
-		
-		private EntityRef<GruposDetalles> _GruposDetalles;
-		
-    #region Definiciones de métodos de extensibilidad
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdUsuarioChanging(int value);
-    partial void OnIdUsuarioChanged();
-    partial void OnNombreUsuarioChanging(string value);
-    partial void OnNombreUsuarioChanged();
-    partial void OnContrasenaChanging(string value);
-    partial void OnContrasenaChanged();
-    partial void OnEmailChanging(string value);
-    partial void OnEmailChanged();
-    partial void OnIdPreguntaSeguridadChanging(int value);
-    partial void OnIdPreguntaSeguridadChanged();
-    partial void OnRespuestaSeguridadChanging(string value);
-    partial void OnRespuestaSeguridadChanged();
-    partial void OnAvatarChanging(string value);
-    partial void OnAvatarChanged();
-    partial void OnFechaLoginChanging(System.Nullable<System.DateTime> value);
-    partial void OnFechaLoginChanged();
-    partial void OnContadorFallidoChanging(int value);
-    partial void OnContadorFallidoChanged();
-    partial void OnEstatusChanging(bool value);
-    partial void OnEstatusChanged();
-    partial void OnFechaRegistroChanging(System.DateTime value);
-    partial void OnFechaRegistroChanged();
-    partial void OnFechaModificacionChanging(System.Nullable<System.DateTime> value);
-    partial void OnFechaModificacionChanged();
-    #endregion
-		
-		public Usuarios()
-		{
-			this._UsuariosRoles = new EntitySet<UsuariosRoles>(new Action<UsuariosRoles>(this.attach_UsuariosRoles), new Action<UsuariosRoles>(this.detach_UsuariosRoles));
-			this._GruposDetalles = default(EntityRef<GruposDetalles>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdUsuario", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int IdUsuario
-		{
-			get
-			{
-				return this._IdUsuario;
-			}
-			set
-			{
-				if ((this._IdUsuario != value))
-				{
-					this.OnIdUsuarioChanging(value);
-					this.SendPropertyChanging();
-					this._IdUsuario = value;
-					this.SendPropertyChanged("IdUsuario");
-					this.OnIdUsuarioChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreUsuario", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
-		public string NombreUsuario
-		{
-			get
-			{
-				return this._NombreUsuario;
-			}
-			set
-			{
-				if ((this._NombreUsuario != value))
-				{
-					this.OnNombreUsuarioChanging(value);
-					this.SendPropertyChanging();
-					this._NombreUsuario = value;
-					this.SendPropertyChanged("NombreUsuario");
-					this.OnNombreUsuarioChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Contrasena", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
-		public string Contrasena
-		{
-			get
-			{
-				return this._Contrasena;
-			}
-			set
-			{
-				if ((this._Contrasena != value))
-				{
-					this.OnContrasenaChanging(value);
-					this.SendPropertyChanging();
-					this._Contrasena = value;
-					this.SendPropertyChanged("Contrasena");
-					this.OnContrasenaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="VarChar(60) NOT NULL", CanBeNull=false)]
-		public string Email
-		{
-			get
-			{
-				return this._Email;
-			}
-			set
-			{
-				if ((this._Email != value))
-				{
-					this.OnEmailChanging(value);
-					this.SendPropertyChanging();
-					this._Email = value;
-					this.SendPropertyChanged("Email");
-					this.OnEmailChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPreguntaSeguridad", DbType="Int NOT NULL")]
-		public int IdPreguntaSeguridad
-		{
-			get
-			{
-				return this._IdPreguntaSeguridad;
-			}
-			set
-			{
-				if ((this._IdPreguntaSeguridad != value))
-				{
-					if (this._GruposDetalles.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnIdPreguntaSeguridadChanging(value);
-					this.SendPropertyChanging();
-					this._IdPreguntaSeguridad = value;
-					this.SendPropertyChanged("IdPreguntaSeguridad");
-					this.OnIdPreguntaSeguridadChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RespuestaSeguridad", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string RespuestaSeguridad
-		{
-			get
-			{
-				return this._RespuestaSeguridad;
-			}
-			set
-			{
-				if ((this._RespuestaSeguridad != value))
-				{
-					this.OnRespuestaSeguridadChanging(value);
-					this.SendPropertyChanging();
-					this._RespuestaSeguridad = value;
-					this.SendPropertyChanged("RespuestaSeguridad");
-					this.OnRespuestaSeguridadChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Avatar", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
-		public string Avatar
-		{
-			get
-			{
-				return this._Avatar;
-			}
-			set
-			{
-				if ((this._Avatar != value))
-				{
-					this.OnAvatarChanging(value);
-					this.SendPropertyChanging();
-					this._Avatar = value;
-					this.SendPropertyChanged("Avatar");
-					this.OnAvatarChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaLogin", DbType="DateTime")]
-		public System.Nullable<System.DateTime> FechaLogin
-		{
-			get
-			{
-				return this._FechaLogin;
-			}
-			set
-			{
-				if ((this._FechaLogin != value))
-				{
-					this.OnFechaLoginChanging(value);
-					this.SendPropertyChanging();
-					this._FechaLogin = value;
-					this.SendPropertyChanged("FechaLogin");
-					this.OnFechaLoginChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ContadorFallido", DbType="Int NOT NULL")]
-		public int ContadorFallido
-		{
-			get
-			{
-				return this._ContadorFallido;
-			}
-			set
-			{
-				if ((this._ContadorFallido != value))
-				{
-					this.OnContadorFallidoChanging(value);
-					this.SendPropertyChanging();
-					this._ContadorFallido = value;
-					this.SendPropertyChanged("ContadorFallido");
-					this.OnContadorFallidoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estatus", DbType="Bit NOT NULL")]
-		public bool Estatus
-		{
-			get
-			{
-				return this._Estatus;
-			}
-			set
-			{
-				if ((this._Estatus != value))
-				{
-					this.OnEstatusChanging(value);
-					this.SendPropertyChanging();
-					this._Estatus = value;
-					this.SendPropertyChanged("Estatus");
-					this.OnEstatusChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaRegistro", DbType="DateTime NOT NULL")]
-		public System.DateTime FechaRegistro
-		{
-			get
-			{
-				return this._FechaRegistro;
-			}
-			set
-			{
-				if ((this._FechaRegistro != value))
-				{
-					this.OnFechaRegistroChanging(value);
-					this.SendPropertyChanging();
-					this._FechaRegistro = value;
-					this.SendPropertyChanged("FechaRegistro");
-					this.OnFechaRegistroChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaModificacion", DbType="DateTime")]
-		public System.Nullable<System.DateTime> FechaModificacion
-		{
-			get
-			{
-				return this._FechaModificacion;
-			}
-			set
-			{
-				if ((this._FechaModificacion != value))
-				{
-					this.OnFechaModificacionChanging(value);
-					this.SendPropertyChanging();
-					this._FechaModificacion = value;
-					this.SendPropertyChanged("FechaModificacion");
-					this.OnFechaModificacionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Usuarios_UsuariosRoles", Storage="_UsuariosRoles", ThisKey="IdUsuario", OtherKey="IdUsuario")]
-		public EntitySet<UsuariosRoles> UsuariosRoles
-		{
-			get
-			{
-				return this._UsuariosRoles;
-			}
-			set
-			{
-				this._UsuariosRoles.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_Usuarios", Storage="_GruposDetalles", ThisKey="IdPreguntaSeguridad", OtherKey="IdGrupoDetalle", IsForeignKey=true)]
-		public GruposDetalles GruposDetalles
-		{
-			get
-			{
-				return this._GruposDetalles.Entity;
-			}
-			set
-			{
-				GruposDetalles previousValue = this._GruposDetalles.Entity;
-				if (((previousValue != value) 
-							|| (this._GruposDetalles.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._GruposDetalles.Entity = null;
-						previousValue.Usuarios.Remove(this);
-					}
-					this._GruposDetalles.Entity = value;
-					if ((value != null))
-					{
-						value.Usuarios.Add(this);
-						this._IdPreguntaSeguridad = value.IdGrupoDetalle;
-					}
-					else
-					{
-						this._IdPreguntaSeguridad = default(int);
-					}
-					this.SendPropertyChanged("GruposDetalles");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_UsuariosRoles(UsuariosRoles entity)
-		{
-			this.SendPropertyChanging();
-			entity.Usuarios = this;
-		}
-		
-		private void detach_UsuariosRoles(UsuariosRoles entity)
-		{
-			this.SendPropertyChanging();
-			entity.Usuarios = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vw_GruposDetalles")]
-	public partial class vw_GruposDetalles
-	{
-		
-		private System.Nullable<int> _IdGrupoDetalle;
-		
-		private string _Nombre;
-		
-		private string _Descripcion;
-		
-		private System.Nullable<int> _Orden;
-		
-		private System.Nullable<int> _IdGrupo;
-		
-		private System.Nullable<int> _IdPadre;
-		
-		private System.Nullable<int> _IdGrupoPadre;
-		
-		private string _Categoria;
-		
-		private string _Imagen;
-		
-		private string _UrlDetalle;
-		
-		private System.Nullable<bool> _Estatus;
-		
-		private System.Nullable<System.DateTime> _FechaRegistro;
-		
-		private System.Nullable<int> _LevelGrupo;
-		
-		public vw_GruposDetalles()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdGrupoDetalle", DbType="Int")]
-		public System.Nullable<int> IdGrupoDetalle
-		{
-			get
-			{
-				return this._IdGrupoDetalle;
-			}
-			set
-			{
-				if ((this._IdGrupoDetalle != value))
-				{
-					this._IdGrupoDetalle = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(50)")]
-		public string Nombre
-		{
-			get
-			{
-				return this._Nombre;
-			}
-			set
-			{
-				if ((this._Nombre != value))
-				{
-					this._Nombre = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descripcion", DbType="VarChar(50)")]
-		public string Descripcion
-		{
-			get
-			{
-				return this._Descripcion;
-			}
-			set
-			{
-				if ((this._Descripcion != value))
-				{
-					this._Descripcion = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Orden", DbType="Int")]
-		public System.Nullable<int> Orden
-		{
-			get
-			{
-				return this._Orden;
-			}
-			set
-			{
-				if ((this._Orden != value))
-				{
-					this._Orden = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdGrupo", DbType="Int")]
-		public System.Nullable<int> IdGrupo
-		{
-			get
-			{
-				return this._IdGrupo;
-			}
-			set
-			{
-				if ((this._IdGrupo != value))
-				{
-					this._IdGrupo = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPadre", DbType="Int")]
-		public System.Nullable<int> IdPadre
-		{
-			get
-			{
-				return this._IdPadre;
-			}
-			set
-			{
-				if ((this._IdPadre != value))
-				{
-					this._IdPadre = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdGrupoPadre", DbType="Int")]
-		public System.Nullable<int> IdGrupoPadre
-		{
-			get
-			{
-				return this._IdGrupoPadre;
-			}
-			set
-			{
-				if ((this._IdGrupoPadre != value))
-				{
-					this._IdGrupoPadre = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Categoria", DbType="VarChar(50)")]
-		public string Categoria
-		{
-			get
-			{
-				return this._Categoria;
-			}
-			set
-			{
-				if ((this._Categoria != value))
-				{
-					this._Categoria = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Imagen", DbType="NVarChar(30)")]
-		public string Imagen
-		{
-			get
-			{
-				return this._Imagen;
-			}
-			set
-			{
-				if ((this._Imagen != value))
-				{
-					this._Imagen = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UrlDetalle", DbType="VarChar(100)")]
-		public string UrlDetalle
-		{
-			get
-			{
-				return this._UrlDetalle;
-			}
-			set
-			{
-				if ((this._UrlDetalle != value))
-				{
-					this._UrlDetalle = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estatus", DbType="Bit")]
-		public System.Nullable<bool> Estatus
-		{
-			get
-			{
-				return this._Estatus;
-			}
-			set
-			{
-				if ((this._Estatus != value))
-				{
-					this._Estatus = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaRegistro", DbType="DateTime")]
-		public System.Nullable<System.DateTime> FechaRegistro
-		{
-			get
-			{
-				return this._FechaRegistro;
-			}
-			set
-			{
-				if ((this._FechaRegistro != value))
-				{
-					this._FechaRegistro = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LevelGrupo", DbType="Int")]
-		public System.Nullable<int> LevelGrupo
-		{
-			get
-			{
-				return this._LevelGrupo;
-			}
-			set
-			{
-				if ((this._LevelGrupo != value))
-				{
-					this._LevelGrupo = value;
-				}
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vw_Menu")]
-	public partial class vw_Menu
-	{
-		
-		private System.Nullable<int> _IdGrupoDetalle;
-		
-		private string _Nombre;
-		
-		private string _Descripcion;
-		
-		private System.Nullable<int> _Orden;
-		
-		private System.Nullable<int> _IdGrupo;
-		
-		private string _NombreGrupo;
-		
-		private System.Nullable<int> _IdGrupoPadre;
-		
-		private System.Nullable<int> _IdPadre;
-		
-		private string _Categoria;
-		
-		private string _Imagen;
-		
-		private string _UrlDetalle;
-		
-		private System.Nullable<bool> _Estatus;
-		
-		private System.Nullable<System.DateTime> _FechaRegistro;
-		
-		private System.Nullable<int> _LevelGrupo;
-		
-		public vw_Menu()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdGrupoDetalle", DbType="Int")]
-		public System.Nullable<int> IdGrupoDetalle
-		{
-			get
-			{
-				return this._IdGrupoDetalle;
-			}
-			set
-			{
-				if ((this._IdGrupoDetalle != value))
-				{
-					this._IdGrupoDetalle = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(50)")]
-		public string Nombre
-		{
-			get
-			{
-				return this._Nombre;
-			}
-			set
-			{
-				if ((this._Nombre != value))
-				{
-					this._Nombre = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descripcion", DbType="VarChar(50)")]
-		public string Descripcion
-		{
-			get
-			{
-				return this._Descripcion;
-			}
-			set
-			{
-				if ((this._Descripcion != value))
-				{
-					this._Descripcion = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Orden", DbType="Int")]
-		public System.Nullable<int> Orden
-		{
-			get
-			{
-				return this._Orden;
-			}
-			set
-			{
-				if ((this._Orden != value))
-				{
-					this._Orden = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdGrupo", DbType="Int")]
-		public System.Nullable<int> IdGrupo
-		{
-			get
-			{
-				return this._IdGrupo;
-			}
-			set
-			{
-				if ((this._IdGrupo != value))
-				{
-					this._IdGrupo = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreGrupo", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string NombreGrupo
-		{
-			get
-			{
-				return this._NombreGrupo;
-			}
-			set
-			{
-				if ((this._NombreGrupo != value))
-				{
-					this._NombreGrupo = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdGrupoPadre", DbType="Int")]
-		public System.Nullable<int> IdGrupoPadre
-		{
-			get
-			{
-				return this._IdGrupoPadre;
-			}
-			set
-			{
-				if ((this._IdGrupoPadre != value))
-				{
-					this._IdGrupoPadre = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPadre", DbType="Int")]
-		public System.Nullable<int> IdPadre
-		{
-			get
-			{
-				return this._IdPadre;
-			}
-			set
-			{
-				if ((this._IdPadre != value))
-				{
-					this._IdPadre = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Categoria", DbType="VarChar(50)")]
-		public string Categoria
-		{
-			get
-			{
-				return this._Categoria;
-			}
-			set
-			{
-				if ((this._Categoria != value))
-				{
-					this._Categoria = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Imagen", DbType="NVarChar(30)")]
-		public string Imagen
-		{
-			get
-			{
-				return this._Imagen;
-			}
-			set
-			{
-				if ((this._Imagen != value))
-				{
-					this._Imagen = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UrlDetalle", DbType="VarChar(100)")]
-		public string UrlDetalle
-		{
-			get
-			{
-				return this._UrlDetalle;
-			}
-			set
-			{
-				if ((this._UrlDetalle != value))
-				{
-					this._UrlDetalle = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estatus", DbType="Bit")]
-		public System.Nullable<bool> Estatus
-		{
-			get
-			{
-				return this._Estatus;
-			}
-			set
-			{
-				if ((this._Estatus != value))
-				{
-					this._Estatus = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaRegistro", DbType="DateTime")]
-		public System.Nullable<System.DateTime> FechaRegistro
-		{
-			get
-			{
-				return this._FechaRegistro;
-			}
-			set
-			{
-				if ((this._FechaRegistro != value))
-				{
-					this._FechaRegistro = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LevelGrupo", DbType="Int")]
-		public System.Nullable<int> LevelGrupo
-		{
-			get
-			{
-				return this._LevelGrupo;
-			}
-			set
-			{
-				if ((this._LevelGrupo != value))
-				{
-					this._LevelGrupo = value;
-				}
 			}
 		}
 	}
@@ -4461,6 +2347,1894 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Usuarios")]
+	public partial class Usuarios : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _IdUsuario;
+		
+		private string _NombreUsuario;
+		
+		private string _Contrasena;
+		
+		private string _Email;
+		
+		private int _IdPreguntaSeguridad;
+		
+		private string _RespuestaSeguridad;
+		
+		private string _Avatar;
+		
+		private System.Nullable<System.DateTime> _FechaLogin;
+		
+		private int _ContadorFallido;
+		
+		private bool _Estatus;
+		
+		private System.DateTime _FechaRegistro;
+		
+		private System.Nullable<System.DateTime> _FechaModificacion;
+		
+		private EntitySet<UsuariosRoles> _UsuariosRoles;
+		
+		private EntityRef<GruposDetalles> _GruposDetalles;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdUsuarioChanging(int value);
+    partial void OnIdUsuarioChanged();
+    partial void OnNombreUsuarioChanging(string value);
+    partial void OnNombreUsuarioChanged();
+    partial void OnContrasenaChanging(string value);
+    partial void OnContrasenaChanged();
+    partial void OnEmailChanging(string value);
+    partial void OnEmailChanged();
+    partial void OnIdPreguntaSeguridadChanging(int value);
+    partial void OnIdPreguntaSeguridadChanged();
+    partial void OnRespuestaSeguridadChanging(string value);
+    partial void OnRespuestaSeguridadChanged();
+    partial void OnAvatarChanging(string value);
+    partial void OnAvatarChanged();
+    partial void OnFechaLoginChanging(System.Nullable<System.DateTime> value);
+    partial void OnFechaLoginChanged();
+    partial void OnContadorFallidoChanging(int value);
+    partial void OnContadorFallidoChanged();
+    partial void OnEstatusChanging(bool value);
+    partial void OnEstatusChanged();
+    partial void OnFechaRegistroChanging(System.DateTime value);
+    partial void OnFechaRegistroChanged();
+    partial void OnFechaModificacionChanging(System.Nullable<System.DateTime> value);
+    partial void OnFechaModificacionChanged();
+    #endregion
+		
+		public Usuarios()
+		{
+			this._UsuariosRoles = new EntitySet<UsuariosRoles>(new Action<UsuariosRoles>(this.attach_UsuariosRoles), new Action<UsuariosRoles>(this.detach_UsuariosRoles));
+			this._GruposDetalles = default(EntityRef<GruposDetalles>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdUsuario", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int IdUsuario
+		{
+			get
+			{
+				return this._IdUsuario;
+			}
+			set
+			{
+				if ((this._IdUsuario != value))
+				{
+					this.OnIdUsuarioChanging(value);
+					this.SendPropertyChanging();
+					this._IdUsuario = value;
+					this.SendPropertyChanged("IdUsuario");
+					this.OnIdUsuarioChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreUsuario", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
+		public string NombreUsuario
+		{
+			get
+			{
+				return this._NombreUsuario;
+			}
+			set
+			{
+				if ((this._NombreUsuario != value))
+				{
+					this.OnNombreUsuarioChanging(value);
+					this.SendPropertyChanging();
+					this._NombreUsuario = value;
+					this.SendPropertyChanged("NombreUsuario");
+					this.OnNombreUsuarioChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Contrasena", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
+		public string Contrasena
+		{
+			get
+			{
+				return this._Contrasena;
+			}
+			set
+			{
+				if ((this._Contrasena != value))
+				{
+					this.OnContrasenaChanging(value);
+					this.SendPropertyChanging();
+					this._Contrasena = value;
+					this.SendPropertyChanged("Contrasena");
+					this.OnContrasenaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="VarChar(60) NOT NULL", CanBeNull=false)]
+		public string Email
+		{
+			get
+			{
+				return this._Email;
+			}
+			set
+			{
+				if ((this._Email != value))
+				{
+					this.OnEmailChanging(value);
+					this.SendPropertyChanging();
+					this._Email = value;
+					this.SendPropertyChanged("Email");
+					this.OnEmailChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPreguntaSeguridad", DbType="Int NOT NULL")]
+		public int IdPreguntaSeguridad
+		{
+			get
+			{
+				return this._IdPreguntaSeguridad;
+			}
+			set
+			{
+				if ((this._IdPreguntaSeguridad != value))
+				{
+					if (this._GruposDetalles.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIdPreguntaSeguridadChanging(value);
+					this.SendPropertyChanging();
+					this._IdPreguntaSeguridad = value;
+					this.SendPropertyChanged("IdPreguntaSeguridad");
+					this.OnIdPreguntaSeguridadChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RespuestaSeguridad", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string RespuestaSeguridad
+		{
+			get
+			{
+				return this._RespuestaSeguridad;
+			}
+			set
+			{
+				if ((this._RespuestaSeguridad != value))
+				{
+					this.OnRespuestaSeguridadChanging(value);
+					this.SendPropertyChanging();
+					this._RespuestaSeguridad = value;
+					this.SendPropertyChanged("RespuestaSeguridad");
+					this.OnRespuestaSeguridadChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Avatar", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
+		public string Avatar
+		{
+			get
+			{
+				return this._Avatar;
+			}
+			set
+			{
+				if ((this._Avatar != value))
+				{
+					this.OnAvatarChanging(value);
+					this.SendPropertyChanging();
+					this._Avatar = value;
+					this.SendPropertyChanged("Avatar");
+					this.OnAvatarChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaLogin", DbType="DateTime")]
+		public System.Nullable<System.DateTime> FechaLogin
+		{
+			get
+			{
+				return this._FechaLogin;
+			}
+			set
+			{
+				if ((this._FechaLogin != value))
+				{
+					this.OnFechaLoginChanging(value);
+					this.SendPropertyChanging();
+					this._FechaLogin = value;
+					this.SendPropertyChanged("FechaLogin");
+					this.OnFechaLoginChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ContadorFallido", DbType="Int NOT NULL")]
+		public int ContadorFallido
+		{
+			get
+			{
+				return this._ContadorFallido;
+			}
+			set
+			{
+				if ((this._ContadorFallido != value))
+				{
+					this.OnContadorFallidoChanging(value);
+					this.SendPropertyChanging();
+					this._ContadorFallido = value;
+					this.SendPropertyChanged("ContadorFallido");
+					this.OnContadorFallidoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estatus", DbType="Bit NOT NULL")]
+		public bool Estatus
+		{
+			get
+			{
+				return this._Estatus;
+			}
+			set
+			{
+				if ((this._Estatus != value))
+				{
+					this.OnEstatusChanging(value);
+					this.SendPropertyChanging();
+					this._Estatus = value;
+					this.SendPropertyChanged("Estatus");
+					this.OnEstatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaRegistro", DbType="DateTime NOT NULL")]
+		public System.DateTime FechaRegistro
+		{
+			get
+			{
+				return this._FechaRegistro;
+			}
+			set
+			{
+				if ((this._FechaRegistro != value))
+				{
+					this.OnFechaRegistroChanging(value);
+					this.SendPropertyChanging();
+					this._FechaRegistro = value;
+					this.SendPropertyChanged("FechaRegistro");
+					this.OnFechaRegistroChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaModificacion", DbType="DateTime")]
+		public System.Nullable<System.DateTime> FechaModificacion
+		{
+			get
+			{
+				return this._FechaModificacion;
+			}
+			set
+			{
+				if ((this._FechaModificacion != value))
+				{
+					this.OnFechaModificacionChanging(value);
+					this.SendPropertyChanging();
+					this._FechaModificacion = value;
+					this.SendPropertyChanged("FechaModificacion");
+					this.OnFechaModificacionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Usuarios_UsuariosRoles", Storage="_UsuariosRoles", ThisKey="IdUsuario", OtherKey="IdUsuario")]
+		public EntitySet<UsuariosRoles> UsuariosRoles
+		{
+			get
+			{
+				return this._UsuariosRoles;
+			}
+			set
+			{
+				this._UsuariosRoles.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_Usuarios", Storage="_GruposDetalles", ThisKey="IdPreguntaSeguridad", OtherKey="IdGrupoDetalle", IsForeignKey=true)]
+		public GruposDetalles GruposDetalles
+		{
+			get
+			{
+				return this._GruposDetalles.Entity;
+			}
+			set
+			{
+				GruposDetalles previousValue = this._GruposDetalles.Entity;
+				if (((previousValue != value) 
+							|| (this._GruposDetalles.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._GruposDetalles.Entity = null;
+						previousValue.Usuarios.Remove(this);
+					}
+					this._GruposDetalles.Entity = value;
+					if ((value != null))
+					{
+						value.Usuarios.Add(this);
+						this._IdPreguntaSeguridad = value.IdGrupoDetalle;
+					}
+					else
+					{
+						this._IdPreguntaSeguridad = default(int);
+					}
+					this.SendPropertyChanged("GruposDetalles");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_UsuariosRoles(UsuariosRoles entity)
+		{
+			this.SendPropertyChanging();
+			entity.Usuarios = this;
+		}
+		
+		private void detach_UsuariosRoles(UsuariosRoles entity)
+		{
+			this.SendPropertyChanging();
+			entity.Usuarios = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vw_GruposDetalles")]
+	public partial class vw_GruposDetalles
+	{
+		
+		private System.Nullable<int> _IdGrupoDetalle;
+		
+		private string _Nombre;
+		
+		private string _Descripcion;
+		
+		private System.Nullable<int> _Orden;
+		
+		private System.Nullable<int> _IdGrupo;
+		
+		private string _NombreGrupo;
+		
+		private System.Nullable<int> _IdPadre;
+		
+		private System.Nullable<int> _IdGrupoPadre;
+		
+		private string _Categoria;
+		
+		private string _Imagen;
+		
+		private string _UrlDetalle;
+		
+		private System.Nullable<bool> _Estatus;
+		
+		private System.Nullable<System.DateTime> _FechaRegistro;
+		
+		private System.Nullable<int> _LevelGrupo;
+		
+		public vw_GruposDetalles()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdGrupoDetalle", DbType="Int")]
+		public System.Nullable<int> IdGrupoDetalle
+		{
+			get
+			{
+				return this._IdGrupoDetalle;
+			}
+			set
+			{
+				if ((this._IdGrupoDetalle != value))
+				{
+					this._IdGrupoDetalle = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(50)")]
+		public string Nombre
+		{
+			get
+			{
+				return this._Nombre;
+			}
+			set
+			{
+				if ((this._Nombre != value))
+				{
+					this._Nombre = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descripcion", DbType="VarChar(50)")]
+		public string Descripcion
+		{
+			get
+			{
+				return this._Descripcion;
+			}
+			set
+			{
+				if ((this._Descripcion != value))
+				{
+					this._Descripcion = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Orden", DbType="Int")]
+		public System.Nullable<int> Orden
+		{
+			get
+			{
+				return this._Orden;
+			}
+			set
+			{
+				if ((this._Orden != value))
+				{
+					this._Orden = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdGrupo", DbType="Int")]
+		public System.Nullable<int> IdGrupo
+		{
+			get
+			{
+				return this._IdGrupo;
+			}
+			set
+			{
+				if ((this._IdGrupo != value))
+				{
+					this._IdGrupo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreGrupo", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string NombreGrupo
+		{
+			get
+			{
+				return this._NombreGrupo;
+			}
+			set
+			{
+				if ((this._NombreGrupo != value))
+				{
+					this._NombreGrupo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPadre", DbType="Int")]
+		public System.Nullable<int> IdPadre
+		{
+			get
+			{
+				return this._IdPadre;
+			}
+			set
+			{
+				if ((this._IdPadre != value))
+				{
+					this._IdPadre = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdGrupoPadre", DbType="Int")]
+		public System.Nullable<int> IdGrupoPadre
+		{
+			get
+			{
+				return this._IdGrupoPadre;
+			}
+			set
+			{
+				if ((this._IdGrupoPadre != value))
+				{
+					this._IdGrupoPadre = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Categoria", DbType="VarChar(50)")]
+		public string Categoria
+		{
+			get
+			{
+				return this._Categoria;
+			}
+			set
+			{
+				if ((this._Categoria != value))
+				{
+					this._Categoria = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Imagen", DbType="NVarChar(30)")]
+		public string Imagen
+		{
+			get
+			{
+				return this._Imagen;
+			}
+			set
+			{
+				if ((this._Imagen != value))
+				{
+					this._Imagen = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UrlDetalle", DbType="VarChar(100)")]
+		public string UrlDetalle
+		{
+			get
+			{
+				return this._UrlDetalle;
+			}
+			set
+			{
+				if ((this._UrlDetalle != value))
+				{
+					this._UrlDetalle = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estatus", DbType="Bit")]
+		public System.Nullable<bool> Estatus
+		{
+			get
+			{
+				return this._Estatus;
+			}
+			set
+			{
+				if ((this._Estatus != value))
+				{
+					this._Estatus = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaRegistro", DbType="DateTime")]
+		public System.Nullable<System.DateTime> FechaRegistro
+		{
+			get
+			{
+				return this._FechaRegistro;
+			}
+			set
+			{
+				if ((this._FechaRegistro != value))
+				{
+					this._FechaRegistro = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LevelGrupo", DbType="Int")]
+		public System.Nullable<int> LevelGrupo
+		{
+			get
+			{
+				return this._LevelGrupo;
+			}
+			set
+			{
+				if ((this._LevelGrupo != value))
+				{
+					this._LevelGrupo = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vw_Personas")]
+	public partial class vw_Personas
+	{
+		
+		private int _IdPersona;
+		
+		private string _Nombres;
+		
+		private string _Cedula;
+		
+		private string _Direccion;
+		
+		private string _Telefonos;
+		
+		private string _Email;
+		
+		private System.DateTime _FechaRegistro;
+		
+		public vw_Personas()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPersona", DbType="Int NOT NULL")]
+		public int IdPersona
+		{
+			get
+			{
+				return this._IdPersona;
+			}
+			set
+			{
+				if ((this._IdPersona != value))
+				{
+					this._IdPersona = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombres", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Nombres
+		{
+			get
+			{
+				return this._Nombres;
+			}
+			set
+			{
+				if ((this._Nombres != value))
+				{
+					this._Nombres = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cedula", DbType="VarChar(61) NOT NULL", CanBeNull=false)]
+		public string Cedula
+		{
+			get
+			{
+				return this._Cedula;
+			}
+			set
+			{
+				if ((this._Cedula != value))
+				{
+					this._Cedula = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Direccion", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
+		public string Direccion
+		{
+			get
+			{
+				return this._Direccion;
+			}
+			set
+			{
+				if ((this._Direccion != value))
+				{
+					this._Direccion = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Telefonos", DbType="VarChar(60) NOT NULL", CanBeNull=false)]
+		public string Telefonos
+		{
+			get
+			{
+				return this._Telefonos;
+			}
+			set
+			{
+				if ((this._Telefonos != value))
+				{
+					this._Telefonos = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="VarChar(60)")]
+		public string Email
+		{
+			get
+			{
+				return this._Email;
+			}
+			set
+			{
+				if ((this._Email != value))
+				{
+					this._Email = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaRegistro", DbType="DateTime NOT NULL")]
+		public System.DateTime FechaRegistro
+		{
+			get
+			{
+				return this._FechaRegistro;
+			}
+			set
+			{
+				if ((this._FechaRegistro != value))
+				{
+					this._FechaRegistro = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vw_ListarProductos")]
+	public partial class vw_ListarProductos
+	{
+		
+		private int _IdProducto;
+		
+		private string _Sku;
+		
+		private int _IdCategoria;
+		
+		private string _Categoria;
+		
+		private int _IdGrupo;
+		
+		private string _Grupo;
+		
+		private string _Nombre;
+		
+		private string _Descripcion;
+		
+		private int _IdFabricante;
+		
+		private string _Fabricante;
+		
+		private int _IdUnidad;
+		
+		private string _Unidad;
+		
+		private string _Imagen;
+		
+		private int _Stock;
+		
+		private System.Nullable<int> _StockMin;
+		
+		private System.Nullable<decimal> _PrecioCompra;
+		
+		private decimal _PrecioVenta;
+		
+		private int _Garantia;
+		
+		private bool _Estatus;
+		
+		private System.DateTime _FechaRegistro;
+		
+		public vw_ListarProductos()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdProducto", DbType="Int NOT NULL")]
+		public int IdProducto
+		{
+			get
+			{
+				return this._IdProducto;
+			}
+			set
+			{
+				if ((this._IdProducto != value))
+				{
+					this._IdProducto = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sku", DbType="VarChar(24) NOT NULL", CanBeNull=false)]
+		public string Sku
+		{
+			get
+			{
+				return this._Sku;
+			}
+			set
+			{
+				if ((this._Sku != value))
+				{
+					this._Sku = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdCategoria", DbType="Int NOT NULL")]
+		public int IdCategoria
+		{
+			get
+			{
+				return this._IdCategoria;
+			}
+			set
+			{
+				if ((this._IdCategoria != value))
+				{
+					this._IdCategoria = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Categoria", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Categoria
+		{
+			get
+			{
+				return this._Categoria;
+			}
+			set
+			{
+				if ((this._Categoria != value))
+				{
+					this._Categoria = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdGrupo", DbType="Int NOT NULL")]
+		public int IdGrupo
+		{
+			get
+			{
+				return this._IdGrupo;
+			}
+			set
+			{
+				if ((this._IdGrupo != value))
+				{
+					this._IdGrupo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Grupo", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Grupo
+		{
+			get
+			{
+				return this._Grupo;
+			}
+			set
+			{
+				if ((this._Grupo != value))
+				{
+					this._Grupo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Nombre
+		{
+			get
+			{
+				return this._Nombre;
+			}
+			set
+			{
+				if ((this._Nombre != value))
+				{
+					this._Nombre = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descripcion", DbType="VarChar(100)")]
+		public string Descripcion
+		{
+			get
+			{
+				return this._Descripcion;
+			}
+			set
+			{
+				if ((this._Descripcion != value))
+				{
+					this._Descripcion = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdFabricante", DbType="Int NOT NULL")]
+		public int IdFabricante
+		{
+			get
+			{
+				return this._IdFabricante;
+			}
+			set
+			{
+				if ((this._IdFabricante != value))
+				{
+					this._IdFabricante = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fabricante", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Fabricante
+		{
+			get
+			{
+				return this._Fabricante;
+			}
+			set
+			{
+				if ((this._Fabricante != value))
+				{
+					this._Fabricante = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdUnidad", DbType="Int NOT NULL")]
+		public int IdUnidad
+		{
+			get
+			{
+				return this._IdUnidad;
+			}
+			set
+			{
+				if ((this._IdUnidad != value))
+				{
+					this._IdUnidad = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Unidad", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Unidad
+		{
+			get
+			{
+				return this._Unidad;
+			}
+			set
+			{
+				if ((this._Unidad != value))
+				{
+					this._Unidad = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Imagen", DbType="VarChar(40)")]
+		public string Imagen
+		{
+			get
+			{
+				return this._Imagen;
+			}
+			set
+			{
+				if ((this._Imagen != value))
+				{
+					this._Imagen = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Stock", DbType="Int NOT NULL")]
+		public int Stock
+		{
+			get
+			{
+				return this._Stock;
+			}
+			set
+			{
+				if ((this._Stock != value))
+				{
+					this._Stock = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StockMin", DbType="Int")]
+		public System.Nullable<int> StockMin
+		{
+			get
+			{
+				return this._StockMin;
+			}
+			set
+			{
+				if ((this._StockMin != value))
+				{
+					this._StockMin = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PrecioCompra", DbType="Decimal(8,2)")]
+		public System.Nullable<decimal> PrecioCompra
+		{
+			get
+			{
+				return this._PrecioCompra;
+			}
+			set
+			{
+				if ((this._PrecioCompra != value))
+				{
+					this._PrecioCompra = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PrecioVenta", DbType="Decimal(8,2) NOT NULL")]
+		public decimal PrecioVenta
+		{
+			get
+			{
+				return this._PrecioVenta;
+			}
+			set
+			{
+				if ((this._PrecioVenta != value))
+				{
+					this._PrecioVenta = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Garantia", DbType="Int NOT NULL")]
+		public int Garantia
+		{
+			get
+			{
+				return this._Garantia;
+			}
+			set
+			{
+				if ((this._Garantia != value))
+				{
+					this._Garantia = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estatus", DbType="Bit NOT NULL")]
+		public bool Estatus
+		{
+			get
+			{
+				return this._Estatus;
+			}
+			set
+			{
+				if ((this._Estatus != value))
+				{
+					this._Estatus = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaRegistro", DbType="DateTime NOT NULL")]
+		public System.DateTime FechaRegistro
+		{
+			get
+			{
+				return this._FechaRegistro;
+			}
+			set
+			{
+				if ((this._FechaRegistro != value))
+				{
+					this._FechaRegistro = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vw_ListarUsuarios")]
+	public partial class vw_ListarUsuarios
+	{
+		
+		private int _IdUsuario;
+		
+		private string _NombreUsuario;
+		
+		private string _Contrasena;
+		
+		private string _Correo;
+		
+		private int _IdRoles;
+		
+		private string _NombreRol;
+		
+		private int _IdPregunta;
+		
+		private string _Pregunta;
+		
+		private string _RespuestaSeguridad;
+		
+		private string _Avatar;
+		
+		private System.Nullable<System.DateTime> _FechaLogin;
+		
+		private int _ContadorFallido;
+		
+		private bool _Estatus;
+		
+		private System.DateTime _FechaRegistro;
+		
+		private System.Nullable<System.DateTime> _FechaModificacion;
+		
+		public vw_ListarUsuarios()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdUsuario", DbType="Int NOT NULL")]
+		public int IdUsuario
+		{
+			get
+			{
+				return this._IdUsuario;
+			}
+			set
+			{
+				if ((this._IdUsuario != value))
+				{
+					this._IdUsuario = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreUsuario", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
+		public string NombreUsuario
+		{
+			get
+			{
+				return this._NombreUsuario;
+			}
+			set
+			{
+				if ((this._NombreUsuario != value))
+				{
+					this._NombreUsuario = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Contrasena", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
+		public string Contrasena
+		{
+			get
+			{
+				return this._Contrasena;
+			}
+			set
+			{
+				if ((this._Contrasena != value))
+				{
+					this._Contrasena = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Correo", DbType="VarChar(60) NOT NULL", CanBeNull=false)]
+		public string Correo
+		{
+			get
+			{
+				return this._Correo;
+			}
+			set
+			{
+				if ((this._Correo != value))
+				{
+					this._Correo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdRoles", DbType="Int NOT NULL")]
+		public int IdRoles
+		{
+			get
+			{
+				return this._IdRoles;
+			}
+			set
+			{
+				if ((this._IdRoles != value))
+				{
+					this._IdRoles = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreRol", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string NombreRol
+		{
+			get
+			{
+				return this._NombreRol;
+			}
+			set
+			{
+				if ((this._NombreRol != value))
+				{
+					this._NombreRol = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPregunta", DbType="Int NOT NULL")]
+		public int IdPregunta
+		{
+			get
+			{
+				return this._IdPregunta;
+			}
+			set
+			{
+				if ((this._IdPregunta != value))
+				{
+					this._IdPregunta = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Pregunta", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Pregunta
+		{
+			get
+			{
+				return this._Pregunta;
+			}
+			set
+			{
+				if ((this._Pregunta != value))
+				{
+					this._Pregunta = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RespuestaSeguridad", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string RespuestaSeguridad
+		{
+			get
+			{
+				return this._RespuestaSeguridad;
+			}
+			set
+			{
+				if ((this._RespuestaSeguridad != value))
+				{
+					this._RespuestaSeguridad = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Avatar", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
+		public string Avatar
+		{
+			get
+			{
+				return this._Avatar;
+			}
+			set
+			{
+				if ((this._Avatar != value))
+				{
+					this._Avatar = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaLogin", DbType="DateTime")]
+		public System.Nullable<System.DateTime> FechaLogin
+		{
+			get
+			{
+				return this._FechaLogin;
+			}
+			set
+			{
+				if ((this._FechaLogin != value))
+				{
+					this._FechaLogin = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ContadorFallido", DbType="Int NOT NULL")]
+		public int ContadorFallido
+		{
+			get
+			{
+				return this._ContadorFallido;
+			}
+			set
+			{
+				if ((this._ContadorFallido != value))
+				{
+					this._ContadorFallido = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estatus", DbType="Bit NOT NULL")]
+		public bool Estatus
+		{
+			get
+			{
+				return this._Estatus;
+			}
+			set
+			{
+				if ((this._Estatus != value))
+				{
+					this._Estatus = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaRegistro", DbType="DateTime NOT NULL")]
+		public System.DateTime FechaRegistro
+		{
+			get
+			{
+				return this._FechaRegistro;
+			}
+			set
+			{
+				if ((this._FechaRegistro != value))
+				{
+					this._FechaRegistro = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaModificacion", DbType="DateTime")]
+		public System.Nullable<System.DateTime> FechaModificacion
+		{
+			get
+			{
+				return this._FechaModificacion;
+			}
+			set
+			{
+				if ((this._FechaModificacion != value))
+				{
+					this._FechaModificacion = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vw_Menu")]
+	public partial class vw_Menu
+	{
+		
+		private System.Nullable<int> _IdGrupoDetalle;
+		
+		private string _Nombre;
+		
+		private string _Descripcion;
+		
+		private System.Nullable<int> _Orden;
+		
+		private System.Nullable<int> _IdGrupo;
+		
+		private string _NombreGrupo;
+		
+		private System.Nullable<int> _IdGrupoPadre;
+		
+		private System.Nullable<int> _IdPadre;
+		
+		private string _Categoria;
+		
+		private string _Imagen;
+		
+		private string _UrlDetalle;
+		
+		private System.Nullable<bool> _Estatus;
+		
+		private System.Nullable<System.DateTime> _FechaRegistro;
+		
+		private System.Nullable<int> _LevelGrupo;
+		
+		public vw_Menu()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdGrupoDetalle", DbType="Int")]
+		public System.Nullable<int> IdGrupoDetalle
+		{
+			get
+			{
+				return this._IdGrupoDetalle;
+			}
+			set
+			{
+				if ((this._IdGrupoDetalle != value))
+				{
+					this._IdGrupoDetalle = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(50)")]
+		public string Nombre
+		{
+			get
+			{
+				return this._Nombre;
+			}
+			set
+			{
+				if ((this._Nombre != value))
+				{
+					this._Nombre = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descripcion", DbType="VarChar(50)")]
+		public string Descripcion
+		{
+			get
+			{
+				return this._Descripcion;
+			}
+			set
+			{
+				if ((this._Descripcion != value))
+				{
+					this._Descripcion = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Orden", DbType="Int")]
+		public System.Nullable<int> Orden
+		{
+			get
+			{
+				return this._Orden;
+			}
+			set
+			{
+				if ((this._Orden != value))
+				{
+					this._Orden = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdGrupo", DbType="Int")]
+		public System.Nullable<int> IdGrupo
+		{
+			get
+			{
+				return this._IdGrupo;
+			}
+			set
+			{
+				if ((this._IdGrupo != value))
+				{
+					this._IdGrupo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreGrupo", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string NombreGrupo
+		{
+			get
+			{
+				return this._NombreGrupo;
+			}
+			set
+			{
+				if ((this._NombreGrupo != value))
+				{
+					this._NombreGrupo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdGrupoPadre", DbType="Int")]
+		public System.Nullable<int> IdGrupoPadre
+		{
+			get
+			{
+				return this._IdGrupoPadre;
+			}
+			set
+			{
+				if ((this._IdGrupoPadre != value))
+				{
+					this._IdGrupoPadre = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPadre", DbType="Int")]
+		public System.Nullable<int> IdPadre
+		{
+			get
+			{
+				return this._IdPadre;
+			}
+			set
+			{
+				if ((this._IdPadre != value))
+				{
+					this._IdPadre = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Categoria", DbType="VarChar(50)")]
+		public string Categoria
+		{
+			get
+			{
+				return this._Categoria;
+			}
+			set
+			{
+				if ((this._Categoria != value))
+				{
+					this._Categoria = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Imagen", DbType="NVarChar(30)")]
+		public string Imagen
+		{
+			get
+			{
+				return this._Imagen;
+			}
+			set
+			{
+				if ((this._Imagen != value))
+				{
+					this._Imagen = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UrlDetalle", DbType="VarChar(100)")]
+		public string UrlDetalle
+		{
+			get
+			{
+				return this._UrlDetalle;
+			}
+			set
+			{
+				if ((this._UrlDetalle != value))
+				{
+					this._UrlDetalle = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estatus", DbType="Bit")]
+		public System.Nullable<bool> Estatus
+		{
+			get
+			{
+				return this._Estatus;
+			}
+			set
+			{
+				if ((this._Estatus != value))
+				{
+					this._Estatus = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaRegistro", DbType="DateTime")]
+		public System.Nullable<System.DateTime> FechaRegistro
+		{
+			get
+			{
+				return this._FechaRegistro;
+			}
+			set
+			{
+				if ((this._FechaRegistro != value))
+				{
+					this._FechaRegistro = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LevelGrupo", DbType="Int")]
+		public System.Nullable<int> LevelGrupo
+		{
+			get
+			{
+				return this._LevelGrupo;
+			}
+			set
+			{
+				if ((this._LevelGrupo != value))
+				{
+					this._LevelGrupo = value;
+				}
+			}
+		}
+	}
+	
+	public partial class sp_ListarNivelGrupoResult
+	{
+		
+		private System.Nullable<int> _IdGrupo;
+		
+		private string _Nombre;
+		
+		private string _Descripcion;
+		
+		private System.Nullable<int> _IdPadre;
+		
+		private System.Nullable<int> _IdGrupoPadre;
+		
+		private string _Categoria;
+		
+		private string _Icono;
+		
+		private System.Nullable<bool> _Estatus;
+		
+		private System.Nullable<System.DateTime> _FechaRegistro;
+		
+		private System.Nullable<int> _LevelGrupo;
+		
+		public sp_ListarNivelGrupoResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdGrupo", DbType="Int")]
+		public System.Nullable<int> IdGrupo
+		{
+			get
+			{
+				return this._IdGrupo;
+			}
+			set
+			{
+				if ((this._IdGrupo != value))
+				{
+					this._IdGrupo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(50)")]
+		public string Nombre
+		{
+			get
+			{
+				return this._Nombre;
+			}
+			set
+			{
+				if ((this._Nombre != value))
+				{
+					this._Nombre = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descripcion", DbType="VarChar(100)")]
+		public string Descripcion
+		{
+			get
+			{
+				return this._Descripcion;
+			}
+			set
+			{
+				if ((this._Descripcion != value))
+				{
+					this._Descripcion = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPadre", DbType="Int")]
+		public System.Nullable<int> IdPadre
+		{
+			get
+			{
+				return this._IdPadre;
+			}
+			set
+			{
+				if ((this._IdPadre != value))
+				{
+					this._IdPadre = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdGrupoPadre", DbType="Int")]
+		public System.Nullable<int> IdGrupoPadre
+		{
+			get
+			{
+				return this._IdGrupoPadre;
+			}
+			set
+			{
+				if ((this._IdGrupoPadre != value))
+				{
+					this._IdGrupoPadre = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Categoria", DbType="VarChar(50)")]
+		public string Categoria
+		{
+			get
+			{
+				return this._Categoria;
+			}
+			set
+			{
+				if ((this._Categoria != value))
+				{
+					this._Categoria = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Icono", DbType="NVarChar(30)")]
+		public string Icono
+		{
+			get
+			{
+				return this._Icono;
+			}
+			set
+			{
+				if ((this._Icono != value))
+				{
+					this._Icono = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estatus", DbType="Bit")]
+		public System.Nullable<bool> Estatus
+		{
+			get
+			{
+				return this._Estatus;
+			}
+			set
+			{
+				if ((this._Estatus != value))
+				{
+					this._Estatus = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaRegistro", DbType="DateTime")]
+		public System.Nullable<System.DateTime> FechaRegistro
+		{
+			get
+			{
+				return this._FechaRegistro;
+			}
+			set
+			{
+				if ((this._FechaRegistro != value))
+				{
+					this._FechaRegistro = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LevelGrupo", DbType="Int")]
+		public System.Nullable<int> LevelGrupo
+		{
+			get
+			{
+				return this._LevelGrupo;
+			}
+			set
+			{
+				if ((this._LevelGrupo != value))
+				{
+					this._LevelGrupo = value;
+				}
+			}
+		}
+	}
+	
 	public partial class sp_BuscarUsuariosResult
 	{
 		
@@ -4734,194 +4508,6 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 				if ((this._FechaModificacion != value))
 				{
 					this._FechaModificacion = value;
-				}
-			}
-		}
-	}
-	
-	public partial class sp_ListarNivelGrupoResult
-	{
-		
-		private System.Nullable<int> _IdGrupo;
-		
-		private string _Nombre;
-		
-		private string _Descripcion;
-		
-		private System.Nullable<int> _IdPadre;
-		
-		private System.Nullable<int> _IdGrupoPadre;
-		
-		private string _Categoria;
-		
-		private string _Icono;
-		
-		private System.Nullable<bool> _Estatus;
-		
-		private System.Nullable<System.DateTime> _FechaRegistro;
-		
-		private System.Nullable<int> _LevelGrupo;
-		
-		public sp_ListarNivelGrupoResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdGrupo", DbType="Int")]
-		public System.Nullable<int> IdGrupo
-		{
-			get
-			{
-				return this._IdGrupo;
-			}
-			set
-			{
-				if ((this._IdGrupo != value))
-				{
-					this._IdGrupo = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(50)")]
-		public string Nombre
-		{
-			get
-			{
-				return this._Nombre;
-			}
-			set
-			{
-				if ((this._Nombre != value))
-				{
-					this._Nombre = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descripcion", DbType="VarChar(100)")]
-		public string Descripcion
-		{
-			get
-			{
-				return this._Descripcion;
-			}
-			set
-			{
-				if ((this._Descripcion != value))
-				{
-					this._Descripcion = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPadre", DbType="Int")]
-		public System.Nullable<int> IdPadre
-		{
-			get
-			{
-				return this._IdPadre;
-			}
-			set
-			{
-				if ((this._IdPadre != value))
-				{
-					this._IdPadre = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdGrupoPadre", DbType="Int")]
-		public System.Nullable<int> IdGrupoPadre
-		{
-			get
-			{
-				return this._IdGrupoPadre;
-			}
-			set
-			{
-				if ((this._IdGrupoPadre != value))
-				{
-					this._IdGrupoPadre = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Categoria", DbType="VarChar(50)")]
-		public string Categoria
-		{
-			get
-			{
-				return this._Categoria;
-			}
-			set
-			{
-				if ((this._Categoria != value))
-				{
-					this._Categoria = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Icono", DbType="NVarChar(30)")]
-		public string Icono
-		{
-			get
-			{
-				return this._Icono;
-			}
-			set
-			{
-				if ((this._Icono != value))
-				{
-					this._Icono = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estatus", DbType="Bit")]
-		public System.Nullable<bool> Estatus
-		{
-			get
-			{
-				return this._Estatus;
-			}
-			set
-			{
-				if ((this._Estatus != value))
-				{
-					this._Estatus = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaRegistro", DbType="DateTime")]
-		public System.Nullable<System.DateTime> FechaRegistro
-		{
-			get
-			{
-				return this._FechaRegistro;
-			}
-			set
-			{
-				if ((this._FechaRegistro != value))
-				{
-					this._FechaRegistro = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LevelGrupo", DbType="Int")]
-		public System.Nullable<int> LevelGrupo
-		{
-			get
-			{
-				return this._LevelGrupo;
-			}
-			set
-			{
-				if ((this._LevelGrupo != value))
-				{
-					this._LevelGrupo = value;
 				}
 			}
 		}
