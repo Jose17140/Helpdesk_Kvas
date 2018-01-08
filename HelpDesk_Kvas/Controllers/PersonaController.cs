@@ -72,7 +72,7 @@ namespace HelpDesk_Kvas.Controllers
         public ActionResult Create()
         {
             MensajeInicioRegistrar();
-            var grupos = objGrupoDetalleLogic.ListarPorGrupo(2);
+            var grupos = objGrupoDetalleLogic.ListarPorGrupo(3);
             SelectList listaGrupos = new SelectList(grupos, "IdGrupoDetalle", "Titulo");
             ViewBag.Lista = listaGrupos;
             return PartialView("Create");

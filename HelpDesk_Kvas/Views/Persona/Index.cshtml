@@ -2,13 +2,8 @@
 @{
     ViewBag.Title = "Index";
 }
-
-
 @Styles.Render("~/Content/css/Grupos.css")
 @Scripts.Render("~/bundles/jquery")
-
-
-
 
 <section class="content-header">
     <h1>
@@ -30,7 +25,7 @@
     @using (Html.BeginForm("index", null, FormMethod.Get))
     {
         <div class="row">
-            <div class="col-sm-8">
+            <div class="col-sm-4">
                 <div class="input-group">
 
                     <input type="text"
