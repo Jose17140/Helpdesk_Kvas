@@ -15,6 +15,20 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
 
         public int IdMarca { get; set; }
 
-        public int MyProperty { get; set; }
+        public int IdModelo { get; set; }
+
+        public string Serial { get; set; }
+
+        public string Falla { get; set; }
+
+        public int IdDeposito { get; set; }
+
+        public string Accesorio { get; set; }
+
+        public int? IdTecnico { get; set; }
+
+        public int Estatus { get; set; }
     }
+
+    //public class 
 }
