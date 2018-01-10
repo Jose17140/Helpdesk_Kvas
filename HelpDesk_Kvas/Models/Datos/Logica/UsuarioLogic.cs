@@ -34,13 +34,13 @@ namespace HelpDesk_Kvas.Models.Datos.Logica
 
         public bool IsEmailExist(string emailID)
         {
-            var v = db.Usuarios.Where(a => a.Email == emailID).FirstOrDefault();
+            var v = db.Usuarios.Where(a => a.Email.ToUpper().Contains(emailID.ToUpper())).FirstOrDefault();
             return v != null;
         }
 
         public bool IsUserExist(string UserName)
         {
-            var v = db.Usuarios.Where(a => a.NombreUsuario == UserName).FirstOrDefault();
+            var v = db.Usuarios.Where(a => a.NombreUsuario.ToUpper().Contains(UserName.ToUpper())).FirstOrDefault();
             return v != null;
         }
 

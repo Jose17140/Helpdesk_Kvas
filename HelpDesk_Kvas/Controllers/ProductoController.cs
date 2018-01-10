@@ -78,15 +78,19 @@ namespace HelpDesk_Kvas.Controllers
             var _fabricantes = _lista.Where(m => m.IdGrupo == 10).ToList();
             var _Categorias = _lista.Where(m => m.IdGrupo == 23).ToList();
             var _unidades = _lista.Where(m => m.IdGrupo == 22).ToList();
+            var _condiciones = _lista.Where(m => m.IdGrupo == 25).ToList();
             //Departamento padre
             SelectList listaCategorias = new SelectList(_Categorias, "IdGrupoDetalle", "Titulo");
             //Departamento hijo
             SelectList listaFabricantes = new SelectList(_fabricantes, "IdGrupoDetalle", "Titulo");
             //Unidades 
             SelectList listaUnidades = new SelectList(_unidades, "IdGrupoDetalle", "Titulo");
+            //Condiciones 
+            SelectList listaCondiciones = new SelectList(_condiciones, "IdGrupoDetalle", "Titulo");
             ViewBag.ListaDepartamento = listaCategorias;
             ViewBag.ListaHijo = listaFabricantes;
             ViewBag.ListaUnidades = listaUnidades;
+            ViewBag.ListaCondiciones = listaCondiciones;
             //return View();
             return PartialView("Create");
         }
@@ -141,15 +145,19 @@ namespace HelpDesk_Kvas.Controllers
             var _fabricantes = _lista.Where(m => m.IdGrupo == 10).ToList();
             var _Categorias = _lista.Where(m => m.IdGrupo == 23).ToList();
             var _unidades = _lista.Where(m => m.IdGrupo == 22).ToList();
+            var _condiciones = _lista.Where(m => m.IdGrupo == 25).ToList();
             //Departamento padre
             SelectList listaCategorias = new SelectList(_Categorias, "IdGrupoDetalle", "Titulo");
             //Departamento hijo
             SelectList listaFabricantes = new SelectList(_fabricantes, "IdGrupoDetalle", "Titulo");
             //Unidades 
             SelectList listaUnidades = new SelectList(_unidades, "IdGrupoDetalle", "Titulo");
+            //Condiciones 
+            SelectList listaCondiciones = new SelectList(_condiciones, "IdGrupoDetalle", "Titulo");
             ViewBag.ListaDepartamento = listaCategorias;
             ViewBag.ListaHijo = listaFabricantes;
             ViewBag.ListaUnidades = listaUnidades;
+            ViewBag.ListaCondiciones = listaCondiciones;
             if (_producto == null)
             {
                 return HttpNotFound();

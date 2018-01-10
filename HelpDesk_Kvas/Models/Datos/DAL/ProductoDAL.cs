@@ -30,6 +30,7 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
                     IdFabricante = producto.IdFabricante,
                     IdUnidad = producto.IdUnidad,
                     Imagen = producto.Imagen,
+                    IdCondicion = Convert.ToInt32(producto.IdCondicion),
                     Stock = producto.Stock,
                     StockMin = producto.StockMin,
                     PrecioCompra = producto.PrecioCompra,
@@ -83,6 +84,7 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
                 query.IdFabricante = producto.IdFabricante;
                 query.IdUnidad = producto.IdUnidad;
                 query.Imagen = producto.Imagen;
+                query.IdCondicion = Convert.ToInt32(producto.IdCondicion);
                 query.Stock = producto.Stock;
                 query.StockMin = Convert.ToInt32(producto.StockMin);
                 query.PrecioCompra = Convert.ToDecimal(producto.PrecioCompra);
@@ -119,6 +121,7 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
                     IdFabricante = producto.IdFabricante,
                     IdUnidad = producto.IdUnidad,
                     Imagen = producto.Imagen,
+                    IdCondicion = Convert.ToInt32(producto.IdCondicion),
                     Stock = producto.Stock,
                     StockMin = Convert.ToInt32(producto.StockMin),
                     PrecioCompra = Convert.ToDecimal(producto.PrecioCompra),

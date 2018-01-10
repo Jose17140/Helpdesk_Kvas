@@ -72,7 +72,6 @@ namespace HelpDesk_Kvas
                 if (roles.Count() > 0)
                 {
                     HttpRuntime.Cache.Insert(cacheKey, roles, null, DateTime.Now.AddMinutes(_cacheTimeoutInMinute), Cache.NoSlidingExpiration);
-
                 }
             }
             return roles;

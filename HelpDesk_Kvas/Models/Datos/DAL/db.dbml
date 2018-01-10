@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="HelpDesk_Kvas" Class="dbDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=.;Initial Catalog=HelpDesk_Kvas;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DefaultConnection" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Helpdesk_Kvas" Class="dbDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=HP6180\MSSQLSERVER2016;Initial Catalog=Helpdesk_Kvas;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="Helpdesk_KvasConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Grupos" Member="Grupos">
     <Type Name="Grupos">
       <Column Name="IdGrupo" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -39,9 +39,10 @@
       <Association Name="GruposDetalles_GruposDetalles" Member="GruposDetalles2" ThisKey="IdGrupoDetalle" OtherKey="IdPadre" Type="GruposDetalles" />
       <Association Name="GruposDetalles_Personas" Member="Personas" ThisKey="IdGrupoDetalle" OtherKey="IdTipoPersona" Type="Personas" />
       <Association Name="GruposDetalles_ProductoServicios" Member="ProductoServicios" ThisKey="IdGrupoDetalle" OtherKey="IdCategoria" Type="ProductoServicios" />
-      <Association Name="GruposDetalles_ProductoServicios1" Member="ProductoServicios1" ThisKey="IdGrupoDetalle" OtherKey="IdFabricante" Type="ProductoServicios" />
-      <Association Name="GruposDetalles_ProductoServicios2" Member="ProductoServicios2" ThisKey="IdGrupoDetalle" OtherKey="IdGrupo" Type="ProductoServicios" />
-      <Association Name="GruposDetalles_ProductoServicios3" Member="ProductoServicios3" ThisKey="IdGrupoDetalle" OtherKey="IdUnidad" Type="ProductoServicios" />
+      <Association Name="GruposDetalles_ProductoServicios1" Member="ProductoServicios1" ThisKey="IdGrupoDetalle" OtherKey="IdCondicion" Type="ProductoServicios" />
+      <Association Name="GruposDetalles_ProductoServicios2" Member="ProductoServicios2" ThisKey="IdGrupoDetalle" OtherKey="IdFabricante" Type="ProductoServicios" />
+      <Association Name="GruposDetalles_ProductoServicios3" Member="ProductoServicios3" ThisKey="IdGrupoDetalle" OtherKey="IdGrupo" Type="ProductoServicios" />
+      <Association Name="GruposDetalles_ProductoServicios4" Member="ProductoServicios4" ThisKey="IdGrupoDetalle" OtherKey="IdUnidad" Type="ProductoServicios" />
       <Association Name="GruposDetalles_Usuarios" Member="Usuarios" ThisKey="IdGrupoDetalle" OtherKey="IdPreguntaSeguridad" Type="Usuarios" />
       <Association Name="Grupos_GruposDetalles" Member="Grupos" ThisKey="IdGrupo" OtherKey="IdGrupo" Type="Grupos" IsForeignKey="true" />
       <Association Name="GruposDetalles_GruposDetalles" Member="GruposDetalles1" ThisKey="IdPadre" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" />
@@ -71,6 +72,7 @@
       <Column Name="IdFabricante" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="IdUnidad" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Imagen" Type="System.String" DbType="VarChar(40)" CanBeNull="true" />
+      <Column Name="IdCondicion" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Stock" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="StockMin" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="PrecioCompra" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
@@ -80,9 +82,10 @@
       <Column Name="FechaRegistro" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Association Name="ProductoServicios_SerialesProductos" Member="SerialesProductos" ThisKey="IdProducto" OtherKey="IdProducto" Type="SerialesProductos" />
       <Association Name="GruposDetalles_ProductoServicios" Member="GruposDetalles" ThisKey="IdCategoria" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
-      <Association Name="GruposDetalles_ProductoServicios1" Member="GruposDetalles1" ThisKey="IdFabricante" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" />
-      <Association Name="GruposDetalles_ProductoServicios2" Member="GruposDetalles2" ThisKey="IdGrupo" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" />
-      <Association Name="GruposDetalles_ProductoServicios3" Member="GruposDetalles3" ThisKey="IdUnidad" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" />
+      <Association Name="GruposDetalles_ProductoServicios1" Member="GruposDetalles1" ThisKey="IdCondicion" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" />
+      <Association Name="GruposDetalles_ProductoServicios2" Member="GruposDetalles2" ThisKey="IdFabricante" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" />
+      <Association Name="GruposDetalles_ProductoServicios3" Member="GruposDetalles3" ThisKey="IdGrupo" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" />
+      <Association Name="GruposDetalles_ProductoServicios4" Member="GruposDetalles4" ThisKey="IdUnidad" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.SerialesProductos" Member="SerialesProductos">

@@ -87,17 +87,14 @@ namespace HelpDesk_Kvas.Controllers
         //[ChildActionOnly]
         public ActionResult Create(int id)
         {
+            MensajeInicioRegistrar();
             ViewBag.Id = id;
             var m = objGrupoLogic.Buscar(id);
-            var n = m.Titulo;
-            ViewBag.Nombre = n;
-            var j = m.IdPadre;
-            ViewBag.IdPadre = j;
-            
+            ViewBag.Nombre = m.Titulo;
+            ViewBag.IdPadre = m.IdPadre;
             var listaPdres = objGrupoDetalleLogic.ListarPorGrupo(Convert.ToInt32(m.IdPadre));
             SelectList listaDetalles = new SelectList(listaPdres, "IdGrupoDetalle", "Titulo");
             ViewBag.ListaGruposDetalles = listaDetalles;
-            MensajeInicioRegistrar();
             return PartialView("Create");
         }
 
@@ -116,7 +113,15 @@ namespace HelpDesk_Kvas.Controllers
                 MensajeErrorRegistrar(objGrupo);
                 return Json(new { success = true });
             }
-            return Json(objGrupo, JsonRequestBehavior.AllowGet);
+            ViewBag.Id = objGrupo.IdGrupo;
+            var m = objGrupoLogic.Buscar(Convert.ToInt32(objGrupo.IdGrupo));
+            ViewBag.Nombre = m.Titulo;
+            ViewBag.IdPadre = m.IdPadre;
+            var listaPdres = objGrupoDetalleLogic.ListarPorGrupo(Convert.ToInt32(m.IdPadre));
+            SelectList listaDetalles = new SelectList(listaPdres, "IdGrupoDetalle", "Titulo");
+            ViewBag.ListaGruposDetalles = listaDetalles;
+            //return Json(objGrupo, JsonRequestBehavior.AllowGet);
+            return View(objGrupo);
         }
 
         // GET: Grupo/Edit/5

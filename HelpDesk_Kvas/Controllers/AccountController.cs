@@ -1,5 +1,4 @@
-﻿
-using HelpDesk_Kvas.Models.Datos.Entity;
+﻿using HelpDesk_Kvas.Models.Datos.Entity;
 using HelpDesk_Kvas.Models.Datos.Logica;
 using System;
 using System.Collections.Generic;
@@ -54,8 +53,6 @@ namespace HelpDesk_Kvas.Controllers
                 #region //Email is already Exist 
                 var isExistEmail = objUsuarioLogic.IsEmailExist(user.Email);
                 var isExistUser = objUsuarioLogic.IsUserExist(user.UserName);
-                //var isExistEmail = IsEmailExist(user.Email);
-                //var isExistUser = IsUserExist(user.UserName);
                 if (isExistEmail)
                 {
                     ModelState.AddModelError("EmailExist", "Correo electronico ya esta registrado");
@@ -120,23 +117,20 @@ namespace HelpDesk_Kvas.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginUserEntity login, string ReturnUrl = "")
         {
-            string message = "";
             if (ModelState.IsValid)
             {
                 var log = objUsuarioLogic.ListarLogin();
-                var user = log.Where(x => x.UserName == login.UserName).FirstOrDefault();
+                var user = log.Where(x => x.UserName.ToUpper().Contains(login.UserName.ToUpper())).FirstOrDefault();
                 if (user != null)
                 {
                     if (user.ContadorFallido > 5)
                     {
-                        ViewBag.Message = "Usuario Bloqueado por 5 minutos";
-                        ModelState.AddModelError("Exceso de Fallos", "Usuario Bloqueado por 5 minutos");
+                        ModelState.AddModelError("Usuario Bloqueado", "Usuario bloqueado para desbloquear contacte al administrador");
                         return View();
                     }
                     if (!user.Estatus)
                     {
-                        ViewBag.Message = "Usuario Inactivo, comuniquese con el administrador";
-                        ModelState.AddModelError("Exceso de Fallos", "Usuario Bloqueado Para desbloquear contacte al administrador");
+                        ModelState.AddModelError("Usuario Inactivo", "Usuario incativo para desbloquear contacte al administrador");
                         return View();
                     }
                     if (string.Compare(Crypto.Hash(login.Password), user.Password) == 0)
@@ -165,15 +159,14 @@ namespace HelpDesk_Kvas.Controllers
                         var con = user.ContadorFallido + 1;
                         login.ContadorFallido = con;
                         objUsuarioLogic.LoginControl(login);
-                        message = "Usuario o ontrasena invalido";
+                        ModelState.AddModelError("Datos invalidos", "Usuario o ontrasena invalido");
                     }
                 }
                 else
                 {
-                    message = "Usuario o ontrasena invalido";
+                    ModelState.AddModelError("Datos invalidos", "Usuario o ontrasena invalido");
                 }
             }
-            ViewBag.Message = message;
             return View();
         }
         

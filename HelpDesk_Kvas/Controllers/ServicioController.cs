@@ -93,6 +93,7 @@ namespace HelpDesk_Kvas.Controllers
         public ActionResult Create(ProductosEntity producto)
         {
             producto.IdGrupo = 16;
+            producto.IdCondicion = 103;
             if (ModelState.IsValid)
             {
                 var isExistSku = objProductoLogic.IsSkuExist(producto.Sku);
@@ -154,6 +155,7 @@ namespace HelpDesk_Kvas.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ProductosEntity producto)
         {
+            producto.IdCondicion = 103;
             if (ModelState.IsValid)
             {
                 MensajeInicioActualizar();

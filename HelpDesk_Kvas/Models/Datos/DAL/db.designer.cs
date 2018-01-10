@@ -22,7 +22,7 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="HelpDesk_Kvas")]
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="Helpdesk_Kvas")]
 	public partial class dbDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -54,7 +54,7 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
     #endregion
 		
 		public dbDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["Helpdesk_Kvas"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["Helpdesk_KvasConnectionString"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -743,6 +743,8 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 		
 		private EntitySet<ProductoServicios> _ProductoServicios3;
 		
+		private EntitySet<ProductoServicios> _ProductoServicios4;
+		
 		private EntitySet<Usuarios> _Usuarios;
 		
 		private EntityRef<Grupos> _Grupos;
@@ -784,6 +786,7 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 			this._ProductoServicios1 = new EntitySet<ProductoServicios>(new Action<ProductoServicios>(this.attach_ProductoServicios1), new Action<ProductoServicios>(this.detach_ProductoServicios1));
 			this._ProductoServicios2 = new EntitySet<ProductoServicios>(new Action<ProductoServicios>(this.attach_ProductoServicios2), new Action<ProductoServicios>(this.detach_ProductoServicios2));
 			this._ProductoServicios3 = new EntitySet<ProductoServicios>(new Action<ProductoServicios>(this.attach_ProductoServicios3), new Action<ProductoServicios>(this.detach_ProductoServicios3));
+			this._ProductoServicios4 = new EntitySet<ProductoServicios>(new Action<ProductoServicios>(this.attach_ProductoServicios4), new Action<ProductoServicios>(this.detach_ProductoServicios4));
 			this._Usuarios = new EntitySet<Usuarios>(new Action<Usuarios>(this.attach_Usuarios), new Action<Usuarios>(this.detach_Usuarios));
 			this._Grupos = default(EntityRef<Grupos>);
 			this._GruposDetalles1 = default(EntityRef<GruposDetalles>);
@@ -1050,7 +1053,7 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_ProductoServicios1", Storage="_ProductoServicios1", ThisKey="IdGrupoDetalle", OtherKey="IdFabricante")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_ProductoServicios1", Storage="_ProductoServicios1", ThisKey="IdGrupoDetalle", OtherKey="IdCondicion")]
 		public EntitySet<ProductoServicios> ProductoServicios1
 		{
 			get
@@ -1063,7 +1066,7 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_ProductoServicios2", Storage="_ProductoServicios2", ThisKey="IdGrupoDetalle", OtherKey="IdGrupo")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_ProductoServicios2", Storage="_ProductoServicios2", ThisKey="IdGrupoDetalle", OtherKey="IdFabricante")]
 		public EntitySet<ProductoServicios> ProductoServicios2
 		{
 			get
@@ -1076,7 +1079,7 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_ProductoServicios3", Storage="_ProductoServicios3", ThisKey="IdGrupoDetalle", OtherKey="IdUnidad")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_ProductoServicios3", Storage="_ProductoServicios3", ThisKey="IdGrupoDetalle", OtherKey="IdGrupo")]
 		public EntitySet<ProductoServicios> ProductoServicios3
 		{
 			get
@@ -1086,6 +1089,19 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 			set
 			{
 				this._ProductoServicios3.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_ProductoServicios4", Storage="_ProductoServicios4", ThisKey="IdGrupoDetalle", OtherKey="IdUnidad")]
+		public EntitySet<ProductoServicios> ProductoServicios4
+		{
+			get
+			{
+				return this._ProductoServicios4;
+			}
+			set
+			{
+				this._ProductoServicios4.Assign(value);
 			}
 		}
 		
@@ -1272,6 +1288,18 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 		{
 			this.SendPropertyChanging();
 			entity.GruposDetalles3 = null;
+		}
+		
+		private void attach_ProductoServicios4(ProductoServicios entity)
+		{
+			this.SendPropertyChanging();
+			entity.GruposDetalles4 = this;
+		}
+		
+		private void detach_ProductoServicios4(ProductoServicios entity)
+		{
+			this.SendPropertyChanging();
+			entity.GruposDetalles4 = null;
 		}
 		
 		private void attach_Usuarios(Usuarios entity)
@@ -1582,6 +1610,8 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 		
 		private string _Imagen;
 		
+		private int _IdCondicion;
+		
 		private int _Stock;
 		
 		private System.Nullable<int> _StockMin;
@@ -1606,6 +1636,8 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 		
 		private EntityRef<GruposDetalles> _GruposDetalles3;
 		
+		private EntityRef<GruposDetalles> _GruposDetalles4;
+		
     #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -1628,6 +1660,8 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
     partial void OnIdUnidadChanged();
     partial void OnImagenChanging(string value);
     partial void OnImagenChanged();
+    partial void OnIdCondicionChanging(int value);
+    partial void OnIdCondicionChanged();
     partial void OnStockChanging(int value);
     partial void OnStockChanged();
     partial void OnStockMinChanging(System.Nullable<int> value);
@@ -1651,6 +1685,7 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 			this._GruposDetalles1 = default(EntityRef<GruposDetalles>);
 			this._GruposDetalles2 = default(EntityRef<GruposDetalles>);
 			this._GruposDetalles3 = default(EntityRef<GruposDetalles>);
+			this._GruposDetalles4 = default(EntityRef<GruposDetalles>);
 			OnCreated();
 		}
 		
@@ -1729,7 +1764,7 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 			{
 				if ((this._IdGrupo != value))
 				{
-					if (this._GruposDetalles2.HasLoadedOrAssignedValue)
+					if (this._GruposDetalles3.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -1793,7 +1828,7 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 			{
 				if ((this._IdFabricante != value))
 				{
-					if (this._GruposDetalles1.HasLoadedOrAssignedValue)
+					if (this._GruposDetalles2.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -1817,7 +1852,7 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 			{
 				if ((this._IdUnidad != value))
 				{
-					if (this._GruposDetalles3.HasLoadedOrAssignedValue)
+					if (this._GruposDetalles4.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -1846,6 +1881,30 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 					this._Imagen = value;
 					this.SendPropertyChanged("Imagen");
 					this.OnImagenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdCondicion", DbType="Int NOT NULL")]
+		public int IdCondicion
+		{
+			get
+			{
+				return this._IdCondicion;
+			}
+			set
+			{
+				if ((this._IdCondicion != value))
+				{
+					if (this._GruposDetalles1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIdCondicionChanging(value);
+					this.SendPropertyChanging();
+					this._IdCondicion = value;
+					this.SendPropertyChanged("IdCondicion");
+					this.OnIdCondicionChanged();
 				}
 			}
 		}
@@ -2037,7 +2096,7 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_ProductoServicios1", Storage="_GruposDetalles1", ThisKey="IdFabricante", OtherKey="IdGrupoDetalle", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_ProductoServicios1", Storage="_GruposDetalles1", ThisKey="IdCondicion", OtherKey="IdGrupoDetalle", IsForeignKey=true)]
 		public GruposDetalles GruposDetalles1
 		{
 			get
@@ -2060,18 +2119,18 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 					if ((value != null))
 					{
 						value.ProductoServicios1.Add(this);
-						this._IdFabricante = value.IdGrupoDetalle;
+						this._IdCondicion = value.IdGrupoDetalle;
 					}
 					else
 					{
-						this._IdFabricante = default(int);
+						this._IdCondicion = default(int);
 					}
 					this.SendPropertyChanged("GruposDetalles1");
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_ProductoServicios2", Storage="_GruposDetalles2", ThisKey="IdGrupo", OtherKey="IdGrupoDetalle", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_ProductoServicios2", Storage="_GruposDetalles2", ThisKey="IdFabricante", OtherKey="IdGrupoDetalle", IsForeignKey=true)]
 		public GruposDetalles GruposDetalles2
 		{
 			get
@@ -2094,18 +2153,18 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 					if ((value != null))
 					{
 						value.ProductoServicios2.Add(this);
-						this._IdGrupo = value.IdGrupoDetalle;
+						this._IdFabricante = value.IdGrupoDetalle;
 					}
 					else
 					{
-						this._IdGrupo = default(int);
+						this._IdFabricante = default(int);
 					}
 					this.SendPropertyChanged("GruposDetalles2");
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_ProductoServicios3", Storage="_GruposDetalles3", ThisKey="IdUnidad", OtherKey="IdGrupoDetalle", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_ProductoServicios3", Storage="_GruposDetalles3", ThisKey="IdGrupo", OtherKey="IdGrupoDetalle", IsForeignKey=true)]
 		public GruposDetalles GruposDetalles3
 		{
 			get
@@ -2128,13 +2187,47 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 					if ((value != null))
 					{
 						value.ProductoServicios3.Add(this);
+						this._IdGrupo = value.IdGrupoDetalle;
+					}
+					else
+					{
+						this._IdGrupo = default(int);
+					}
+					this.SendPropertyChanged("GruposDetalles3");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_ProductoServicios4", Storage="_GruposDetalles4", ThisKey="IdUnidad", OtherKey="IdGrupoDetalle", IsForeignKey=true)]
+		public GruposDetalles GruposDetalles4
+		{
+			get
+			{
+				return this._GruposDetalles4.Entity;
+			}
+			set
+			{
+				GruposDetalles previousValue = this._GruposDetalles4.Entity;
+				if (((previousValue != value) 
+							|| (this._GruposDetalles4.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._GruposDetalles4.Entity = null;
+						previousValue.ProductoServicios4.Remove(this);
+					}
+					this._GruposDetalles4.Entity = value;
+					if ((value != null))
+					{
+						value.ProductoServicios4.Add(this);
 						this._IdUnidad = value.IdGrupoDetalle;
 					}
 					else
 					{
 						this._IdUnidad = default(int);
 					}
-					this.SendPropertyChanged("GruposDetalles3");
+					this.SendPropertyChanged("GruposDetalles4");
 				}
 			}
 		}

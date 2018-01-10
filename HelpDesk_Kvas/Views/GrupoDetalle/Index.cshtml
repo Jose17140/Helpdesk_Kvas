@@ -39,11 +39,14 @@
 
                 </div>
             </div>
-            <div class="pull-right col-lg-1">
-                <a class="btn btn-success" data-modal="" href="/GrupoDetalle/Create/@ViewBag.Id" id="btnCreate">
-                    <span class="glyphicon glyphicon-plus"></span>
-                </a>
-            </div>
+            @if (User.IsInRole("Master") || User.IsInRole("Supervisor"))
+            {
+                <div class="pull-right col-lg-1">
+                    <a class="btn btn-success" data-modal="" href="/GrupoDetalle/Create/@ViewBag.Id" id="btnCreate">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>
+                </div>
+            }
         </div>
 
         <div style="margin-top:17px;">
@@ -74,7 +77,10 @@
                 format: @<text>
                 @Html.Raw("<a data-modal='' href='/GrupoDetalle/details/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Detail'> <span class='glyphicon glyphicon-search'> </span> </a>")
                 @Html.Raw("<a data-modal='' href='/GrupoDetalle/edit/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Edit'> <span class='glyphicon glyphicon-edit'> </span> </a>")
-                @Html.Raw("<a data-modal='' href='/GrupoDetalle/delete/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Delete'> <span class='glyphicon glyphicon-trash'> </span> </a>")
+                @if (User.IsInRole("Master") || User.IsInRole("Supervisor"))
+                {
+                    @Html.Raw("<a data-modal='' href='/GrupoDetalle/delete/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Delete'> <span class='glyphicon glyphicon-trash'> </span> </a>")
+                }
                 </text>)
             ));
             }

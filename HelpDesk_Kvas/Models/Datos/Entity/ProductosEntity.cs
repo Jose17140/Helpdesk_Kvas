@@ -7,6 +7,11 @@ using System.Threading.Tasks;
 
 namespace HelpDesk_Kvas.Models.Datos.Entity
 {
+    public enum Condicion
+    {
+        Nuevo,Usado
+    }
+
     public class ProductosEntity
     {
         [Key]
@@ -56,6 +61,9 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
         [DataType(DataType.DateTime)]
         [Display(Name = "Fecha de Registro:")]
         public DateTime FechaRegistro { get; set; }
+
+        [Display(Name = "Condicion del Producto:")]
+        public int? IdCondicion { get; set; }
 
         [Display(Name = "Estatus:")]
         public bool Estatus { get; set; }

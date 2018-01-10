@@ -9,7 +9,7 @@ INSERT INTO Grupos(Nombre,Descripcion,IdPadre,Icono,Estatus,FechaRegistro)VALUES
 ('TipoPersona','Tipo de Identificacion de los Usuarios',0,'fa fa-pause',1,GETDATE()),
 ('Roles','Roles de Usuario',0,'fa fa-edit',1,GETDATE()),
 ('Sexos','Genero de las personas',0,'fa fa-venus-mars',1,GETDATE()),
-('Departamentos','Departamentos de servicio',0,'fa fa-pause',1,GETDATE()),
+('Departamentos','Departamentos de servicio',0,'glyphicon glyphicon-th-large',1,GETDATE()),
 ('Pais','Paises',0,'fa fa-globe',1,GETDATE()),
 ('Estados','Estados de los paises',7,'fa fa-globe',1,GETDATE()),
 ('Ciudades','Agrupa Ciudades',8,'fa fa-globe',1,GETDATE()),
@@ -17,17 +17,20 @@ INSERT INTO Grupos(Nombre,Descripcion,IdPadre,Icono,Estatus,FechaRegistro)VALUES
 ('Accesorios','Accesorios que se entregan con el equipo',0,'fa fa-pause',1,GETDATE()),
 ('Preguntas de Seguridad','Pregunta de seguridad al login',0,'fa fa-question-circle',1,GETDATE()),
 ('Fallas','Agrupa Fallas de sistema',0,'fa fa-wrench',1,GETDATE()),
-('Equipos','Equipos de Servicio',0,'fa fa-edit',1,GETDATE()),
+('Equipos','Equipos de Servicio',0,'fa fa-laptop',1,GETDATE()),
 ('Tipos de Pagos','tipos de Pago',0,'fa fa-cc-visa',1,GETDATE()),
 ('Productos','Productos que se venden',0,'fa fa-pause',1,GETDATE()),
 ('Servicios','Servicio que se prestan',0,'fa fa-pause',1,GETDATE()),
-('Estatus','Estatus de los requerimientos',0,'fa fa-pause',1,GETDATE()),
+('Estatus','Estatus de los requerimientos',0,'glyphicon glyphicon-ok',1,GETDATE()),
 ('Prioridades','Prioridad del requerimiento',0,'fa fa-pause',1,GETDATE()),
-('Cargos','Cargo de los empleados',0,'fa fa-pause',1,GETDATE()),
+('Cargos','Cargo de los empleados',0,'glyphicon glyphicon-briefcase',1,GETDATE()),
 ('Impuestos','Alicuota de Impuestas',0,'fa fa-edit',1,GETDATE()),
 ('Unidades','Tipos de unidades de Venta',0,'fa fa-edit',1,GETDATE()),
 ('Cat. Productos','Categorias de los Productos',0,'fa fa-edit',1,GETDATE()),
-('Cat. Servicio','Categoria de los Servicios',0,'fa fa-edit',1,GETDATE());
+('Cat. Servicio','Categoria de los Servicios',0,'fa fa-edit',1,GETDATE()),
+('Estado del Producto','Condicion del producto, (Nuevo o Usado)',0,'glyphicon glyphicon-erase',1,GETDATE()),
+('Depositos','Ubicacion de equipo',0,'glyphicon glyphicon-th-list',1,GETDATE()),
+('Modelo','Modelo del equipo',10,'glyphicon glyphicon-hdd',1,GETDATE());
 --NULOS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 ('---','Agrupa los elementos padre GrupoDetalles',0,'Nulo',0,null,'*',GETDATE());
@@ -182,21 +185,11 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDe
 ('Tinta','Envase de tinta',11,'fa fa-users',6,0,'*',GETDATE()),
 ('CD/DVD','Driver y documentacion',11,'fa fa-users',7,0,'*',GETDATE()),
 ('Cartuchos','Cartuchos de tinta',11,'fa fa-users',8,0,'*',GETDATE());
---CATEGORIAS DE PRODUCTOS Y SERVICIOS
-INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
-('Raton','Raton',11,'fa fa-users',1,0,'*',GETDATE()),
-('Teclado','Teclado',11,'fa fa-users',2,0,'*',GETDATE()),
-('Sistema de Tinta','Sistema de Tinta',11,'fa fa-users',3,0,'*',GETDATE()),
-('Cargador','Cargador',11,'fa fa-users',4,0,'*',GETDATE()),
-('Cargador y Cable','Cargador mas Cable de poder',11,'fa fa-users',5,0,'*',GETDATE()),
-('Tinta','Envase de tinta',11,'fa fa-users',6,0,'*',GETDATE()),
-('CD/DVD','Driver y documentacion',11,'fa fa-users',7,0,'*',GETDATE()),
-('Cartuchos','Cartuchos de tinta',11,'fa fa-users',8,0,'*',GETDATE());
 --USUARIOS
-EXEC sp_AgregarUsuario 'Master','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=','Master@hotmail.com',40,'edmundo romero','/Content/images/img/avatar.png',1,'2018-01-03 19:45:28.087',1
-EXEC sp_AgregarUsuario 'Admin','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=','Admin@hotmail.com',40,'edmundo romero','/Content/images/img/avatar.png',1,'2018-01-03 19:45:28.087',1
-EXEC sp_AgregarUsuario 'Tecnico','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=','Tecnico@hotmail.com',40,'edmundo romero','/Content/images/img/avatar.png',1,'2018-01-03 19:45:28.087',1
-EXEC sp_AgregarUsuario 'Cliente','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=','Cliente@hotmail.com',40,'edmundo romero','/Content/images/img/avatar.png',1,'2018-01-03 19:45:28.087',1
+EXEC sp_AgregarUsuario 'Master','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=','Master@hotmail.com',40,'edmundo romero','/Content/images/img/avatar.png',1,'2018-01-03 19:45:28.087',46
+EXEC sp_AgregarUsuario 'Admin','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=','Admin@hotmail.com',40,'edmundo romero','/Content/images/img/avatar.png',1,'2018-01-03 19:45:28.087',46
+EXEC sp_AgregarUsuario 'Tecnico','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=','Tecnico@hotmail.com',40,'edmundo romero','/Content/images/img/avatar.png',1,'2018-01-03 19:45:28.087',46
+EXEC sp_AgregarUsuario 'Cliente','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=','Cliente@hotmail.com',40,'edmundo romero','/Content/images/img/avatar.png',1,'2018-01-03 19:45:28.087',46
 --CAT PRODUCTOS Y SERVICIOS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 --CAT PRODUCTOS
@@ -211,14 +204,37 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDe
 ('Impresoras','Equipos de impresion',24,'glyphicon glyphicon-tags',3,0,'*',GETDATE());
 --PRODUCTOS
 INSERT INTO ProductoServicios (Sku,IdCategoria,IdGrupo,Nombre,Descripcion,IdFabricante,IdUnidad,Imagen,Stock,StockMin,PrecioCompra,PrecioVenta,Garantia,Estatus,FechaRegistro) VALUES
-('123456789',105,16,'Procesador I7','Procesador I7 XXXX LGA123',64,31,'IMAGEN',10,1,200000,500000,10,1,'2018-01-03 19:45:28.087');
+('123456789',97,16,'Procesador I7','Procesador I7 XXXX LGA123',64,31,'IMAGEN',10,1,200000,500000,10,1,'2018-01-03 19:45:28.087');
 --SERVICIO
 INSERT INTO ProductoServicios (Sku,IdCategoria,IdGrupo,Nombre,Descripcion,IdFabricante,IdUnidad,Imagen,Stock,StockMin,PrecioCompra,PrecioVenta,Garantia,Estatus,FechaRegistro) VALUES
-('987654321',110,17,'Limpieza de Cabezal','Solvente y ultrasonido',67,31,'glyphicon glyphicon-wrench',0,0,200000,500000,15,1,'2018-01-03 19:45:28.087');
-
+('987654321',102,17,'Limpieza de Cabezal','Solvente y ultrasonido',67,31,'glyphicon glyphicon-wrench',0,0,200000,500000,15,1,'2018-01-03 19:45:28.087');
+--CONDICIONES
+INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
+('Nuevo','Producto Nuevo',25,'glyphicon glyphicon-tags',1,0,'*',GETDATE()),
+('Usado','Producto Usado',25,'glyphicon glyphicon-tags',2,0,'*',GETDATE()),
+('Consignacion','Consignado para su ventas',25,'glyphicon glyphicon-tags',3,0,'*',GETDATE());
+--EQUIPOS
+INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
+('Impresora','Impresoras',14,'glyphicon glyphicon-print',1,0,'*',GETDATE()),
+('Computadora','Pc',14,'fa fa-laptop',2,0,'*',GETDATE()),
+('Laptop','Laptop',14,'fa fa-laptop',3,0,'*',GETDATE()),
+('Router','Router, Wifi',14,'glyphicon glyphicon-signal',4,0,'*',GETDATE()),
+('Servidor','Servidor',14,'glyphicon glyphicon-hdd',5,0,'*',GETDATE()),
+('Telefono','Smartphone',14,'glyphicon glyphicon-earphone',6,0,'*',GETDATE());
+--DEPOSITOS
+INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
+('Estante Vitrina','Vitrina de equipos recibidos',26,'glyphicon glyphicon-th-list',1,0,'*',GETDATE()),
+('Estante Taller','Estante de equipos area de soporte',26,'glyphicon glyphicon-th-list',2,0,'*',GETDATE()),
+('Deposito','Deposito final, equipos no retirados',26,'glyphicon glyphicon-th-list',3,0,'*',GETDATE());
+--EQUIPOS
+INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
+('Estante Vitrina','Vitrina de equipos recibidos',26,'glyphicon glyphicon-th-list',1,0,'*',GETDATE()),
+('Estante Taller','Estante de equipos area de soporte',26,'glyphicon glyphicon-th-list',2,0,'*',GETDATE()),
+('Deposito','Deposito final, equipos no retirados',26,'glyphicon glyphicon-th-list',3,0,'*',GETDATE());
 
 SELECT * FROM Grupos
 SELECT * FROM GruposDetalles
+SELECT * FROM ProductoServicios
 
 
 ---- PRODUCTOS

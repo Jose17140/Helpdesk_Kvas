@@ -39,13 +39,15 @@
 
                 </div>
             </div>
-            <div class="pull-right col-lg-1">
-                <a class="btn btn-success" data-modal="" href="/Roles/Create/@ViewBag.Id" id="btnCreate">
-                    <span class="glyphicon glyphicon-plus"></span>
-                </a>
-            </div>
+            @if (User.IsInRole("Master"))
+            {
+                <div class="pull-right col-lg-1">
+                    <a class="btn btn-success" data-modal="" href="/Roles/Create/@ViewBag.Id" id="btnCreate">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>
+                </div>
+            }
         </div>
-
         <div style="margin-top:17px;">
             @{
                 var grid = new WebGrid(
@@ -73,10 +75,14 @@
                 format: @<text>
                 @Html.Raw("<a data-modal='' href='/Roles/details/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Detail'> <span class='glyphicon glyphicon-search'> </span> </a>")
                 @Html.Raw("<a data-modal='' href='/Roles/edit/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Edit'> <span class='glyphicon glyphicon-edit'> </span> </a>")
-                @Html.Raw("<a data-modal='' href='/Roles/delete/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Delete'> <span class='glyphicon glyphicon-trash'> </span> </a>")
+                @if (User.IsInRole("Master"))
+                {
+                    @Html.Raw("<a data-modal='' href='/Roles/delete/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Delete'> <span class='glyphicon glyphicon-trash'> </span> </a>")
+                
+                }
                 </text>)
             ));
-            }
+}
         </div>
     }
 </div>
