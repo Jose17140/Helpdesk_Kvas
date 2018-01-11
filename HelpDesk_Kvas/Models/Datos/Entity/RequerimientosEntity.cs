@@ -87,6 +87,9 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
         [Display(Name = "Cliente:")]
         public string Cliente { get; set; }
 
+        [Display(Name = "Cedula:")]
+        public string Cedula { get; set; }
+
         [Display(Name = "Equipo:")]
         public string Equipo { get; set; }
 

@@ -112,7 +112,7 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
         {
             try
             {
-                var query = (from m in db.vw_requerimietos
+                var query = (from m in db.vw_Requerimientos
                              where m.IdRequerimiento == idRequerimiento
                              select m).FirstOrDefault();
                 var model = new RequerimientoViewEntity()
@@ -124,6 +124,7 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
                     FechaSalida = Convert.ToDateTime(query.FechaSalida),
                     IdCliente = query.IdPersona,
                     Cliente = query.Nombres,
+                    Cedula = query.Cedula,
                     IdEquipo = query.IdEquipo,
                     Equipo = query.Equipo,
                     IdMarca = query.IdMarca,
@@ -162,7 +163,7 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
             try
             {
                 IList<RequerimientoViewEntity> lista = new List<RequerimientoViewEntity>();
-                var query = (from m in db.vw_requerimietos
+                var query = (from m in db.vw_Requerimientos
                              select m).ToList();
                 foreach (var req in query)
                 {
@@ -175,6 +176,7 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
                         FechaSalida = Convert.ToDateTime(req.FechaSalida),
                         IdCliente = req.IdPersona,
                         Cliente = req.Nombres,
+                        Cedula = req.Cedula,
                         IdEquipo = req.IdEquipo,
                         Equipo = req.Equipo,
                         IdMarca = req.IdMarca,

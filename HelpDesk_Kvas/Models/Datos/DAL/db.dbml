@@ -253,8 +253,8 @@
       <Column Name="FechaRegistro" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="dbo.vw_requerimietos" Member="vw_requerimietos">
-    <Type Name="vw_requerimietos">
+  <Table Name="dbo.vw_Requerimientos" Member="vw_Requerimientos">
+    <Type Name="vw_Requerimientos">
       <Column Name="IdRequerimiento" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="IdEmpleado" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Empleado" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
@@ -262,6 +262,7 @@
       <Column Name="FechaSalida" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="IdPersona" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Nombres" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Cedula" Type="System.String" DbType="VarChar(61) NOT NULL" CanBeNull="false" />
       <Column Name="IdEquipo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Equipo" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="IdMarca" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />

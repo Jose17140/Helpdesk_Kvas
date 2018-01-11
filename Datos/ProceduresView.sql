@@ -170,10 +170,11 @@ GO
 GO
 
 -- REQUERIMIENTOS
-DROP VIEW IF EXISTS vw_requerimietos;
+DROP VIEW IF EXISTS vw_Requerimientos;
 GO
-CREATE VIEW vw_requerimietos AS (
+CREATE VIEW vw_Requerimientos AS (
 	SELECT rq.IdRequerimiento, em.IdUsuario AS IdEmpleado, em.NombreUsuario AS Empleado, rq.FechaEntrada, rq.FechaSalida, ps.IdPersona, ps.Nombres,
+	CONCAT(tp.Nombre, ps.CiRif) AS Cedula,
 		eq.IdGrupoDetalle AS IdEquipo, eq.Nombre AS Equipo, mq.IdGrupoDetalle AS IdMarca, mq.Nombre AS Marca, md.IdGrupoDetalle AS IdModelo,
 		md.Nombre AS Modelo, pr.IdGrupoDetalle AS IdPrioridad, pr.Nombre AS Prioridad, rq.Falla, rq.Diagnostico, rq.Solucion, rq.Serial,
 		rq.Descripcion, rq.Accesorios, tc.IdUsuario AS IdTecnico, tc.NombreUsuario AS Tecnico, dp.IdGrupoDetalle AS IdDeposito, dp.Nombre AS Deposito,
@@ -181,6 +182,7 @@ CREATE VIEW vw_requerimietos AS (
 	FROM Requerimientos AS rq
 		INNER JOIN Usuarios AS em ON rq.IdEmpleado = em.IdUsuario
 		INNER JOIN Personas AS ps ON rq.IdCliente = ps.IdPersona
+		INNER JOIN GruposDetalles AS tp ON ps.IdTipoPersona = tp.IdGrupoDetalle
 		INNER JOIN GruposDetalles AS eq ON rq.IdEquipo = eq.IdGrupoDetalle
 		INNER JOIN GruposDetalles AS mq ON rq.IdMarca = mq.IdGrupoDetalle
 		INNER JOIN GruposDetalles AS md ON rq.IdModelo = md.IdGrupoDetalle

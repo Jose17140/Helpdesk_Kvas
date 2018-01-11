@@ -353,7 +353,7 @@ namespace HelpDesk_Kvas.Controllers
                 return View(lista);
             }else {
                 var lista = (from m in db.GruposDetalles
-                             where m.Estatus == true && (m.IdGrupo == 1 && m.IdPadre == 0)
+                             where m.Estatus == true && (m.IdGrupo == 1 && m.IdPadre == 0) //&& m.IdGrupoDetalle == 2
                              orderby m.Orden ascending
                              select m).ToList();
                 return View(lista);

@@ -2807,11 +2807,15 @@
     <Content Include="Views\Servicio\Delete.cshtml" />
     <Content Include="Views\Servicio\Details.cshtml" />
     <Content Include="Views\Servicio\Edit.cshtml" />
+    <Content Include="Views\Requerimiento\Create.cshtml" />
+    <Content Include="Views\Requerimiento\Delete.cshtml" />
+    <Content Include="Views\Requerimiento\Details.cshtml" />
+    <Content Include="Views\Requerimiento\Edit.cshtml" />
+    <Content Include="Views\Requerimiento\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\images\Productos\" />
-    <Folder Include="Views\Requerimiento\" />
     <Folder Include="Views\Soporte\" />
     <Folder Include="Views\Usuario\" />
   </ItemGroup>

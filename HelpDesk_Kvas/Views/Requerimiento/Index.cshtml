@@ -1,0 +1,96 @@
+﻿@model HelpDesk_Kvas.DataGrid.PagedList<HelpDesk_Kvas.Models.Datos.Entity.RequerimientoViewEntity>
+
+@{
+    ViewBag.Title = "Lista de Tablas";
+}
+
+@Styles.Render("~/Content/css/Grupos.css")
+@Scripts.Render("~/bundles/jquery")
+
+<section class="content-header">
+    <h1>
+        Tablero
+        <small>@ViewBag.Nombre</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+        <li class="active">Dashboard</li>
+    </ol>
+    <br />
+</section>
+<br />
+
+<div class="well">
+    @using (Html.BeginForm("index", null, FormMethod.Get))
+    {
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="input-group">
+
+                    <input type="text"
+                           name="filter"
+                           value="@ViewBag.filter"
+                           class="form-control"
+                           style="display: inline"
+                           placeholder="Buscar..." />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">Go</button>
+                    </span>
+
+                </div>
+            </div>
+            @if (User.IsInRole("Master") || User.IsInRole("Supervisor") || User.IsInRole("Analista") || User.IsInRole("Tecnico"))
+            {
+                <div class="pull-right col-lg-1">
+                    <a class="btn btn-success" data-modal="" href="/Requerimiento/Create/@ViewBag.Id" id="btnCreate">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>
+                </div>
+            }
+        </div>
+        <div style="margin-top:17px;">
+            @{
+        var grid = new WebGrid(
+            canPage: true,
+            rowsPerPage: Model.PageSize,
+            canSort: true,
+            ajaxUpdateContainerId: "grid");
+
+        grid.Bind(Model.Content, rowCount: Model.TotalRecords, autoSortAndPage: false);
+        grid.Pager(WebGridPagerModes.All);
+
+        @grid.GetHtml(htmlAttributes: new { id = "grid" },
+          fillEmptyRows: false,
+          tableStyle: "table table-bordered table-hover",
+          mode: WebGridPagerModes.All,
+          columns: grid.Columns(
+            grid.Column("IdRequerimiento", "ID"),
+            grid.Column("FechaEntrada", header: "Fecha Entrada", format: @<text>@String.Format("{0:MM/dd/yy}", item.FechaEntrada) </text>),
+            grid.Column("IdEquipo", "Titulo"),
+            grid.Column("IdEquipo", "Descripcion"),
+            grid.Column("IdEquipo", "Orden"),
+            grid.Column("IdEquipo", header: "Icono", format: @<text>@Html.Raw("<span class='" + item.IdEquipo + "'></span>")</text>),
+            grid.Column("IdEquipo", "Estatus"),
+            grid.Column("FechaEntrada", header: "Fecha", format: @<text>@String.Format("{0:MM/dd/yy}", item.FechaEntrada) </text>),
+            grid.Column(header: "Acciones", canSort: false, style: "action",
+            format: @<text>
+            @Html.Raw("<a data-modal='' href='/Requerimiento/details/" + item.IdRequerimiento + "' id='" + item.IdRequerimiento + "' title='Detail'> <span class='glyphicon glyphicon-search'> </span> </a>")
+            @Html.Raw("<a data-modal='' href='/Requerimiento/edit/" + item.IdRequerimiento + "' id='" + item.IdRequerimiento + "' title='Edit'> <span class='glyphicon glyphicon-edit'> </span> </a>")
+            @if (User.IsInRole("Master") || User.IsInRole("Supervisor"))
+         {
+        @Html.Raw("<a data-modal='' href='/Requerimiento/delete/" + item.IdRequerimiento + "' id='" + item.IdRequerimiento + "' title='Delete'> <span class='glyphicon glyphicon-trash'> </span> </a>")
+ }
+            </text>)));
+            }
+        </div>
+    }
+</div>
+<!-- modal placeholder-->
+<div id='myModal' class='modal fade in'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+</div>
+<script src="~/Content/js/PruebaModal.js"></script>

@@ -250,6 +250,10 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDe
 ('Cx5600','Impresora Multifuncional',27,'lyphicon glyphicon-flash',0,68,'*',GETDATE()),
 ('Fierce 2','Telefono Inteligente',27,'lyphicon glyphicon-flash',0,121,'*',GETDATE()),
 ('Generico','Equipo generico',27,'lyphicon glyphicon-flash',0,74,'*',GETDATE());
+--SUB MENU REQUERIMIENTO
+INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
+('Nuevo Ticket','Sub Menu',2,'glyphicon glyphicon-qrcode',0,2,'/Requerimiento/Create',GETDATE()),
+('Consultar','Sub Menu',2,'glyphicon glyphicon-search',0,2,'/Requerimiento/Consultar',GETDATE());
 
 SELECT * FROM Grupos
 SELECT * FROM GruposDetalles where IdGrupo = 8

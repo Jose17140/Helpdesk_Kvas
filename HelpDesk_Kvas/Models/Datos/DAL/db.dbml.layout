@@ -247,10 +247,10 @@
         <elementListCompartment Id="11cac712-8b84-48b1-9717-600ace866259" absoluteBounds="15.265, 1.21, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="0871131b-8fe6-41f6-ab6b-3671819134ee" absoluteBounds="9.625, 0.875, 2, 6.0015283203125">
-      <DataClassMoniker Name="/dbDataContext/vw_requerimietos" />
+    <classShape Id="48f5385c-bfa2-4684-9575-631501f4bba3" absoluteBounds="9.5, 0.875, 2, 6.1938297526041657">
+      <DataClassMoniker Name="/dbDataContext/vw_Requerimientos" />
       <nestedChildShapes>
-        <elementListCompartment Id="05c33543-e278-4034-9a01-b6d7e9b34eee" absoluteBounds="9.64, 1.335, 1.9700000000000002, 5.4415283203125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="d2e08a14-7d60-43c5-bbb7-0f6a45cc741e" absoluteBounds="9.515, 1.335, 1.9700000000000002, 5.6338297526041661" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

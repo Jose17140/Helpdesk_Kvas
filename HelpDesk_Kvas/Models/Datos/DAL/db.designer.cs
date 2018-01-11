@@ -201,11 +201,11 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 			}
 		}
 		
-		public System.Data.Linq.Table<vw_requerimietos> vw_requerimietos
+		public System.Data.Linq.Table<vw_Requerimientos> vw_Requerimientos
 		{
 			get
 			{
-				return this.GetTable<vw_requerimietos>();
+				return this.GetTable<vw_Requerimientos>();
 			}
 		}
 		
@@ -5416,8 +5416,8 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vw_requerimietos")]
-	public partial class vw_requerimietos
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vw_Requerimientos")]
+	public partial class vw_Requerimientos
 	{
 		
 		private int _IdRequerimiento;
@@ -5433,6 +5433,8 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 		private int _IdPersona;
 		
 		private string _Nombres;
+		
+		private string _Cedula;
 		
 		private int _IdEquipo;
 		
@@ -5474,7 +5476,7 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 		
 		private string _Estatus;
 		
-		public vw_requerimietos()
+		public vw_Requerimientos()
 		{
 		}
 		
@@ -5586,6 +5588,22 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 				if ((this._Nombres != value))
 				{
 					this._Nombres = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cedula", DbType="VarChar(61) NOT NULL", CanBeNull=false)]
+		public string Cedula
+		{
+			get
+			{
+				return this._Cedula;
+			}
+			set
+			{
+				if ((this._Cedula != value))
+				{
+					this._Cedula = value;
 				}
 			}
 		}

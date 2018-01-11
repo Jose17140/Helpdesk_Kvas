@@ -212,19 +212,19 @@ CREATE TABLE Accesorios_x_Requerimiento(
 		ON UPDATE NO ACTION
 );
 
-DROP TABLE IF EXISTS Mensajes_x_Requerimiento;
-CREATE TABLE Mensajes_x_Requerimiento(
-	IdMxR INT IDENTITY(1,1) NOT NULL,
+DROP TABLE IF EXISTS Observaciones_x_Requerimiento;
+CREATE TABLE Observaciones_x_Requerimiento(
+	IdOxR INT IDENTITY(1,1) NOT NULL,
 	IdRequerimiento INT NOT NULL,
 	IdUsuario INT NOT NULL,
-	Mensaje VARCHAR(100) NOT NULL,
+	Observaciones VARCHAR(100) NOT NULL,
 	Leido BIT NOT NULL DEFAULT 0, -- SIN LEER 0, LEIDO 1
 	FechaRegistro DATETIME NOT NULL,
-	CONSTRAINT PK_IxR_Id PRIMARY KEY(IdMxR,IdRequerimiento),
-	CONSTRAINT FK_IxR_Requerimientos_id FOREIGN KEY(IdRequerimiento) REFERENCES Requerimientos(IdRequerimiento)
+	CONSTRAINT PK_OxR_Id PRIMARY KEY(IdOxR,IdRequerimiento),
+	CONSTRAINT FK_OxR_Requerimientos_id FOREIGN KEY(IdRequerimiento) REFERENCES Requerimientos(IdRequerimiento)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION,
-	CONSTRAINT FK_Mensajes_Usuarios_IdUsuario FOREIGN KEY(IdUsuario) REFERENCES Usuarios(IdUsuario)
+	CONSTRAINT FK_OxR_Usuarios_IdUsuario FOREIGN KEY(IdUsuario) REFERENCES Usuarios(IdUsuario)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
 );
@@ -253,12 +253,14 @@ CREATE TABLE PresupuestoPorRequerimiento(
 --);
 
 SELECT * FROM Grupos;
-SELECT * FROM GruposDetalles where IdGrupo = 18;
+SELECT * FROM GruposDetalles where IdGrupo = 4;
 SELECT * FROM ProductoServicios;
 SELECT * FROM Personas;
 SELECT * FROM Usuarios;
 SELECT * FROM UsuariosRoles;
 SELECT * FROM Requerimientos;
+SELECT * FROM Accesorios_x_Requerimiento;
+
 
 INSERT INTO Requerimientos(IdEmpleado,FechaEntrada,IdCliente,IdEquipo,IdMarca,IdModelo,IdPrioridad,Falla,Serial,Descripcion,Accesorios,IdDeposito,Estatus)VALUES
 (4,'2018-01-03 19:45:28.087',5,106,68,122,118,'Imprime con rayas','XWWWW00001','Equipo en mal estado','Ninguno',116,58);
