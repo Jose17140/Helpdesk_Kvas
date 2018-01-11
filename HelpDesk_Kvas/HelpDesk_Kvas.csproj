@@ -194,6 +194,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
@@ -202,10 +203,10 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PersonaController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
+    <Compile Include="Controllers\RequerimientoController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\ServicioController.cs" />
     <Compile Include="Controllers\SoporteController.cs" />
-    <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="DataGrid\DataGrid.cs" />
     <Compile Include="DataGrid\PagedList.cs" />
     <Compile Include="Global.asax.cs">
@@ -223,19 +224,21 @@
     <Compile Include="Models\Datos\DAL\Obligatorios.cs" />
     <Compile Include="Models\Datos\DAL\PersonaDAL.cs" />
     <Compile Include="Models\Datos\DAL\ProductoDAL.cs" />
+    <Compile Include="Models\Datos\DAL\RequerimientoDAL.cs" />
     <Compile Include="Models\Datos\DAL\UsuarioDAL.cs" />
     <Compile Include="Models\Datos\Entity\GruposDetallesEntity.cs" />
     <Compile Include="Models\Datos\Entity\GruposEntity.cs" />
-    <Compile Include="Models\Datos\Entity\MenuEntity.cs" />
+    <Compile Include="Models\Datos\Entity\MenusEntity.cs" />
     <Compile Include="Models\Datos\Entity\PersonasEntity.cs" />
     <Compile Include="Models\Datos\Entity\ProductosEntity.cs" />
-    <Compile Include="Models\Datos\Entity\RequerimientoEntity.cs" />
+    <Compile Include="Models\Datos\Entity\RequerimientosEntity.cs" />
     <Compile Include="Models\Datos\Entity\UsuariosEntity.cs" />
     <Compile Include="Models\Datos\Logica\GrupoDetalleLogic.cs" />
     <Compile Include="Models\Datos\Logica\GrupoLogic.cs" />
     <Compile Include="Models\Datos\Logica\MenuLogic.cs" />
     <Compile Include="Models\Datos\Logica\PersonasLogic.cs" />
     <Compile Include="Models\Datos\Logica\ProductoLogic.cs" />
+    <Compile Include="Models\Datos\Logica\RequerimientoLogic.cs" />
     <Compile Include="Models\Datos\Logica\UsuarioLogic.cs" />
     <Compile Include="Models\GruposDetalles.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -2808,6 +2811,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\images\Productos\" />
+    <Folder Include="Views\Requerimiento\" />
     <Folder Include="Views\Soporte\" />
     <Folder Include="Views\Usuario\" />
   </ItemGroup>

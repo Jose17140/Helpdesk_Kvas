@@ -23,31 +23,6 @@ namespace HelpDesk_Kvas.Controllers
             db = new DAL_Main();
         }
 
-        //public ActionResult Index(int id, int? Nv2, int? Nv3, string filter = null, int page = 1, int pageSize = 15, string sort = "IdGrupoDetalle")
-        //{
-        //    ViewBag.Id = id;
-        //    var lista = new PagedList<GruposDetallesView>();
-        //    var _grupo = objGrupoDetalleLogic.ListarView();
-        //    lista.Content = _grupo.Where(m => m.IdGrupo == id).ToList();
-        //    //PROGRAMAR FILTRO DE 3 NIVELES EN LA RECURSIVIDAD, ID PARA AGREGAR HIJOS Y VALIDAD
-        //    if (Nv2 != null)
-        //    {
-        //        ViewBag.Nv2 = Nv2.Value;
-        //        lista.Content2 = _grupo.Where(m => m.IdPadre == Nv2).ToList();
-        //    }
-        //    if (Nv3 != null)
-        //    {
-        //        ViewBag.Nv3 = Nv3.Value;
-        //        lista.Content3 = _grupo.Where(m => m.IdPadre == Nv3).ToList();
-        //    }
-        //    //var grupos = objGrupoLogic.Listar();
-
-        //    lista.CurrentPage = page;
-        //    lista.PageSize = pageSize;
-        //    return View(lista);
-
-        //}
-
         public ActionResult Index(int id, string filter = null, int page = 1, int pageSize = 15, string sort = "IdGrupoDetalle")
         {
             var records = new PagedList<GruposDetallesView>();
@@ -55,8 +30,9 @@ namespace HelpDesk_Kvas.Controllers
             ViewBag.filter = filter;
             var grupos = objGrupoDetalleLogic.ListarPorGrupo(id);
             var l = objGrupoLogic.Buscar(id);
-            var n = l.Titulo;
-            ViewBag.Nombre = n;
+            ViewBag.Nombre = l.Titulo;
+            var p = l.IdPadre;
+            ViewBag.IdPadre = l.IdPadre;
 
             var _grupos = objGrupoDetalleLogic.ListarView();
             records.Content = grupos.Where(m => filter == null || (m.Titulo.ToUpper().Contains(filter.ToUpper()))

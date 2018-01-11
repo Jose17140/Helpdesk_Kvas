@@ -49,42 +49,77 @@
             }
         </div>
 
-        <div style="margin-top:17px;">
-            @{
-                var grid = new WebGrid(
-                            canPage: true,
-                            rowsPerPage: Model.PageSize,
-                            canSort: true,
-                            ajaxUpdateContainerId: "grid");
+        if (@ViewBag.IdPadre == 0)
+        {
+            <div style="margin-top:17px;">
+                @{
+                    var grid = new WebGrid(
+                        canPage: true,
+                        rowsPerPage: Model.PageSize,
+                        canSort: true,
+                        ajaxUpdateContainerId: "grid");
 
-                grid.Bind(Model.Content, rowCount: Model.TotalRecords, autoSortAndPage: false);
-                grid.Pager(WebGridPagerModes.All);
+                    grid.Bind(Model.Content, rowCount: Model.TotalRecords, autoSortAndPage: false);
+                    grid.Pager(WebGridPagerModes.All);
 
-                @grid.GetHtml(htmlAttributes: new { id = "grid" },
-            fillEmptyRows: false,
-            tableStyle: "table table-bordered table-hover",
-            mode: WebGridPagerModes.All,
-            columns: grid.Columns(
-              grid.Column("IdGrupoDetalle", "ID"),
-              grid.Column("Titulo", "Titulo"),
-              grid.Column("Descripcion", "Descripcion"),
-              grid.Column("Orden", "Orden"),
-              grid.Column("Padre", "Cat. Superior"),
-              grid.Column("Icono", header: "Icono", format: @<text>@Html.Raw("<span class='"+ item.Icono +"'></span>")</text>),
-              grid.Column("Estatus", "Estatus"),
-              grid.Column("FechaRegistro", header: "Fecha", format: @<text>@String.Format("{0:MM/dd/yy}", item.FechaRegistro) </text>),
-              grid.Column(header: "Acciones", canSort: false, style: "action",
-                format: @<text>
-                @Html.Raw("<a data-modal='' href='/GrupoDetalle/details/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Detail'> <span class='glyphicon glyphicon-search'> </span> </a>")
-                @Html.Raw("<a data-modal='' href='/GrupoDetalle/edit/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Edit'> <span class='glyphicon glyphicon-edit'> </span> </a>")
-                @if (User.IsInRole("Master") || User.IsInRole("Supervisor"))
-                {
-                    @Html.Raw("<a data-modal='' href='/GrupoDetalle/delete/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Delete'> <span class='glyphicon glyphicon-trash'> </span> </a>")
-                }
-                </text>)
-            ));
-            }
-        </div>
+                    @grid.GetHtml(htmlAttributes: new { id = "grid" },
+                    fillEmptyRows: false,
+                    tableStyle: "table table-bordered table-hover",
+                    mode: WebGridPagerModes.All,
+                    columns: grid.Columns(
+                      grid.Column("IdGrupoDetalle", "ID"),
+                      grid.Column("Titulo", "Titulo"),
+                      grid.Column("Descripcion", "Descripcion"),
+                      grid.Column("Orden", "Orden"),
+                      grid.Column("Icono", header: "Icono", format: @<text>@Html.Raw("<span class='" + item.Icono + "'></span>")</text>),
+                      grid.Column("Estatus", "Estatus"),
+                      grid.Column("FechaRegistro", header: "Fecha", format: @<text>@String.Format("{0:MM/dd/yy}", item.FechaRegistro) </text>),
+                      grid.Column(header: "Acciones", canSort: false, style: "action",
+                        format: @<text>
+                        @Html.Raw("<a data-modal='' href='/GrupoDetalle/details/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Detail'> <span class='glyphicon glyphicon-search'> </span> </a>")
+                        @Html.Raw("<a data-modal='' href='/GrupoDetalle/edit/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Edit'> <span class='glyphicon glyphicon-edit'> </span> </a>")
+                        @if (User.IsInRole("Master") || User.IsInRole("Supervisor"))
+                        {
+                            @Html.Raw("<a data-modal='' href='/GrupoDetalle/delete/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Delete'> <span class='glyphicon glyphicon-trash'> </span> </a>")
+                        }</text>)));
+                    }
+            </div>
+        }
+        else
+        {
+            <div style="margin-top:17px;">
+                @{
+                    var grid = new WebGrid(
+                        canPage: true,
+                        rowsPerPage: Model.PageSize,
+                        canSort: true,
+                        ajaxUpdateContainerId: "grid");
+                    grid.Bind(Model.Content, rowCount: Model.TotalRecords, autoSortAndPage: false);
+                    grid.Pager(WebGridPagerModes.All);
+                    @grid.GetHtml(htmlAttributes: new { id = "grid" },
+                    fillEmptyRows: false,
+                    tableStyle: "table table-bordered table-hover",
+                    mode: WebGridPagerModes.All,
+                    columns: grid.Columns(
+                        grid.Column("IdGrupoDetalle", "ID"),
+                        grid.Column("Titulo", "Titulo"),
+                        grid.Column("Descripcion", "Descripcion"),
+                        grid.Column("Orden", "Orden"),
+                        grid.Column("Padre", "Cat. Superior"),
+                        grid.Column("Icono", header: "Icono", format: @<text>@Html.Raw("<span class='" + item.Icono + "'></span>")</text>),
+                        grid.Column("Estatus", "Estatus"),
+                        grid.Column("FechaRegistro", header: "Fecha", format: @<text>@String.Format("{0:MM/dd/yy}", item.FechaRegistro) </text>),
+                        grid.Column(header: "Acciones", canSort: false, style: "action",
+                            format: @<text>
+                                @Html.Raw("<a data-modal='' href='/GrupoDetalle/details/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Detail'> <span class='glyphicon glyphicon-search'> </span> </a>")
+                                @Html.Raw("<a data-modal='' href='/GrupoDetalle/edit/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Edit'> <span class='glyphicon glyphicon-edit'> </span> </a>")
+                                @if (User.IsInRole("Master") || User.IsInRole("Supervisor"))
+                                {
+                                    @Html.Raw("<a data-modal='' href='/GrupoDetalle/delete/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Delete'> <span class='glyphicon glyphicon-trash'> </span> </a>")
+                                }</text>)));
+                    }
+            </div>
+        }
     }
 </div>
 <!-- modal placeholder-->

@@ -5,6 +5,7 @@ USE Helpdesk_Kvas;
 GO
 
 --DROP TABLE IF EXISTS Empleados;
+DROP TABLE IF EXISTS Fallas_x_Requerimiento;
 DROP TABLE IF EXISTS PresupuestoPorRequerimiento;
 DROP TABLE IF EXISTS Accesorios_x_Requerimiento;
 DROP TABLE IF EXISTS Mensajes_x_Requerimiento;
@@ -154,20 +155,27 @@ CREATE TABLE SerialesProductos(
 DROP TABLE IF EXISTS Requerimientos;
 CREATE TABLE Requerimientos(
 	IdRequerimiento INT IDENTITY(1,1) NOT NULL,
+	IdEmpleado INT NOT NULL, -- Quien abre el requerimiento
 	FechaEntrada DATETIME NOT NULL,
 	FechaSalida DATETIME NULL,
 	IdCliente INT NOT NULL,
 	IdEquipo INT NOT NULL,
 	IdMarca INT NOT NULL,
-	Modelo VARCHAR(30) NULL,
+	IdModelo INT NULL,
+	IdPrioridad INT NOT NULL,
+	Falla VARCHAR(100) NOT NULL,
+	Diagnostico VARCHAR(100) NULL,
+	Solucion VARCHAR(100) NULL,
 	Serial VARCHAR(30) NOT NULL,
 	Descripcion VARCHAR(50) NOT NULL,
-	Falla VARCHAR(100) NOT NULL,
 	Accesorios VARCHAR(30) NULL,
 	IdTecnico INT NULL,
 	IdDeposito INT NOT NULL,
 	Estatus INT NOT NULL,
 	CONSTRAINT PK_Requerimientos_Id PRIMARY KEY(IdRequerimiento),
+	CONSTRAINT FK_Requerimientos_Usuarios_IdEmpleado FOREIGN KEY(IdEmpleado) REFERENCES Usuarios(IdUsuario)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION,
 	CONSTRAINT FK_Requerimientos_Personas FOREIGN KEY(IdCliente) REFERENCES Personas(IdPersona)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION,
@@ -177,10 +185,20 @@ CREATE TABLE Requerimientos(
 	CONSTRAINT FK_Requerimientos_GruposDetalles_Marca FOREIGN KEY(IdMarca) REFERENCES GruposDetalles(IdGrupoDetalle)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION,
+	CONSTRAINT FK_Requerimientos_GruposDetalles_Modelo FOREIGN KEY(IdModelo) REFERENCES GruposDetalles(IdGrupoDetalle)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION,
+	CONSTRAINT FK_Requerimientos_GruposDetalles_Prioridad FOREIGN KEY(IdPrioridad) REFERENCES GruposDetalles(IdGrupoDetalle)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION,
+	CONSTRAINT FK_Requerimientos_Usuarios_IdUsuario FOREIGN KEY(IdTecnico) REFERENCES Usuarios(IdUsuario)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION,
 	CONSTRAINT FK_Requerimientos_GruposDetalles_Deposito FOREIGN KEY(IdDeposito) REFERENCES GruposDetalles(IdGrupoDetalle)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
 );
+
 DROP TABLE IF EXISTS Accesorios_x_Requerimiento;
 CREATE TABLE Accesorios_x_Requerimiento(
 	IdAccesorio INT NOT NULL,
@@ -193,21 +211,25 @@ CREATE TABLE Accesorios_x_Requerimiento(
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
 );
+
 DROP TABLE IF EXISTS Mensajes_x_Requerimiento;
 CREATE TABLE Mensajes_x_Requerimiento(
-	IdIxR INT IDENTITY(1,1) NOT NULL,
+	IdMxR INT IDENTITY(1,1) NOT NULL,
 	IdRequerimiento INT NOT NULL,
 	IdUsuario INT NOT NULL,
 	Mensaje VARCHAR(100) NOT NULL,
 	Leido BIT NOT NULL DEFAULT 0, -- SIN LEER 0, LEIDO 1
 	FechaRegistro DATETIME NOT NULL,
-	CONSTRAINT PK_IxR_Id PRIMARY KEY(IdIxR),
+	CONSTRAINT PK_IxR_Id PRIMARY KEY(IdMxR,IdRequerimiento),
 	CONSTRAINT FK_IxR_Requerimientos_id FOREIGN KEY(IdRequerimiento) REFERENCES Requerimientos(IdRequerimiento)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION,
+	CONSTRAINT FK_Mensajes_Usuarios_IdUsuario FOREIGN KEY(IdUsuario) REFERENCES Usuarios(IdUsuario)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
 );
 
-DROP TABLE IF EXISTS PresupuestoPorRequerimiento;
+DROP TABLE IF EXISTS Presupuesto_x_Requerimiento;
 CREATE TABLE PresupuestoPorRequerimiento(
 	IdPresupuesto INT IDENTITY(1,1) NOT NULL,
 	IdRequerimiento INT NOT NULL,
@@ -231,8 +253,12 @@ CREATE TABLE PresupuestoPorRequerimiento(
 --);
 
 SELECT * FROM Grupos;
-SELECT * FROM GruposDetalles where IdGrupo =4;
+SELECT * FROM GruposDetalles where IdGrupo = 18;
 SELECT * FROM ProductoServicios;
 SELECT * FROM Personas;
 SELECT * FROM Usuarios;
 SELECT * FROM UsuariosRoles;
+SELECT * FROM Requerimientos;
+
+INSERT INTO Requerimientos(IdEmpleado,FechaEntrada,IdCliente,IdEquipo,IdMarca,IdModelo,IdPrioridad,Falla,Serial,Descripcion,Accesorios,IdDeposito,Estatus)VALUES
+(4,'2018-01-03 19:45:28.087',5,106,68,122,118,'Imprime con rayas','XWWWW00001','Equipo en mal estado','Ninguno',116,58);

@@ -169,6 +169,31 @@ GO
 		 INNER JOIN GruposDetalles AS gu ON p.IdUnidad = gu.IdGrupoDetalle
 GO
 
+-- REQUERIMIENTOS
+DROP VIEW IF EXISTS vw_requerimietos;
+GO
+CREATE VIEW vw_requerimietos AS (
+	SELECT rq.IdRequerimiento, em.IdUsuario AS IdEmpleado, em.NombreUsuario AS Empleado, rq.FechaEntrada, rq.FechaSalida, ps.IdPersona, ps.Nombres,
+		eq.IdGrupoDetalle AS IdEquipo, eq.Nombre AS Equipo, mq.IdGrupoDetalle AS IdMarca, mq.Nombre AS Marca, md.IdGrupoDetalle AS IdModelo,
+		md.Nombre AS Modelo, pr.IdGrupoDetalle AS IdPrioridad, pr.Nombre AS Prioridad, rq.Falla, rq.Diagnostico, rq.Solucion, rq.Serial,
+		rq.Descripcion, rq.Accesorios, tc.IdUsuario AS IdTecnico, tc.NombreUsuario AS Tecnico, dp.IdGrupoDetalle AS IdDeposito, dp.Nombre AS Deposito,
+		st.IdGrupoDetalle AS IdEstatus, st.Nombre AS Estatus
+	FROM Requerimientos AS rq
+		INNER JOIN Usuarios AS em ON rq.IdEmpleado = em.IdUsuario
+		INNER JOIN Personas AS ps ON rq.IdCliente = ps.IdPersona
+		INNER JOIN GruposDetalles AS eq ON rq.IdEquipo = eq.IdGrupoDetalle
+		INNER JOIN GruposDetalles AS mq ON rq.IdMarca = mq.IdGrupoDetalle
+		INNER JOIN GruposDetalles AS md ON rq.IdModelo = md.IdGrupoDetalle
+		INNER JOIN GruposDetalles AS pr ON rq.IdPrioridad = pr.IdGrupoDetalle
+		LEFT JOIN Usuarios AS tc ON rq.IdTecnico = tc.IdUsuario
+		LEFT JOIN GruposDetalles AS dp ON rq.IdDeposito = dp.IdGrupoDetalle
+		INNER JOIN GruposDetalles AS st ON rq.Estatus = st.IdGrupoDetalle
+)
+GO
+
+
+
+
 --DROP PROCEDURE IF EXISTS sp_BuscarProducto;
 --GO   
 --CREATE PROCEDURE sp_BuscarProducto

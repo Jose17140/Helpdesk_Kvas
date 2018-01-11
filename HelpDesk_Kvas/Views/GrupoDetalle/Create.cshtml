@@ -16,13 +16,26 @@
         <div class="form-horizontal">
             <fieldset>
                 <input id="UrlDetalle" name="UrlDetalle" type="hidden" value="*" />
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Titulo, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-6">
-                        @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
+                @if (ViewBag.Id == 27)
+                {
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Modelo:</label>
+                        <div class="col-md-6">
+                            @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
+                }
+                else
+                {
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Titulo, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-6">
+                            @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                }
                 <div class="form-group">
                     @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-6">
@@ -30,36 +43,61 @@
                         @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Orden, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-6">
-                        @Html.EditorFor(model => model.Orden, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Orden, "", new { @class = "text-danger" })
+                @if (ViewBag.Id == 27)
+                {
+                    <input id="Orden" name="Orden" type="hidden" value="0" />
+                }
+                else
+                {
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Orden, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-6">
+                            @Html.EditorFor(model => model.Orden, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Orden, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
+                }
                 <input id="IdGrupo" name="IdGrupo" type="hidden" value="@ViewBag.Id" />
                 @if (ViewBag.IdPadre != 0)
                 {
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.IdPadre, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-6">
-                            @Html.DropDownListFor(model => model.IdPadre, ViewBag.ListaGruposDetalles as SelectList, "Seleccione Categoria Padre", htmlAttributes: new { @class = "form-control" })
+                    if (@ViewBag.Id == 27)
+                    {
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Fabricante:</label>
+                            <div class="col-md-6">
+                                @Html.DropDownListFor(model => model.IdPadre, ViewBag.ListaGruposDetalles as SelectList, "Seleccione Fabricante", htmlAttributes: new { @class = "form-control" })
+                            </div>
                         </div>
-                    </div>
+                    }
+                    else
+                    {
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.IdPadre, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-6">
+                                @Html.DropDownListFor(model => model.IdPadre, ViewBag.ListaGruposDetalles as SelectList, "Seleccione Categoria Padre", htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
+                    }
                 }
                 else
                 {
                     <input id="IdPadre" name="IdPadre" type="hidden" value="0" />
                 }
 
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Icono, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-6">
-                        @Html.EditorFor(model => model.Icono, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Icono, "", new { @class = "text-danger" })
+                @if (ViewBag.Id == 27)
+                {
+                    <input id="Icono" name="Icono" type="hidden" value="glyphicon glyphicon-cog" />
+                }
+                else
+                {
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Icono, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-6">
+                            @Html.EditorFor(model => model.Icono, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Icono, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
+                }
                 @*<div class="form-group">
                     @Html.LabelFor(model => model.UrlDetalle, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-6">
@@ -74,7 +112,6 @@
                     </div>
                 </div>
             </fieldset>
-
             @*<div class="form-actions col-md-offset-2">
                 <input class="btn btn-primary" type="submit" name="btnguardar" value="Guardar" />|
                 @Html.ActionLink("Regresar al Listado", "Index")

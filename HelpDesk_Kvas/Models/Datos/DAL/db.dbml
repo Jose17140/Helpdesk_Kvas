@@ -1,5 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Helpdesk_Kvas" Class="dbDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="WebSettings" ConnectionString="Data Source=HP6180\MSSQLSERVER2016;Initial Catalog=Helpdesk_Kvas;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="Helpdesk_KvasConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Accesorios_x_Requerimiento" Member="Accesorios_x_Requerimiento">
+    <Type Name="Accesorios_x_Requerimiento">
+      <Column Name="IdAccesorio" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IdRequerimiento" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="GruposDetalles_Accesorios_x_Requerimiento" Member="GruposDetalles" ThisKey="IdAccesorio" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" />
+      <Association Name="Requerimientos_Accesorios_x_Requerimiento" Member="Requerimientos" ThisKey="IdRequerimiento" OtherKey="IdRequerimiento" Type="Requerimientos" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UsuariosRoles" Member="UsuariosRoles">
+    <Type Name="UsuariosRoles">
+      <Column Name="IdUserRoles" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdUsuario" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdRoles" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="GruposDetalles_UsuariosRoles" Member="GruposDetalles" ThisKey="IdRoles" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" />
+      <Association Name="Usuarios_UsuariosRoles" Member="Usuarios" ThisKey="IdUsuario" OtherKey="IdUsuario" Type="Usuarios" IsForeignKey="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.Grupos" Member="Grupos">
     <Type Name="Grupos">
       <Column Name="IdGrupo" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -14,15 +31,6 @@
       <Association Name="Grupos_Grupos" Member="Grupos1" ThisKey="IdPadre" OtherKey="IdGrupo" Type="Grupos" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.UsuariosRoles" Member="UsuariosRoles">
-    <Type Name="UsuariosRoles">
-      <Column Name="IdUserRoles" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="IdUsuario" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="IdRoles" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="GruposDetalles_UsuariosRoles" Member="GruposDetalles" ThisKey="IdRoles" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" />
-      <Association Name="Usuarios_UsuariosRoles" Member="Usuarios" ThisKey="IdUsuario" OtherKey="IdUsuario" Type="Usuarios" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.GruposDetalles" Member="GruposDetalles">
     <Type Name="GruposDetalles">
       <Column Name="IdGrupoDetalle" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -35,6 +43,7 @@
       <Column Name="UrlDetalle" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="Estatus" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="FechaRegistro" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="GruposDetalles_Accesorios_x_Requerimiento" Member="Accesorios_x_Requerimiento" ThisKey="IdGrupoDetalle" OtherKey="IdAccesorio" Type="Accesorios_x_Requerimiento" />
       <Association Name="GruposDetalles_UsuariosRoles" Member="UsuariosRoles" ThisKey="IdGrupoDetalle" OtherKey="IdRoles" Type="UsuariosRoles" />
       <Association Name="GruposDetalles_GruposDetalles" Member="GruposDetalles2" ThisKey="IdGrupoDetalle" OtherKey="IdPadre" Type="GruposDetalles" />
       <Association Name="GruposDetalles_Personas" Member="Personas" ThisKey="IdGrupoDetalle" OtherKey="IdTipoPersona" Type="Personas" />
@@ -43,6 +52,11 @@
       <Association Name="GruposDetalles_ProductoServicios2" Member="ProductoServicios2" ThisKey="IdGrupoDetalle" OtherKey="IdFabricante" Type="ProductoServicios" />
       <Association Name="GruposDetalles_ProductoServicios3" Member="ProductoServicios3" ThisKey="IdGrupoDetalle" OtherKey="IdGrupo" Type="ProductoServicios" />
       <Association Name="GruposDetalles_ProductoServicios4" Member="ProductoServicios4" ThisKey="IdGrupoDetalle" OtherKey="IdUnidad" Type="ProductoServicios" />
+      <Association Name="GruposDetalles_Requerimientos" Member="Requerimientos" ThisKey="IdGrupoDetalle" OtherKey="IdDeposito" Type="Requerimientos" />
+      <Association Name="GruposDetalles_Requerimientos1" Member="Requerimientos1" ThisKey="IdGrupoDetalle" OtherKey="IdEquipo" Type="Requerimientos" />
+      <Association Name="GruposDetalles_Requerimientos2" Member="Requerimientos2" ThisKey="IdGrupoDetalle" OtherKey="IdMarca" Type="Requerimientos" />
+      <Association Name="GruposDetalles_Requerimientos3" Member="Requerimientos3" ThisKey="IdGrupoDetalle" OtherKey="IdModelo" Type="Requerimientos" />
+      <Association Name="GruposDetalles_Requerimientos4" Member="Requerimientos4" ThisKey="IdGrupoDetalle" OtherKey="IdPrioridad" Type="Requerimientos" />
       <Association Name="GruposDetalles_Usuarios" Member="Usuarios" ThisKey="IdGrupoDetalle" OtherKey="IdPreguntaSeguridad" Type="Usuarios" />
       <Association Name="Grupos_GruposDetalles" Member="Grupos" ThisKey="IdGrupo" OtherKey="IdGrupo" Type="Grupos" IsForeignKey="true" />
       <Association Name="GruposDetalles_GruposDetalles" Member="GruposDetalles1" ThisKey="IdPadre" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" />
@@ -58,6 +72,7 @@
       <Column Name="Telefonos" Type="System.String" DbType="VarChar(60) NOT NULL" CanBeNull="false" />
       <Column Name="Email" Type="System.String" DbType="VarChar(60)" CanBeNull="true" />
       <Column Name="FechaRegistro" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Personas_Requerimientos" Member="Requerimientos" ThisKey="IdPersona" OtherKey="IdCliente" Type="Requerimientos" />
       <Association Name="GruposDetalles_Personas" Member="GruposDetalles" ThisKey="IdTipoPersona" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
@@ -72,7 +87,7 @@
       <Column Name="IdFabricante" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="IdUnidad" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Imagen" Type="System.String" DbType="VarChar(40)" CanBeNull="true" />
-      <Column Name="IdCondicion" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdCondicion" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Stock" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="StockMin" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="PrecioCompra" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
@@ -86,6 +101,37 @@
       <Association Name="GruposDetalles_ProductoServicios2" Member="GruposDetalles2" ThisKey="IdFabricante" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" />
       <Association Name="GruposDetalles_ProductoServicios3" Member="GruposDetalles3" ThisKey="IdGrupo" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" />
       <Association Name="GruposDetalles_ProductoServicios4" Member="GruposDetalles4" ThisKey="IdUnidad" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Requerimientos" Member="Requerimientos">
+    <Type Name="Requerimientos">
+      <Column Name="IdRequerimiento" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdEmpleado" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FechaEntrada" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="FechaSalida" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IdCliente" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdEquipo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdMarca" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdModelo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdPrioridad" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Falla" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Diagnostico" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Solucion" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Serial" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Descripcion" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Accesorios" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="IdTecnico" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdDeposito" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Estatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Requerimientos_Accesorios_x_Requerimiento" Member="Accesorios_x_Requerimiento" ThisKey="IdRequerimiento" OtherKey="IdRequerimiento" Type="Accesorios_x_Requerimiento" />
+      <Association Name="GruposDetalles_Requerimientos" Member="GruposDetalles" ThisKey="IdDeposito" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" />
+      <Association Name="GruposDetalles_Requerimientos1" Member="GruposDetalles1" ThisKey="IdEquipo" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" />
+      <Association Name="GruposDetalles_Requerimientos2" Member="GruposDetalles2" ThisKey="IdMarca" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" />
+      <Association Name="GruposDetalles_Requerimientos3" Member="GruposDetalles3" ThisKey="IdModelo" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" />
+      <Association Name="GruposDetalles_Requerimientos4" Member="GruposDetalles4" ThisKey="IdPrioridad" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" />
+      <Association Name="Personas_Requerimientos" Member="Personas" ThisKey="IdCliente" OtherKey="IdPersona" Type="Personas" IsForeignKey="true" />
+      <Association Name="Usuarios_Requerimientos" Member="Usuarios" ThisKey="IdEmpleado" OtherKey="IdUsuario" Type="Usuarios" IsForeignKey="true" />
+      <Association Name="Usuarios_Requerimientos1" Member="Usuarios1" ThisKey="IdTecnico" OtherKey="IdUsuario" Type="Usuarios" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.SerialesProductos" Member="SerialesProductos">
@@ -112,6 +158,8 @@
       <Column Name="FechaRegistro" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="FechaModificacion" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Association Name="Usuarios_UsuariosRoles" Member="UsuariosRoles" ThisKey="IdUsuario" OtherKey="IdUsuario" Type="UsuariosRoles" />
+      <Association Name="Usuarios_Requerimientos" Member="Requerimientos" ThisKey="IdUsuario" OtherKey="IdEmpleado" Type="Requerimientos" />
+      <Association Name="Usuarios_Requerimientos1" Member="Requerimientos1" ThisKey="IdUsuario" OtherKey="IdTecnico" Type="Requerimientos" />
       <Association Name="GruposDetalles_Usuarios" Member="GruposDetalles" ThisKey="IdPreguntaSeguridad" OtherKey="IdGrupoDetalle" Type="GruposDetalles" IsForeignKey="true" />
     </Type>
   </Table>
@@ -131,17 +179,6 @@
       <Column Name="Estatus" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="FechaRegistro" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="LevelGrupo" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.vw_Personas" Member="vw_Personas">
-    <Type Name="vw_Personas">
-      <Column Name="IdPersona" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Nombres" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Cedula" Type="System.String" DbType="VarChar(61) NOT NULL" CanBeNull="false" />
-      <Column Name="Direccion" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
-      <Column Name="Telefonos" Type="System.String" DbType="VarChar(60) NOT NULL" CanBeNull="false" />
-      <Column Name="Email" Type="System.String" DbType="VarChar(60)" CanBeNull="true" />
-      <Column Name="FechaRegistro" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
   <Table Name="dbo.vw_ListarProductos" Member="vw_ListarProductos">
@@ -203,6 +240,48 @@
       <Column Name="Estatus" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="FechaRegistro" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="LevelGrupo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vw_Personas" Member="vw_Personas">
+    <Type Name="vw_Personas">
+      <Column Name="IdPersona" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Nombres" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Cedula" Type="System.String" DbType="VarChar(61) NOT NULL" CanBeNull="false" />
+      <Column Name="Direccion" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Telefonos" Type="System.String" DbType="VarChar(60) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(60)" CanBeNull="true" />
+      <Column Name="FechaRegistro" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vw_requerimietos" Member="vw_requerimietos">
+    <Type Name="vw_requerimietos">
+      <Column Name="IdRequerimiento" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdEmpleado" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Empleado" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="FechaEntrada" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="FechaSalida" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IdPersona" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Nombres" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="IdEquipo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Equipo" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="IdMarca" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Marca" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="IdModelo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Modelo" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="IdPrioridad" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Prioridad" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Falla" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Diagnostico" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Solucion" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Serial" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Descripcion" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Accesorios" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="IdTecnico" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Tecnico" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="IdDeposito" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Deposito" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="IdEstatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Estatus" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
   <Function Name="dbo.sp_ActualizarUsuario" Method="sp_ActualizarUsuario">

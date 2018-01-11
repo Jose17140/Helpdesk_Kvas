@@ -22,7 +22,7 @@ INSERT INTO Grupos(Nombre,Descripcion,IdPadre,Icono,Estatus,FechaRegistro)VALUES
 ('Productos','Productos que se venden',0,'fa fa-pause',1,GETDATE()),
 ('Servicios','Servicio que se prestan',0,'fa fa-pause',1,GETDATE()),
 ('Estatus','Estatus de los requerimientos',0,'glyphicon glyphicon-ok',1,GETDATE()),
-('Prioridades','Prioridad del requerimiento',0,'fa fa-pause',1,GETDATE()),
+('Prioridades','Prioridad del requerimiento',0,'glyphicon glyphicon-time',1,GETDATE()),
 ('Cargos','Cargo de los empleados',0,'glyphicon glyphicon-briefcase',1,GETDATE()),
 ('Impuestos','Alicuota de Impuestas',0,'fa fa-edit',1,GETDATE()),
 ('Unidades','Tipos de unidades de Venta',0,'fa fa-edit',1,GETDATE()),
@@ -166,10 +166,10 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDe
 --PAISES Y ESTADOS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 ('Venezuela','Venezuela',7,'fa fa-globe',1,0,'*',GETDATE()),
-('DC','Disctrito Capital',8,'fa fa-globe',2,68,'*',GETDATE()),
-('Miranda','Miranda',8,'fa fa-globe',3,68,'*',GETDATE()),
-('Aragua','Aragua',8,'fa fa-globe',4,68,'*',GETDATE()),
-('Caracas','Ciudad de Caracas',9,'fa fa-globe',5,69,'*',GETDATE());
+('DC','Disctrito Capital',8,'fa fa-globe',2,79,'*',GETDATE()),
+('Miranda','Miranda',8,'fa fa-globe',3,79,'*',GETDATE()),
+('Aragua','Aragua',8,'fa fa-globe',4,79,'*',GETDATE()),
+('Caracas','Ciudad de Caracas',9,'fa fa-globe',5,80,'*',GETDATE());
 --CARGOS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 ('Atencion al Publico','Atencion al Publico',20,'fa fa-users',1,0,'*',GETDATE()),
@@ -189,7 +189,7 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDe
 EXEC sp_AgregarUsuario 'Master','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=','Master@hotmail.com',40,'edmundo romero','/Content/images/img/avatar.png',1,'2018-01-03 19:45:28.087',46
 EXEC sp_AgregarUsuario 'Admin','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=','Admin@hotmail.com',40,'edmundo romero','/Content/images/img/avatar.png',1,'2018-01-03 19:45:28.087',46
 EXEC sp_AgregarUsuario 'Tecnico','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=','Tecnico@hotmail.com',40,'edmundo romero','/Content/images/img/avatar.png',1,'2018-01-03 19:45:28.087',46
-EXEC sp_AgregarUsuario 'Cliente','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=','Cliente@hotmail.com',40,'edmundo romero','/Content/images/img/avatar.png',1,'2018-01-03 19:45:28.087',46
+EXEC sp_AgregarUsuario 'Analista','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=','Cliente@hotmail.com',40,'edmundo romero','/Content/images/img/avatar.png',1,'2018-01-03 19:45:28.087',46
 --CAT PRODUCTOS Y SERVICIOS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 --CAT PRODUCTOS
@@ -231,9 +231,28 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDe
 ('Estante Vitrina','Vitrina de equipos recibidos',26,'glyphicon glyphicon-th-list',1,0,'*',GETDATE()),
 ('Estante Taller','Estante de equipos area de soporte',26,'glyphicon glyphicon-th-list',2,0,'*',GETDATE()),
 ('Deposito','Deposito final, equipos no retirados',26,'glyphicon glyphicon-th-list',3,0,'*',GETDATE());
+--PRIORIDADES
+INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
+('Normal','Requerimientos en cola',19,'lyphicon glyphicon-flash',1,0,'*',GETDATE()),
+('Urgente','Requerimientos con prioridad rapida',19,'lyphicon glyphicon-flash',2,0,'*',GETDATE()),
+('Critica','Requerimiento critico y prioritario',19,'lyphicon glyphicon-flash',3,0,'*',GETDATE());
+--FABRICANTES 2
+INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
+('Alcatel', 'Intel', 10, 'glyphicon glyphicon-cog', 16, 0, '*', GETDATE());
+--MODELO DE EQUIPOS
+INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
+('L120','Impresora Multifuncional',27,'lyphicon glyphicon-flash',0,68,'*',GETDATE()),
+('Tx130','Impresora Multifuncional',27,'lyphicon glyphicon-flash',0,68,'*',GETDATE()),
+('T22','Impresora simple',27,'lyphicon glyphicon-flash',0,68,'*',GETDATE()),
+('V2400','Laptop',27,'lyphicon glyphicon-flash',0,78,'*',GETDATE()),
+('Pavillion 6801us','Laptop',27,'lyphicon glyphicon-flash',0,69,'*',GETDATE()),
+('Tl-720w','Router',27,'lyphicon glyphicon-flash',0,0,'*',GETDATE()),
+('Cx5600','Impresora Multifuncional',27,'lyphicon glyphicon-flash',0,68,'*',GETDATE()),
+('Fierce 2','Telefono Inteligente',27,'lyphicon glyphicon-flash',0,121,'*',GETDATE()),
+('Generico','Equipo generico',27,'lyphicon glyphicon-flash',0,74,'*',GETDATE());
 
 SELECT * FROM Grupos
-SELECT * FROM GruposDetalles
+SELECT * FROM GruposDetalles where IdGrupo = 8
 SELECT * FROM ProductoServicios
 
 

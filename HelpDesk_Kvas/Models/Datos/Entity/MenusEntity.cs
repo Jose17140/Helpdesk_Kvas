@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace HelpDesk_Kvas.Models.Datos.Entity
 {
-    public partial class MenuEntity
+    public partial class MenusEntity
     {
-        public MenuEntity()
+        public MenusEntity()
         {
-            this.GruposDetalles1 = new HashSet<MenuEntity>();
+            this.GruposDetalles1 = new HashSet<MenusEntity>();
         }
 
         public int IdGrupoDetalle { get; set; }
@@ -23,6 +23,6 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
         public string UrlDetalle { get; set; }
         public bool Estatus { get; set; }
         public System.DateTime FechaRegistro { get; set; }
-        public virtual ICollection<MenuEntity> GruposDetalles1 { get; set; }
+        public virtual ICollection<MenusEntity> GruposDetalles1 { get; set; }
     }
 }
