@@ -2,7 +2,7 @@ USE Helpdesk_Kvas
 GO
 
 --NIVEL DE RECURSIVIDAD EN EL GRUPO
-DROP PROCEDURE IF EXISTS sp_ListarNivel;
+DROP PROCEDURE IF EXISTS sp_ListarNivelGrupo;
 GO
 CREATE PROCEDURE sp_ListarNivelGrupo(
 	@IdGrupo INT )
@@ -173,13 +173,12 @@ GO
 DROP VIEW IF EXISTS vw_Requerimientos;
 GO
 CREATE VIEW vw_Requerimientos AS (
-	SELECT rq.IdRequerimiento, em.IdUsuario AS IdEmpleado, em.NombreUsuario AS Empleado, rq.FechaEntrada, rq.FechaSalida, ps.IdPersona, ps.Nombres,
-	CONCAT(tp.Nombre, ps.CiRif) AS Cedula,
-		eq.IdGrupoDetalle AS IdEquipo, eq.Nombre AS Equipo, mq.IdGrupoDetalle AS IdMarca, mq.Nombre AS Marca, md.IdGrupoDetalle AS IdModelo,
-		md.Nombre AS Modelo, pr.IdGrupoDetalle AS IdPrioridad, pr.Nombre AS Prioridad, rq.Falla, rq.Diagnostico, rq.Solucion, rq.Serial,
-		rq.Descripcion, rq.Accesorios, tc.IdUsuario AS IdTecnico, tc.NombreUsuario AS Tecnico, dp.IdGrupoDetalle AS IdDeposito, dp.Nombre AS Deposito,
-		st.IdGrupoDetalle AS IdEstatus, st.Nombre AS Estatus
+	SELECT rq.IdRequerimiento, rq.Atendido, dt.IdGrupoDetalle AS IdDepartamento, dt.Nombre AS Departamento, em.IdUsuario AS IdEmpleado, em.NombreUsuario AS Empleado, rq.FechaEntrada, 
+		rq.FechaSalida, ps.IdPersona, ps.Nombres, CONCAT(tp.Nombre, ps.CiRif) AS Cedula, eq.IdGrupoDetalle AS IdEquipo, eq.Nombre AS Equipo, mq.IdGrupoDetalle AS IdMarca, mq.Nombre AS Marca,
+		md.IdGrupoDetalle AS IdModelo, md.Nombre AS Modelo, pr.IdGrupoDetalle AS IdPrioridad, pr.Nombre AS Prioridad, rq.Falla, rq.Diagnostico, rq.Solucion, rq.Serial, rq.Observaciones, 
+		rq.Accesorios, tc.IdUsuario AS IdTecnico, tc.NombreUsuario AS Tecnico, dp.IdGrupoDetalle AS IdDeposito, dp.Nombre AS Deposito, st.IdGrupoDetalle AS IdEstatus, st.Nombre AS Estatus
 	FROM Requerimientos AS rq
+		INNER JOIN GruposDetalles AS dt ON rq.IdDepartamento = dt.IdGrupoDetalle
 		INNER JOIN Usuarios AS em ON rq.IdEmpleado = em.IdUsuario
 		INNER JOIN Personas AS ps ON rq.IdCliente = ps.IdPersona
 		INNER JOIN GruposDetalles AS tp ON ps.IdTipoPersona = tp.IdGrupoDetalle
@@ -189,7 +188,7 @@ CREATE VIEW vw_Requerimientos AS (
 		INNER JOIN GruposDetalles AS pr ON rq.IdPrioridad = pr.IdGrupoDetalle
 		LEFT JOIN Usuarios AS tc ON rq.IdTecnico = tc.IdUsuario
 		LEFT JOIN GruposDetalles AS dp ON rq.IdDeposito = dp.IdGrupoDetalle
-		INNER JOIN GruposDetalles AS st ON rq.Estatus = st.IdGrupoDetalle
+		LEFT JOIN GruposDetalles AS st ON rq.IdEstatus = st.IdGrupoDetalle
 )
 GO
 

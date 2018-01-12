@@ -19,7 +19,7 @@
     <br />
 </section>
 <br />
-
+<h1>Colocar filtros de busqueda, por tecnico, departamento,fecha,estatus, cliente,</h1>
 <div class="well">
     @using (Html.BeginForm("index", null, FormMethod.Get))
     {
@@ -60,27 +60,30 @@
         grid.Pager(WebGridPagerModes.All);
 
         @grid.GetHtml(htmlAttributes: new { id = "grid" },
-          fillEmptyRows: false,
-          tableStyle: "table table-bordered table-hover",
-          mode: WebGridPagerModes.All,
-          columns: grid.Columns(
-            grid.Column("IdRequerimiento", "ID"),
-            grid.Column("FechaEntrada", header: "Fecha Entrada", format: @<text>@String.Format("{0:MM/dd/yy}", item.FechaEntrada) </text>),
-            grid.Column("IdEquipo", "Titulo"),
-            grid.Column("IdEquipo", "Descripcion"),
-            grid.Column("IdEquipo", "Orden"),
-            grid.Column("IdEquipo", header: "Icono", format: @<text>@Html.Raw("<span class='" + item.IdEquipo + "'></span>")</text>),
-            grid.Column("IdEquipo", "Estatus"),
-            grid.Column("FechaEntrada", header: "Fecha", format: @<text>@String.Format("{0:MM/dd/yy}", item.FechaEntrada) </text>),
-            grid.Column(header: "Acciones", canSort: false, style: "action",
-            format: @<text>
-            @Html.Raw("<a data-modal='' href='/Requerimiento/details/" + item.IdRequerimiento + "' id='" + item.IdRequerimiento + "' title='Detail'> <span class='glyphicon glyphicon-search'> </span> </a>")
-            @Html.Raw("<a data-modal='' href='/Requerimiento/edit/" + item.IdRequerimiento + "' id='" + item.IdRequerimiento + "' title='Edit'> <span class='glyphicon glyphicon-edit'> </span> </a>")
+       fillEmptyRows: false,
+       tableStyle: "table table-bordered table-hover",
+       mode: WebGridPagerModes.All,
+       columns: grid.Columns(
+         grid.Column("IdRequerimiento", "ID"),
+         grid.Column("FechaEntrada", header: "Fecha Entrada", format: @<text>@String.Format("{0:MM/dd/yy}", item.FechaEntrada) </text>),
+         grid.Column("Cliente", "Solicitante"),
+         grid.Column("Departamento", "Departamento"),
+         grid.Column("Tecnico", "Tecnico"),
+         grid.Column("Falla", "Falla"),
+         grid.Column("Diagnostico", "Diagnostico"),
+         //grid.Column("IdEquipo", header: "Icono", format: @<text>@Html.Raw("<span class='" + item.IdEquipo + "'></span>")</text>),
+         grid.Column("Estatus", "Estatus"),
+
+         grid.Column(header: "Acciones", canSort: false, style: "action",
+         format: @<text>
+            @Html.Raw("<a data-modal='' href='/Requerimiento/asignar/" + item.IdRequerimiento + "' id='" + item.IdRequerimiento + "' title='Asignar'> <span class='glyphicon glyphicon-search'> </span> </a>")
+            @Html.Raw("<a data-modal='' href='/Requerimiento/details/" + item.IdRequerimiento + "' id='" + item.IdRequerimiento + "' title='Detalle'> <span class='glyphicon glyphicon-search'> </span> </a>")
+            @Html.Raw("<a data-modal='' href='/Requerimiento/edit/" + item.IdRequerimiento + "' id='" + item.IdRequerimiento + "' title='Editar'> <span class='glyphicon glyphicon-edit'> </span> </a>")
             @if (User.IsInRole("Master") || User.IsInRole("Supervisor"))
-         {
-        @Html.Raw("<a data-modal='' href='/Requerimiento/delete/" + item.IdRequerimiento + "' id='" + item.IdRequerimiento + "' title='Delete'> <span class='glyphicon glyphicon-trash'> </span> </a>")
- }
-            </text>)));
+                 {
+        @Html.Raw("<a data-modal='' href='/Requerimiento/delete/" + item.IdRequerimiento + "' id='" + item.IdRequerimiento + "' title='Eliminar'> <span class='glyphicon glyphicon-trash'> </span> </a>")
+         }
+        </text>)));
             }
         </div>
     }

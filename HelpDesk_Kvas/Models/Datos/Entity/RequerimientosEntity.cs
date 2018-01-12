@@ -11,6 +11,9 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
         [Key]
         public int IdRequerimiento { get; set; }
 
+        [Display(Name = "Departamento:")]
+        public int IdDepartamento { get; set; }
+
         [Display(Name = "Marca:")]
         public int IdEmpleado { get; set; }
 
@@ -81,6 +84,9 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
 
     public class RequerimientoViewEntity : RequerimientosEntity
     {
+        [Display(Name = "Empleado:")]
+        public string Departamento { get; set; }
+
         [Display(Name = "Empleado:")]
         public string Empleado { get; set; }
 

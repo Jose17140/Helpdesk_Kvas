@@ -16,7 +16,7 @@
                             @Html.AntiForgeryToken()
                             <h4>Use una cuenta local para iniciar sesión.</h4>
                             <hr />
-                            <div>@Html.ValidationSummary("", new { @class = "text-danger" })</div>
+                            <div>@Html.ValidationSummary("", new { @class = "text-default" })</div>
                             <div class="form-group" style="backface-visibility: hidden;">
                                 <div class="input-group" style="backface-visibility: hidden;">
                                     @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Nombre de usuario", style = "backface-visibility: hidden;" })

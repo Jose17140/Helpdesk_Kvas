@@ -23,17 +23,14 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
         [Display(Name = "Contraseña")]
         public string Password { get; set; }
 
-        [Required]
         [EmailAddress]
         [StringLength(60)]
         [Display(Name = "Correo electrónico")]
         public string Email { get; set; }
 
-        [Required]
         [Display(Name = "Pregunta de Seguridad")]
-        public int IdPregunta { get; set; }
+        public int? IdPregunta { get; set; }
 
-        [Required]
         [StringLength(50, ErrorMessage = "El número de caracteres de {0} debe ser al menos {2}.", MinimumLength = 6)]
         [Display(Name = "Respuesta:")]
         public string RespuestaSeguridad { get; set; }

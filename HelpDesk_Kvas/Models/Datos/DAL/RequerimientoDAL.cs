@@ -21,6 +21,7 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
             {
                 Requerimientos _requerimiento = new Requerimientos()
                 {
+                    IdDepartamento = req.IdDepartamento,
                     IdEmpleado = req.IdEmpleado,
                     FechaEntrada = DateTime.Now,
                     //FechaSalida DATETIME NULL,
@@ -33,11 +34,11 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
                     //Diagnostico = req.Diagnostico,
                     //Solucion = req.Solucion,
                     Serial = req.Serial,
-                    Descripcion = req.Descripcion,
+                    Observaciones = req.Descripcion,
                     Accesorios = req.Accesorio,
                     IdTecnico = req.IdTecnico,
                     IdDeposito = req.IdDeposito,
-                    Estatus = req.IdEstatus,
+                    IdEstatus = req.IdEstatus,
                 };
                 db.Requerimientos.InsertOnSubmit(_requerimiento);
                 db.SubmitChanges();
@@ -76,7 +77,7 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
             {
                 Requerimientos query = db.Requerimientos.Where(m => m.IdRequerimiento == req.IdRequerimiento).SingleOrDefault();
                 query.IdTecnico = req.IdTecnico;
-                query.Estatus = 59; // Asignado
+                query.IdEstatus = 59; // Asignado
                 db.SubmitChanges();
             }
             catch (Exception)
@@ -118,6 +119,8 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
                 var model = new RequerimientoViewEntity()
                 {
                     IdRequerimiento = idRequerimiento,
+                    IdDepartamento = query.IdDepartamento,
+                    Departamento = query.Departamento,
                     IdEmpleado = query.IdEmpleado,
                     Empleado = query.Empleado,
                     FechaEntrada = query.FechaEntrada,
@@ -137,13 +140,13 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
                     Diagnostico = query.Diagnostico,
                     Solucion = query.Solucion,
                     Serial = query.Serial,
-                    Descripcion = query.Descripcion,
+                    Descripcion = query.Observaciones,
                     Accesorio = query.Accesorios,
                     IdTecnico = query.IdTecnico,
                     Tecnico = query.Tecnico,
                     IdDeposito = Convert.ToInt32(query.IdDeposito),
                     Deposito = query.Deposito,
-                    IdEstatus = query.IdEstatus,
+                    IdEstatus = Convert.ToInt32(query.IdEstatus),
                     Estatus = query.Estatus
                 };
                 return model;
@@ -170,6 +173,8 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
                     lista.Add(new RequerimientoViewEntity()
                     {
                         IdRequerimiento = req.IdRequerimiento,
+                        IdDepartamento = req.IdDepartamento,
+                        Departamento = req.Departamento,
                         IdEmpleado = req.IdEmpleado,
                         Empleado = req.Empleado,
                         FechaEntrada = req.FechaEntrada,
@@ -189,13 +194,13 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
                         Diagnostico = req.Diagnostico,
                         Solucion = req.Solucion,
                         Serial = req.Serial,
-                        Descripcion = req.Descripcion,
+                        Descripcion = req.Observaciones,
                         Accesorio = req.Accesorios,
                         IdTecnico = req.IdTecnico,
                         Tecnico = req.Tecnico,
                         IdDeposito = Convert.ToInt32(req.IdDeposito),
                         Deposito = req.Deposito,
-                        IdEstatus = req.IdEstatus,
+                        IdEstatus = Convert.ToInt32(req.IdEstatus),
                         Estatus = req.Estatus
                     });
                 }

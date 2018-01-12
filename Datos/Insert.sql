@@ -21,7 +21,7 @@ INSERT INTO Grupos(Nombre,Descripcion,IdPadre,Icono,Estatus,FechaRegistro)VALUES
 ('Tipos de Pagos','tipos de Pago',0,'fa fa-cc-visa',1,GETDATE()),
 ('Productos','Productos que se venden',0,'fa fa-pause',1,GETDATE()),
 ('Servicios','Servicio que se prestan',0,'fa fa-pause',1,GETDATE()),
-('Estatus','Estatus de los requerimientos',0,'glyphicon glyphicon-ok',1,GETDATE()),
+('Tipos de Estatus','Estatus',0,'glyphicon glyphicon-ok',1,GETDATE()),
 ('Prioridades','Prioridad del requerimiento',0,'glyphicon glyphicon-time',1,GETDATE()),
 ('Cargos','Cargo de los empleados',0,'glyphicon glyphicon-briefcase',1,GETDATE()),
 ('Impuestos','Alicuota de Impuestas',0,'fa fa-edit',1,GETDATE()),
@@ -30,7 +30,12 @@ INSERT INTO Grupos(Nombre,Descripcion,IdPadre,Icono,Estatus,FechaRegistro)VALUES
 ('Cat. Servicio','Categoria de los Servicios',0,'fa fa-edit',1,GETDATE()),
 ('Estado del Producto','Condicion del producto, (Nuevo o Usado)',0,'glyphicon glyphicon-erase',1,GETDATE()),
 ('Depositos','Ubicacion de equipo',0,'glyphicon glyphicon-th-list',1,GETDATE()),
-('Modelo','Modelo del equipo',10,'glyphicon glyphicon-hdd',1,GETDATE());
+('Modelo','Modelo del equipo',10,'glyphicon glyphicon-hdd',1,GETDATE()),
+('Sub Departamento','Descripcion de los departamentos',6,'glyphicon glyphicon-lock',1,GETDATE()),
+('Estatus de Requerimiento','Descripcion de los estatus de un requerimiento',18,'glyphicon glyphicon-lock',1,GETDATE()),
+('Estatus de Aprobacion','Descripcion aprobado o rechazado',18,'glyphicon glyphicon-lock',1,GETDATE()),
+('Estatus de Estado','Activo o inactivo',18,'glyphicon glyphicon-lock',1,GETDATE());
+UPDATE Grupos SET IdPadre = 28 WHERE IdGrupo = 20;
 --NULOS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 ('---','Agrupa los elementos padre GrupoDetalles',0,'Nulo',0,null,'*',GETDATE());
@@ -106,8 +111,8 @@ INSERT Personas (Nombres, IdTipoPersona, CiRif, Direccion, Telefonos, Email, Fec
 ( N'ELIECER JARABA', 27, N'21018672', N'Caracas', N'04265556677', N'help@help.com', GETDATE());
 --DEPARTAMENTOS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
-('Soporte','Departamento',6,'fa fa-archive',1,0,'*',GETDATE()),
-('Ventas','Departamento',6,'fa fa-archive',2,0,'*',GETDATE());
+('Soporte','Departamento de Soporte',6,'fa fa-archive',1,0,'*',GETDATE()),
+('Atencion al Cliente','Departamento Atencion al cliente',6,'glyphicon glyphicon-paperclip',4,0,'*',GETDATE());
 --SEXOS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 ('Femenino','Mujeres',5,'fa fa-venus',1,0,'*',GETDATE()),
@@ -140,12 +145,12 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDe
 ('Credito','Tarjeta de Credito',15,'fa fa-cc-visa',4,0,'*',GETDATE());
 --TIPOS DE ESTATUS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
-('Recibido','Requerimiento Recibido y en espera',18,'fa fa-hourglass-o',1,0,'*',GETDATE()),
-('Asignado','Requerimiento asignado a un tecnico',18,'fa fa-hourglass-o',2,0,'*',GETDATE()),
-('Revisado','Requerimiento atendido y revisado',18,'fa fa-hourglass-o',3,0,'*',GETDATE()),
-('Reparado','Requerimiento Resuelto',18,'fa fa-hourglass-o',4,0,'*',GETDATE()),
-('Devuelto','Requerimiento Devuelto sin solucion',18,'fa fa-hourglass-o',5,0,'*',GETDATE()),
-('Entregado','Requerimiento Cerrado',18,'fa fa-hourglass-o',6,0,'*',GETDATE());
+('Estatus de Requerimiento','Requerimiento Recibido y en espera',18,'fa fa-hourglass-o',1,0,'*',GETDATE()),
+('Estatus de Aprobacion','Requerimiento asignado a un tecnico',18,'fa fa-hourglass-o',2,0,'*',GETDATE()),
+('Estatus de Estado','Requerimiento atendido y revisado',18,'fa fa-hourglass-o',3,0,'*',GETDATE()),
+('Llenado','Requerimiento Recibido y en espera',29,'fa fa-hourglass-o',1,58,'*',GETDATE()),
+('Recibido','Requerimiento asignado a un tecnico',29,'fa fa-hourglass-o',2,58,'*',GETDATE()),
+('Asignado','Requerimiento atendido y revisado',29,'fa fa-hourglass-o',3,58,'*',GETDATE());
 --FABRICANTES
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 ('Intel', 'Intel', 10, 'glyphicon glyphicon-cog', 1, 0, '*', GETDATE()),
@@ -172,8 +177,8 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDe
 ('Caracas','Ciudad de Caracas',9,'fa fa-globe',5,80,'*',GETDATE());
 --CARGOS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
-('Atencion al Publico','Atencion al Publico',20,'fa fa-users',1,0,'*',GETDATE()),
-('Tecnico','Tecnico',20,'fa fa-users',2,0,'*',GETDATE()),
+('Atencion al Cliente','Atencion al Publico',20,'fa fa-users',1,0,'*',GETDATE()),
+('Tecnico Impresoras','Tecnico',20,'fa fa-users',2,0,'*',GETDATE()),
 ('Administrativo','Administrativo',20,'fa fa-users',3,0,'*',GETDATE());
 --ACCESORIOS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
@@ -186,10 +191,11 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDe
 ('CD/DVD','Driver y documentacion',11,'fa fa-users',7,0,'*',GETDATE()),
 ('Cartuchos','Cartuchos de tinta',11,'fa fa-users',8,0,'*',GETDATE());
 --USUARIOS
-EXEC sp_AgregarUsuario 'Master','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=','Master@hotmail.com',40,'edmundo romero','/Content/images/img/avatar.png',1,'2018-01-03 19:45:28.087',46
-EXEC sp_AgregarUsuario 'Admin','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=','Admin@hotmail.com',40,'edmundo romero','/Content/images/img/avatar.png',1,'2018-01-03 19:45:28.087',46
-EXEC sp_AgregarUsuario 'Tecnico','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=','Tecnico@hotmail.com',40,'edmundo romero','/Content/images/img/avatar.png',1,'2018-01-03 19:45:28.087',46
-EXEC sp_AgregarUsuario 'Analista','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=','Cliente@hotmail.com',40,'edmundo romero','/Content/images/img/avatar.png',1,'2018-01-03 19:45:28.087',46
+EXEC sp_AgregarUsuario 'Jose','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=','Master@hotmail.com',40,'edmundo romero','/Content/images/img/avatar.png',1,'2018-01-03 19:45:28.087',46
+EXEC sp_AgregarUsuario 'Jonas','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=','Super@hotmail.com',40,'edmundo romero','/Content/images/img/avatar.png',1,'2018-01-03 19:45:28.087',47
+EXEC sp_AgregarUsuario 'Iveet','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=','Analista@hotmail.com',40,'edmundo romero','/Content/images/img/avatar.png',1,'2018-01-03 19:45:28.087',48
+EXEC sp_AgregarUsuario 'David','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=','Tecnico@hotmail.com',40,'edmundo romero','/Content/images/img/avatar.png',1,'2018-01-03 19:45:28.087',49
+EXEC sp_AgregarUsuario 'Jesus','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=','Cliente@hotmail.com',40,'edmundo romero','/Content/images/img/avatar.png',1,'2018-01-03 19:45:28.087',50
 --CAT PRODUCTOS Y SERVICIOS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 --CAT PRODUCTOS
@@ -246,14 +252,57 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDe
 ('T22','Impresora simple',27,'lyphicon glyphicon-flash',0,68,'*',GETDATE()),
 ('V2400','Laptop',27,'lyphicon glyphicon-flash',0,78,'*',GETDATE()),
 ('Pavillion 6801us','Laptop',27,'lyphicon glyphicon-flash',0,69,'*',GETDATE()),
-('Tl-720w','Router',27,'lyphicon glyphicon-flash',0,0,'*',GETDATE()),
+('Tl-720w','Router',27,'lyphicon glyphicon-flash',0,70,'*',GETDATE()),
 ('Cx5600','Impresora Multifuncional',27,'lyphicon glyphicon-flash',0,68,'*',GETDATE()),
 ('Fierce 2','Telefono Inteligente',27,'lyphicon glyphicon-flash',0,121,'*',GETDATE()),
 ('Generico','Equipo generico',27,'lyphicon glyphicon-flash',0,74,'*',GETDATE());
 --SUB MENU REQUERIMIENTO
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
-('Nuevo Ticket','Sub Menu',2,'glyphicon glyphicon-qrcode',0,2,'/Requerimiento/Create',GETDATE()),
-('Consultar','Sub Menu',2,'glyphicon glyphicon-search',0,2,'/Requerimiento/Consultar',GETDATE());
+('Nuevo Ticket','Sub Menu',2,'glyphicon glyphicon-qrcode',1,2,'/Requerimiento/Create',GETDATE()),
+('Consultar','Sub Menu',2,'glyphicon glyphicon-search',2,2,'/Requerimiento/Consultar',GETDATE());
+--SUB DEPARTAMENTOS
+INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
+--DEPARTAMENTOS
+('Administracion','Departamento Administrativo',6,'glyphicon glyphicon-paperclip',3,0,'*',GETDATE()),
+--SUBDEPARTAMENTOS
+('Soporte de Impresoras','SubDepartamento Impresoras',28,'glyphicon glyphicon-print',1,36,'*',GETDATE()),
+('Soporte de Informatica','SubDepartamento Informatica',28,'fa fa-laptop',2,36,'*',GETDATE()),
+('Soporte de Moviles','SubDepartamento Smartphone y Tablet',28,'fa fa-laptop',2,36,'*',GETDATE()),
+('Soporte de Redes','SubDepartamento Redes',28,'glyphicon glyphicon-signal',3,36,'*',GETDATE()),
+('Atencion al Cliente','SubDepartamento Atencion al Cliente',28,'glyphicon glyphicon-signal',3,37,'*',GETDATE()),
+('Administrativo','SubDepartamento Administracion',28,'glyphicon glyphicon-signal',3,133,'*',GETDATE()),
+--CARGOS PENDIENTES
+('Tecnico Celulares','Tecnico',20,'fa fa-users',2,136,'*',GETDATE()),
+('Tecnico PC','Tecnico',20,'fa fa-users',2,135,'*',GETDATE());
+UPDATE GruposDetalles SET IdPadre = 138 WHERE IdGrupoDetalle = 84;
+UPDATE GruposDetalles SET IdPadre = 134 WHERE IdGrupoDetalle = 85;
+UPDATE GruposDetalles SET IdPadre = 139 WHERE IdGrupoDetalle = 86;
+UPDATE ProductoServicios SET IdCondicion = 103;
+--ESTATUS 2.0
+INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
+('Comprobacion','Requerimiento Resuelto',29,'fa fa-hourglass-o',4,58,'*',GETDATE()),
+('Reparado','Requerimiento Devuelto sin solucion',29,'fa fa-hourglass-o',5,58,'*',GETDATE()),
+('Devuelto','Requerimiento Cerrado',29,'fa fa-hourglass-o',6,58,'*',GETDATE()),
+('Entregado','Requerimiento Recibido y en espera',29,'fa fa-hourglass-o',7,58,'*',GETDATE()),
+('Garantia','Requerimiento asignado a un tecnico',29,'fa fa-hourglass-o',8,58,'*',GETDATE()),
+--Aprobacion
+('Aprobado','Estatus Aprobado',30,'fa fa-hourglass-o',1,59,'*',GETDATE()),
+('Rechazado','Estatus Rechazado',30,'fa fa-hourglass-o',2,59,'*',GETDATE()),
+--estado
+('Activo','activa elementos',31,'fa fa-hourglass-o',1,60,'*',GETDATE()),
+('Inactivo','inactiva elementos',31,'fa fa-hourglass-o',2,60,'*',GETDATE());
+
+--DEPA
+SELECT * FROM GruposDetalles where IdGrupo = 18
+--SUBDEPA
+SELECT * FROM GruposDetalles where IdGrupo = 4
+--CAR
+SELECT * FROM GruposDetalles where IdGrupo = 20
+
+
+
+
+
 
 SELECT * FROM Grupos
 SELECT * FROM GruposDetalles where IdGrupo = 8
