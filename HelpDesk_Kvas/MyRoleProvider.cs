@@ -64,11 +64,14 @@ namespace HelpDesk_Kvas
             string[] roles = new string[]{};
             using (dbDataContext dc = new dbDataContext())
             {
-                roles = (from g in dc.GruposDetalles
-                         join u in dc.UsuariosRoles on g.IdGrupoDetalle equals u.IdRoles
-                         join s in dc.Usuarios on u.IdUsuario equals s.IdUsuario
-                         where s.NombreUsuario.Equals(username) && g.IdGrupo == 4
-                         select g.Nombre).ToArray<string>();
+                roles = (from g in dc.vw_Usuarios
+                         where g.NombreUsuario.Equals(username)
+                         select g.Rol).ToArray<string>();
+                //roles = (from g in dc.GruposDetalles
+                //         join u in dc.UsuariosRoles on g.IdGrupoDetalle equals u.IdRoles
+                //         join s in dc.Usuarios on u.IdUsuario equals s.IdUsuario
+                //         where s.NombreUsuario.Equals(username) && g.IdGrupo == 4
+                //         select g.Nombre).ToArray<string>();
                 if (roles.Count() > 0)
                 {
                     HttpRuntime.Cache.Insert(cacheKey, roles, null, DateTime.Now.AddMinutes(_cacheTimeoutInMinute), Cache.NoSlidingExpiration);

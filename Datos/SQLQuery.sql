@@ -81,6 +81,7 @@ CREATE TABLE Usuarios(
 	FechaLogin DATETIME NULL,
 	ContadorFallido INT NOT NULL DEFAULT 0,
 	Estatus BIT NOT NULL DEFAULT 0,
+	FormColor VARCHAR(20) NULL,
 	FechaRegistro DATETIME NOT NULL,
 	FechaModificacion DATETIME NULL,
 	CONSTRAINT PK_IdUsuario PRIMARY KEY(IdUsuario),
@@ -306,3 +307,9 @@ SELECT * FROM Empleados;
 
 INSERT INTO Requerimientos(IdDepartamento,IdEmpleado,FechaEntrada,IdCliente,IdEquipo,IdMarca,IdModelo,IdPrioridad,Falla,Serial,Observaciones,Accesorios,IdDeposito,IdEstatus)VALUES
 (134,4,'2018-01-03 19:45:28.087',5,106,68,122,118,'Imprime con rayas','XWWWW00001','Equipo en mal estado','Ninguno',116,61);
+
+
+SELECT us.IdUsuario, us.NombreUsuario, us.Avatar, gd.Nombre AS Rol
+FROM GruposDetalles AS gd
+INNER JOIN UsuariosRoles AS ro ON gd.IdGrupoDetalle = ro.IdRoles
+INNER JOIN Usuarios AS us ON ro.IdUsuario = us.IdUsuario

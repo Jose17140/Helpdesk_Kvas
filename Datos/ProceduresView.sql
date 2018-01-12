@@ -155,6 +155,16 @@ CREATE VIEW vw_ListarUsuarios
 	INNER JOIN GruposDetalles AS gdd ON u.IdPreguntaSeguridad = gdd.IdGrupoDetalle         
  GO
 
+
+DROP VIEW IF EXISTS wv_Usuarios;
+GO
+CREATE VIEW wv_Usuarios AS (
+	SELECT us.IdUsuario, us.NombreUsuario, us.Avatar, gd.Nombre AS Rol, us.FormColor
+	FROM GruposDetalles AS gd
+		INNER JOIN UsuariosRoles AS ro ON gd.IdGrupoDetalle = ro.IdRoles
+		INNER JOIN Usuarios AS us ON ro.IdUsuario = us.IdUsuario
+	);
+GO
  --PRODUCTOS
 DROP VIEW IF EXISTS vw_ListarProductos;
 GO

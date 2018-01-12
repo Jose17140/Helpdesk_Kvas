@@ -49,6 +49,21 @@ namespace HelpDesk_Kvas.Controllers
 
         }
 
+        [HttpGet]
+        public JsonResult Filtro(string _ci)
+        {
+            _ci = "17243451";
+            var personas = objPersonaLogic.Listar();
+            //Searching records from list using LINQ query  
+            var query = (from m in personas
+                            where m.Identificacion.StartsWith(_ci)
+                            select new { m.Nombres, m.Identificacion, m.Telefonos, m.Email, m.Direccion });
+            var p = (from m in personas
+                     where m.Identificacion.ToUpper().Contains(_ci.ToUpper())
+                     select m).SingleOrDefault();
+            return Json(p, JsonRequestBehavior.AllowGet);
+        }
+
         // GET: Persona/Details/5
         public ActionResult Details(int id)
         {

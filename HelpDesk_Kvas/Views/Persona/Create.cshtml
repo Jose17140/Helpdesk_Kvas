@@ -9,60 +9,75 @@
 </div>
 
 <div class="modal-body">
-        @using (Ajax.BeginForm("Create", "Persona", new AjaxOptions { HttpMethod = "POST", OnSuccess = "onAjaxRequestSuccess" }, new { @id = "AjaxformId", @class = "form-horizontal", role = "form" }))
-        {
+    @using (Ajax.BeginForm("Create", "Persona", new AjaxOptions { HttpMethod = "POST", OnSuccess = "onAjaxRequestSuccess" }, new { @id = "AjaxformId", @class = "form-horizontal", role = "form" }))
+    {
         @Html.AntiForgeryToken()
-        <div class="form-horizontal">
-            <h4>Personas</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.Nombres, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Nombres, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Nombres, "", new { @class = "text-danger" })
+        <div class="modal-body" style="padding: 5px;">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
+                    <div class="btn-group" role="group" aria-label="...">
+                        <div class="btn-group" role="group">
+                            @Html.LabelFor(model => model.Nombres, htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.EditorFor(model => model.Nombres, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Nombres, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
+                    <div class="btn-group" role="group" aria-label="...">
+                        <div class="btn-group" role="group">
+                            @Html.LabelFor(model => model.IdTipoPersona, htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.DropDownListFor(model => model.IdTipoPersona, ViewBag.lista as SelectList, "Seleccione", htmlAttributes: new { @class = "form-control" })
+
+                        </div>
+                        @Html.ValidationMessageFor(model => model.IdTipoPersona, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
+                    <div class="btn-group" role="group" aria-label="...">
+                        <div class="btn-group" role="group">
+                            @Html.LabelFor(model => model.CiRif, htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.EditorFor(model => model.CiRif, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.CiRif, "", new { @class = "text-danger" })
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.IdTipoPersona, "Tipo:", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.IdTipoPersona, ViewBag.lista as SelectList, "Seleccione", htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.IdTipoPersona, "", new { @class = "text-danger" })
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
+                    <div class="btn-group" role="group" aria-label="...">
+                        <div class="btn-group" role="group">
+                            @Html.LabelFor(model => model.Telefonos, htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.EditorFor(model => model.Telefonos, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Telefonos, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
+                    <div class="btn-group" role="group" aria-label="...">
+                        <div class="btn-group" role="group">
+                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.CiRif, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.CiRif, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.CiRif, "", new { @class = "text-danger" })
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12" style="padding-bottom: 10px;">
+                    <div class="btn-group" role="group" aria-label="...">
+                        <div class="btn-group" role="group">
+                            @Html.LabelFor(model => model.Direccion, htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.EditorFor(model => model.Direccion, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Direccion, "", new { @class = "text-danger" })
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.Telefonos, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Telefonos, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Telefonos, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.Direccion, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Direccion, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Direccion, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Guardar" class="btn btn-default" />
-                </div>
-            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
         </div>
     }
 </div>
@@ -70,4 +85,4 @@
     $("form").removeData("validator");
     $("form").removeData("unobtrusiveValidation");
     $.validator.unobtrusive.parse("form");
-</script>
+</script>       

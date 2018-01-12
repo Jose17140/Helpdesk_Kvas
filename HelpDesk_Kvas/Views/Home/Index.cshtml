@@ -11,7 +11,7 @@
         <li class="active">Dashboard</li>
     </ol>
 </section>
-    <!-- Small boxes (Stat box) -->
+<!-- Small boxes (Stat box) -->
 <section class="content">
     <div class="row">
         <div class="col-lg-3 col-xs-6">
@@ -92,3 +92,9 @@ Welcome @HttpContext.Current.User.Identity.Name
 {
     <h1>Login is master</h1>
 }
+@if (User.IsInRole("Supervisor"))
+{
+    <h1>Login is supervisor</h1>
+}
+
+@HttpContext.Current.User.IsInRole("Master")

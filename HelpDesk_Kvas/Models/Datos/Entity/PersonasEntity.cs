@@ -18,7 +18,7 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
         public string Nombres { get; set; }
 
         [Required]
-        [Display(Name = "Tipo de Identificacion:")]
+        [Display(Name = "Identificacion:")]
         public int IdTipoPersona { get; set; }
 
         [Required]
@@ -38,7 +38,7 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
 
         [StringLength(60)]
         [Required]
-        [Display(Name = "Correo electrónico")]
+        [Display(Name = "Correo:")]
         [EmailAddress]
         public string Email { get; set; }
 

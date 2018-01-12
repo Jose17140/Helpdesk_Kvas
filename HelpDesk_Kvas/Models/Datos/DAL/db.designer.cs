@@ -202,14 +202,6 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 			}
 		}
 		
-		public System.Data.Linq.Table<vw_Requerimientos> vw_Requerimientos
-		{
-			get
-			{
-				return this.GetTable<vw_Requerimientos>();
-			}
-		}
-		
 		public System.Data.Linq.Table<vw_ListarProductos> vw_ListarProductos
 		{
 			get
@@ -239,6 +231,22 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 			get
 			{
 				return this.GetTable<vw_Personas>();
+			}
+		}
+		
+		public System.Data.Linq.Table<vw_Requerimientos> vw_Requerimientos
+		{
+			get
+			{
+				return this.GetTable<vw_Requerimientos>();
+			}
+		}
+		
+		public System.Data.Linq.Table<vw_Usuarios> vw_Usuarios
+		{
+			get
+			{
+				return this.GetTable<vw_Usuarios>();
 			}
 		}
 		
@@ -5204,6 +5212,8 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 		
 		private bool _Estatus;
 		
+		private string _FormColor;
+		
 		private System.DateTime _FechaRegistro;
 		
 		private System.Nullable<System.DateTime> _FechaModificacion;
@@ -5244,6 +5254,8 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
     partial void OnContadorFallidoChanged();
     partial void OnEstatusChanging(bool value);
     partial void OnEstatusChanged();
+    partial void OnFormColorChanging(string value);
+    partial void OnFormColorChanged();
     partial void OnFechaRegistroChanging(System.DateTime value);
     partial void OnFechaRegistroChanged();
     partial void OnFechaModificacionChanging(System.Nullable<System.DateTime> value);
@@ -5461,6 +5473,26 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 					this._Estatus = value;
 					this.SendPropertyChanged("Estatus");
 					this.OnEstatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FormColor", DbType="VarChar(20)")]
+		public string FormColor
+		{
+			get
+			{
+				return this._FormColor;
+			}
+			set
+			{
+				if ((this._FormColor != value))
+				{
+					this.OnFormColorChanging(value);
+					this.SendPropertyChanging();
+					this._FormColor = value;
+					this.SendPropertyChanged("FormColor");
+					this.OnFormColorChanged();
 				}
 			}
 		}
@@ -5941,573 +5973,6 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 				if ((this._LevelGrupo != value))
 				{
 					this._LevelGrupo = value;
-				}
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vw_Requerimientos")]
-	public partial class vw_Requerimientos
-	{
-		
-		private int _IdRequerimiento;
-		
-		private bool _Atendido;
-		
-		private int _IdDepartamento;
-		
-		private string _Departamento;
-		
-		private int _IdEmpleado;
-		
-		private string _Empleado;
-		
-		private System.DateTime _FechaEntrada;
-		
-		private System.Nullable<System.DateTime> _FechaSalida;
-		
-		private int _IdPersona;
-		
-		private string _Nombres;
-		
-		private string _Cedula;
-		
-		private int _IdEquipo;
-		
-		private string _Equipo;
-		
-		private int _IdMarca;
-		
-		private string _Marca;
-		
-		private int _IdModelo;
-		
-		private string _Modelo;
-		
-		private int _IdPrioridad;
-		
-		private string _Prioridad;
-		
-		private string _Falla;
-		
-		private string _Diagnostico;
-		
-		private string _Solucion;
-		
-		private string _Serial;
-		
-		private string _Observaciones;
-		
-		private string _Accesorios;
-		
-		private System.Nullable<int> _IdTecnico;
-		
-		private string _Tecnico;
-		
-		private System.Nullable<int> _IdDeposito;
-		
-		private string _Deposito;
-		
-		private System.Nullable<int> _IdEstatus;
-		
-		private string _Estatus;
-		
-		public vw_Requerimientos()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdRequerimiento", DbType="Int NOT NULL")]
-		public int IdRequerimiento
-		{
-			get
-			{
-				return this._IdRequerimiento;
-			}
-			set
-			{
-				if ((this._IdRequerimiento != value))
-				{
-					this._IdRequerimiento = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Atendido", DbType="Bit NOT NULL")]
-		public bool Atendido
-		{
-			get
-			{
-				return this._Atendido;
-			}
-			set
-			{
-				if ((this._Atendido != value))
-				{
-					this._Atendido = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdDepartamento", DbType="Int NOT NULL")]
-		public int IdDepartamento
-		{
-			get
-			{
-				return this._IdDepartamento;
-			}
-			set
-			{
-				if ((this._IdDepartamento != value))
-				{
-					this._IdDepartamento = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Departamento", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Departamento
-		{
-			get
-			{
-				return this._Departamento;
-			}
-			set
-			{
-				if ((this._Departamento != value))
-				{
-					this._Departamento = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdEmpleado", DbType="Int NOT NULL")]
-		public int IdEmpleado
-		{
-			get
-			{
-				return this._IdEmpleado;
-			}
-			set
-			{
-				if ((this._IdEmpleado != value))
-				{
-					this._IdEmpleado = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Empleado", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
-		public string Empleado
-		{
-			get
-			{
-				return this._Empleado;
-			}
-			set
-			{
-				if ((this._Empleado != value))
-				{
-					this._Empleado = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaEntrada", DbType="DateTime NOT NULL")]
-		public System.DateTime FechaEntrada
-		{
-			get
-			{
-				return this._FechaEntrada;
-			}
-			set
-			{
-				if ((this._FechaEntrada != value))
-				{
-					this._FechaEntrada = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaSalida", DbType="DateTime")]
-		public System.Nullable<System.DateTime> FechaSalida
-		{
-			get
-			{
-				return this._FechaSalida;
-			}
-			set
-			{
-				if ((this._FechaSalida != value))
-				{
-					this._FechaSalida = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPersona", DbType="Int NOT NULL")]
-		public int IdPersona
-		{
-			get
-			{
-				return this._IdPersona;
-			}
-			set
-			{
-				if ((this._IdPersona != value))
-				{
-					this._IdPersona = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombres", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Nombres
-		{
-			get
-			{
-				return this._Nombres;
-			}
-			set
-			{
-				if ((this._Nombres != value))
-				{
-					this._Nombres = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cedula", DbType="VarChar(61) NOT NULL", CanBeNull=false)]
-		public string Cedula
-		{
-			get
-			{
-				return this._Cedula;
-			}
-			set
-			{
-				if ((this._Cedula != value))
-				{
-					this._Cedula = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdEquipo", DbType="Int NOT NULL")]
-		public int IdEquipo
-		{
-			get
-			{
-				return this._IdEquipo;
-			}
-			set
-			{
-				if ((this._IdEquipo != value))
-				{
-					this._IdEquipo = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Equipo", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Equipo
-		{
-			get
-			{
-				return this._Equipo;
-			}
-			set
-			{
-				if ((this._Equipo != value))
-				{
-					this._Equipo = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdMarca", DbType="Int NOT NULL")]
-		public int IdMarca
-		{
-			get
-			{
-				return this._IdMarca;
-			}
-			set
-			{
-				if ((this._IdMarca != value))
-				{
-					this._IdMarca = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Marca", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Marca
-		{
-			get
-			{
-				return this._Marca;
-			}
-			set
-			{
-				if ((this._Marca != value))
-				{
-					this._Marca = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdModelo", DbType="Int NOT NULL")]
-		public int IdModelo
-		{
-			get
-			{
-				return this._IdModelo;
-			}
-			set
-			{
-				if ((this._IdModelo != value))
-				{
-					this._IdModelo = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Modelo", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Modelo
-		{
-			get
-			{
-				return this._Modelo;
-			}
-			set
-			{
-				if ((this._Modelo != value))
-				{
-					this._Modelo = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPrioridad", DbType="Int NOT NULL")]
-		public int IdPrioridad
-		{
-			get
-			{
-				return this._IdPrioridad;
-			}
-			set
-			{
-				if ((this._IdPrioridad != value))
-				{
-					this._IdPrioridad = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Prioridad", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Prioridad
-		{
-			get
-			{
-				return this._Prioridad;
-			}
-			set
-			{
-				if ((this._Prioridad != value))
-				{
-					this._Prioridad = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Falla", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
-		public string Falla
-		{
-			get
-			{
-				return this._Falla;
-			}
-			set
-			{
-				if ((this._Falla != value))
-				{
-					this._Falla = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Diagnostico", DbType="VarChar(100)")]
-		public string Diagnostico
-		{
-			get
-			{
-				return this._Diagnostico;
-			}
-			set
-			{
-				if ((this._Diagnostico != value))
-				{
-					this._Diagnostico = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Solucion", DbType="VarChar(100)")]
-		public string Solucion
-		{
-			get
-			{
-				return this._Solucion;
-			}
-			set
-			{
-				if ((this._Solucion != value))
-				{
-					this._Solucion = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Serial", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
-		public string Serial
-		{
-			get
-			{
-				return this._Serial;
-			}
-			set
-			{
-				if ((this._Serial != value))
-				{
-					this._Serial = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Observaciones", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Observaciones
-		{
-			get
-			{
-				return this._Observaciones;
-			}
-			set
-			{
-				if ((this._Observaciones != value))
-				{
-					this._Observaciones = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Accesorios", DbType="VarChar(30)")]
-		public string Accesorios
-		{
-			get
-			{
-				return this._Accesorios;
-			}
-			set
-			{
-				if ((this._Accesorios != value))
-				{
-					this._Accesorios = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdTecnico", DbType="Int")]
-		public System.Nullable<int> IdTecnico
-		{
-			get
-			{
-				return this._IdTecnico;
-			}
-			set
-			{
-				if ((this._IdTecnico != value))
-				{
-					this._IdTecnico = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tecnico", DbType="VarChar(30)")]
-		public string Tecnico
-		{
-			get
-			{
-				return this._Tecnico;
-			}
-			set
-			{
-				if ((this._Tecnico != value))
-				{
-					this._Tecnico = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdDeposito", DbType="Int")]
-		public System.Nullable<int> IdDeposito
-		{
-			get
-			{
-				return this._IdDeposito;
-			}
-			set
-			{
-				if ((this._IdDeposito != value))
-				{
-					this._IdDeposito = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Deposito", DbType="VarChar(50)")]
-		public string Deposito
-		{
-			get
-			{
-				return this._Deposito;
-			}
-			set
-			{
-				if ((this._Deposito != value))
-				{
-					this._Deposito = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdEstatus", DbType="Int")]
-		public System.Nullable<int> IdEstatus
-		{
-			get
-			{
-				return this._IdEstatus;
-			}
-			set
-			{
-				if ((this._IdEstatus != value))
-				{
-					this._IdEstatus = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estatus", DbType="VarChar(50)")]
-		public string Estatus
-		{
-			get
-			{
-				return this._Estatus;
-			}
-			set
-			{
-				if ((this._Estatus != value))
-				{
-					this._Estatus = value;
 				}
 			}
 		}
@@ -7552,6 +7017,672 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 				if ((this._FechaRegistro != value))
 				{
 					this._FechaRegistro = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vw_Requerimientos")]
+	public partial class vw_Requerimientos
+	{
+		
+		private int _IdRequerimiento;
+		
+		private bool _Atendido;
+		
+		private int _IdDepartamento;
+		
+		private string _Departamento;
+		
+		private int _IdEmpleado;
+		
+		private string _Empleado;
+		
+		private System.DateTime _FechaEntrada;
+		
+		private System.Nullable<System.DateTime> _FechaSalida;
+		
+		private int _IdPersona;
+		
+		private string _Nombres;
+		
+		private string _Cedula;
+		
+		private int _IdEquipo;
+		
+		private string _Equipo;
+		
+		private int _IdMarca;
+		
+		private string _Marca;
+		
+		private int _IdModelo;
+		
+		private string _Modelo;
+		
+		private int _IdPrioridad;
+		
+		private string _Prioridad;
+		
+		private string _Falla;
+		
+		private string _Diagnostico;
+		
+		private string _Solucion;
+		
+		private string _Serial;
+		
+		private string _Observaciones;
+		
+		private string _Accesorios;
+		
+		private System.Nullable<int> _IdTecnico;
+		
+		private string _Tecnico;
+		
+		private System.Nullable<int> _IdDeposito;
+		
+		private string _Deposito;
+		
+		private System.Nullable<int> _IdEstatus;
+		
+		private string _Estatus;
+		
+		public vw_Requerimientos()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdRequerimiento", DbType="Int NOT NULL")]
+		public int IdRequerimiento
+		{
+			get
+			{
+				return this._IdRequerimiento;
+			}
+			set
+			{
+				if ((this._IdRequerimiento != value))
+				{
+					this._IdRequerimiento = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Atendido", DbType="Bit NOT NULL")]
+		public bool Atendido
+		{
+			get
+			{
+				return this._Atendido;
+			}
+			set
+			{
+				if ((this._Atendido != value))
+				{
+					this._Atendido = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdDepartamento", DbType="Int NOT NULL")]
+		public int IdDepartamento
+		{
+			get
+			{
+				return this._IdDepartamento;
+			}
+			set
+			{
+				if ((this._IdDepartamento != value))
+				{
+					this._IdDepartamento = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Departamento", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Departamento
+		{
+			get
+			{
+				return this._Departamento;
+			}
+			set
+			{
+				if ((this._Departamento != value))
+				{
+					this._Departamento = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdEmpleado", DbType="Int NOT NULL")]
+		public int IdEmpleado
+		{
+			get
+			{
+				return this._IdEmpleado;
+			}
+			set
+			{
+				if ((this._IdEmpleado != value))
+				{
+					this._IdEmpleado = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Empleado", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
+		public string Empleado
+		{
+			get
+			{
+				return this._Empleado;
+			}
+			set
+			{
+				if ((this._Empleado != value))
+				{
+					this._Empleado = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaEntrada", DbType="DateTime NOT NULL")]
+		public System.DateTime FechaEntrada
+		{
+			get
+			{
+				return this._FechaEntrada;
+			}
+			set
+			{
+				if ((this._FechaEntrada != value))
+				{
+					this._FechaEntrada = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaSalida", DbType="DateTime")]
+		public System.Nullable<System.DateTime> FechaSalida
+		{
+			get
+			{
+				return this._FechaSalida;
+			}
+			set
+			{
+				if ((this._FechaSalida != value))
+				{
+					this._FechaSalida = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPersona", DbType="Int NOT NULL")]
+		public int IdPersona
+		{
+			get
+			{
+				return this._IdPersona;
+			}
+			set
+			{
+				if ((this._IdPersona != value))
+				{
+					this._IdPersona = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombres", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Nombres
+		{
+			get
+			{
+				return this._Nombres;
+			}
+			set
+			{
+				if ((this._Nombres != value))
+				{
+					this._Nombres = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cedula", DbType="VarChar(61) NOT NULL", CanBeNull=false)]
+		public string Cedula
+		{
+			get
+			{
+				return this._Cedula;
+			}
+			set
+			{
+				if ((this._Cedula != value))
+				{
+					this._Cedula = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdEquipo", DbType="Int NOT NULL")]
+		public int IdEquipo
+		{
+			get
+			{
+				return this._IdEquipo;
+			}
+			set
+			{
+				if ((this._IdEquipo != value))
+				{
+					this._IdEquipo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Equipo", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Equipo
+		{
+			get
+			{
+				return this._Equipo;
+			}
+			set
+			{
+				if ((this._Equipo != value))
+				{
+					this._Equipo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdMarca", DbType="Int NOT NULL")]
+		public int IdMarca
+		{
+			get
+			{
+				return this._IdMarca;
+			}
+			set
+			{
+				if ((this._IdMarca != value))
+				{
+					this._IdMarca = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Marca", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Marca
+		{
+			get
+			{
+				return this._Marca;
+			}
+			set
+			{
+				if ((this._Marca != value))
+				{
+					this._Marca = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdModelo", DbType="Int NOT NULL")]
+		public int IdModelo
+		{
+			get
+			{
+				return this._IdModelo;
+			}
+			set
+			{
+				if ((this._IdModelo != value))
+				{
+					this._IdModelo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Modelo", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Modelo
+		{
+			get
+			{
+				return this._Modelo;
+			}
+			set
+			{
+				if ((this._Modelo != value))
+				{
+					this._Modelo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPrioridad", DbType="Int NOT NULL")]
+		public int IdPrioridad
+		{
+			get
+			{
+				return this._IdPrioridad;
+			}
+			set
+			{
+				if ((this._IdPrioridad != value))
+				{
+					this._IdPrioridad = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Prioridad", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Prioridad
+		{
+			get
+			{
+				return this._Prioridad;
+			}
+			set
+			{
+				if ((this._Prioridad != value))
+				{
+					this._Prioridad = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Falla", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
+		public string Falla
+		{
+			get
+			{
+				return this._Falla;
+			}
+			set
+			{
+				if ((this._Falla != value))
+				{
+					this._Falla = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Diagnostico", DbType="VarChar(100)")]
+		public string Diagnostico
+		{
+			get
+			{
+				return this._Diagnostico;
+			}
+			set
+			{
+				if ((this._Diagnostico != value))
+				{
+					this._Diagnostico = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Solucion", DbType="VarChar(100)")]
+		public string Solucion
+		{
+			get
+			{
+				return this._Solucion;
+			}
+			set
+			{
+				if ((this._Solucion != value))
+				{
+					this._Solucion = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Serial", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
+		public string Serial
+		{
+			get
+			{
+				return this._Serial;
+			}
+			set
+			{
+				if ((this._Serial != value))
+				{
+					this._Serial = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Observaciones", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Observaciones
+		{
+			get
+			{
+				return this._Observaciones;
+			}
+			set
+			{
+				if ((this._Observaciones != value))
+				{
+					this._Observaciones = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Accesorios", DbType="VarChar(30)")]
+		public string Accesorios
+		{
+			get
+			{
+				return this._Accesorios;
+			}
+			set
+			{
+				if ((this._Accesorios != value))
+				{
+					this._Accesorios = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdTecnico", DbType="Int")]
+		public System.Nullable<int> IdTecnico
+		{
+			get
+			{
+				return this._IdTecnico;
+			}
+			set
+			{
+				if ((this._IdTecnico != value))
+				{
+					this._IdTecnico = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tecnico", DbType="VarChar(30)")]
+		public string Tecnico
+		{
+			get
+			{
+				return this._Tecnico;
+			}
+			set
+			{
+				if ((this._Tecnico != value))
+				{
+					this._Tecnico = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdDeposito", DbType="Int")]
+		public System.Nullable<int> IdDeposito
+		{
+			get
+			{
+				return this._IdDeposito;
+			}
+			set
+			{
+				if ((this._IdDeposito != value))
+				{
+					this._IdDeposito = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Deposito", DbType="VarChar(50)")]
+		public string Deposito
+		{
+			get
+			{
+				return this._Deposito;
+			}
+			set
+			{
+				if ((this._Deposito != value))
+				{
+					this._Deposito = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdEstatus", DbType="Int")]
+		public System.Nullable<int> IdEstatus
+		{
+			get
+			{
+				return this._IdEstatus;
+			}
+			set
+			{
+				if ((this._IdEstatus != value))
+				{
+					this._IdEstatus = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estatus", DbType="VarChar(50)")]
+		public string Estatus
+		{
+			get
+			{
+				return this._Estatus;
+			}
+			set
+			{
+				if ((this._Estatus != value))
+				{
+					this._Estatus = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vw_Usuarios")]
+	public partial class vw_Usuarios
+	{
+		
+		private int _IdUsuario;
+		
+		private string _NombreUsuario;
+		
+		private string _Avatar;
+		
+		private string _Rol;
+		
+		private string _FormColor;
+		
+		public vw_Usuarios()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdUsuario", DbType="Int NOT NULL")]
+		public int IdUsuario
+		{
+			get
+			{
+				return this._IdUsuario;
+			}
+			set
+			{
+				if ((this._IdUsuario != value))
+				{
+					this._IdUsuario = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreUsuario", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
+		public string NombreUsuario
+		{
+			get
+			{
+				return this._NombreUsuario;
+			}
+			set
+			{
+				if ((this._NombreUsuario != value))
+				{
+					this._NombreUsuario = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Avatar", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
+		public string Avatar
+		{
+			get
+			{
+				return this._Avatar;
+			}
+			set
+			{
+				if ((this._Avatar != value))
+				{
+					this._Avatar = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Rol", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Rol
+		{
+			get
+			{
+				return this._Rol;
+			}
+			set
+			{
+				if ((this._Rol != value))
+				{
+					this._Rol = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FormColor", DbType="VarChar(20)")]
+		public string FormColor
+		{
+			get
+			{
+				return this._FormColor;
+			}
+			set
+			{
+				if ((this._FormColor != value))
+				{
+					this._FormColor = value;
 				}
 			}
 		}

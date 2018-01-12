@@ -14,6 +14,9 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
         [Display(Name = "Departamento:")]
         public int IdDepartamento { get; set; }
 
+        [Display(Name = "Atendido:")]
+        public bool Atendido { get; set; }
+
         [Display(Name = "Marca:")]
         public int IdEmpleado { get; set; }
 
@@ -34,13 +37,25 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
         [Display(Name = "Marca:")]
         public int IdMarca { get; set; }
 
+        [StringLength(30)]
+        [Display(Name = "Modelo:")]
+        public int IdModelo { get; set; }
+
         [Display(Name = "Prioridad:")]
         public int IdPrioridad { get; set; }
 
         [Required]
-        [StringLength(30)]
-        [Display(Name = "Modelo:")]
-        public int IdModelo { get; set; }
+        [StringLength(100)]
+        [Display(Name = "Falla:")]
+        public string Falla { get; set; }
+
+        [StringLength(100)]
+        [Display(Name = "Diagnostico:")]
+        public string Diagnostico { get; set; }
+
+        [StringLength(100)]
+        [Display(Name = "Solucion:")]
+        public string Solucion { get; set; }
 
         [Required]
         [StringLength(30)]
@@ -50,31 +65,18 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
         [Required]
         [StringLength(50)]
         [Display(Name = "Descripcion:")]
-        public string Descripcion { get; set; }
-
-        [Required]
-        [StringLength(100)]
-        [Display(Name = "Falla:")]
-        public string Falla { get; set; }
-        
-        [StringLength(100)]
-        [Display(Name = "Diagnostico:")]
-        public string Diagnostico { get; set; }
-        
-        [StringLength(100)]
-        [Display(Name = "Solucion:")]
-        public string Solucion { get; set; }
+        public string Observaciones { get; set; }
 
         [Required]
         [StringLength(30)]
         [Display(Name = "Accesorio:")]
         public string Accesorio { get; set; }
 
-        [Display(Name = "Deposito:")]
-        public int IdDeposito { get; set; }
-
         [Display(Name = "Tecnico:")]
         public int? IdTecnico { get; set; }
+
+        [Display(Name = "Deposito:")]
+        public int IdDeposito { get; set; }
 
         [Display(Name = "Estatus:")]
         public int IdEstatus { get; set; }
@@ -102,18 +104,18 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
         [Display(Name = "Marca:")]
         public string Marca { get; set; }
 
-        [Display(Name = "Prioridad:")]
-        public string Prioridad { get; set; }
-
         [Display(Name = "Modelo:")]
         public string Modelo { get; set; }
 
-        [Display(Name = "Deposito:")]
-        public string Deposito { get; set; }
+        [Display(Name = "Prioridad:")]
+        public string Prioridad { get; set; }
 
         [Display(Name = "Tecnico:")]
         public string Tecnico { get; set; }
-
+        
+        [Display(Name = "Deposito:")]
+        public string Deposito { get; set; }
+        
         [Display(Name = "Estatus:")]
         public string Estatus { get; set; }
     }

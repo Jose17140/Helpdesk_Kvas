@@ -1,143 +1,208 @@
-﻿@model HelpDesk_Kvas.Models.Datos.Entity.GruposDetallesEntity
+﻿
 @{
     ViewBag.Title = "Nueva Tabla";
-    Layout = null;
+    //Layout = null;
 }
+@Styles.Render("~/Content/css/Grupos.css")
+@Scripts.Render("~/bundles/jquery")
 
-
-<div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 class="modal-title">Ingrese los datos de @ViewBag.Nombre y haga click en guardar.</h3>
-</div>
-<div class="modal-body">
-    @using (Ajax.BeginForm("Create", "GrupoDetalle", new AjaxOptions { HttpMethod = "POST", OnSuccess = "onAjaxRequestSuccess" }, new { @id = "AjaxformId", @class = "form-horizontal", role = "form" }))
+<section class="content-header">
+    <h1>
+        Tablero
+        <small>@ViewBag.Nombre</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+        <li class="active">Dashboard</li>
+    </ol>
+    <br />
+</section>
+<br />
+<section class="content">
+    @using (Html.BeginForm("index", null, FormMethod.Get, new { id = "order" }))
     {
-        @Html.AntiForgeryToken()
-        <div class="form-horizontal">
-            <fieldset>
-                <input id="UrlDetalle" name="UrlDetalle" type="hidden" value="*" />
-                @if (ViewBag.Id == 27)
-                {
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Modelo:</label>
-                        <div class="col-md-6">
-                            @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                }
-                else
-                {
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Titulo, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-6">
-                            @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                }
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-6">
-                        @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                @if (ViewBag.Id == 27)
-                {
-                    <input id="Orden" name="Orden" type="hidden" value="0" />
-                }
-                else
-                {
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Orden, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-6">
-                            @Html.EditorFor(model => model.Orden, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Orden, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                }
-                <input id="IdGrupo" name="IdGrupo" type="hidden" value="@ViewBag.Id" />
-                @if (ViewBag.IdPadre != 0)
-                {
-                    if (@ViewBag.Id == 27)
-                    {
-                        <div class="form-group">
-                            <label class="control-label col-md-2">Fabricante:</label>
-                            <div class="col-md-6">
-                                @Html.DropDownListFor(model => model.IdPadre, ViewBag.ListaGruposDetalles as SelectList, "Seleccione Fabricante", htmlAttributes: new { @class = "form-control" })
-                            </div>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.IdPadre, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-6">
-                                @Html.DropDownListFor(model => model.IdPadre, ViewBag.ListaGruposDetalles as SelectList, "Seleccione Categoria Padre", htmlAttributes: new { @class = "form-control" })
-                            </div>
-                        </div>
-                    }
-                }
-                else
-                {
-                    <input id="IdPadre" name="IdPadre" type="hidden" value="0" />
-                }
+        <div class="row">
+            <div class="col-md-4">
 
-                @if (ViewBag.Id == 27)
-                {
-                    <input id="Icono" name="Icono" type="hidden" value="glyphicon glyphicon-cog" />
-                }
-                else
-                {
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Icono, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-6">
-                            @Html.EditorFor(model => model.Icono, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Icono, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                }
-                @*<div class="form-group">
-                    @Html.LabelFor(model => model.UrlDetalle, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-6">
-                        @Html.HiddenFor(model => model.UrlDetalle, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.UrlDetalle, "", new { @class = "text-danger" })
-                    </div>
-                </div>*@
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Estatus, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-6">
-                        @Html.CheckBoxFor(model => model.Estatus, new { htmlAttributes = new { @class = "form-control" } })
-                    </div>
-                </div>
-            </fieldset>
-            @*<div class="form-actions col-md-offset-2">
-                <input class="btn btn-primary" type="submit" name="btnguardar" value="Guardar" />|
-                @Html.ActionLink("Regresar al Listado", "Index")
-            </div>*@
-        </div>
-        <div class="btn-group btn-group-justified" role="group" aria-label="group button">
-            <div class="btn-group" role="group">
-                <button type="button" class="btn btn-default" data-dismiss="modal" role="button">Cerrar</button>
-            </div>
-            <div class="btn-group" role="group">
-                <button type="submit" id="saveImage" class="btn btn-default btn-hover-green" data-action="save" role="button">Guardar</button>
             </div>
         </div>
-
     }
-</div>
 
-<div class="text-primary text-success text-center">
-    @ViewBag.MensajeExito
-</div>
-<div class="text-primary text-danger text-center">
-    @ViewBag.MensajeError
-</div>
+    <form role="form" method="post" name="order" id="order" novalidate="novalidate">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-4">
+                <!-- general form elements -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <div class="pull-right">
+                            <a class="btn btn-success btn-sm" data-modal="" href="/Persona/Create" id="btnCreate">
+                                <span class="glyphicon glyphicon-plus"></span> Agregar Cliente
+                            </a>
+                        </div>
+                        <h3 class="box-title">Detalles del cliente</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
 
-<script>
-    $("form").removeData("validator");
-    $("form").removeData("unobtrusiveValidation");
-    $.validator.unobtrusive.parse("form");
-</script>
+                    <div class="box-body">
+                        <div class="resultados_ajax"></div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Cliente</label>
+                            <select class="form-control select2 select2-hidden-accessible" data-placeholder="Selecciona el cliente" name="customer_id" id="customer_id" required="" tabindex="-1" aria-hidden="true">
+                                <option value="8">JOSE ALFREDO</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Teléfono</label>
+                            <input type="text" class="form-control" id="work_phone_customer" placeholder="" readonly="">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Nombre contacto</label>
+                            <input type="text" class="form-control" id="contact_name" placeholder="" readonly="">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Teléfono contacto</label>
+                            <input type="text" class="form-control" id="contact_phone" placeholder="" readonly="">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Email contacto</label>
+                            <input type="text" class="form-control" id="contact_email" placeholder="" readonly="">
+                        </div>
+
+
+                    </div>
+                    <!-- /.box-body -->
+
+
+
+                </div>
+                <!-- /.box -->
+
+            </div>
+            <!--/.col (left) -->
+            <!-- right column -->
+            <div class="col-md-8">
+
+                <!-- Horizontal Form -->
+                <div class="box box-info">
+
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Detalle de la orden</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+
+                    <div class="box-body">
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>Estado</label>
+                                <select class="form-control" name="status" id="status" required="">
+                                    <option value="1" selected="">En proceso</option>
+                                    <option value="2">Presupuesto</option>
+                                    <option value="3">Reparado</option>
+                                    <option value="4">No reparado</option>
+                                </select>
+                                <input type="hidden" name="order_id" id="order_id" value="">
+                            </div>
+                            <div class="col-md-4">
+                                <label>Técnico</label>
+                                <select class="form-control" name="employee_id" id="employee_id" required="">
+                                    <option value="">Selecciona</option>
+                                    <option value="1632">Jose</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label>Fecha</label>
+                                <input type="text" class="form-control datepicker" name="order_date" value="12/01/2018" disabled="">
+                            </div>
+                            <div class="col-md-3">
+                                <label>Fecha de entrega</label>
+                                <input type="text" class="form-control datepicker" name="delivery_date" readonly="">
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- /.box-body -->
+
+
+
+                </div>
+                <!-- /.box -->
+                <!-- general form elements disabled -->
+                <div class="box box-warning">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Detalles del equipo</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>Modelo</label>
+                                <input type="text" class="form-control" name="model" id="model">
+                            </div>
+                            <div class="col-md-4">
+                                <label>Marca</label>
+                                <input type="text" class="form-control" name="brand" id="brand">
+                            </div>
+                            <div class="col-md-4">
+                                <label>Número de serie</label>
+                                <input type="text" class="form-control" name="serial_number" id="serial_number">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Descripción o nombre del equipo</label>
+                                <input type="text" class="form-control" name="product_description" id="product_description" required="" data-rule-rangelength="4,100">
+                            </div>
+                            <div class="col-md-6">
+                                <label>Accesorios</label>
+                                <input type="text" class="form-control" name="accessories" id="accessories">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Problema del equipo</label>
+                                <textarea class="form-control" name="issue" id="issue" rows="4" required="" data-rule-rangelength="5,255"></textarea>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Observaciones</label>
+                                <textarea class="form-control" name="note" id="note" rows="4" data-rule-rangelength="5,255"></textarea>
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        <div id="resultados_ajax" style="position:relative;"> </div>
+                        <button type="submit" class="btn btn-primary pull-right">Guardar datos</button>
+                    </div>
+
+                </div>
+                <!-- /.box -->
+            </div>
+            <!--/.col (right) -->
+
+
+
+        </div>
+        <!-- /.row -->
+    </form>
+</section>
+<!-- modal placeholder-->
+<div id='myModal' class='modal fade in'>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+</div>
+<script src="~/Content/js/PruebaModal.js"></script>
