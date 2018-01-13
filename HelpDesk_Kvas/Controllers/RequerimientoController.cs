@@ -1,5 +1,6 @@
 ﻿using HelpDesk_Kvas.DataGrid;
 using HelpDesk_Kvas.Models;
+using HelpDesk_Kvas.Models.Datos.DAL;
 using HelpDesk_Kvas.Models.Datos.Entity;
 using HelpDesk_Kvas.Models.Datos.Logica;
 using System;
@@ -15,6 +16,7 @@ namespace HelpDesk_Kvas.Controllers
         GrupoDetalleLogic objGrupoDetalleLogic;
         GrupoLogic objGrupoLogic;
         RequerimientoLogic objRequerimientoLogic;
+        UsuarioLogic objUsuario;
         DAL_Main db;
 
         public RequerimientoController()
@@ -22,6 +24,7 @@ namespace HelpDesk_Kvas.Controllers
             objGrupoDetalleLogic = new GrupoDetalleLogic();
             objGrupoLogic = new GrupoLogic();
             objRequerimientoLogic = new RequerimientoLogic();
+            objUsuario = new UsuarioLogic();
             db = new DAL_Main();
         }
 
@@ -62,6 +65,9 @@ namespace HelpDesk_Kvas.Controllers
         // GET: Requerimiento/Create
         public ActionResult Create()
         {
+            var user = HttpContext.User.Identity.Name;
+            var u = objUsuario.Buscar_x_Nombre(user);
+            ViewBag.IdUsuario = u.IdUsuario;
             return View();
         }
 

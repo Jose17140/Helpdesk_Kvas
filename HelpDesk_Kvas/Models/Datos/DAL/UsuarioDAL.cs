@@ -106,6 +106,32 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
             }
         }
 
+        public UsuarioLogEntity Buscarview(string _usuario)
+        {
+            try
+            {
+                var query = db.vw_Usuarios.Where(m=>m.NombreUsuario.ToUpper().Contains(_usuario.ToUpper())).SingleOrDefault();
+                var model = new UsuarioLogEntity()
+                {
+                    IdUsuario = query.IdUsuario,
+                    UserName = query.NombreUsuario,
+                    Rol = query.Rol,
+                    Avatar = query.Avatar,
+                    Color = query.FormColor,
+                    FechaLogin = Convert.ToDateTime(query.FechaLogin)
+                };
+                return model;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+
+            }
+        }
+
         public IEnumerable<LoginUserEntity> Login()
         {
             try

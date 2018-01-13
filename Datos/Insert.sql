@@ -191,11 +191,11 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDe
 ('CD/DVD','Driver y documentacion',11,'fa fa-users',7,0,'*',GETDATE()),
 ('Cartuchos','Cartuchos de tinta',11,'fa fa-users',8,0,'*',GETDATE());
 --USUARIOS
-EXEC sp_AgregarUsuario 'Jose','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=','Master@hotmail.com',40,'edmundo romero','avatar.png',1,'2018-01-03 19:45:28.087',46
-EXEC sp_AgregarUsuario 'Jonas','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=','Super@hotmail.com',40,'edmundo romero','avatar.png',1,'2018-01-03 19:45:28.087',47
-EXEC sp_AgregarUsuario 'Iveet','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=','Analista@hotmail.com',40,'edmundo romero','avatar.png',1,'2018-01-03 19:45:28.087',48
-EXEC sp_AgregarUsuario 'David','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=','Tecnico@hotmail.com',40,'edmundo romero','avatar.png',1,'2018-01-03 19:45:28.087',49
-EXEC sp_AgregarUsuario 'Jesus','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=','Cliente@hotmail.com',40,'edmundo romero','avatar.png',1,'2018-01-03 19:45:28.087',50
+EXEC sp_AgregarUsuario 'Jose','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=','Master@hotmail.com',40,'edmundo romero','user1-128x128.jpg',1,'2018-01-03 19:45:28.087',46
+EXEC sp_AgregarUsuario 'Jonas','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=','Super@hotmail.com',40,'edmundo romero','user2-160x160.jpg',1,'2018-01-03 19:45:28.087',47
+EXEC sp_AgregarUsuario 'Iveet','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=','Analista@hotmail.com',40,'edmundo romero','user3-128x128.jpg',1,'2018-01-03 19:45:28.087',48
+EXEC sp_AgregarUsuario 'David','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=','Tecnico@hotmail.com',40,'edmundo romero','user4-128x128.jpg',1,'2018-01-03 19:45:28.087',49
+EXEC sp_AgregarUsuario 'Jesus','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=','Cliente@hotmail.com',40,'edmundo romero','user5-128x128.jpg',1,'2018-01-03 19:45:28.087',50
 --CAT PRODUCTOS Y SERVICIOS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 --CAT PRODUCTOS

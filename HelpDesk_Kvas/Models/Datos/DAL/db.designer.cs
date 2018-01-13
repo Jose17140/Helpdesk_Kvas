@@ -7603,6 +7603,8 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 		
 		private string _FormColor;
 		
+		private System.Nullable<System.DateTime> _FechaLogin;
+		
 		public vw_Usuarios()
 		{
 		}
@@ -7683,6 +7685,22 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 				if ((this._FormColor != value))
 				{
 					this._FormColor = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaLogin", DbType="DateTime")]
+		public System.Nullable<System.DateTime> FechaLogin
+		{
+			get
+			{
+				return this._FechaLogin;
+			}
+			set
+			{
+				if ((this._FechaLogin != value))
+				{
+					this._FechaLogin = value;
 				}
 			}
 		}

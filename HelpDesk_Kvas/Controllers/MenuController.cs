@@ -16,11 +16,13 @@ namespace HelpDesk_Kvas.Controllers
         private DAL_Main db = new DAL_Main();
         GrupoDetalleLogic objGrupoDetalleLogic;
         GrupoLogic objGrupoLogic;
+        UsuarioLogic objUsuario;
         MenuLogic objMenu;
         public MenuController()
         {
             objGrupoDetalleLogic = new GrupoDetalleLogic();
             objGrupoLogic = new GrupoLogic();
+            objUsuario = new UsuarioLogic();
             objMenu = new MenuLogic();
         }
 
@@ -73,6 +75,18 @@ namespace HelpDesk_Kvas.Controllers
             lista.PageSize = pageSize;
             return View(lista);
 
+        }
+
+        public ActionResult _UserLog()
+        {
+            var _user = User.Identity.Name;
+            var u = objUsuario.Buscar_x_Nombre(_user);
+            ViewBag.Avatar = u.Avatar;
+            ViewBag.IdUsuario = u.IdUsuario;
+            ViewBag.Rol = u.Rol;
+            ViewBag.Form = u.Color;
+            ViewBag.Log = u.FechaLogin;
+            return View(u);
         }
 
         public ActionResult CreateMenu(int id)

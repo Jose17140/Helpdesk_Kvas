@@ -134,4 +134,20 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
         public string Pregunta { get; set; }
         public string Roles { get; set; }
     }
+    
+    public class UsuarioLogEntity
+    {
+        public int IdUsuario { get; set; }
+
+        public string UserName { get; set; }
+
+        public string Avatar { get; set; }
+
+        public string Rol { get; set; }
+
+        public string Color { get; set; }
+
+        public DateTime FechaLogin { get; set; }
+
+    }
 }

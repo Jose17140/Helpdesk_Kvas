@@ -348,10 +348,10 @@
         <elementListCompartment Id="ccc9353a-51b7-4f7a-8af3-d62a4278bd07" absoluteBounds="12.765, 1.21, 1.9700000000000002, 6.2107340494791661" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="44f0b528-162e-4e45-92ce-4a07e41fed84" absoluteBounds="3.875, 0.875, 2, 1.7708968098958331">
+    <classShape Id="b0eda6c8-0c0f-4426-bb07-5a45911b8495" absoluteBounds="4, 1, 2, 1.9631982421875">
       <DataClassMoniker Name="/dbDataContext/vw_Usuarios" />
       <nestedChildShapes>
-        <elementListCompartment Id="db4a7535-db0d-4ed3-8e0e-566cf033233a" absoluteBounds="3.8899999999999997, 1.335, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="7ddc8890-d02b-479f-9342-76c6bf9284db" absoluteBounds="4.015, 1.46, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

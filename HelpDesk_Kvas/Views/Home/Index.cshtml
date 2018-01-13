@@ -97,4 +97,17 @@ Welcome @HttpContext.Current.User.Identity.Name
     <h1>Login is supervisor</h1>
 }
 
-@HttpContext.Current.User.IsInRole("Master")
+@HttpContext.Current.User.IsInRole("Master").ToString()
+
+<br />
+
+@HttpContext.Current.User.Identity.ToString()
+<br />
+@User.GetType()
+<br />
+@HttpContext.Current.Cache
+<br />
+
+<br />
+
+<br />

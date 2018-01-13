@@ -44,6 +44,12 @@ namespace HelpDesk_Kvas.Models.Datos.Logica
             return v != null;
         }
 
+        public UsuarioLogEntity Buscar_x_Nombre(string _usuario)
+        {
+            return objUsuarioDAL.Buscarview(_usuario);
+            
+        }
+
         public IEnumerable<LoginUserEntity> ListarLogin()
         {
             return objUsuarioDAL.Login();

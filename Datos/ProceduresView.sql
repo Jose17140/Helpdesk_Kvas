@@ -156,10 +156,10 @@ CREATE VIEW vw_ListarUsuarios
  GO
 
 
-DROP VIEW IF EXISTS wv_Usuarios;
+DROP VIEW IF EXISTS vw_Usuarios;
 GO
-CREATE VIEW wv_Usuarios AS (
-	SELECT us.IdUsuario, us.NombreUsuario, us.Avatar, gd.Nombre AS Rol, us.FormColor
+CREATE VIEW vw_Usuarios AS (
+	SELECT us.IdUsuario, us.NombreUsuario, us.Avatar, gd.Nombre AS Rol, us.FormColor, us.FechaLogin
 	FROM GruposDetalles AS gd
 		INNER JOIN UsuariosRoles AS ro ON gd.IdGrupoDetalle = ro.IdRoles
 		INNER JOIN Usuarios AS us ON ro.IdUsuario = us.IdUsuario
