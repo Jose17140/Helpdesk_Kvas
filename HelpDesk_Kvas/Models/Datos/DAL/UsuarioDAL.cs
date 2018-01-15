@@ -21,7 +21,7 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
             try
             {
                 var fecha = DateTime.Now;
-                db.sp_AgregarUsuario(user.UserName, user.Password, user.Email, user.IdPregunta, user.RespuestaSeguridad, user.Avatar,
+                db.sp_AgregarUsuario(user.UserName, user.Password, user.IdPregunta, user.RespuestaSeguridad, user.Avatar,
                                     user.Estatus, fecha, user.IdRoles);
                 db.SubmitChanges();
             }
@@ -58,7 +58,7 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
             try
             {
                 var fecha = DateTime.Now;
-                db.sp_ActualizarUsuario(user.IdUsuario,user.Password,user.Email,user.IdPregunta,user.RespuestaSeguridad,user.Estatus,fecha,user.IdRoles);
+                db.sp_ActualizarUsuario(user.IdUsuario,user.Password,user.IdPregunta,user.RespuestaSeguridad,user.Estatus,fecha,user.IdRoles);
                 db.SubmitChanges();
             }
             catch (Exception)
@@ -75,13 +75,13 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
         {
             try
             {
-                var query = db.sp_BuscarUsuarios(idUsuario).SingleOrDefault();
+                //var query = db.sp_BuscarUsuarios(idUsuario).SingleOrDefault();
+                var query = db.vw_ListarUsuarios.Where(m => m.IdUsuario.Equals(idUsuario)).SingleOrDefault();
                 var model = new UsuariosEntityView()
                 {
                     IdUsuario = idUsuario,
                     UserName = query.NombreUsuario,
                     Password = query.Contrasena,
-                    Email = query.Correo,
                     IdRoles = query.IdRoles,
                     Roles = query.NombreRol,
                     IdPregunta = query.IdPregunta,
@@ -110,17 +110,21 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
         {
             try
             {
-                var query = db.vw_Usuarios.Where(m=>m.NombreUsuario.ToUpper().Contains(_usuario.ToUpper())).SingleOrDefault();
-                var model = new UsuarioLogEntity()
+                if (_usuario!=null)
                 {
-                    IdUsuario = query.IdUsuario,
-                    UserName = query.NombreUsuario,
-                    Rol = query.Rol,
-                    Avatar = query.Avatar,
-                    Color = query.FormColor,
-                    FechaLogin = Convert.ToDateTime(query.FechaLogin)
-                };
-                return model;
+                    var query = db.vw_UsuariosMenu.Where(m => m.NombreUsuario.ToUpper().Equals(_usuario.ToUpper())).SingleOrDefault();
+                    var model = new UsuarioLogEntity()
+                    {
+                        IdUsuario = query.IdUsuario,
+                        UserName = query.NombreUsuario,
+                        Rol = query.Rol,
+                        Avatar = query.Avatar,
+                        Color = query.FormColor,
+                        FechaLogin = Convert.ToDateTime(query.FechaLogin)
+                    };
+                    return model;
+                }
+                return null;
             }
             catch (Exception)
             {
@@ -195,7 +199,7 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
                     {
                         IdUsuario = grupos.IdUsuario,
                         UserName = grupos.NombreUsuario,
-                        Email = grupos.Correo,
+                        //Email = grupos.Correo,
                         IdRoles = grupos.IdRoles,
                         Roles = grupos.NombreRol,
                         Estatus = grupos.Estatus,

@@ -74,40 +74,19 @@
     <!-- /.row -->
 </section>
 
-Welcome @HttpContext.Current.User.Identity.Name
+
+
 @if (Request.IsAuthenticated)
 {
+    <text>Welcome @HttpContext.Current.User.Identity.Name</text> <br />
     using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { id = "logoutForm" }))
     {
         <a href="javascript:document.getElementById('logoutForm').submit()">Logout</a>
     }
 }
-
-@if (User.Identity.IsAuthenticated)
+else
 {
-    <h1>Login</h1>
+    @Html.ActionLink("Iniciar sesión", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
 }
 
-@if (User.IsInRole("Master"))
-{
-    <h1>Login is master</h1>
-}
-@if (User.IsInRole("Supervisor"))
-{
-    <h1>Login is supervisor</h1>
-}
-
-@HttpContext.Current.User.IsInRole("Master").ToString()
-
-<br />
-
-@HttpContext.Current.User.Identity.ToString()
-<br />
-@User.GetType()
-<br />
-@HttpContext.Current.Cache
-<br />
-
-<br />
-
-<br />
+@Html.ActionLink("Buscar", "BuscarUxR", "Persona")

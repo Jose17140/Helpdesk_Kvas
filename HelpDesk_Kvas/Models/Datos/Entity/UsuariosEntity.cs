@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HelpDesk_Kvas.Models.Datos.Entity
 {
-    public class UsuariosEntity
+    public class UsuariosEntity : PersonasEntity
     {
         [Key]
         public int IdUsuario { get; set; }
@@ -23,11 +23,6 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
         [Display(Name = "Contraseña")]
         public string Password { get; set; }
 
-        [EmailAddress]
-        [StringLength(60)]
-        [Display(Name = "Correo electrónico")]
-        public string Email { get; set; }
-
         [Display(Name = "Pregunta de Seguridad")]
         public int? IdPregunta { get; set; }
 
@@ -35,24 +30,16 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
         [Display(Name = "Respuesta:")]
         public string RespuestaSeguridad { get; set; }
 
-        [Required]
         [StringLength(30)]
         [Display(Name = "Avatar")]
         public string Avatar { get; set; }
-        
-        [Required]
+
         [Display(Name = "Estatus")]
         public bool Estatus { get; set; }
 
         [DataType(DataType.DateTime)]
-        [Display(Name = "Fecha de Registro:")]
-        public DateTime FechaRegistro { get; set; }
-
-        [DataType(DataType.DateTime)]
         [Display(Name = "Fecha de Modificacion:")]
         public DateTime? FechaModificacion { get; set; }
-
-        public int? Mensaje { get; set; }
     }
 
     public class ForgotUserEntity
@@ -92,9 +79,8 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
 
     public class RegisterUserEntity : UsuariosEntity
     {
-        [Required]
         [Display(Name = "Roles")]
-        public int IdRoles { get; set; }
+        public int? IdRoles { get; set; }
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirmar contraseña")]
@@ -102,7 +88,7 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
         public string ConfirmPassword { get; set; }
     }
 
-    public class ResetPasswordUserEntity
+    public class RecuperarContrasenaUserEntity
     {
         [Required]
         [EmailAddress]

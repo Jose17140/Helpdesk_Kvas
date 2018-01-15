@@ -214,7 +214,8 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
                         Orden = Convert.ToInt32(grupos.Orden),
                         IdPadre = grupos.IdGrupoPadre,
                         Padre = grupos.Categoria,
-                        IdGrupo = grupos.IdGrupo,
+                        //IdGrupo = grupos.IdGrupo,
+                        IdGrupo = Convert.ToInt32(grupos.IdGrupo),
                         Icono = grupos.Imagen,
                         Estatus = Convert.ToBoolean(grupos.Estatus),
                         FechaRegistro = Convert.ToDateTime(grupos.FechaRegistro)

@@ -27,7 +27,7 @@ namespace HelpDesk_Kvas.Controllers
         }
 
         [HttpGet]
-        public ActionResult Registrar()
+        public ActionResult RegistrarA()
         {
             var _ListaDetalle = objGrupoDetalleLogic.Listar();
             var _Roles = _ListaDetalle.Where(m => m.IdGrupo == 4).ToList();
@@ -43,15 +43,18 @@ namespace HelpDesk_Kvas.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Registrar([Bind(Exclude = "FechaLogin,ContadorFallido,FechaModificacion")] RegisterUserEntity user)
+        public ActionResult RegistrarA([Bind(Exclude = "FechaLogin,ContadorFallido,FechaModificacion")] RegisterUserEntity user)
         {
             string message = "";
             // Model Validation 
             if (ModelState.IsValid)
             {
-
+                var isExistEmail = false;
                 #region //Email is already Exist 
-                var isExistEmail = objUsuarioLogic.IsEmailExist(user.Email);
+                if (user.Email!=null)
+                {
+                    isExistEmail = objUsuarioLogic.IsEmailExist(user.Email);
+                }
                 var isExistUser = objUsuarioLogic.IsUserExist(user.UserName);
                 if (isExistEmail)
                 {
@@ -82,7 +85,7 @@ namespace HelpDesk_Kvas.Controllers
                     return View(user);
                 }
                 #endregion
-                user.Avatar = "/Content/images/img/avatar.png";
+                user.Avatar = "user7-128x128.jpg";
 
                 #region  Password Hashing 
                 user.Password = Crypto.Hash(user.Password);
@@ -106,7 +109,74 @@ namespace HelpDesk_Kvas.Controllers
             ViewBag.Message = message;
             return View(user);
         }
-        
+
+        [HttpGet]
+        public ActionResult RegistrarB()
+        {
+            var _ListaDetalle = objGrupoDetalleLogic.Listar();
+            var _Roles = _ListaDetalle.Where(m => m.IdGrupo == 4 && m.Titulo == "Cliente").ToList();
+            var _Preguntas = _ListaDetalle.Where(m => m.IdGrupo == 12).ToList();
+            //Departamento Roles
+            SelectList listaRoles = new SelectList(_Roles, "IdGrupoDetalle", "Titulo");
+            //Departamento hijo
+            SelectList listaPreguntas = new SelectList(_Preguntas, "IdGrupoDetalle", "Titulo");
+            ViewBag.ListaRoles = listaRoles;
+            ViewBag.ListaPreguntas = listaPreguntas;
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RegistrarB([Bind(Exclude = "Email,FechaLogin,ContadorFallido,FechaModificacion")] RegisterUserEntity user)
+        {
+            var _ListaDetalle = objGrupoDetalleLogic.Listar();
+            var _Roles = _ListaDetalle.Where(m => m.IdGrupo == 4 && m.Titulo=="Cliente").ToList();
+            var _Preguntas = _ListaDetalle.Where(m => m.IdGrupo == 12).ToList();
+            // Model Validation 
+            if (ModelState.IsValid)
+            {
+                var isExistEmail = false;
+                #region //Email is already Exist 
+                if (user.Email != null)
+                {
+                    isExistEmail = objUsuarioLogic.IsEmailExist(user.Email);
+                }
+                var isExistUser = objUsuarioLogic.IsUserExist(user.UserName);
+                if (isExistEmail)
+                {
+                    ModelState.AddModelError("EmailExist", "Correo electronico ya esta registrado");
+                    //Preguntas
+                    SelectList listaPreguntas = new SelectList(_Preguntas, "IdGrupoDetalle", "Titulo");
+                    ViewBag.ListaPreguntas = listaPreguntas;
+                    return View(user);
+                }
+                if (isExistUser)
+                {
+                    ModelState.AddModelError("UserExist", "El nombre de usuario ya se encuantra registrado");
+                    //Preguntas
+                    SelectList listaPreguntas = new SelectList(_Preguntas, "IdGrupoDetalle", "Titulo");
+                    ViewBag.ListaPreguntas = listaPreguntas;
+                    return View(user);
+                }
+                #endregion
+                #region  Password Hashing 
+                user.Password = Crypto.Hash(user.Password);
+                user.ConfirmPassword = Crypto.Hash(user.ConfirmPassword);
+                #endregion
+                user.Avatar = "user7-128x128.jpg";
+                user.Estatus = true;
+                user.IdRoles = _Roles.Select(m => m.IdGrupoDetalle).SingleOrDefault();
+                #region Save to Database
+                objUsuarioLogic.Insertar(user);
+                #endregion
+                return RedirectToAction("Login", "Account");
+            }
+            else
+            {
+                ModelState.AddModelError("UserExist", "Verifique los Datos e intente nuevamente");
+            }
+            return View(user);
+        }
         [HttpGet]
         public ActionResult Login()
         {

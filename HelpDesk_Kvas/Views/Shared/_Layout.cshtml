@@ -1,12 +1,14 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="~/Content/lib/jquery/dist/jquery.js"></script>
 
 </head>
     <body class="hold-transition skin-blue fixed sidebar-mini">
@@ -38,7 +40,6 @@
                     <br>
                     <!--SIDEBAR TOP-->
                     @{Html.RenderAction("_SideBart", "Menu");}
-
                     <ul class="sidebar-menu">
                         <li class="header">Menu de Navegacion</li>
                         <li class="active treeview">
@@ -52,7 +53,6 @@
                 </section>
                 <!-- /.sidebar -->
             </aside>
-
             <!--Mapa de Navegacion-->
             <div class="content-wrapper">
                 @RenderBody()
@@ -63,7 +63,6 @@
                 </div>
                 <strong>Copyright &copy; 2.018 <a href="#">Bolivar y Pulido</a>.</strong> Todos los Derechos Reservados.
             </footer>
-
             <!--PANEL DE CONTROL USUARIO-->
             @Html.Action("_UserPanel", "Menu")
             <!-- /. FIN DE PANEL DE CONTROL -->
@@ -74,54 +73,50 @@
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrap")
         @Scripts.Render("~/bundles/adminLte")
-
         <script>
-    $(document).ready(function () {
-        $("#AjaxformId").submit(function (event) {
-            var dataString;
-            event.preventDefault();
-            event.stopImmediatePropagation();
-            var action = $("#AjaxformId").attr("action");
+            $(document).ready(function () {
+                $("#AjaxformId").submit(function (event) {
+                    var dataString;
+                    event.preventDefault();
+                    event.stopImmediatePropagation();
+                    var action = $("#AjaxformId").attr("action");
+                    // Setting.
+                    dataString = new FormData($("#AjaxformId").get(0));
+                    contentType = false;
+                    processData = false;
+                    $.ajax({
+                        type: "POST",
+                        url: action,
+                        data: dataString,
+                        dataType: "json",
+                        contentType: contentType,
+                        processData: processData,
+                        success: function (result) {
+                            // Result.
+                            //alert("Registro exitoso");
+                            onAjaxRequestSuccess(result);
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            //do your own thing
+                            alert("Error");
+                        }
+                    });
 
-            // Setting.
-            dataString = new FormData($("#AjaxformId").get(0));
-            contentType = false;
-            processData = false;
-
-            $.ajax({
-                type: "POST",
-                url: action,
-                data: dataString,
-                dataType: "json",
-                contentType: contentType,
-                processData: processData,
-                success: function (result) {
-                    // Result.
-                    //alert("Registro exitoso");
-                    onAjaxRequestSuccess(result);
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    //do your own thing
-                    alert("Error");
-                }
+                }); //end .submit()
             });
+            var onAjaxRequestSuccess = function (result) {
+                if (result.EnableError) {
+                    // Setting.
+                    alert(result.ErrorMsg);
+                }
+                else if (result.EnableSuccess) {
+                    // Setting.
+                    alert(result.SuccessMsg);
 
-        }); //end .submit()
-    });
-
-    var onAjaxRequestSuccess = function (result) {
-        if (result.EnableError) {
-            // Setting.
-            alert(result.ErrorMsg);
-        }
-        else if (result.EnableSuccess) {
-            // Setting.
-            alert(result.SuccessMsg);
-
-            // Resetting form.
-            $('#AjaxformId').get(0).reset();
-        }
-    }
+                    // Resetting form.
+                    $('#AjaxformId').get(0).reset();
+                }
+            }
         </script>
         @RenderSection("scripts", required: false)
     </body>

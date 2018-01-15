@@ -34,7 +34,7 @@ namespace HelpDesk_Kvas.Models.Datos.Logica
 
         public bool IsEmailExist(string emailID)
         {
-            var v = db.Usuarios.Where(a => a.Email.ToUpper().Contains(emailID.ToUpper())).FirstOrDefault();
+            var v = db.Personas.Where(a => a.Email.ToUpper().Contains(emailID.ToUpper())).FirstOrDefault();
             return v != null;
         }
 

@@ -30,30 +30,21 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 		
     #region Definiciones de métodos de extensibilidad
     partial void OnCreated();
-    partial void InsertAccesorios_x_Requerimiento(Accesorios_x_Requerimiento instance);
-    partial void UpdateAccesorios_x_Requerimiento(Accesorios_x_Requerimiento instance);
-    partial void DeleteAccesorios_x_Requerimiento(Accesorios_x_Requerimiento instance);
-    partial void InsertUsuariosRoles(UsuariosRoles instance);
-    partial void UpdateUsuariosRoles(UsuariosRoles instance);
-    partial void DeleteUsuariosRoles(UsuariosRoles instance);
     partial void InsertEmpleados(Empleados instance);
     partial void UpdateEmpleados(Empleados instance);
     partial void DeleteEmpleados(Empleados instance);
+    partial void InsertUsuariosRoles(UsuariosRoles instance);
+    partial void UpdateUsuariosRoles(UsuariosRoles instance);
+    partial void DeleteUsuariosRoles(UsuariosRoles instance);
     partial void InsertGrupos(Grupos instance);
     partial void UpdateGrupos(Grupos instance);
     partial void DeleteGrupos(Grupos instance);
     partial void InsertGruposDetalles(GruposDetalles instance);
     partial void UpdateGruposDetalles(GruposDetalles instance);
     partial void DeleteGruposDetalles(GruposDetalles instance);
-    partial void InsertObservaciones_x_Requerimiento(Observaciones_x_Requerimiento instance);
-    partial void UpdateObservaciones_x_Requerimiento(Observaciones_x_Requerimiento instance);
-    partial void DeleteObservaciones_x_Requerimiento(Observaciones_x_Requerimiento instance);
     partial void InsertPersonas(Personas instance);
     partial void UpdatePersonas(Personas instance);
     partial void DeletePersonas(Personas instance);
-    partial void InsertPresupuesto_x_Requerimiento(Presupuesto_x_Requerimiento instance);
-    partial void UpdatePresupuesto_x_Requerimiento(Presupuesto_x_Requerimiento instance);
-    partial void DeletePresupuesto_x_Requerimiento(Presupuesto_x_Requerimiento instance);
     partial void InsertProductoServicios(ProductoServicios instance);
     partial void UpdateProductoServicios(ProductoServicios instance);
     partial void DeleteProductoServicios(ProductoServicios instance);
@@ -98,11 +89,11 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<Accesorios_x_Requerimiento> Accesorios_x_Requerimiento
+		public System.Data.Linq.Table<Empleados> Empleados
 		{
 			get
 			{
-				return this.GetTable<Accesorios_x_Requerimiento>();
+				return this.GetTable<Empleados>();
 			}
 		}
 		
@@ -111,14 +102,6 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 			get
 			{
 				return this.GetTable<UsuariosRoles>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Empleados> Empleados
-		{
-			get
-			{
-				return this.GetTable<Empleados>();
 			}
 		}
 		
@@ -138,27 +121,11 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 			}
 		}
 		
-		public System.Data.Linq.Table<Observaciones_x_Requerimiento> Observaciones_x_Requerimiento
-		{
-			get
-			{
-				return this.GetTable<Observaciones_x_Requerimiento>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Personas> Personas
 		{
 			get
 			{
 				return this.GetTable<Personas>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Presupuesto_x_Requerimiento> Presupuesto_x_Requerimiento
-		{
-			get
-			{
-				return this.GetTable<Presupuesto_x_Requerimiento>();
 			}
 		}
 		
@@ -202,6 +169,14 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 			}
 		}
 		
+		public System.Data.Linq.Table<vw_UsuariosMenu> vw_UsuariosMenu
+		{
+			get
+			{
+				return this.GetTable<vw_UsuariosMenu>();
+			}
+		}
+		
 		public System.Data.Linq.Table<vw_ListarProductos> vw_ListarProductos
 		{
 			get
@@ -242,18 +217,10 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 			}
 		}
 		
-		public System.Data.Linq.Table<vw_Usuarios> vw_Usuarios
-		{
-			get
-			{
-				return this.GetTable<vw_Usuarios>();
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_ActualizarUsuario")]
-		public int sp_ActualizarUsuario([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdUsuario", DbType="Int")] System.Nullable<int> idUsuario, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Contrasena", DbType="VarChar(100)")] string contrasena, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Email", DbType="VarChar(60)")] string email, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdPregunta", DbType="Int")] System.Nullable<int> idPregunta, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Respuesta", DbType="VarChar(50)")] string respuesta, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Estatus", DbType="Bit")] System.Nullable<bool> estatus, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="FechaModificacion", DbType="DateTime")] System.Nullable<System.DateTime> fechaModificacion, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdRole", DbType="Int")] System.Nullable<int> idRole)
+		public int sp_ActualizarUsuario([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdUsuario", DbType="Int")] System.Nullable<int> idUsuario, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Contrasena", DbType="VarChar(100)")] string contrasena, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdPregunta", DbType="Int")] System.Nullable<int> idPregunta, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Respuesta", DbType="VarChar(50)")] string respuesta, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Estatus", DbType="Bit")] System.Nullable<bool> estatus, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="FechaModificacion", DbType="DateTime")] System.Nullable<System.DateTime> fechaModificacion, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdRole", DbType="Int")] System.Nullable<int> idRole)
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUsuario, contrasena, email, idPregunta, respuesta, estatus, fechaModificacion, idRole);
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUsuario, contrasena, idPregunta, respuesta, estatus, fechaModificacion, idRole);
 			return ((int)(result.ReturnValue));
 		}
 		
@@ -265,100 +232,275 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_AgregarUsuario")]
-		public int sp_AgregarUsuario([global::System.Data.Linq.Mapping.ParameterAttribute(Name="NombreUsuario", DbType="VarChar(30)")] string nombreUsuario, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Contrasena", DbType="VarChar(100)")] string contrasena, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Email", DbType="VarChar(60)")] string email, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdPregunta", DbType="Int")] System.Nullable<int> idPregunta, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Respuesta", DbType="VarChar(50)")] string respuesta, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Avatar", DbType="VarChar(30)")] string avatar, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Estatus", DbType="Bit")] System.Nullable<bool> estatus, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="FechaRegistro", DbType="DateTime")] System.Nullable<System.DateTime> fechaRegistro, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdRole", DbType="Int")] System.Nullable<int> idRole)
+		public int sp_AgregarUsuario([global::System.Data.Linq.Mapping.ParameterAttribute(Name="NombreUsuario", DbType="VarChar(30)")] string nombreUsuario, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Contrasena", DbType="VarChar(100)")] string contrasena, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdPregunta", DbType="Int")] System.Nullable<int> idPregunta, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Respuesta", DbType="VarChar(50)")] string respuesta, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Avatar", DbType="VarChar(30)")] string avatar, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Estatus", DbType="Bit")] System.Nullable<bool> estatus, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="FechaRegistro", DbType="DateTime")] System.Nullable<System.DateTime> fechaRegistro, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdRole", DbType="Int")] System.Nullable<int> idRole)
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), nombreUsuario, contrasena, email, idPregunta, respuesta, avatar, estatus, fechaRegistro, idRole);
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), nombreUsuario, contrasena, idPregunta, respuesta, avatar, estatus, fechaRegistro, idRole);
 			return ((int)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_BuscarUsuarios")]
-		public ISingleResult<sp_BuscarUsuariosResult> sp_BuscarUsuarios([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> id)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id);
-			return ((ISingleResult<sp_BuscarUsuariosResult>)(result.ReturnValue));
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Accesorios_x_Requerimiento")]
-	public partial class Accesorios_x_Requerimiento : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Empleados")]
+	public partial class Empleados : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _IdAccesorio;
+		private int _IdEmpleado;
 		
-		private int _IdRequerimiento;
+		private int _IdPersona;
+		
+		private int _IdDepartamento;
+		
+		private int _IdCargo;
+		
+		private int _IdSexo;
+		
+		private System.Nullable<System.DateTime> _FechaNaciomiento;
+		
+		private System.Nullable<System.DateTime> _FechaIngreso;
+		
+		private System.Nullable<System.DateTime> _FechaRetiro;
+		
+		private System.DateTime _FechaRegistro;
 		
 		private EntityRef<GruposDetalles> _GruposDetalles;
 		
-		private EntityRef<Requerimientos> _Requerimientos;
+		private EntityRef<GruposDetalles> _GruposDetalles1;
+		
+		private EntityRef<GruposDetalles> _GruposDetalles2;
+		
+		private EntityRef<Personas> _Personas;
 		
     #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnIdAccesorioChanging(int value);
-    partial void OnIdAccesorioChanged();
-    partial void OnIdRequerimientoChanging(int value);
-    partial void OnIdRequerimientoChanged();
+    partial void OnIdEmpleadoChanging(int value);
+    partial void OnIdEmpleadoChanged();
+    partial void OnIdPersonaChanging(int value);
+    partial void OnIdPersonaChanged();
+    partial void OnIdDepartamentoChanging(int value);
+    partial void OnIdDepartamentoChanged();
+    partial void OnIdCargoChanging(int value);
+    partial void OnIdCargoChanged();
+    partial void OnIdSexoChanging(int value);
+    partial void OnIdSexoChanged();
+    partial void OnFechaNaciomientoChanging(System.Nullable<System.DateTime> value);
+    partial void OnFechaNaciomientoChanged();
+    partial void OnFechaIngresoChanging(System.Nullable<System.DateTime> value);
+    partial void OnFechaIngresoChanged();
+    partial void OnFechaRetiroChanging(System.Nullable<System.DateTime> value);
+    partial void OnFechaRetiroChanged();
+    partial void OnFechaRegistroChanging(System.DateTime value);
+    partial void OnFechaRegistroChanged();
     #endregion
 		
-		public Accesorios_x_Requerimiento()
+		public Empleados()
 		{
 			this._GruposDetalles = default(EntityRef<GruposDetalles>);
-			this._Requerimientos = default(EntityRef<Requerimientos>);
+			this._GruposDetalles1 = default(EntityRef<GruposDetalles>);
+			this._GruposDetalles2 = default(EntityRef<GruposDetalles>);
+			this._Personas = default(EntityRef<Personas>);
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdAccesorio", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int IdAccesorio
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdEmpleado", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int IdEmpleado
 		{
 			get
 			{
-				return this._IdAccesorio;
+				return this._IdEmpleado;
 			}
 			set
 			{
-				if ((this._IdAccesorio != value))
+				if ((this._IdEmpleado != value))
+				{
+					this.OnIdEmpleadoChanging(value);
+					this.SendPropertyChanging();
+					this._IdEmpleado = value;
+					this.SendPropertyChanged("IdEmpleado");
+					this.OnIdEmpleadoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPersona", DbType="Int NOT NULL")]
+		public int IdPersona
+		{
+			get
+			{
+				return this._IdPersona;
+			}
+			set
+			{
+				if ((this._IdPersona != value))
+				{
+					if (this._Personas.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIdPersonaChanging(value);
+					this.SendPropertyChanging();
+					this._IdPersona = value;
+					this.SendPropertyChanged("IdPersona");
+					this.OnIdPersonaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdDepartamento", DbType="Int NOT NULL")]
+		public int IdDepartamento
+		{
+			get
+			{
+				return this._IdDepartamento;
+			}
+			set
+			{
+				if ((this._IdDepartamento != value))
+				{
+					if (this._GruposDetalles1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIdDepartamentoChanging(value);
+					this.SendPropertyChanging();
+					this._IdDepartamento = value;
+					this.SendPropertyChanged("IdDepartamento");
+					this.OnIdDepartamentoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdCargo", DbType="Int NOT NULL")]
+		public int IdCargo
+		{
+			get
+			{
+				return this._IdCargo;
+			}
+			set
+			{
+				if ((this._IdCargo != value))
 				{
 					if (this._GruposDetalles.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
-					this.OnIdAccesorioChanging(value);
+					this.OnIdCargoChanging(value);
 					this.SendPropertyChanging();
-					this._IdAccesorio = value;
-					this.SendPropertyChanged("IdAccesorio");
-					this.OnIdAccesorioChanged();
+					this._IdCargo = value;
+					this.SendPropertyChanged("IdCargo");
+					this.OnIdCargoChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdRequerimiento", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int IdRequerimiento
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdSexo", DbType="Int NOT NULL")]
+		public int IdSexo
 		{
 			get
 			{
-				return this._IdRequerimiento;
+				return this._IdSexo;
 			}
 			set
 			{
-				if ((this._IdRequerimiento != value))
+				if ((this._IdSexo != value))
 				{
-					if (this._Requerimientos.HasLoadedOrAssignedValue)
+					if (this._GruposDetalles2.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
-					this.OnIdRequerimientoChanging(value);
+					this.OnIdSexoChanging(value);
 					this.SendPropertyChanging();
-					this._IdRequerimiento = value;
-					this.SendPropertyChanged("IdRequerimiento");
-					this.OnIdRequerimientoChanged();
+					this._IdSexo = value;
+					this.SendPropertyChanged("IdSexo");
+					this.OnIdSexoChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_Accesorios_x_Requerimiento", Storage="_GruposDetalles", ThisKey="IdAccesorio", OtherKey="IdGrupoDetalle", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaNaciomiento", DbType="Date")]
+		public System.Nullable<System.DateTime> FechaNaciomiento
+		{
+			get
+			{
+				return this._FechaNaciomiento;
+			}
+			set
+			{
+				if ((this._FechaNaciomiento != value))
+				{
+					this.OnFechaNaciomientoChanging(value);
+					this.SendPropertyChanging();
+					this._FechaNaciomiento = value;
+					this.SendPropertyChanged("FechaNaciomiento");
+					this.OnFechaNaciomientoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaIngreso", DbType="Date")]
+		public System.Nullable<System.DateTime> FechaIngreso
+		{
+			get
+			{
+				return this._FechaIngreso;
+			}
+			set
+			{
+				if ((this._FechaIngreso != value))
+				{
+					this.OnFechaIngresoChanging(value);
+					this.SendPropertyChanging();
+					this._FechaIngreso = value;
+					this.SendPropertyChanged("FechaIngreso");
+					this.OnFechaIngresoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaRetiro", DbType="Date")]
+		public System.Nullable<System.DateTime> FechaRetiro
+		{
+			get
+			{
+				return this._FechaRetiro;
+			}
+			set
+			{
+				if ((this._FechaRetiro != value))
+				{
+					this.OnFechaRetiroChanging(value);
+					this.SendPropertyChanging();
+					this._FechaRetiro = value;
+					this.SendPropertyChanged("FechaRetiro");
+					this.OnFechaRetiroChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaRegistro", DbType="DateTime NOT NULL")]
+		public System.DateTime FechaRegistro
+		{
+			get
+			{
+				return this._FechaRegistro;
+			}
+			set
+			{
+				if ((this._FechaRegistro != value))
+				{
+					this.OnFechaRegistroChanging(value);
+					this.SendPropertyChanging();
+					this._FechaRegistro = value;
+					this.SendPropertyChanged("FechaRegistro");
+					this.OnFechaRegistroChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_Empleados", Storage="_GruposDetalles", ThisKey="IdCargo", OtherKey="IdGrupoDetalle", IsForeignKey=true)]
 		public GruposDetalles GruposDetalles
 		{
 			get
@@ -375,53 +517,121 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 					if ((previousValue != null))
 					{
 						this._GruposDetalles.Entity = null;
-						previousValue.Accesorios_x_Requerimiento.Remove(this);
+						previousValue.Empleados.Remove(this);
 					}
 					this._GruposDetalles.Entity = value;
 					if ((value != null))
 					{
-						value.Accesorios_x_Requerimiento.Add(this);
-						this._IdAccesorio = value.IdGrupoDetalle;
+						value.Empleados.Add(this);
+						this._IdCargo = value.IdGrupoDetalle;
 					}
 					else
 					{
-						this._IdAccesorio = default(int);
+						this._IdCargo = default(int);
 					}
 					this.SendPropertyChanged("GruposDetalles");
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Requerimientos_Accesorios_x_Requerimiento", Storage="_Requerimientos", ThisKey="IdRequerimiento", OtherKey="IdRequerimiento", IsForeignKey=true)]
-		public Requerimientos Requerimientos
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_Empleados1", Storage="_GruposDetalles1", ThisKey="IdDepartamento", OtherKey="IdGrupoDetalle", IsForeignKey=true)]
+		public GruposDetalles GruposDetalles1
 		{
 			get
 			{
-				return this._Requerimientos.Entity;
+				return this._GruposDetalles1.Entity;
 			}
 			set
 			{
-				Requerimientos previousValue = this._Requerimientos.Entity;
+				GruposDetalles previousValue = this._GruposDetalles1.Entity;
 				if (((previousValue != value) 
-							|| (this._Requerimientos.HasLoadedOrAssignedValue == false)))
+							|| (this._GruposDetalles1.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._Requerimientos.Entity = null;
-						previousValue.Accesorios_x_Requerimiento.Remove(this);
+						this._GruposDetalles1.Entity = null;
+						previousValue.Empleados1.Remove(this);
 					}
-					this._Requerimientos.Entity = value;
+					this._GruposDetalles1.Entity = value;
 					if ((value != null))
 					{
-						value.Accesorios_x_Requerimiento.Add(this);
-						this._IdRequerimiento = value.IdRequerimiento;
+						value.Empleados1.Add(this);
+						this._IdDepartamento = value.IdGrupoDetalle;
 					}
 					else
 					{
-						this._IdRequerimiento = default(int);
+						this._IdDepartamento = default(int);
 					}
-					this.SendPropertyChanged("Requerimientos");
+					this.SendPropertyChanged("GruposDetalles1");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_Empleados2", Storage="_GruposDetalles2", ThisKey="IdSexo", OtherKey="IdGrupoDetalle", IsForeignKey=true)]
+		public GruposDetalles GruposDetalles2
+		{
+			get
+			{
+				return this._GruposDetalles2.Entity;
+			}
+			set
+			{
+				GruposDetalles previousValue = this._GruposDetalles2.Entity;
+				if (((previousValue != value) 
+							|| (this._GruposDetalles2.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._GruposDetalles2.Entity = null;
+						previousValue.Empleados2.Remove(this);
+					}
+					this._GruposDetalles2.Entity = value;
+					if ((value != null))
+					{
+						value.Empleados2.Add(this);
+						this._IdSexo = value.IdGrupoDetalle;
+					}
+					else
+					{
+						this._IdSexo = default(int);
+					}
+					this.SendPropertyChanged("GruposDetalles2");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Personas_Empleados", Storage="_Personas", ThisKey="IdPersona", OtherKey="IdPersona", IsForeignKey=true)]
+		public Personas Personas
+		{
+			get
+			{
+				return this._Personas.Entity;
+			}
+			set
+			{
+				Personas previousValue = this._Personas.Entity;
+				if (((previousValue != value) 
+							|| (this._Personas.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Personas.Entity = null;
+						previousValue.Empleados.Remove(this);
+					}
+					this._Personas.Entity = value;
+					if ((value != null))
+					{
+						value.Empleados.Add(this);
+						this._IdPersona = value.IdPersona;
+					}
+					else
+					{
+						this._IdPersona = default(int);
+					}
+					this.SendPropertyChanged("Personas");
 				}
 			}
 		}
@@ -607,513 +817,6 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 					if ((value != null))
 					{
 						value.UsuariosRoles.Add(this);
-						this._IdUsuario = value.IdUsuario;
-					}
-					else
-					{
-						this._IdUsuario = default(int);
-					}
-					this.SendPropertyChanged("Usuarios");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Empleados")]
-	public partial class Empleados : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _IdEmpleado;
-		
-		private int _IdPersona;
-		
-		private int _IdUsuario;
-		
-		private int _IdDepartamento;
-		
-		private int _IdCargo;
-		
-		private int _IdSexo;
-		
-		private System.Nullable<System.DateTime> _FechaNaciomiento;
-		
-		private System.Nullable<System.DateTime> _FechaIngreso;
-		
-		private System.Nullable<System.DateTime> _FechaRetiro;
-		
-		private System.Nullable<int> _Estatus;
-		
-		private System.DateTime _FechaRegistro;
-		
-		private EntityRef<GruposDetalles> _GruposDetalles;
-		
-		private EntityRef<GruposDetalles> _GruposDetalles1;
-		
-		private EntityRef<GruposDetalles> _GruposDetalles2;
-		
-		private EntityRef<Personas> _Personas;
-		
-		private EntityRef<Usuarios> _Usuarios;
-		
-    #region Definiciones de métodos de extensibilidad
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdEmpleadoChanging(int value);
-    partial void OnIdEmpleadoChanged();
-    partial void OnIdPersonaChanging(int value);
-    partial void OnIdPersonaChanged();
-    partial void OnIdUsuarioChanging(int value);
-    partial void OnIdUsuarioChanged();
-    partial void OnIdDepartamentoChanging(int value);
-    partial void OnIdDepartamentoChanged();
-    partial void OnIdCargoChanging(int value);
-    partial void OnIdCargoChanged();
-    partial void OnIdSexoChanging(int value);
-    partial void OnIdSexoChanged();
-    partial void OnFechaNaciomientoChanging(System.Nullable<System.DateTime> value);
-    partial void OnFechaNaciomientoChanged();
-    partial void OnFechaIngresoChanging(System.Nullable<System.DateTime> value);
-    partial void OnFechaIngresoChanged();
-    partial void OnFechaRetiroChanging(System.Nullable<System.DateTime> value);
-    partial void OnFechaRetiroChanged();
-    partial void OnEstatusChanging(System.Nullable<int> value);
-    partial void OnEstatusChanged();
-    partial void OnFechaRegistroChanging(System.DateTime value);
-    partial void OnFechaRegistroChanged();
-    #endregion
-		
-		public Empleados()
-		{
-			this._GruposDetalles = default(EntityRef<GruposDetalles>);
-			this._GruposDetalles1 = default(EntityRef<GruposDetalles>);
-			this._GruposDetalles2 = default(EntityRef<GruposDetalles>);
-			this._Personas = default(EntityRef<Personas>);
-			this._Usuarios = default(EntityRef<Usuarios>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdEmpleado", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int IdEmpleado
-		{
-			get
-			{
-				return this._IdEmpleado;
-			}
-			set
-			{
-				if ((this._IdEmpleado != value))
-				{
-					this.OnIdEmpleadoChanging(value);
-					this.SendPropertyChanging();
-					this._IdEmpleado = value;
-					this.SendPropertyChanged("IdEmpleado");
-					this.OnIdEmpleadoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPersona", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int IdPersona
-		{
-			get
-			{
-				return this._IdPersona;
-			}
-			set
-			{
-				if ((this._IdPersona != value))
-				{
-					if (this._Personas.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnIdPersonaChanging(value);
-					this.SendPropertyChanging();
-					this._IdPersona = value;
-					this.SendPropertyChanged("IdPersona");
-					this.OnIdPersonaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdUsuario", DbType="Int NOT NULL")]
-		public int IdUsuario
-		{
-			get
-			{
-				return this._IdUsuario;
-			}
-			set
-			{
-				if ((this._IdUsuario != value))
-				{
-					if (this._Usuarios.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnIdUsuarioChanging(value);
-					this.SendPropertyChanging();
-					this._IdUsuario = value;
-					this.SendPropertyChanged("IdUsuario");
-					this.OnIdUsuarioChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdDepartamento", DbType="Int NOT NULL")]
-		public int IdDepartamento
-		{
-			get
-			{
-				return this._IdDepartamento;
-			}
-			set
-			{
-				if ((this._IdDepartamento != value))
-				{
-					if (this._GruposDetalles1.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnIdDepartamentoChanging(value);
-					this.SendPropertyChanging();
-					this._IdDepartamento = value;
-					this.SendPropertyChanged("IdDepartamento");
-					this.OnIdDepartamentoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdCargo", DbType="Int NOT NULL")]
-		public int IdCargo
-		{
-			get
-			{
-				return this._IdCargo;
-			}
-			set
-			{
-				if ((this._IdCargo != value))
-				{
-					if (this._GruposDetalles.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnIdCargoChanging(value);
-					this.SendPropertyChanging();
-					this._IdCargo = value;
-					this.SendPropertyChanged("IdCargo");
-					this.OnIdCargoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdSexo", DbType="Int NOT NULL")]
-		public int IdSexo
-		{
-			get
-			{
-				return this._IdSexo;
-			}
-			set
-			{
-				if ((this._IdSexo != value))
-				{
-					if (this._GruposDetalles2.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnIdSexoChanging(value);
-					this.SendPropertyChanging();
-					this._IdSexo = value;
-					this.SendPropertyChanged("IdSexo");
-					this.OnIdSexoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaNaciomiento", DbType="Date")]
-		public System.Nullable<System.DateTime> FechaNaciomiento
-		{
-			get
-			{
-				return this._FechaNaciomiento;
-			}
-			set
-			{
-				if ((this._FechaNaciomiento != value))
-				{
-					this.OnFechaNaciomientoChanging(value);
-					this.SendPropertyChanging();
-					this._FechaNaciomiento = value;
-					this.SendPropertyChanged("FechaNaciomiento");
-					this.OnFechaNaciomientoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaIngreso", DbType="Date")]
-		public System.Nullable<System.DateTime> FechaIngreso
-		{
-			get
-			{
-				return this._FechaIngreso;
-			}
-			set
-			{
-				if ((this._FechaIngreso != value))
-				{
-					this.OnFechaIngresoChanging(value);
-					this.SendPropertyChanging();
-					this._FechaIngreso = value;
-					this.SendPropertyChanged("FechaIngreso");
-					this.OnFechaIngresoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaRetiro", DbType="Date")]
-		public System.Nullable<System.DateTime> FechaRetiro
-		{
-			get
-			{
-				return this._FechaRetiro;
-			}
-			set
-			{
-				if ((this._FechaRetiro != value))
-				{
-					this.OnFechaRetiroChanging(value);
-					this.SendPropertyChanging();
-					this._FechaRetiro = value;
-					this.SendPropertyChanged("FechaRetiro");
-					this.OnFechaRetiroChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estatus", DbType="Int")]
-		public System.Nullable<int> Estatus
-		{
-			get
-			{
-				return this._Estatus;
-			}
-			set
-			{
-				if ((this._Estatus != value))
-				{
-					this.OnEstatusChanging(value);
-					this.SendPropertyChanging();
-					this._Estatus = value;
-					this.SendPropertyChanged("Estatus");
-					this.OnEstatusChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaRegistro", DbType="DateTime NOT NULL")]
-		public System.DateTime FechaRegistro
-		{
-			get
-			{
-				return this._FechaRegistro;
-			}
-			set
-			{
-				if ((this._FechaRegistro != value))
-				{
-					this.OnFechaRegistroChanging(value);
-					this.SendPropertyChanging();
-					this._FechaRegistro = value;
-					this.SendPropertyChanged("FechaRegistro");
-					this.OnFechaRegistroChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_Empleados", Storage="_GruposDetalles", ThisKey="IdCargo", OtherKey="IdGrupoDetalle", IsForeignKey=true)]
-		public GruposDetalles GruposDetalles
-		{
-			get
-			{
-				return this._GruposDetalles.Entity;
-			}
-			set
-			{
-				GruposDetalles previousValue = this._GruposDetalles.Entity;
-				if (((previousValue != value) 
-							|| (this._GruposDetalles.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._GruposDetalles.Entity = null;
-						previousValue.Empleados.Remove(this);
-					}
-					this._GruposDetalles.Entity = value;
-					if ((value != null))
-					{
-						value.Empleados.Add(this);
-						this._IdCargo = value.IdGrupoDetalle;
-					}
-					else
-					{
-						this._IdCargo = default(int);
-					}
-					this.SendPropertyChanged("GruposDetalles");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_Empleados1", Storage="_GruposDetalles1", ThisKey="IdDepartamento", OtherKey="IdGrupoDetalle", IsForeignKey=true)]
-		public GruposDetalles GruposDetalles1
-		{
-			get
-			{
-				return this._GruposDetalles1.Entity;
-			}
-			set
-			{
-				GruposDetalles previousValue = this._GruposDetalles1.Entity;
-				if (((previousValue != value) 
-							|| (this._GruposDetalles1.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._GruposDetalles1.Entity = null;
-						previousValue.Empleados1.Remove(this);
-					}
-					this._GruposDetalles1.Entity = value;
-					if ((value != null))
-					{
-						value.Empleados1.Add(this);
-						this._IdDepartamento = value.IdGrupoDetalle;
-					}
-					else
-					{
-						this._IdDepartamento = default(int);
-					}
-					this.SendPropertyChanged("GruposDetalles1");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_Empleados2", Storage="_GruposDetalles2", ThisKey="IdSexo", OtherKey="IdGrupoDetalle", IsForeignKey=true)]
-		public GruposDetalles GruposDetalles2
-		{
-			get
-			{
-				return this._GruposDetalles2.Entity;
-			}
-			set
-			{
-				GruposDetalles previousValue = this._GruposDetalles2.Entity;
-				if (((previousValue != value) 
-							|| (this._GruposDetalles2.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._GruposDetalles2.Entity = null;
-						previousValue.Empleados2.Remove(this);
-					}
-					this._GruposDetalles2.Entity = value;
-					if ((value != null))
-					{
-						value.Empleados2.Add(this);
-						this._IdSexo = value.IdGrupoDetalle;
-					}
-					else
-					{
-						this._IdSexo = default(int);
-					}
-					this.SendPropertyChanged("GruposDetalles2");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Personas_Empleados", Storage="_Personas", ThisKey="IdPersona", OtherKey="IdPersona", IsForeignKey=true)]
-		public Personas Personas
-		{
-			get
-			{
-				return this._Personas.Entity;
-			}
-			set
-			{
-				Personas previousValue = this._Personas.Entity;
-				if (((previousValue != value) 
-							|| (this._Personas.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Personas.Entity = null;
-						previousValue.Empleados.Remove(this);
-					}
-					this._Personas.Entity = value;
-					if ((value != null))
-					{
-						value.Empleados.Add(this);
-						this._IdPersona = value.IdPersona;
-					}
-					else
-					{
-						this._IdPersona = default(int);
-					}
-					this.SendPropertyChanged("Personas");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Usuarios_Empleados", Storage="_Usuarios", ThisKey="IdUsuario", OtherKey="IdUsuario", IsForeignKey=true)]
-		public Usuarios Usuarios
-		{
-			get
-			{
-				return this._Usuarios.Entity;
-			}
-			set
-			{
-				Usuarios previousValue = this._Usuarios.Entity;
-				if (((previousValue != value) 
-							|| (this._Usuarios.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Usuarios.Entity = null;
-						previousValue.Empleados.Remove(this);
-					}
-					this._Usuarios.Entity = value;
-					if ((value != null))
-					{
-						value.Empleados.Add(this);
 						this._IdUsuario = value.IdUsuario;
 					}
 					else
@@ -1475,15 +1178,13 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 		
 		private System.DateTime _FechaRegistro;
 		
-		private EntitySet<Accesorios_x_Requerimiento> _Accesorios_x_Requerimiento;
-		
-		private EntitySet<UsuariosRoles> _UsuariosRoles;
-		
 		private EntitySet<Empleados> _Empleados;
 		
 		private EntitySet<Empleados> _Empleados1;
 		
 		private EntitySet<Empleados> _Empleados2;
+		
+		private EntitySet<UsuariosRoles> _UsuariosRoles;
 		
 		private EntitySet<GruposDetalles> _GruposDetalles2;
 		
@@ -1547,11 +1248,10 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 		
 		public GruposDetalles()
 		{
-			this._Accesorios_x_Requerimiento = new EntitySet<Accesorios_x_Requerimiento>(new Action<Accesorios_x_Requerimiento>(this.attach_Accesorios_x_Requerimiento), new Action<Accesorios_x_Requerimiento>(this.detach_Accesorios_x_Requerimiento));
-			this._UsuariosRoles = new EntitySet<UsuariosRoles>(new Action<UsuariosRoles>(this.attach_UsuariosRoles), new Action<UsuariosRoles>(this.detach_UsuariosRoles));
 			this._Empleados = new EntitySet<Empleados>(new Action<Empleados>(this.attach_Empleados), new Action<Empleados>(this.detach_Empleados));
 			this._Empleados1 = new EntitySet<Empleados>(new Action<Empleados>(this.attach_Empleados1), new Action<Empleados>(this.detach_Empleados1));
 			this._Empleados2 = new EntitySet<Empleados>(new Action<Empleados>(this.attach_Empleados2), new Action<Empleados>(this.detach_Empleados2));
+			this._UsuariosRoles = new EntitySet<UsuariosRoles>(new Action<UsuariosRoles>(this.attach_UsuariosRoles), new Action<UsuariosRoles>(this.detach_UsuariosRoles));
 			this._GruposDetalles2 = new EntitySet<GruposDetalles>(new Action<GruposDetalles>(this.attach_GruposDetalles2), new Action<GruposDetalles>(this.detach_GruposDetalles2));
 			this._Personas = new EntitySet<Personas>(new Action<Personas>(this.attach_Personas), new Action<Personas>(this.detach_Personas));
 			this._ProductoServicios = new EntitySet<ProductoServicios>(new Action<ProductoServicios>(this.attach_ProductoServicios), new Action<ProductoServicios>(this.detach_ProductoServicios));
@@ -1780,32 +1480,6 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_Accesorios_x_Requerimiento", Storage="_Accesorios_x_Requerimiento", ThisKey="IdGrupoDetalle", OtherKey="IdAccesorio")]
-		public EntitySet<Accesorios_x_Requerimiento> Accesorios_x_Requerimiento
-		{
-			get
-			{
-				return this._Accesorios_x_Requerimiento;
-			}
-			set
-			{
-				this._Accesorios_x_Requerimiento.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_UsuariosRoles", Storage="_UsuariosRoles", ThisKey="IdGrupoDetalle", OtherKey="IdRoles")]
-		public EntitySet<UsuariosRoles> UsuariosRoles
-		{
-			get
-			{
-				return this._UsuariosRoles;
-			}
-			set
-			{
-				this._UsuariosRoles.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_Empleados", Storage="_Empleados", ThisKey="IdGrupoDetalle", OtherKey="IdCargo")]
 		public EntitySet<Empleados> Empleados
 		{
@@ -1842,6 +1516,19 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 			set
 			{
 				this._Empleados2.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_UsuariosRoles", Storage="_UsuariosRoles", ThisKey="IdGrupoDetalle", OtherKey="IdRoles")]
+		public EntitySet<UsuariosRoles> UsuariosRoles
+		{
+			get
+			{
+				return this._UsuariosRoles;
+			}
+			set
+			{
+				this._UsuariosRoles.Assign(value);
 			}
 		}
 		
@@ -2128,30 +1815,6 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 			}
 		}
 		
-		private void attach_Accesorios_x_Requerimiento(Accesorios_x_Requerimiento entity)
-		{
-			this.SendPropertyChanging();
-			entity.GruposDetalles = this;
-		}
-		
-		private void detach_Accesorios_x_Requerimiento(Accesorios_x_Requerimiento entity)
-		{
-			this.SendPropertyChanging();
-			entity.GruposDetalles = null;
-		}
-		
-		private void attach_UsuariosRoles(UsuariosRoles entity)
-		{
-			this.SendPropertyChanging();
-			entity.GruposDetalles = this;
-		}
-		
-		private void detach_UsuariosRoles(UsuariosRoles entity)
-		{
-			this.SendPropertyChanging();
-			entity.GruposDetalles = null;
-		}
-		
 		private void attach_Empleados(Empleados entity)
 		{
 			this.SendPropertyChanging();
@@ -2186,6 +1849,18 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 		{
 			this.SendPropertyChanging();
 			entity.GruposDetalles2 = null;
+		}
+		
+		private void attach_UsuariosRoles(UsuariosRoles entity)
+		{
+			this.SendPropertyChanging();
+			entity.GruposDetalles = this;
+		}
+		
+		private void detach_UsuariosRoles(UsuariosRoles entity)
+		{
+			this.SendPropertyChanging();
+			entity.GruposDetalles = null;
 		}
 		
 		private void attach_GruposDetalles2(GruposDetalles entity)
@@ -2369,270 +2044,6 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Observaciones_x_Requerimiento")]
-	public partial class Observaciones_x_Requerimiento : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _IdOxR;
-		
-		private int _IdRequerimiento;
-		
-		private int _IdUsuario;
-		
-		private string _Observaciones;
-		
-		private bool _Leido;
-		
-		private System.DateTime _FechaRegistro;
-		
-		private EntityRef<Requerimientos> _Requerimientos;
-		
-		private EntityRef<Usuarios> _Usuarios;
-		
-    #region Definiciones de métodos de extensibilidad
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdOxRChanging(int value);
-    partial void OnIdOxRChanged();
-    partial void OnIdRequerimientoChanging(int value);
-    partial void OnIdRequerimientoChanged();
-    partial void OnIdUsuarioChanging(int value);
-    partial void OnIdUsuarioChanged();
-    partial void OnObservacionesChanging(string value);
-    partial void OnObservacionesChanged();
-    partial void OnLeidoChanging(bool value);
-    partial void OnLeidoChanged();
-    partial void OnFechaRegistroChanging(System.DateTime value);
-    partial void OnFechaRegistroChanged();
-    #endregion
-		
-		public Observaciones_x_Requerimiento()
-		{
-			this._Requerimientos = default(EntityRef<Requerimientos>);
-			this._Usuarios = default(EntityRef<Usuarios>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdOxR", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int IdOxR
-		{
-			get
-			{
-				return this._IdOxR;
-			}
-			set
-			{
-				if ((this._IdOxR != value))
-				{
-					this.OnIdOxRChanging(value);
-					this.SendPropertyChanging();
-					this._IdOxR = value;
-					this.SendPropertyChanged("IdOxR");
-					this.OnIdOxRChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdRequerimiento", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int IdRequerimiento
-		{
-			get
-			{
-				return this._IdRequerimiento;
-			}
-			set
-			{
-				if ((this._IdRequerimiento != value))
-				{
-					if (this._Requerimientos.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnIdRequerimientoChanging(value);
-					this.SendPropertyChanging();
-					this._IdRequerimiento = value;
-					this.SendPropertyChanged("IdRequerimiento");
-					this.OnIdRequerimientoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdUsuario", DbType="Int NOT NULL")]
-		public int IdUsuario
-		{
-			get
-			{
-				return this._IdUsuario;
-			}
-			set
-			{
-				if ((this._IdUsuario != value))
-				{
-					if (this._Usuarios.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnIdUsuarioChanging(value);
-					this.SendPropertyChanging();
-					this._IdUsuario = value;
-					this.SendPropertyChanged("IdUsuario");
-					this.OnIdUsuarioChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Observaciones", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
-		public string Observaciones
-		{
-			get
-			{
-				return this._Observaciones;
-			}
-			set
-			{
-				if ((this._Observaciones != value))
-				{
-					this.OnObservacionesChanging(value);
-					this.SendPropertyChanging();
-					this._Observaciones = value;
-					this.SendPropertyChanged("Observaciones");
-					this.OnObservacionesChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Leido", DbType="Bit NOT NULL")]
-		public bool Leido
-		{
-			get
-			{
-				return this._Leido;
-			}
-			set
-			{
-				if ((this._Leido != value))
-				{
-					this.OnLeidoChanging(value);
-					this.SendPropertyChanging();
-					this._Leido = value;
-					this.SendPropertyChanged("Leido");
-					this.OnLeidoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaRegistro", DbType="DateTime NOT NULL")]
-		public System.DateTime FechaRegistro
-		{
-			get
-			{
-				return this._FechaRegistro;
-			}
-			set
-			{
-				if ((this._FechaRegistro != value))
-				{
-					this.OnFechaRegistroChanging(value);
-					this.SendPropertyChanging();
-					this._FechaRegistro = value;
-					this.SendPropertyChanged("FechaRegistro");
-					this.OnFechaRegistroChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Requerimientos_Observaciones_x_Requerimiento", Storage="_Requerimientos", ThisKey="IdRequerimiento", OtherKey="IdRequerimiento", IsForeignKey=true)]
-		public Requerimientos Requerimientos
-		{
-			get
-			{
-				return this._Requerimientos.Entity;
-			}
-			set
-			{
-				Requerimientos previousValue = this._Requerimientos.Entity;
-				if (((previousValue != value) 
-							|| (this._Requerimientos.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Requerimientos.Entity = null;
-						previousValue.Observaciones_x_Requerimiento.Remove(this);
-					}
-					this._Requerimientos.Entity = value;
-					if ((value != null))
-					{
-						value.Observaciones_x_Requerimiento.Add(this);
-						this._IdRequerimiento = value.IdRequerimiento;
-					}
-					else
-					{
-						this._IdRequerimiento = default(int);
-					}
-					this.SendPropertyChanged("Requerimientos");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Usuarios_Observaciones_x_Requerimiento", Storage="_Usuarios", ThisKey="IdUsuario", OtherKey="IdUsuario", IsForeignKey=true)]
-		public Usuarios Usuarios
-		{
-			get
-			{
-				return this._Usuarios.Entity;
-			}
-			set
-			{
-				Usuarios previousValue = this._Usuarios.Entity;
-				if (((previousValue != value) 
-							|| (this._Usuarios.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Usuarios.Entity = null;
-						previousValue.Observaciones_x_Requerimiento.Remove(this);
-					}
-					this._Usuarios.Entity = value;
-					if ((value != null))
-					{
-						value.Observaciones_x_Requerimiento.Add(this);
-						this._IdUsuario = value.IdUsuario;
-					}
-					else
-					{
-						this._IdUsuario = default(int);
-					}
-					this.SendPropertyChanged("Usuarios");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Personas")]
 	public partial class Personas : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -2658,6 +2069,8 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 		private EntitySet<Empleados> _Empleados;
 		
 		private EntitySet<Requerimientos> _Requerimientos;
+		
+		private EntitySet<Usuarios> _Usuarios;
 		
 		private EntityRef<GruposDetalles> _GruposDetalles;
 		
@@ -2687,6 +2100,7 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 		{
 			this._Empleados = new EntitySet<Empleados>(new Action<Empleados>(this.attach_Empleados), new Action<Empleados>(this.detach_Empleados));
 			this._Requerimientos = new EntitySet<Requerimientos>(new Action<Requerimientos>(this.attach_Requerimientos), new Action<Requerimientos>(this.detach_Requerimientos));
+			this._Usuarios = new EntitySet<Usuarios>(new Action<Usuarios>(this.attach_Usuarios), new Action<Usuarios>(this.detach_Usuarios));
 			this._GruposDetalles = default(EntityRef<GruposDetalles>);
 			OnCreated();
 		}
@@ -2881,6 +2295,19 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Personas_Usuarios", Storage="_Usuarios", ThisKey="IdPersona", OtherKey="IdPersona")]
+		public EntitySet<Usuarios> Usuarios
+		{
+			get
+			{
+				return this._Usuarios;
+			}
+			set
+			{
+				this._Usuarios.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_Personas", Storage="_GruposDetalles", ThisKey="IdTipoPersona", OtherKey="IdGrupoDetalle", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public GruposDetalles GruposDetalles
 		{
@@ -2958,337 +2385,17 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 			this.SendPropertyChanging();
 			entity.Personas = null;
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Presupuesto_x_Requerimiento")]
-	public partial class Presupuesto_x_Requerimiento : INotifyPropertyChanging, INotifyPropertyChanged
-	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _IdPresupuesto;
-		
-		private int _IdRequerimiento;
-		
-		private System.DateTime _FechaEmision;
-		
-		private System.DateTime _FechaVencimiento;
-		
-		private int _IdPoS;
-		
-		private int _Cant;
-		
-		private string _Concepto;
-		
-		private decimal _PrecioUnit;
-		
-		private System.Nullable<decimal> _SubTotal;
-		
-		private EntityRef<Requerimientos> _Requerimientos;
-		
-		private EntityRef<Requerimientos> _Requerimientos1;
-		
-    #region Definiciones de métodos de extensibilidad
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdPresupuestoChanging(int value);
-    partial void OnIdPresupuestoChanged();
-    partial void OnIdRequerimientoChanging(int value);
-    partial void OnIdRequerimientoChanged();
-    partial void OnFechaEmisionChanging(System.DateTime value);
-    partial void OnFechaEmisionChanged();
-    partial void OnFechaVencimientoChanging(System.DateTime value);
-    partial void OnFechaVencimientoChanged();
-    partial void OnIdPoSChanging(int value);
-    partial void OnIdPoSChanged();
-    partial void OnCantChanging(int value);
-    partial void OnCantChanged();
-    partial void OnConceptoChanging(string value);
-    partial void OnConceptoChanged();
-    partial void OnPrecioUnitChanging(decimal value);
-    partial void OnPrecioUnitChanged();
-    partial void OnSubTotalChanging(System.Nullable<decimal> value);
-    partial void OnSubTotalChanged();
-    #endregion
-		
-		public Presupuesto_x_Requerimiento()
+		private void attach_Usuarios(Usuarios entity)
 		{
-			this._Requerimientos = default(EntityRef<Requerimientos>);
-			this._Requerimientos1 = default(EntityRef<Requerimientos>);
-			OnCreated();
+			this.SendPropertyChanging();
+			entity.Personas = this;
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPresupuesto", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int IdPresupuesto
+		private void detach_Usuarios(Usuarios entity)
 		{
-			get
-			{
-				return this._IdPresupuesto;
-			}
-			set
-			{
-				if ((this._IdPresupuesto != value))
-				{
-					this.OnIdPresupuestoChanging(value);
-					this.SendPropertyChanging();
-					this._IdPresupuesto = value;
-					this.SendPropertyChanged("IdPresupuesto");
-					this.OnIdPresupuestoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdRequerimiento", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int IdRequerimiento
-		{
-			get
-			{
-				return this._IdRequerimiento;
-			}
-			set
-			{
-				if ((this._IdRequerimiento != value))
-				{
-					if ((this._Requerimientos.HasLoadedOrAssignedValue || this._Requerimientos1.HasLoadedOrAssignedValue))
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnIdRequerimientoChanging(value);
-					this.SendPropertyChanging();
-					this._IdRequerimiento = value;
-					this.SendPropertyChanged("IdRequerimiento");
-					this.OnIdRequerimientoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaEmision", DbType="DateTime NOT NULL")]
-		public System.DateTime FechaEmision
-		{
-			get
-			{
-				return this._FechaEmision;
-			}
-			set
-			{
-				if ((this._FechaEmision != value))
-				{
-					this.OnFechaEmisionChanging(value);
-					this.SendPropertyChanging();
-					this._FechaEmision = value;
-					this.SendPropertyChanged("FechaEmision");
-					this.OnFechaEmisionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaVencimiento", DbType="DateTime NOT NULL")]
-		public System.DateTime FechaVencimiento
-		{
-			get
-			{
-				return this._FechaVencimiento;
-			}
-			set
-			{
-				if ((this._FechaVencimiento != value))
-				{
-					this.OnFechaVencimientoChanging(value);
-					this.SendPropertyChanging();
-					this._FechaVencimiento = value;
-					this.SendPropertyChanged("FechaVencimiento");
-					this.OnFechaVencimientoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPoS", DbType="Int NOT NULL")]
-		public int IdPoS
-		{
-			get
-			{
-				return this._IdPoS;
-			}
-			set
-			{
-				if ((this._IdPoS != value))
-				{
-					this.OnIdPoSChanging(value);
-					this.SendPropertyChanging();
-					this._IdPoS = value;
-					this.SendPropertyChanged("IdPoS");
-					this.OnIdPoSChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cant", DbType="Int NOT NULL")]
-		public int Cant
-		{
-			get
-			{
-				return this._Cant;
-			}
-			set
-			{
-				if ((this._Cant != value))
-				{
-					this.OnCantChanging(value);
-					this.SendPropertyChanging();
-					this._Cant = value;
-					this.SendPropertyChanged("Cant");
-					this.OnCantChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Concepto", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Concepto
-		{
-			get
-			{
-				return this._Concepto;
-			}
-			set
-			{
-				if ((this._Concepto != value))
-				{
-					this.OnConceptoChanging(value);
-					this.SendPropertyChanging();
-					this._Concepto = value;
-					this.SendPropertyChanged("Concepto");
-					this.OnConceptoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PrecioUnit", DbType="Decimal(8,2) NOT NULL")]
-		public decimal PrecioUnit
-		{
-			get
-			{
-				return this._PrecioUnit;
-			}
-			set
-			{
-				if ((this._PrecioUnit != value))
-				{
-					this.OnPrecioUnitChanging(value);
-					this.SendPropertyChanging();
-					this._PrecioUnit = value;
-					this.SendPropertyChanged("PrecioUnit");
-					this.OnPrecioUnitChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SubTotal", AutoSync=AutoSync.Always, DbType="Decimal(19,2)", IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
-		public System.Nullable<decimal> SubTotal
-		{
-			get
-			{
-				return this._SubTotal;
-			}
-			set
-			{
-				if ((this._SubTotal != value))
-				{
-					this.OnSubTotalChanging(value);
-					this.SendPropertyChanging();
-					this._SubTotal = value;
-					this.SendPropertyChanged("SubTotal");
-					this.OnSubTotalChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Requerimientos_Presupuesto_x_Requerimiento", Storage="_Requerimientos", ThisKey="IdRequerimiento", OtherKey="IdRequerimiento", IsForeignKey=true)]
-		public Requerimientos Requerimientos
-		{
-			get
-			{
-				return this._Requerimientos.Entity;
-			}
-			set
-			{
-				Requerimientos previousValue = this._Requerimientos.Entity;
-				if (((previousValue != value) 
-							|| (this._Requerimientos.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Requerimientos.Entity = null;
-						previousValue.Presupuesto_x_Requerimiento.Remove(this);
-					}
-					this._Requerimientos.Entity = value;
-					if ((value != null))
-					{
-						value.Presupuesto_x_Requerimiento.Add(this);
-						this._IdRequerimiento = value.IdRequerimiento;
-					}
-					else
-					{
-						this._IdRequerimiento = default(int);
-					}
-					this.SendPropertyChanged("Requerimientos");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Requerimientos_Presupuesto_x_Requerimiento1", Storage="_Requerimientos1", ThisKey="IdRequerimiento", OtherKey="IdRequerimiento", IsForeignKey=true)]
-		public Requerimientos Requerimientos1
-		{
-			get
-			{
-				return this._Requerimientos1.Entity;
-			}
-			set
-			{
-				Requerimientos previousValue = this._Requerimientos1.Entity;
-				if (((previousValue != value) 
-							|| (this._Requerimientos1.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Requerimientos1.Entity = null;
-						previousValue.Presupuesto_x_Requerimiento1.Remove(this);
-					}
-					this._Requerimientos1.Entity = value;
-					if ((value != null))
-					{
-						value.Presupuesto_x_Requerimiento1.Add(this);
-						this._IdRequerimiento = value.IdRequerimiento;
-					}
-					else
-					{
-						this._IdRequerimiento = default(int);
-					}
-					this.SendPropertyChanged("Requerimientos1");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
+			this.SendPropertyChanging();
+			entity.Personas = null;
 		}
 	}
 	
@@ -4017,14 +3124,6 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 		
 		private int _IdEstatus;
 		
-		private EntitySet<Accesorios_x_Requerimiento> _Accesorios_x_Requerimiento;
-		
-		private EntitySet<Observaciones_x_Requerimiento> _Observaciones_x_Requerimiento;
-		
-		private EntitySet<Presupuesto_x_Requerimiento> _Presupuesto_x_Requerimiento;
-		
-		private EntitySet<Presupuesto_x_Requerimiento> _Presupuesto_x_Requerimiento1;
-		
 		private EntityRef<GruposDetalles> _GruposDetalles;
 		
 		private EntityRef<GruposDetalles> _GruposDetalles1;
@@ -4093,10 +3192,6 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 		
 		public Requerimientos()
 		{
-			this._Accesorios_x_Requerimiento = new EntitySet<Accesorios_x_Requerimiento>(new Action<Accesorios_x_Requerimiento>(this.attach_Accesorios_x_Requerimiento), new Action<Accesorios_x_Requerimiento>(this.detach_Accesorios_x_Requerimiento));
-			this._Observaciones_x_Requerimiento = new EntitySet<Observaciones_x_Requerimiento>(new Action<Observaciones_x_Requerimiento>(this.attach_Observaciones_x_Requerimiento), new Action<Observaciones_x_Requerimiento>(this.detach_Observaciones_x_Requerimiento));
-			this._Presupuesto_x_Requerimiento = new EntitySet<Presupuesto_x_Requerimiento>(new Action<Presupuesto_x_Requerimiento>(this.attach_Presupuesto_x_Requerimiento), new Action<Presupuesto_x_Requerimiento>(this.detach_Presupuesto_x_Requerimiento));
-			this._Presupuesto_x_Requerimiento1 = new EntitySet<Presupuesto_x_Requerimiento>(new Action<Presupuesto_x_Requerimiento>(this.attach_Presupuesto_x_Requerimiento1), new Action<Presupuesto_x_Requerimiento>(this.detach_Presupuesto_x_Requerimiento1));
 			this._GruposDetalles = default(EntityRef<GruposDetalles>);
 			this._GruposDetalles1 = default(EntityRef<GruposDetalles>);
 			this._GruposDetalles2 = default(EntityRef<GruposDetalles>);
@@ -4550,58 +3645,6 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Requerimientos_Accesorios_x_Requerimiento", Storage="_Accesorios_x_Requerimiento", ThisKey="IdRequerimiento", OtherKey="IdRequerimiento")]
-		public EntitySet<Accesorios_x_Requerimiento> Accesorios_x_Requerimiento
-		{
-			get
-			{
-				return this._Accesorios_x_Requerimiento;
-			}
-			set
-			{
-				this._Accesorios_x_Requerimiento.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Requerimientos_Observaciones_x_Requerimiento", Storage="_Observaciones_x_Requerimiento", ThisKey="IdRequerimiento", OtherKey="IdRequerimiento")]
-		public EntitySet<Observaciones_x_Requerimiento> Observaciones_x_Requerimiento
-		{
-			get
-			{
-				return this._Observaciones_x_Requerimiento;
-			}
-			set
-			{
-				this._Observaciones_x_Requerimiento.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Requerimientos_Presupuesto_x_Requerimiento", Storage="_Presupuesto_x_Requerimiento", ThisKey="IdRequerimiento", OtherKey="IdRequerimiento")]
-		public EntitySet<Presupuesto_x_Requerimiento> Presupuesto_x_Requerimiento
-		{
-			get
-			{
-				return this._Presupuesto_x_Requerimiento;
-			}
-			set
-			{
-				this._Presupuesto_x_Requerimiento.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Requerimientos_Presupuesto_x_Requerimiento1", Storage="_Presupuesto_x_Requerimiento1", ThisKey="IdRequerimiento", OtherKey="IdRequerimiento")]
-		public EntitySet<Presupuesto_x_Requerimiento> Presupuesto_x_Requerimiento1
-		{
-			get
-			{
-				return this._Presupuesto_x_Requerimiento1;
-			}
-			set
-			{
-				this._Presupuesto_x_Requerimiento1.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GruposDetalles_Requerimientos", Storage="_GruposDetalles", ThisKey="IdDeposito", OtherKey="IdGrupoDetalle", IsForeignKey=true)]
 		public GruposDetalles GruposDetalles
 		{
@@ -4961,54 +4004,6 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
-		
-		private void attach_Accesorios_x_Requerimiento(Accesorios_x_Requerimiento entity)
-		{
-			this.SendPropertyChanging();
-			entity.Requerimientos = this;
-		}
-		
-		private void detach_Accesorios_x_Requerimiento(Accesorios_x_Requerimiento entity)
-		{
-			this.SendPropertyChanging();
-			entity.Requerimientos = null;
-		}
-		
-		private void attach_Observaciones_x_Requerimiento(Observaciones_x_Requerimiento entity)
-		{
-			this.SendPropertyChanging();
-			entity.Requerimientos = this;
-		}
-		
-		private void detach_Observaciones_x_Requerimiento(Observaciones_x_Requerimiento entity)
-		{
-			this.SendPropertyChanging();
-			entity.Requerimientos = null;
-		}
-		
-		private void attach_Presupuesto_x_Requerimiento(Presupuesto_x_Requerimiento entity)
-		{
-			this.SendPropertyChanging();
-			entity.Requerimientos = this;
-		}
-		
-		private void detach_Presupuesto_x_Requerimiento(Presupuesto_x_Requerimiento entity)
-		{
-			this.SendPropertyChanging();
-			entity.Requerimientos = null;
-		}
-		
-		private void attach_Presupuesto_x_Requerimiento1(Presupuesto_x_Requerimiento entity)
-		{
-			this.SendPropertyChanging();
-			entity.Requerimientos1 = this;
-		}
-		
-		private void detach_Presupuesto_x_Requerimiento1(Presupuesto_x_Requerimiento entity)
-		{
-			this.SendPropertyChanging();
-			entity.Requerimientos1 = null;
-		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SerialesProductos")]
@@ -5194,11 +4189,11 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 		
 		private int _IdUsuario;
 		
+		private System.Nullable<int> _IdPersona;
+		
 		private string _NombreUsuario;
 		
 		private string _Contrasena;
-		
-		private string _Email;
 		
 		private System.Nullable<int> _IdPreguntaSeguridad;
 		
@@ -5220,15 +4215,13 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 		
 		private EntitySet<UsuariosRoles> _UsuariosRoles;
 		
-		private EntitySet<Empleados> _Empleados;
-		
-		private EntitySet<Observaciones_x_Requerimiento> _Observaciones_x_Requerimiento;
-		
 		private EntitySet<Requerimientos> _Requerimientos;
 		
 		private EntitySet<Requerimientos> _Requerimientos1;
 		
 		private EntityRef<GruposDetalles> _GruposDetalles;
+		
+		private EntityRef<Personas> _Personas;
 		
     #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
@@ -5236,12 +4229,12 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
     partial void OnCreated();
     partial void OnIdUsuarioChanging(int value);
     partial void OnIdUsuarioChanged();
+    partial void OnIdPersonaChanging(System.Nullable<int> value);
+    partial void OnIdPersonaChanged();
     partial void OnNombreUsuarioChanging(string value);
     partial void OnNombreUsuarioChanged();
     partial void OnContrasenaChanging(string value);
     partial void OnContrasenaChanged();
-    partial void OnEmailChanging(string value);
-    partial void OnEmailChanged();
     partial void OnIdPreguntaSeguridadChanging(System.Nullable<int> value);
     partial void OnIdPreguntaSeguridadChanged();
     partial void OnRespuestaSeguridadChanging(string value);
@@ -5265,11 +4258,10 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 		public Usuarios()
 		{
 			this._UsuariosRoles = new EntitySet<UsuariosRoles>(new Action<UsuariosRoles>(this.attach_UsuariosRoles), new Action<UsuariosRoles>(this.detach_UsuariosRoles));
-			this._Empleados = new EntitySet<Empleados>(new Action<Empleados>(this.attach_Empleados), new Action<Empleados>(this.detach_Empleados));
-			this._Observaciones_x_Requerimiento = new EntitySet<Observaciones_x_Requerimiento>(new Action<Observaciones_x_Requerimiento>(this.attach_Observaciones_x_Requerimiento), new Action<Observaciones_x_Requerimiento>(this.detach_Observaciones_x_Requerimiento));
 			this._Requerimientos = new EntitySet<Requerimientos>(new Action<Requerimientos>(this.attach_Requerimientos), new Action<Requerimientos>(this.detach_Requerimientos));
 			this._Requerimientos1 = new EntitySet<Requerimientos>(new Action<Requerimientos>(this.attach_Requerimientos1), new Action<Requerimientos>(this.detach_Requerimientos1));
 			this._GruposDetalles = default(EntityRef<GruposDetalles>);
+			this._Personas = default(EntityRef<Personas>);
 			OnCreated();
 		}
 		
@@ -5289,6 +4281,30 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 					this._IdUsuario = value;
 					this.SendPropertyChanged("IdUsuario");
 					this.OnIdUsuarioChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPersona", DbType="Int")]
+		public System.Nullable<int> IdPersona
+		{
+			get
+			{
+				return this._IdPersona;
+			}
+			set
+			{
+				if ((this._IdPersona != value))
+				{
+					if (this._Personas.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIdPersonaChanging(value);
+					this.SendPropertyChanging();
+					this._IdPersona = value;
+					this.SendPropertyChanged("IdPersona");
+					this.OnIdPersonaChanged();
 				}
 			}
 		}
@@ -5329,26 +4345,6 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 					this._Contrasena = value;
 					this.SendPropertyChanged("Contrasena");
 					this.OnContrasenaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="VarChar(60)")]
-		public string Email
-		{
-			get
-			{
-				return this._Email;
-			}
-			set
-			{
-				if ((this._Email != value))
-				{
-					this.OnEmailChanging(value);
-					this.SendPropertyChanging();
-					this._Email = value;
-					this.SendPropertyChanged("Email");
-					this.OnEmailChanged();
 				}
 			}
 		}
@@ -5550,32 +4546,6 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Usuarios_Empleados", Storage="_Empleados", ThisKey="IdUsuario", OtherKey="IdUsuario")]
-		public EntitySet<Empleados> Empleados
-		{
-			get
-			{
-				return this._Empleados;
-			}
-			set
-			{
-				this._Empleados.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Usuarios_Observaciones_x_Requerimiento", Storage="_Observaciones_x_Requerimiento", ThisKey="IdUsuario", OtherKey="IdUsuario")]
-		public EntitySet<Observaciones_x_Requerimiento> Observaciones_x_Requerimiento
-		{
-			get
-			{
-				return this._Observaciones_x_Requerimiento;
-			}
-			set
-			{
-				this._Observaciones_x_Requerimiento.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Usuarios_Requerimientos", Storage="_Requerimientos", ThisKey="IdUsuario", OtherKey="IdEmpleado")]
 		public EntitySet<Requerimientos> Requerimientos
 		{
@@ -5636,6 +4606,40 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Personas_Usuarios", Storage="_Personas", ThisKey="IdPersona", OtherKey="IdPersona", IsForeignKey=true)]
+		public Personas Personas
+		{
+			get
+			{
+				return this._Personas.Entity;
+			}
+			set
+			{
+				Personas previousValue = this._Personas.Entity;
+				if (((previousValue != value) 
+							|| (this._Personas.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Personas.Entity = null;
+						previousValue.Usuarios.Remove(this);
+					}
+					this._Personas.Entity = value;
+					if ((value != null))
+					{
+						value.Usuarios.Add(this);
+						this._IdPersona = value.IdPersona;
+					}
+					else
+					{
+						this._IdPersona = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Personas");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -5663,30 +4667,6 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 		}
 		
 		private void detach_UsuariosRoles(UsuariosRoles entity)
-		{
-			this.SendPropertyChanging();
-			entity.Usuarios = null;
-		}
-		
-		private void attach_Empleados(Empleados entity)
-		{
-			this.SendPropertyChanging();
-			entity.Usuarios = this;
-		}
-		
-		private void detach_Empleados(Empleados entity)
-		{
-			this.SendPropertyChanging();
-			entity.Usuarios = null;
-		}
-		
-		private void attach_Observaciones_x_Requerimiento(Observaciones_x_Requerimiento entity)
-		{
-			this.SendPropertyChanging();
-			entity.Usuarios = this;
-		}
-		
-		private void detach_Observaciones_x_Requerimiento(Observaciones_x_Requerimiento entity)
 		{
 			this.SendPropertyChanging();
 			entity.Usuarios = null;
@@ -5973,6 +4953,123 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 				if ((this._LevelGrupo != value))
 				{
 					this._LevelGrupo = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vw_UsuariosMenu")]
+	public partial class vw_UsuariosMenu
+	{
+		
+		private int _IdUsuario;
+		
+		private string _NombreUsuario;
+		
+		private string _Avatar;
+		
+		private string _Rol;
+		
+		private string _FormColor;
+		
+		private System.Nullable<System.DateTime> _FechaLogin;
+		
+		public vw_UsuariosMenu()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdUsuario", DbType="Int NOT NULL")]
+		public int IdUsuario
+		{
+			get
+			{
+				return this._IdUsuario;
+			}
+			set
+			{
+				if ((this._IdUsuario != value))
+				{
+					this._IdUsuario = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreUsuario", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
+		public string NombreUsuario
+		{
+			get
+			{
+				return this._NombreUsuario;
+			}
+			set
+			{
+				if ((this._NombreUsuario != value))
+				{
+					this._NombreUsuario = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Avatar", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
+		public string Avatar
+		{
+			get
+			{
+				return this._Avatar;
+			}
+			set
+			{
+				if ((this._Avatar != value))
+				{
+					this._Avatar = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Rol", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Rol
+		{
+			get
+			{
+				return this._Rol;
+			}
+			set
+			{
+				if ((this._Rol != value))
+				{
+					this._Rol = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FormColor", DbType="VarChar(20)")]
+		public string FormColor
+		{
+			get
+			{
+				return this._FormColor;
+			}
+			set
+			{
+				if ((this._FormColor != value))
+				{
+					this._FormColor = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaLogin", DbType="DateTime")]
+		public System.Nullable<System.DateTime> FechaLogin
+		{
+			get
+			{
+				return this._FechaLogin;
+			}
+			set
+			{
+				if ((this._FechaLogin != value))
+				{
+					this._FechaLogin = value;
 				}
 			}
 		}
@@ -6357,8 +5454,6 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 		
 		private string _Contrasena;
 		
-		private string _Correo;
-		
 		private int _IdRoles;
 		
 		private string _NombreRol;
@@ -6429,22 +5524,6 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 				if ((this._Contrasena != value))
 				{
 					this._Contrasena = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Correo", DbType="VarChar(60)")]
-		public string Correo
-		{
-			get
-			{
-				return this._Correo;
-			}
-			set
-			{
-				if ((this._Correo != value))
-				{
-					this._Correo = value;
 				}
 			}
 		}
@@ -7589,123 +6668,6 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vw_Usuarios")]
-	public partial class vw_Usuarios
-	{
-		
-		private int _IdUsuario;
-		
-		private string _NombreUsuario;
-		
-		private string _Avatar;
-		
-		private string _Rol;
-		
-		private string _FormColor;
-		
-		private System.Nullable<System.DateTime> _FechaLogin;
-		
-		public vw_Usuarios()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdUsuario", DbType="Int NOT NULL")]
-		public int IdUsuario
-		{
-			get
-			{
-				return this._IdUsuario;
-			}
-			set
-			{
-				if ((this._IdUsuario != value))
-				{
-					this._IdUsuario = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreUsuario", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
-		public string NombreUsuario
-		{
-			get
-			{
-				return this._NombreUsuario;
-			}
-			set
-			{
-				if ((this._NombreUsuario != value))
-				{
-					this._NombreUsuario = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Avatar", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
-		public string Avatar
-		{
-			get
-			{
-				return this._Avatar;
-			}
-			set
-			{
-				if ((this._Avatar != value))
-				{
-					this._Avatar = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Rol", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Rol
-		{
-			get
-			{
-				return this._Rol;
-			}
-			set
-			{
-				if ((this._Rol != value))
-				{
-					this._Rol = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FormColor", DbType="VarChar(20)")]
-		public string FormColor
-		{
-			get
-			{
-				return this._FormColor;
-			}
-			set
-			{
-				if ((this._FormColor != value))
-				{
-					this._FormColor = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaLogin", DbType="DateTime")]
-		public System.Nullable<System.DateTime> FechaLogin
-		{
-			get
-			{
-				return this._FechaLogin;
-			}
-			set
-			{
-				if ((this._FechaLogin != value))
-				{
-					this._FechaLogin = value;
-				}
-			}
-		}
-	}
-	
 	public partial class sp_ListarNivelGrupoResult
 	{
 		
@@ -7889,284 +6851,6 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 				if ((this._LevelGrupo != value))
 				{
 					this._LevelGrupo = value;
-				}
-			}
-		}
-	}
-	
-	public partial class sp_BuscarUsuariosResult
-	{
-		
-		private int _IdUsuario;
-		
-		private string _NombreUsuario;
-		
-		private string _Contrasena;
-		
-		private string _Correo;
-		
-		private int _IdRoles;
-		
-		private string _NombreRol;
-		
-		private System.Nullable<int> _IdPregunta;
-		
-		private string _Pregunta;
-		
-		private string _RespuestaSeguridad;
-		
-		private string _Avatar;
-		
-		private System.Nullable<System.DateTime> _FechaLogin;
-		
-		private int _ContadorFallido;
-		
-		private bool _Estatus;
-		
-		private System.DateTime _FechaRegistro;
-		
-		private System.Nullable<System.DateTime> _FechaModificacion;
-		
-		public sp_BuscarUsuariosResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdUsuario", DbType="Int NOT NULL")]
-		public int IdUsuario
-		{
-			get
-			{
-				return this._IdUsuario;
-			}
-			set
-			{
-				if ((this._IdUsuario != value))
-				{
-					this._IdUsuario = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreUsuario", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
-		public string NombreUsuario
-		{
-			get
-			{
-				return this._NombreUsuario;
-			}
-			set
-			{
-				if ((this._NombreUsuario != value))
-				{
-					this._NombreUsuario = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Contrasena", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
-		public string Contrasena
-		{
-			get
-			{
-				return this._Contrasena;
-			}
-			set
-			{
-				if ((this._Contrasena != value))
-				{
-					this._Contrasena = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Correo", DbType="VarChar(60)")]
-		public string Correo
-		{
-			get
-			{
-				return this._Correo;
-			}
-			set
-			{
-				if ((this._Correo != value))
-				{
-					this._Correo = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdRoles", DbType="Int NOT NULL")]
-		public int IdRoles
-		{
-			get
-			{
-				return this._IdRoles;
-			}
-			set
-			{
-				if ((this._IdRoles != value))
-				{
-					this._IdRoles = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreRol", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string NombreRol
-		{
-			get
-			{
-				return this._NombreRol;
-			}
-			set
-			{
-				if ((this._NombreRol != value))
-				{
-					this._NombreRol = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPregunta", DbType="Int")]
-		public System.Nullable<int> IdPregunta
-		{
-			get
-			{
-				return this._IdPregunta;
-			}
-			set
-			{
-				if ((this._IdPregunta != value))
-				{
-					this._IdPregunta = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Pregunta", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Pregunta
-		{
-			get
-			{
-				return this._Pregunta;
-			}
-			set
-			{
-				if ((this._Pregunta != value))
-				{
-					this._Pregunta = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RespuestaSeguridad", DbType="VarChar(50)")]
-		public string RespuestaSeguridad
-		{
-			get
-			{
-				return this._RespuestaSeguridad;
-			}
-			set
-			{
-				if ((this._RespuestaSeguridad != value))
-				{
-					this._RespuestaSeguridad = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Avatar", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
-		public string Avatar
-		{
-			get
-			{
-				return this._Avatar;
-			}
-			set
-			{
-				if ((this._Avatar != value))
-				{
-					this._Avatar = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaLogin", DbType="DateTime")]
-		public System.Nullable<System.DateTime> FechaLogin
-		{
-			get
-			{
-				return this._FechaLogin;
-			}
-			set
-			{
-				if ((this._FechaLogin != value))
-				{
-					this._FechaLogin = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ContadorFallido", DbType="Int NOT NULL")]
-		public int ContadorFallido
-		{
-			get
-			{
-				return this._ContadorFallido;
-			}
-			set
-			{
-				if ((this._ContadorFallido != value))
-				{
-					this._ContadorFallido = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estatus", DbType="Bit NOT NULL")]
-		public bool Estatus
-		{
-			get
-			{
-				return this._Estatus;
-			}
-			set
-			{
-				if ((this._Estatus != value))
-				{
-					this._Estatus = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaRegistro", DbType="DateTime NOT NULL")]
-		public System.DateTime FechaRegistro
-		{
-			get
-			{
-				return this._FechaRegistro;
-			}
-			set
-			{
-				if ((this._FechaRegistro != value))
-				{
-					this._FechaRegistro = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaModificacion", DbType="DateTime")]
-		public System.Nullable<System.DateTime> FechaModificacion
-		{
-			get
-			{
-				return this._FechaModificacion;
-			}
-			set
-			{
-				if ((this._FechaModificacion != value))
-				{
-					this._FechaModificacion = value;
 				}
 			}
 		}

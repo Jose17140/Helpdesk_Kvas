@@ -11,13 +11,15 @@ namespace HelpDesk_Kvas
             //JQUERY DEBE ESTAR PRESENTE EN LAYOUT
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
-                        "~/Content/lib/plugins/jQuery/jquery-2.2.3.min.js",
+                        //"~/Content/lib/plugins/jQuery/jquery-2.2.3.min.js",
                         "~/Scripts/jquery.unobtrusive-ajax.min.js",
                         "~/Scripts/jquery.validate*",
                         "~/Content/lib/plugins/datatables/jquery.dataTables.min.js",
                         "~/Content/lib/plugins/slimScroll/jquery.slimscroll.min.js",
-                        "~/Scripts/jquery.validate.unobtrusive.min.js"
+                        "~/Content/lib/jquery-ui-1.11.4.custom/jquery-ui.js"
+                        //"~/Scripts/jquery.validate.unobtrusive.min.js"
                         ));
+
 
             // Utilice la versión de desarrollo de Modernizr para desarrollar y obtener información. De este modo, estará
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
@@ -47,7 +49,9 @@ namespace HelpDesk_Kvas
                      "~/Content/lib/plugins/iCheck/flat/blue.css",
                      "~/Content/lib/plugins/morris/morris.css",
                      "~/Content/lib/toastr/build/toastr.css",
-                     "~/Content/lib/plugins/datatables/dataTables.bootstrap.css"));
+                     "~/Content/lib/plugins/datatables/dataTables.bootstrap.css",
+                     "~/Content/lib/jquery-ui-1.11.4.custom/jquery-ui.css"
+                     ));
         }
     }
 }

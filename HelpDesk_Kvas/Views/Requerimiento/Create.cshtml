@@ -1,11 +1,10 @@
-﻿
+﻿@model HelpDesk_Kvas.Models.Datos.Entity.RequerimientosEntity
 @{
     ViewBag.Title = "Nueva Tabla";
     //Layout = null;
 }
 @Styles.Render("~/Content/css/Grupos.css")
 @Scripts.Render("~/bundles/jquery")
-
 <section class="content-header">
     <h1>
         Tablero
@@ -18,186 +17,156 @@
     <br />
 </section>
 <br />
-<section class="content">
-    @using (Html.BeginForm("index", null, FormMethod.Get, new { id = "order" }))
-    {
-        <div class="row">
-            <div class="col-md-4">
-
-            </div>
+@ViewBag.IdUsuario
+<section class="content-header">
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title">@ViewBag.MensajeInicio</h3>
         </div>
-    }
-    @ViewBag.IdUsuario
-    <form role="form" method="post" name="order" id="order" novalidate="novalidate">
-        <div class="row">
-            <!-- left column -->
-            <div class="col-md-4">
-                <!-- general form elements -->
-                <div class="box box-primary">
-                    <div class="box-header with-border">
-                        <div class="pull-right">
-                            <a class="btn btn-success btn-sm" data-modal="" href="/Persona/Create" id="btnCreate">
-                                <span class="glyphicon glyphicon-plus"></span> Agregar Cliente
-                            </a>
+    </div>
+</section>
+<section class="content">
+    @using (Html.BeginForm("Create", "Requerimiento", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+    {
+        <!--Datos Usuario-->
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">Detalle del Cliente</h3>
+                <div class="pull-right">
+                    <a class="btn btn-success btn-sm" data-modal="" href="/Persona/Create" id="btnCreate">
+                        <span class="glyphicon glyphicon-plus"></span> Agregar Cliente
+                    </a>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Cedula</label>
+                            @Html.EditorFor(model => model.IdCliente, new { htmlAttributes = new { @class = "form-control" } })
                         </div>
-                        <h3 class="box-title">Detalles del cliente</h3>
                     </div>
-                    <!-- /.box-header -->
-                    <!-- form start -->
-
-                    <div class="box-body">
-                        <div class="resultados_ajax"></div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Cliente</label>
-                            <select class="form-control select2 select2-hidden-accessible" data-placeholder="Selecciona el cliente" name="customer_id" id="customer_id" required="" tabindex="-1" aria-hidden="true">
-                                <option value="8">JOSE ALFREDO</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Teléfono</label>
-                            <input type="text" class="form-control" id="work_phone_customer" placeholder="" readonly="">
-                        </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="exampleInputPassword1">Nombre contacto</label>
                             <input type="text" class="form-control" id="contact_name" placeholder="" readonly="">
                         </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="exampleInputPassword1">Teléfono contacto</label>
                             <input type="text" class="form-control" id="contact_phone" placeholder="" readonly="">
                         </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="exampleInputPassword1">Email contacto</label>
                             <input type="text" class="form-control" id="contact_email" placeholder="" readonly="">
                         </div>
-
-
                     </div>
-                    <!-- /.box-body -->
-
-
-
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Email contacto</label>
+                            <input type="text" class="form-control" id="contact_email" placeholder="" readonly="">
+                        </div>
+                    </div>
                 </div>
-                <!-- /.box -->
-
             </div>
-            <!--/.col (left) -->
-            <!-- right column -->
-            <div class="col-md-8">
-
-                <!-- Horizontal Form -->
-                <div class="box box-info">
-
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Detalle de la orden</h3>
-                    </div>
-                    <!-- /.box-header -->
-                    <!-- form start -->
-
-                    <div class="box-body">
-
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label>Estado</label>
-                                <select class="form-control" name="status" id="status" required="">
-                                    <option value="1" selected="">En proceso</option>
-                                    <option value="2">Presupuesto</option>
-                                    <option value="3">Reparado</option>
-                                    <option value="4">No reparado</option>
-                                </select>
-                                <input type="hidden" name="order_id" id="order_id" value="">
-                            </div>
-                            <div class="col-md-4">
-                                <label>Técnico</label>
-                                <select class="form-control" name="employee_id" id="employee_id" required="">
-                                    <option value="">Selecciona</option>
-                                    <option value="1632">Jose</option>
-                                </select>
-                            </div>
-                            <div class="col-md-2">
-                                <label>Fecha</label>
-                                <input type="text" class="form-control datepicker" name="order_date" value="12/01/2018" disabled="">
-                            </div>
-                            <div class="col-md-3">
-                                <label>Fecha de entrega</label>
-                                <input type="text" class="form-control datepicker" name="delivery_date" readonly="">
-                            </div>
-
-                        </div>
-
-                    </div>
-                    <!-- /.box-body -->
-
-
-
-                </div>
-                <!-- /.box -->
-                <!-- general form elements disabled -->
-                <div class="box box-warning">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Detalles del equipo</h3>
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body">
-
-
-                        <div class="row">
-                            <div class="col-md-4">
-                                <label>Modelo</label>
-                                <input type="text" class="form-control" name="model" id="model">
-                            </div>
-                            <div class="col-md-4">
-                                <label>Marca</label>
-                                <input type="text" class="form-control" name="brand" id="brand">
-                            </div>
-                            <div class="col-md-4">
-                                <label>Número de serie</label>
-                                <input type="text" class="form-control" name="serial_number" id="serial_number">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Descripción o nombre del equipo</label>
-                                <input type="text" class="form-control" name="product_description" id="product_description" required="" data-rule-rangelength="4,100">
-                            </div>
-                            <div class="col-md-6">
-                                <label>Accesorios</label>
-                                <input type="text" class="form-control" name="accessories" id="accessories">
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Problema del equipo</label>
-                                <textarea class="form-control" name="issue" id="issue" rows="4" required="" data-rule-rangelength="5,255"></textarea>
-                            </div>
-                            <div class="col-md-6">
-                                <label>Observaciones</label>
-                                <textarea class="form-control" name="note" id="note" rows="4" data-rule-rangelength="5,255"></textarea>
-                            </div>
-
-
-
-                        </div>
-
-                    </div>
-                    <!-- /.box-body -->
-                    <div class="box-footer">
-                        <div id="resultados_ajax" style="position:relative;"> </div>
-                        <button type="submit" class="btn btn-primary pull-right">Guardar datos</button>
-                    </div>
-
-                </div>
-                <!-- /.box -->
+        </div>
+        <!--Datos Orden-->
+        <!-- Horizontal Form -->
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">Detalle de la orden</h3>
             </div>
-            <!--/.col (right) -->
-
-
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Estado</label>
+                        <select class="form-control" name="status" id="status" required="">
+                            <option value="1" selected="">En proceso</option>
+                            <option value="2">Presupuesto</option>
+                            <option value="3">Reparado</option>
+                            <option value="4">No reparado</option>
+                        </select>
+                        <input type="hidden" name="order_id" id="order_id" value="">
+                    </div>
+                    <div class="col-md-4">
+                        <label>Técnico</label>
+                        <select class="form-control" name="employee_id" id="employee_id" required="">
+                            <option value="">Selecciona</option>
+                            <option value="1632">Jose</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label>Fecha</label>
+                        <input type="text" class="form-control datepicker" name="order_date" value="12/01/2018" disabled="">
+                    </div>
+                    <div class="col-md-3">
+                        <label>Fecha de entrega</label>
+                        <input type="text" class="form-control datepicker" name="delivery_date" readonly="">
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!--Datos Usuario-->
+        <!-- general form elements disabled -->
+        <div class="box box-warning">
+            <div class="box-header with-border">
+                <h3 class="box-title">Detalles del equipo</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Modelo</label>
+                        <input type="text" class="form-control" name="model" id="model">
+                    </div>
+                    <div class="col-md-4">
+                        <label>Marca</label>
+                        <input type="text" class="form-control" name="brand" id="brand">
+                    </div>
+                    <div class="col-md-4">
+                        <label>Número de serie</label>
+                        <input type="text" class="form-control" name="serial_number" id="serial_number">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Descripción o nombre del equipo</label>
+                        <input type="text" class="form-control" name="product_description" id="product_description" required="" data-rule-rangelength="4,100">
+                    </div>
+                    <div class="col-md-6">
+                        <label>Accesorios</label>
+                        <input type="text" class="form-control" name="accessories" id="accessories">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Problema del equipo</label>
+                        <textarea class="form-control" name="issue" id="issue" rows="4" required="" data-rule-rangelength="5,255"></textarea>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Observaciones</label>
+                        <textarea class="form-control" name="note" id="note" rows="4" data-rule-rangelength="5,255"></textarea>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-body -->
 
         </div>
-        <!-- /.row -->
-    </form>
+        <!--/.col (right) -->
+        <div class="box-footer">
+            <div id="resultados_ajax" style="position:relative;"> </div>
+            <button type="submit" class="btn btn-primary pull-right">Guardar datos</button>
+        </div>
+
+    }
+
 </section>
-<!-- modal placeholder-->
 <div id='myModal' class='modal fade in'>
     <div class="modal-dialog modal-lg">
         <div class="modal-content">

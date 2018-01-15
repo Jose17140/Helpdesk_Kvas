@@ -72,9 +72,9 @@ CREATE TABLE Personas(
 DROP TABLE IF EXISTS Usuarios;
 CREATE TABLE Usuarios(
 	IdUsuario INT IDENTITY(1,1) NOT NULL,
+	IdPersona INT NULL,
 	NombreUsuario VARCHAR(30) NOT NULL,
 	Contrasena VARCHAR(100) NOT NULL,
-	Email VARCHAR(60) NULL,
 	IdPreguntaSeguridad INT NULL,
 	RespuestaSeguridad VARCHAR(50) NULL,
 	Avatar VARCHAR(30) NOT NULL,
@@ -87,6 +87,9 @@ CREATE TABLE Usuarios(
 	CONSTRAINT PK_IdUsuario PRIMARY KEY(IdUsuario),
 	CONSTRAINT UQ_NombreUsuario UNIQUE (NombreUsuario),
 	CONSTRAINT FK_Usuarios_GrupoDetalles_IdRespuestaSeguridad FOREIGN KEY(IdPreguntaSeguridad) REFERENCES GruposDetalles(IdGrupoDetalle)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION,
+	CONSTRAINT FK_Usuarios_Personas_IdPersona FOREIGN KEY(IdPersona) REFERENCES Personas(IdPersona)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
 );
@@ -107,21 +110,16 @@ DROP TABLE IF EXISTS Empleados;
 CREATE TABLE Empleados(
 	IdEmpleado INT NOT NULL IDENTITY(1,1),
 	IdPersona INT NOT NULL,
-	IdUsuario INT NOT NULL,
 	IdDepartamento INT NOT NULL,
 	IdCargo INT NOT NULL,
 	IdSexo INT NOT NULL,
 	FechaNaciomiento DATE NULL,
 	FechaIngreso DATE NULL,
 	FechaRetiro DATE NULL,
-	Estatus INT,
 	FechaRegistro DATETIME NOT NULL,
-	CONSTRAINT PK_Empleados PRIMARY KEY(IdEmpleado,IdPersona),
-	CONSTRAINT UQ_Empleado_IdUsuario UNIQUE(IdUsuario),
-	CONSTRAINT FK_Empleados_Personas_Id FOREIGN KEY (IdPersona) REFERENCES Personas(IdPersona)
-		ON DELETE NO ACTION
-		ON UPDATE NO ACTION,
-	CONSTRAINT FK_Empleados_Usuarios_Id FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario)
+	CONSTRAINT PK_Empleados PRIMARY KEY(IdEmpleado),
+	CONSTRAINT UQ_Empleado_IdUsuario UNIQUE(IdPersona),
+	CONSTRAINT FK_Empleados_Persona_IdPersona FOREIGN KEY (IdPersona) REFERENCES Personas(IdPersona)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION,
 	CONSTRAINT FK_Empleados_GruposDetalles_IdDepartamento FOREIGN KEY (IdDepartamento) REFERENCES GruposDetalles(IdGrupoDetalle)
@@ -188,12 +186,12 @@ CREATE TABLE SerialesProductos(
 DROP TABLE IF EXISTS Requerimientos;
 CREATE TABLE Requerimientos(
 	IdRequerimiento INT IDENTITY(1,1) NOT NULL,
-	IdDepartamento INT NOT NULL, --Sub Departamento que atendera el requerimiento
+	IdDepartamento INT NOT NULL, -- SUB DEPARTAMENTO ENCARGADO DE ATENDER EL REQUERIMIENTO
 	Atendido BIT NOT NULL DEFAULT 0,
-	IdEmpleado INT NOT NULL, -- Quien abre el requerimiento o lo aprueba
+	IdEmpleado INT NOT NULL, -- USUARIO QUE GENERA EL REQUERIMIENTO O LO APRUEBA
 	FechaEntrada DATETIME NOT NULL,
 	FechaSalida DATETIME NULL,
-	IdCliente INT NOT NULL,
+	IdCliente INT NOT NULL, -- USUARIO QUE SOLICITA EL REQUERIMIENTO
 	IdEquipo INT NOT NULL,
 	IdMarca INT NOT NULL,
 	IdModelo INT NULL,
@@ -204,7 +202,7 @@ CREATE TABLE Requerimientos(
 	Serial VARCHAR(30) NOT NULL,
 	Observaciones VARCHAR(50) NOT NULL,
 	Accesorios VARCHAR(30) NULL,
-	IdTecnico INT NULL,
+	IdTecnico INT NULL, -- USUARIO TECNICO ENCARGADO DE ATENDER EL REQUERIMIENTO
 	IdDeposito INT NOT NULL,
 	IdEstatus INT NOT NULL,
 	CONSTRAINT PK_Requerimientos_Id PRIMARY KEY(IdRequerimiento),
@@ -305,11 +303,3 @@ SELECT * FROM Empleados;
 
 
 
-INSERT INTO Requerimientos(IdDepartamento,IdEmpleado,FechaEntrada,IdCliente,IdEquipo,IdMarca,IdModelo,IdPrioridad,Falla,Serial,Observaciones,Accesorios,IdDeposito,IdEstatus)VALUES
-(134,4,'2018-01-03 19:45:28.087',5,106,68,122,118,'Imprime con rayas','XWWWW00001','Equipo en mal estado','Ninguno',116,61);
-
-
-SELECT us.IdUsuario, us.NombreUsuario, us.Avatar, gd.Nombre AS Rol
-FROM GruposDetalles AS gd
-INNER JOIN UsuariosRoles AS ro ON gd.IdGrupoDetalle = ro.IdRoles
-INNER JOIN Usuarios AS us ON ro.IdUsuario = us.IdUsuario

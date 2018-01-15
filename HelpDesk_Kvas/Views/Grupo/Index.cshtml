@@ -7,7 +7,7 @@
 }
 
 @Styles.Render("~/Content/css/Grupos.css")
-
+@Scripts.Render("~/bundles/jquery")
 
 <section class="content-header">
     <h1>
@@ -23,7 +23,7 @@
 <section class="content">
     <div class="col-md-3">
         @using (Html.BeginForm("Index", "Grupo", FormMethod.Get))
-            {
+        {
             <div class="input-group">
                 @Html.TextBox("SearchString", ViewBag._filtro as string, new { @class = "form-control", @placeholder = "Buscar..." })
                 <span class="input-group-btn">
@@ -69,7 +69,7 @@
             Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
             @Html.PagedListPager(Model, page => Url.Action("Index",
-            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))<br /><br /><br />
+                 new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))<br /><br /><br />
         </div>
         <!-- /.box-body -->
     </div>

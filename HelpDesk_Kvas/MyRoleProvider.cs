@@ -64,9 +64,9 @@ namespace HelpDesk_Kvas
             string[] roles = new string[]{};
             using (dbDataContext dc = new dbDataContext())
             {
-                roles = (from g in dc.vw_Usuarios
+                roles = (from g in dc.vw_ListarUsuarios
                          where g.NombreUsuario.Equals(username)
-                         select g.Rol).ToArray<string>();
+                         select g.NombreRol).ToArray<string>();
                 //roles = (from g in dc.GruposDetalles
                 //         join u in dc.UsuariosRoles on g.IdGrupoDetalle equals u.IdRoles
                 //         join s in dc.Usuarios on u.IdUsuario equals s.IdUsuario

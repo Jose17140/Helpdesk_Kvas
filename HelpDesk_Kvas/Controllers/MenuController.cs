@@ -79,14 +79,18 @@ namespace HelpDesk_Kvas.Controllers
 
         public ActionResult _UserLog()
         {
-            var _user = User.Identity.Name;
-            var u = objUsuario.Buscar_x_Nombre(_user);
-            ViewBag.Avatar = u.Avatar;
-            ViewBag.IdUsuario = u.IdUsuario;
-            ViewBag.Rol = u.Rol;
-            ViewBag.Form = u.Color;
-            ViewBag.Log = u.FechaLogin;
-            return View(u);
+            if (User.Identity.IsAuthenticated)
+            {
+                var _user = User.Identity.Name;
+                var u = objUsuario.Buscar_x_Nombre(_user);
+                ViewBag.Avatar = u.Avatar;
+                ViewBag.IdUsuario = u.IdUsuario;
+                ViewBag.Rol = u.Rol;
+                ViewBag.Form = u.Color;
+                ViewBag.Log = u.FechaLogin;
+                return View(u);
+            }
+            return View();
         }
 
         public ActionResult CreateMenu(int id)

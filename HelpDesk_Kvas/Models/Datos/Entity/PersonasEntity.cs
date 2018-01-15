@@ -37,7 +37,6 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
         public string Telefonos { get; set; }
 
         [StringLength(60)]
-        [Required]
         [Display(Name = "Correo:")]
         [EmailAddress]
         public string Email { get; set; }
@@ -48,15 +47,6 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
 
         [Display(Name = "Identificacion")]
         public string Identificacion { get; set; }
-
-        [Display(Name = "Identificacion")]
-        public string FullCedula
-        {
-            get
-            {
-                return IdTipoPersona + ", " + CiRif;
-            }
-        }
 
         public int Mensaje { get; set; }
     }

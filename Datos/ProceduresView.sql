@@ -78,7 +78,6 @@ CREATE PROCEDURE sp_AgregarUsuario
  (      
     @NombreUsuario VARCHAR(30),      
     @Contrasena VARCHAR(100),
-	@Email VARCHAR(60),
 	@IdPregunta INT,
 	@Respuesta VARCHAR(50),
 	@Avatar VARCHAR(30),
@@ -89,8 +88,8 @@ CREATE PROCEDURE sp_AgregarUsuario
  AS      
  BEGIN
 	DECLARE @Id INT 
-    INSERT INTO Usuarios(NombreUsuario,Contrasena,Email,IdPreguntaSeguridad,RespuestaSeguridad,Avatar,Estatus,FechaRegistro) VALUES
-	(@NombreUsuario,@Contrasena,@Email,@IdPregunta,@Respuesta,@Avatar,@Estatus,@FechaRegistro)
+    INSERT INTO Usuarios(NombreUsuario,Contrasena,IdPreguntaSeguridad,RespuestaSeguridad,Avatar,Estatus,FechaRegistro) VALUES
+	(@NombreUsuario,@Contrasena,@IdPregunta,@Respuesta,@Avatar,@Estatus,@FechaRegistro)
 	SELECT @Id = SCOPE_IDENTITY();
 	INSERT INTO UsuariosRoles(IdUsuario,IdRoles)VALUES(@Id,@IdRole)
  END
@@ -102,7 +101,6 @@ CREATE PROCEDURE sp_ActualizarUsuario
  (  
 	@IdUsuario INT,
     @Contrasena VARCHAR(100),
-	@Email VARCHAR(60),
 	@IdPregunta INT,
 	@Respuesta VARCHAR(50),
 	@Estatus BIT,
@@ -113,7 +111,6 @@ CREATE PROCEDURE sp_ActualizarUsuario
  BEGIN      
     UPDATE Usuarios      
     SET Contrasena=@Contrasena,      
-		Email=@Email,      
 		IdPreguntaSeguridad=@IdPregunta,
 		RespuestaSeguridad=@Respuesta,
 		Estatus=@Estatus,
@@ -125,29 +122,11 @@ CREATE PROCEDURE sp_ActualizarUsuario
  END
  GO
 
-DROP PROCEDURE IF EXISTS sp_BuscarUsuarios;
-GO
-CREATE PROCEDURE sp_BuscarUsuarios
-( 
-	@id INT
-)
- AS        
- BEGIN        
-    SELECT u.IdUsuario, u.NombreUsuario, u.Contrasena, u.Email AS Correo, ur.IdRoles,gd.Nombre AS NombreRol, u.IdPreguntaSeguridad AS IdPregunta, gdd.Nombre AS Pregunta, u.RespuestaSeguridad,
-		u.Avatar, u.FechaLogin, u.ContadorFallido, u.Estatus, u.FechaRegistro, u.FechaModificacion
-	FROM Usuarios AS u
-	INNER JOIN UsuariosRoles AS ur ON u.IdUsuario = ur.IdUsuario
-	INNER JOIN GruposDetalles AS gd ON ur.IdRoles = gd.IdGrupoDetalle
-	INNER JOIN GruposDetalles AS gdd ON u.IdPreguntaSeguridad = gdd.IdGrupoDetalle
-	WHERE u.IdUsuario = @id      
- END
- GO
-
 DROP VIEW IF EXISTS vw_ListarUsuarios;
 GO
 CREATE VIEW vw_ListarUsuarios
  AS
-	SELECT u.IdUsuario, u.NombreUsuario, u.Contrasena, u.Email AS Correo, ur.IdRoles,gd.Nombre AS NombreRol, u.IdPreguntaSeguridad AS IdPregunta, gdd.Nombre AS Pregunta, u.RespuestaSeguridad,
+	SELECT u.IdUsuario, u.NombreUsuario, u.Contrasena, ur.IdRoles,gd.Nombre AS NombreRol, u.IdPreguntaSeguridad AS IdPregunta, gdd.Nombre AS Pregunta, u.RespuestaSeguridad,
 		u.Avatar, u.FechaLogin, u.ContadorFallido, u.Estatus, u.FechaRegistro, u.FechaModificacion
 	FROM Usuarios AS u
 	INNER JOIN UsuariosRoles AS ur ON u.IdUsuario = ur.IdUsuario
@@ -156,9 +135,9 @@ CREATE VIEW vw_ListarUsuarios
  GO
 
 
-DROP VIEW IF EXISTS vw_Usuarios;
+DROP VIEW IF EXISTS vw_UsuariosMenu;
 GO
-CREATE VIEW vw_Usuarios AS (
+CREATE VIEW vw_UsuariosMenu AS (
 	SELECT us.IdUsuario, us.NombreUsuario, us.Avatar, gd.Nombre AS Rol, us.FormColor, us.FechaLogin
 	FROM GruposDetalles AS gd
 		INNER JOIN UsuariosRoles AS ro ON gd.IdGrupoDetalle = ro.IdRoles

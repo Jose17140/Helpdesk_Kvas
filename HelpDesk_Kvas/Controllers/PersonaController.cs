@@ -49,19 +49,39 @@ namespace HelpDesk_Kvas.Controllers
 
         }
 
-        [HttpGet]
-        public JsonResult Filtro(string _ci)
+        [HttpPost]
+        public JsonResult Filtros(string _ci = null)
         {
-            _ci = "17243451";
             var personas = objPersonaLogic.Listar();
             //Searching records from list using LINQ query  
             var query = (from m in personas
                             where m.Identificacion.StartsWith(_ci)
                             select new { m.Nombres, m.Identificacion, m.Telefonos, m.Email, m.Direccion });
+
+            //var p = (from m in personas
+            //         where m.Identificacion.ToUpper().Contains(_ci.ToUpper())
+            //         select m).SingleOrDefault();
+
             var p = (from m in personas
-                     where m.Identificacion.ToUpper().Contains(_ci.ToUpper())
-                     select m).SingleOrDefault();
+                     where m.Identificacion.ToUpper().StartsWith(_ci.ToUpper())
+                     select new {IdCliente =m.Identificacion, m.Nombres,m.Telefonos,m.Direccion,m.Email }).ToList();
+
             return Json(p, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult BuscarUxR(string _ci = null)
+        {
+            //var lista = objPersonaLogic.Listar(); 
+            //var p = (from m in lista
+            //         where m.Identificacion.ToUpper().StartsWith(_ci.ToUpper())
+            //         select new { IdCliente = m.Identificacion, m.Nombres, m.Telefonos, m.Direccion, m.Email }).ToList();
+            //return View(p);
+            return View();
+        }
+
+        public ActionResult Buscar()
+        {
+            return View();
         }
 
         // GET: Persona/Details/5
@@ -105,7 +125,11 @@ namespace HelpDesk_Kvas.Controllers
                 MensajeErrorRegistrar(persona);
                 return Json(new { success = true });
             }
-            return Json(persona, JsonRequestBehavior.AllowGet);
+            var grupos = objGrupoDetalleLogic.ListarPorGrupo(3);
+            SelectList listaGrupos = new SelectList(grupos, "IdGrupoDetalle", "Titulo");
+            ViewBag.Lista = listaGrupos;
+            //return Json(persona, JsonRequestBehavior.AllowGet);
+            return View(persona);
         }
 
         // GET: Persona/Edit/5
