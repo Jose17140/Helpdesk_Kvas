@@ -17,6 +17,7 @@ namespace HelpDesk_Kvas.Controllers
         GrupoLogic objGrupoLogic;
         RequerimientoLogic objRequerimientoLogic;
         UsuarioLogic objUsuario;
+        PersonasLogic objPersonaLogic;
         DAL_Main db;
 
         public RequerimientoController()
@@ -25,6 +26,7 @@ namespace HelpDesk_Kvas.Controllers
             objGrupoLogic = new GrupoLogic();
             objRequerimientoLogic = new RequerimientoLogic();
             objUsuario = new UsuarioLogic();
+            objPersonaLogic = new PersonasLogic();
             db = new DAL_Main();
         }
 
@@ -62,10 +64,63 @@ namespace HelpDesk_Kvas.Controllers
             return View();
         }
 
+        #region DROPDOWN 
+        public JsonResult ObtenerEquipo(string _departamento)
+        {
+            var list = objGrupoDetalleLogic.Listar();
+            var _equipos = list.Where(m => m.IdGrupo.Equals(14)).Where(m=>m.IdPadre.Equals(Convert.ToInt32(_departamento))).ToList();
+            return Json(new SelectList(_equipos, "IdGrupoDetalle", "Titulo"));
+        }
+
+        public JsonResult ObtenerModelo(int _equipo)
+        {
+            var list = objGrupoDetalleLogic.Listar();
+            var _modelos = list.Where(m => m.IdGrupo.Equals(27)).Where(m=>m.IdPadre.Equals(Convert.ToInt32(_equipo))).ToList();
+            return Json(new SelectList(_modelos, "IdGrupoDetalle", "Titulo", JsonRequestBehavior.AllowGet));
+        }
+        #endregion
+
+        #region Pasos para crear que un analista cree un requerimiento
         // GET: Requerimiento/Create
-        public ActionResult Create()
+        public ActionResult ElegirDepartamento()
         {
             MensajeInicioRegistrar();
+            var lista = objGrupoDetalleLogic.Listar();
+            var _lista = lista.Where(m => m.IdPadre == 36).ToList();
+            return View(_lista);
+        }
+        #endregion
+
+
+        // GET: Requerimiento/Create
+        [HttpGet]
+        public ActionResult Create()
+        {
+
+            MensajeInicioRegistrar();
+            #region LISTADO DE SELECT QUE SE DESPLEGARAN EN LA VISTA
+            var list = objGrupoDetalleLogic.Listar();
+            //Lista Departamento
+            var _departamentos = list.Where(m => m.IdPadre.Equals(36)).ToList();
+            SelectList listDepartamentos = new SelectList(_departamentos, "IdGrupoDetalle", "Titulo");
+            ViewBag.Departamentos = listDepartamentos;
+            //Lista Prioridades
+            var _prioridades = list.Where(m => m.IdGrupo.Equals(19)).ToList();
+            SelectList listPrioridadess = new SelectList(_prioridades, "IdGrupoDetalle", "Titulo");
+            ViewBag.Prioridades = listPrioridadess;
+            //Lista Equipo
+            var _equipos = list.Where(m => m.IdGrupo.Equals(14)).ToList();
+            SelectList listEquipos = new SelectList(_equipos, "IdGrupoDetalle", "Titulo");
+            ViewBag.Equipos = listEquipos;
+            //Lista Marca
+            var _marcas = list.Where(m => m.IdGrupo.Equals(10)).ToList();
+            SelectList listMarcas = new SelectList(_marcas, "IdGrupoDetalle", "Titulo");
+            ViewBag.Marcas = listMarcas;
+            //Lista Modelo
+            var _modelos = list.Where(m => m.IdGrupo.Equals(27)).ToList();
+            SelectList listModelos = new SelectList(_modelos, "IdGrupoDetalle", "Titulo");
+            ViewBag.Modelos = listModelos;
+            #endregion
             if (User.Identity.IsAuthenticated)
             {
                 var user = HttpContext.User.Identity.Name;
@@ -78,8 +133,14 @@ namespace HelpDesk_Kvas.Controllers
 
         // POST: Requerimiento/Create
         [HttpPost]
-        public ActionResult Create(RequerimientosEntity collection)
+        public ActionResult Create(RequerimientosEntity objRequerimiento)
         {
+            var listPersonas = objPersonaLogic.Listar();
+            var idCliente = listPersonas.Where(m => m.CiRif.Equals(objRequerimiento.BuscarCliente)).Select(m=>m.IdPersona).SingleOrDefault();
+            if (ModelState.IsValid)
+            {
+
+            }
             try
             {
                 // TODO: Add insert logic here

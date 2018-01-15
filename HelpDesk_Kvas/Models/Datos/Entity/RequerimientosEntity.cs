@@ -6,7 +6,13 @@ using System.Web;
 
 namespace HelpDesk_Kvas.Models.Datos.Entity
 {
-    public class RequerimientosEntity
+    public class FiltroClienteEntity
+    {
+        [Display(Name = "Buscar Cliente:")]
+        public string BuscarCliente { get; set; }
+    }
+
+    public class RequerimientosEntity : FiltroClienteEntity
     {
         [Key]
         public int IdRequerimiento { get; set; }
@@ -17,7 +23,7 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
         [Display(Name = "Atendido:")]
         public bool Atendido { get; set; }
 
-        [Display(Name = "Marca:")]
+        [Display(Name = "Empleado:")]
         public int IdEmpleado { get; set; }
 
         [DataType(DataType.DateTime)]
@@ -36,8 +42,7 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
 
         [Display(Name = "Marca:")]
         public int IdMarca { get; set; }
-
-        [StringLength(30)]
+        
         [Display(Name = "Modelo:")]
         public int IdModelo { get; set; }
 
@@ -64,10 +69,9 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
 
         [Required]
         [StringLength(50)]
-        [Display(Name = "Descripcion:")]
+        [Display(Name = "Observaciones:")]
         public string Observaciones { get; set; }
-
-        [Required]
+        
         [StringLength(30)]
         [Display(Name = "Accesorio:")]
         public string Accesorio { get; set; }
@@ -82,7 +86,7 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
         public int IdEstatus { get; set; }
 
         public int Mensaje { get; set; }
-    }
+     }
 
     public class RequerimientoViewEntity : RequerimientosEntity
     {

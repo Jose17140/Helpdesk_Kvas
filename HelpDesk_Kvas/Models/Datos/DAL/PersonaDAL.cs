@@ -125,7 +125,8 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
                     {
                         IdPersona = personas.IdPersona,
                         Nombres = personas.Nombres,
-                        Identificacion = personas.Cedula,
+                        TipoPersona = personas.TipoPersona,
+                        CiRif = personas.CiRif,
                         Telefonos = personas.Telefonos,
                         Direccion = personas.Direccion,
                         Email = personas.Email,

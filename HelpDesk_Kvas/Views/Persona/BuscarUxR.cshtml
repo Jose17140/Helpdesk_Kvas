@@ -2,10 +2,9 @@
 @{
 
 }
-
 <script>
     $(document).ready(function () {
-        $("#Nombres").autocomplete({
+        $("#CiRif").autocomplete({
             source: function (request, response) {
                 $.ajax({
                     url: "/Persona/Filtros",
@@ -15,7 +14,7 @@
                     success: function (data) {
                         response($.map(data, function (item) {
                             return {
-                                label: item.Nombres, value: item.Nombres
+                                label: item.CiRif, value: item.CiRif
                             };
                         }))
 
@@ -28,8 +27,10 @@
         });
     })
 </script>
-@using (Html.BeginForm("Create", "Requerimiento", FormMethod.Post))
+
+@using (Html.BeginForm("Create", "Persona", FormMethod.Post))
 {
+    @Html.AntiForgeryToken()
     <!--Datos Usuario-->
     <div class="box box-info">
         <div class="box-header with-border">
@@ -44,38 +45,46 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Cedula</label>
-                        @Html.EditorFor(model => model.Nombres, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Nombres, "", new { @class = "text-danger" })
+                        <label for="exampleInputPassword1">Cedula:</label>
+                        @Html.EditorFor(model => model.IdPersona, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.IdPersona, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Nombre contacto</label>
-
-                        @*@Html.EditorFor(model => model.Nombres, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Nombres, "", new { @class = "text-danger" })*@
+                        <label for="exampleInputPassword1">Nombre contacto:</label>
+                        @Html.EditorFor(model => model.Nombres, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Nombres, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Teléfono contacto</label>
-                        @*@Html.EditorFor(model => model.Telefonos, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Telefonos, "", new { @class = "text-danger" })*@
+                        <label for="exampleInputPassword1">Tipo Persona:</label>
+                        @Html.EditorFor(model => model.IdTipoPersona, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.IdTipoPersona, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Email contacto</label>
-                        <input type="text" class="form-control" id="contact_email" placeholder="" readonly="">
+                        <label for="exampleInputPassword1">Cedula:</label>
+                        @Html.EditorFor(model => model.CiRif, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CiRif, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Email contacto</label>
-                        <input type="text" class="form-control" id="contact_email" placeholder="" readonly="">
+                        <label for="exampleInputPassword1">Teléfono:</label>
+                        @Html.EditorFor(model => model.Telefonos, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Telefonos, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Direccion:</label>
+                        @Html.EditorFor(model => model.Direccion, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Direccion, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>

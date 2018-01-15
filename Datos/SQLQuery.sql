@@ -191,9 +191,9 @@ CREATE TABLE Requerimientos(
 	IdEmpleado INT NOT NULL, -- USUARIO QUE GENERA EL REQUERIMIENTO O LO APRUEBA
 	FechaEntrada DATETIME NOT NULL,
 	FechaSalida DATETIME NULL,
-	IdCliente INT NOT NULL, -- USUARIO QUE SOLICITA EL REQUERIMIENTO
+	IdCliente INT NOT NULL, -- PERSONA QUE SOLICITA EL REQUERIMIENTO
 	IdEquipo INT NOT NULL,
-	IdMarca INT NOT NULL,
+	IdMarca INT NULL,
 	IdModelo INT NULL,
 	IdPrioridad INT NOT NULL,
 	Falla VARCHAR(100) NOT NULL,
@@ -291,7 +291,8 @@ CREATE TABLE Presupuesto_x_Requerimiento(
 
 
 SELECT * FROM Grupos;
-SELECT * FROM GruposDetalles where IdGrupo = 4;
+SELECT * FROM GruposDetalles where IdGrupo = 14;
+SELECT * FROM GruposDetalles where IdGrupo = 27;
 SELECT * FROM ProductoServicios;
 SELECT * FROM Personas;
 SELECT * FROM Usuarios;

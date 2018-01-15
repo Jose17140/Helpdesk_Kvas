@@ -2828,6 +2828,7 @@
     <Content Include="Views\Persona\BuscarUxR.cshtml" />
     <Content Include="Views\Account\RegistrarA.cshtml" />
     <Content Include="Views\Account\RegistrarB.cshtml" />
+    <Content Include="Views\Requerimiento\ElegirDepartamento.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

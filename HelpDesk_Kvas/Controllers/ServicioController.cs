@@ -75,10 +75,10 @@ namespace HelpDesk_Kvas.Controllers
             MensajeInicioRegistrar();
             ViewBag.Grupo = 16;
             var _lista = objGrupoDetalleLogic.Listar();
-            var _Categorias = _lista.Where(m => m.IdGrupo == 24).ToList();
+            var _departamentos = _lista.Where(m => m.IdPadre == 36).ToList();
             var _unidades = _lista.Where(m => m.IdGrupo == 22).ToList();
             //Departamento padre
-            SelectList listaCategorias = new SelectList(_Categorias, "IdGrupoDetalle", "Titulo");
+            SelectList listaCategorias = new SelectList(_departamentos, "IdGrupoDetalle", "Titulo");
             //Unidades 
             SelectList listaUnidades = new SelectList(_unidades, "IdGrupoDetalle", "Titulo");
             ViewBag.ListaDepartamento = listaCategorias;

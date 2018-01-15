@@ -30,7 +30,7 @@ DROP VIEW IF EXISTS vw_Personas;
 GO
 CREATE VIEW vw_Personas
 AS
-	SELECT p.IdPersona, p.Nombres, CONCAT(gd.Nombre,p.CiRif) AS Cedula, p.Direccion, p.Telefonos, p.Email, p.FechaRegistro
+	SELECT p.IdPersona, p.Nombres, gd.Nombre AS TipoPersona, p.CiRif, p.Direccion, p.Telefonos, p.Email, p.FechaRegistro
 	FROM Personas AS p
 	INNER JOIN GruposDetalles AS gd ON P.IdTipoPersona = gd.IdGrupoDetalle
 GO

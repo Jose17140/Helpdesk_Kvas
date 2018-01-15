@@ -50,22 +50,13 @@ namespace HelpDesk_Kvas.Controllers
         }
 
         [HttpPost]
-        public JsonResult Filtros(string _ci = null)
+        public JsonResult Filtros(int _ci)
         {
             var personas = objPersonaLogic.Listar();
-            //Searching records from list using LINQ query  
-            var query = (from m in personas
-                            where m.Identificacion.StartsWith(_ci)
-                            select new { m.Nombres, m.Identificacion, m.Telefonos, m.Email, m.Direccion });
-
-            //var p = (from m in personas
-            //         where m.Identificacion.ToUpper().Contains(_ci.ToUpper())
-            //         select m).SingleOrDefault();
-
             var p = (from m in personas
-                     where m.Identificacion.ToUpper().StartsWith(_ci.ToUpper())
-                     select new {IdCliente =m.Identificacion, m.Nombres,m.Telefonos,m.Direccion,m.Email }).ToList();
-
+                     where m.CiRif.ToUpper().StartsWith(Convert.ToInt32(_ci).ToString())
+                     //select new {IdCliente =m.CiRif, m.Nombres,m.Telefonos,m.Direccion,m.Email }).ToList();
+                    select new { BuscarCliente = m.CiRif, m.Nombres, m.Telefonos, m.Direccion, m.Email }).ToList();
             return Json(p, JsonRequestBehavior.AllowGet);
         }
 

@@ -30,12 +30,13 @@ INSERT INTO Grupos(Nombre,Descripcion,IdPadre,Icono,Estatus,FechaRegistro)VALUES
 ('Cat. Servicio','Categoria de los Servicios',0,'fa fa-edit',1,GETDATE()),
 ('Estado del Producto','Condicion del producto, (Nuevo o Usado)',0,'glyphicon glyphicon-erase',1,GETDATE()),
 ('Depositos','Ubicacion de equipo',0,'glyphicon glyphicon-th-list',1,GETDATE()),
-('Modelo','Modelo del equipo',10,'glyphicon glyphicon-hdd',1,GETDATE()),
+('Modelo','Modelo del equipo',14,'glyphicon glyphicon-hdd',1,GETDATE()),
 ('Sub Departamento','Descripcion de los departamentos',6,'glyphicon glyphicon-lock',1,GETDATE()),
 ('Estatus de Requerimiento','Descripcion de los estatus de un requerimiento',18,'glyphicon glyphicon-lock',1,GETDATE()),
 ('Estatus de Aprobacion','Descripcion aprobado o rechazado',18,'glyphicon glyphicon-lock',1,GETDATE()),
 ('Estatus de Estado','Activo o inactivo',18,'glyphicon glyphicon-lock',1,GETDATE());
 UPDATE Grupos SET IdPadre = 28 WHERE IdGrupo = 20;
+UPDATE Grupos SET IdPadre = 28 WHERE IdGrupo = 14;
 --NULOS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 ('---','Agrupa los elementos padre GrupoDetalles',0,'Nulo',0,null,'*',GETDATE());
@@ -108,7 +109,8 @@ INSERT Personas (Nombres, IdTipoPersona, CiRif, Direccion, Telefonos, Email, Fec
 ( N'JOSE RODRIGUEZ', 27, N'21018662', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
 ( N'DOUGLAS GARCIA', 27, N'21018668', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
 ( N'YERALDINE PAEZ', 27, N'21018669', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
-( N'ELIECER JARABA', 27, N'21018672', N'Caracas', N'04265556677', N'help@help.com', GETDATE());
+( N'ELIECER JARABA', 27, N'21018672', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
+( N'JOSE BOLIVAR', 27, N'17243451', N'Catia', N'04265556677', N'help@help.com', GETDATE());
 --DEPARTAMENTOS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 ('Soporte','Departamento de Soporte',6,'fa fa-archive',1,0,'*',GETDATE()),
@@ -247,15 +249,15 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDe
 ('Alcatel', 'Intel', 10, 'glyphicon glyphicon-cog', 16, 0, '*', GETDATE());
 --MODELO DE EQUIPOS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
-('L120','Impresora Multifuncional',27,'lyphicon glyphicon-flash',0,68,'*',GETDATE()),
-('Tx130','Impresora Multifuncional',27,'lyphicon glyphicon-flash',0,68,'*',GETDATE()),
-('T22','Impresora simple',27,'lyphicon glyphicon-flash',0,68,'*',GETDATE()),
-('V2400','Laptop',27,'lyphicon glyphicon-flash',0,78,'*',GETDATE()),
-('Pavillion 6801us','Laptop',27,'lyphicon glyphicon-flash',0,69,'*',GETDATE()),
-('Tl-720w','Router',27,'lyphicon glyphicon-flash',0,70,'*',GETDATE()),
-('Cx5600','Impresora Multifuncional',27,'lyphicon glyphicon-flash',0,68,'*',GETDATE()),
-('Fierce 2','Telefono Inteligente',27,'lyphicon glyphicon-flash',0,121,'*',GETDATE()),
-('Generico','Equipo generico',27,'lyphicon glyphicon-flash',0,74,'*',GETDATE());
+('L120','Impresora Multifuncional',27,'lyphicon glyphicon-flash',0,106,'*',GETDATE()),
+('Tx130','Impresora Multifuncional',27,'lyphicon glyphicon-flash',0,106,'*',GETDATE()),
+('T22','Impresora simple',27,'lyphicon glyphicon-flash',0,106,'*',GETDATE()),
+('V2400','Laptop',27,'lyphicon glyphicon-flash',0,108,'*',GETDATE()),
+('Pavillion 6801us','Laptop',27,'lyphicon glyphicon-flash',0,108,'*',GETDATE()),
+('Tl-720w','Router',27,'lyphicon glyphicon-flash',0,109,'*',GETDATE()),
+('Cx5600','Impresora Multifuncional',27,'lyphicon glyphicon-flash',0,106,'*',GETDATE()),
+('Fierce 2','Telefono Inteligente',27,'lyphicon glyphicon-flash',0,111,'*',GETDATE()),
+('Generico','Equipo generico',27,'lyphicon glyphicon-flash',0,107,'*',GETDATE());
 --SUB MENU REQUERIMIENTO
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 ('Nuevo Ticket','Sub Menu',2,'glyphicon glyphicon-qrcode',1,2,'/Requerimiento/Create',GETDATE()),
@@ -267,10 +269,10 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDe
 --SUBDEPARTAMENTOS
 ('Soporte de Impresoras','SubDepartamento Impresoras',28,'glyphicon glyphicon-print',1,36,'*',GETDATE()),
 ('Soporte de Informatica','SubDepartamento Informatica',28,'fa fa-laptop',2,36,'*',GETDATE()),
-('Soporte de Moviles','SubDepartamento Smartphone y Tablet',28,'fa fa-laptop',2,36,'*',GETDATE()),
+('Soporte de Moviles','SubDepartamento Smartphone y Tablet',28,'glyphicon glyphicon-phone',2,36,'*',GETDATE()),
 ('Soporte de Redes','SubDepartamento Redes',28,'glyphicon glyphicon-signal',3,36,'*',GETDATE()),
-('Atencion al Cliente','SubDepartamento Atencion al Cliente',28,'glyphicon glyphicon-signal',3,37,'*',GETDATE()),
-('Administrativo','SubDepartamento Administracion',28,'glyphicon glyphicon-signal',3,133,'*',GETDATE()),
+('Atencion al Cliente','SubDepartamento Atencion al Cliente',28,'glyphicon glyphicon-user',3,37,'*',GETDATE()),
+('Administrativo','SubDepartamento Administracion',28,'glyphicon glyphicon-briefcase',3,133,'*',GETDATE()),
 --CARGOS PENDIENTES
 ('Tecnico Celulares','Tecnico',20,'fa fa-users',2,136,'*',GETDATE()),
 ('Tecnico PC','Tecnico',20,'fa fa-users',2,135,'*',GETDATE());
@@ -278,6 +280,13 @@ UPDATE GruposDetalles SET IdPadre = 138 WHERE IdGrupoDetalle = 84;
 UPDATE GruposDetalles SET IdPadre = 134 WHERE IdGrupoDetalle = 85;
 UPDATE GruposDetalles SET IdPadre = 139 WHERE IdGrupoDetalle = 86;
 UPDATE ProductoServicios SET IdCondicion = 103;
+UPDATE ProductoServicios SET IdCategoria = 134 WHERE IdProducto = 2;
+UPDATE GruposDetalles SET IdPadre = 134 WHERE IdGrupoDetalle = 106;
+UPDATE GruposDetalles SET IdPadre = 135 WHERE IdGrupoDetalle = 107;
+UPDATE GruposDetalles SET IdPadre = 135 WHERE IdGrupoDetalle = 108;
+UPDATE GruposDetalles SET IdPadre = 137 WHERE IdGrupoDetalle = 109;
+UPDATE GruposDetalles SET IdPadre = 135 WHERE IdGrupoDetalle = 110;
+UPDATE GruposDetalles SET IdPadre = 136 WHERE IdGrupoDetalle = 111;
 --ESTATUS 2.0
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 ('Comprobacion','Requerimiento Resuelto',29,'fa fa-hourglass-o',4,58,'*',GETDATE()),

@@ -21,6 +21,9 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
         [Display(Name = "Identificacion:")]
         public int IdTipoPersona { get; set; }
 
+        [Display(Name = "Identificacion:")]
+        public string TipoPersona { get; set; }
+
         [Required]
         [StringLength(11)]
         [Display(Name = "Cedula:")]
@@ -46,7 +49,7 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
         public DateTime FechaRegistro { get; set; }
 
         [Display(Name = "Identificacion")]
-        public string Identificacion { get; set; }
+        public string Identificacion { get { return TipoPersona + CiRif; } }
 
         public int Mensaje { get; set; }
     }

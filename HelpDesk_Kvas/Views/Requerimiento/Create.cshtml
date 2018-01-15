@@ -5,6 +5,90 @@
 }
 @Styles.Render("~/Content/css/Grupos.css")
 @Scripts.Render("~/bundles/jquery")
+<script>
+    $(document).ready(function () {
+        $("#BuscarCliente").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/Persona/Filtros",
+                    type: "POST",
+                    dataType: "json",
+                    data: { _ci: request.term },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return {
+                                label: item.BuscarCliente, value: item.BuscarCliente
+                            };
+                        }))
+
+                    }
+                })
+            },
+            messages: {
+                noResults: "", results: ""
+            }
+        });
+    })
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //Dropdownlist Filtro
+        $("#IdDepartamento").change(function () {
+            $("#IdEquipo").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("ObtenerEquipo")', // we are calling json method
+                dataType: 'json',
+                data: { _departamento: $("#IdDepartamento").val() },
+                success: function (equipos) {
+                    // states contains the JSON formatted list
+                    // of states passed from the controller
+                    $.each(equipos, function (i, data) {
+                        $("#IdEquipo").append('<option value="' + data.IdGrupoDetalle + '">' + data.Titulo + '</option>');
+                    }); // here we are adding option for States
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve states.' + ex);
+                }
+            });
+            return false;
+        })
+    });
+</script>
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+
+        $("#country").change(function () {
+            $("#State").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("getstate")',
+
+                dataType: 'json',
+
+                data: { id: $("#country").val() },
+
+
+                success: function (states) {
+
+
+                    $.each(states, function (i, state) {
+                        $("#State").append('<option value="' + state.Value + '">' +
+                             state.Text + '</option>');
+
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve country states.' + ex);
+                }
+            });
+            return false;
+        })
+    });
+
+</script>
 <section class="content-header">
     <h1>
         Tablero
@@ -28,6 +112,9 @@
 <section class="content">
     @using (Html.BeginForm("Create", "Requerimiento", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
     {
+        @Html.AntiForgeryToken()
+        <input type="text" id="IdEmpleado" name="IdEmpleado" value="1" />
+        <input type="text" id="IdCliente" name="IdCliente" value="1" />
         <!--Datos Usuario-->
         <div class="box box-info">
             <div class="box-header with-border">
@@ -42,13 +129,20 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Cedula</label>
-                            @Html.EditorFor(model => model.IdCliente, new { htmlAttributes = new { @class = "form-control" } })
+                            <label for="exampleInputPassword1">Buscar Cedula:</label>
+                            @Html.EditorFor(model => model.BuscarCliente, new { htmlAttributes = new { @class = "form-control", @placeholder = "Buscar por cedula..." } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.BuscarCliente, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Nombres:</label>
+                            <input type="text" class="form-control" id="contact_name" placeholder="" readonly="">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Nombre contacto</label>
+                            <label for="exampleInputPassword1">Teléfonos:</label>
                             <input type="text" class="form-control" id="contact_name" placeholder="" readonly="">
                         </div>
                     </div>
@@ -56,19 +150,13 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Teléfono contacto</label>
+                            <label for="exampleInputPassword1">Direccion:</label>
                             <input type="text" class="form-control" id="contact_phone" placeholder="" readonly="">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Email contacto</label>
-                            <input type="text" class="form-control" id="contact_email" placeholder="" readonly="">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Email contacto</label>
+                            <label for="exampleInputPassword1">Email:</label>
                             <input type="text" class="form-control" id="contact_email" placeholder="" readonly="">
                         </div>
                     </div>
@@ -84,29 +172,18 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-3">
-                        <label>Estado</label>
-                        <select class="form-control" name="status" id="status" required="">
-                            <option value="1" selected="">En proceso</option>
-                            <option value="2">Presupuesto</option>
-                            <option value="3">Reparado</option>
-                            <option value="4">No reparado</option>
-                        </select>
-                        <input type="hidden" name="order_id" id="order_id" value="">
+                        <label>Departamento</label>
+                        @Html.DropDownListFor(model => model.IdDepartamento, ViewBag.Departamentos as SelectList, "Seleccione Departamento", htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.IdDepartamento, "", new { @class = "text-danger" })
                     </div>
-                    <div class="col-md-4">
-                        <label>Técnico</label>
-                        <select class="form-control" name="employee_id" id="employee_id" required="">
-                            <option value="">Selecciona</option>
-                            <option value="1632">Jose</option>
-                        </select>
-                    </div>
+                    @*<div class="col-md-4">
+                            <label>Fecha</label>
+                            <input type="text" class="form-control datepicker" name="order_date" value="12/01/2018" disabled="">
+                        </div>*@
                     <div class="col-md-2">
-                        <label>Fecha</label>
-                        <input type="text" class="form-control datepicker" name="order_date" value="12/01/2018" disabled="">
-                    </div>
-                    <div class="col-md-3">
-                        <label>Fecha de entrega</label>
-                        <input type="text" class="form-control datepicker" name="delivery_date" readonly="">
+                        <label>Prioridad</label>
+                        @Html.DropDownListFor(model => model.IdPrioridad, ViewBag.Prioridades as SelectList, "Seleccione Prioridad", htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.IdPrioridad, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
@@ -122,19 +199,43 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-4">
+                        <label>Equipo:</label>
+                        @Html.DropDownList("IdEquipo", new SelectList(string.Empty, "IdGrupoDetalle", "Titulo"), "Seleccione Equipo", htmlAttributes: new { @class = "form-control" })
+
+                        @Html.DropDownListFor(model => model.IdEquipo, ViewBag.Equipos as SelectList, "Seleccione Equipo", htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.IdEquipo, "", new { @class = "text-danger" })
+
+                        @Html.DropDownList("IdEquipo", new SelectList(string.Empty, "IdGrupoDetalle", "Titulo"), "Seleccione un equipo", new { style = "width:250px", @class = "dropdown1" })
+
+                    </div>
+                    <div class="col-md-4">
                         <label>Modelo</label>
-                        <input type="text" class="form-control" name="model" id="model">
+                        @Html.DropDownListFor(model => model.IdModelo, ViewBag.Modelos as SelectList, "Seleccione Modelo", htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.IdModelo, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-4">
                         <label>Marca</label>
-                        <input type="text" class="form-control" name="brand" id="brand">
+                        @Html.DropDownListFor(model => model.IdMarca, ViewBag.Marcas as SelectList, "Seleccione Marca", htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.IdMarca, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-4">
                         <label>Número de serie</label>
-                        <input type="text" class="form-control" name="serial_number" id="serial_number">
+                        @Html.EditorFor(m => m.Serial, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Serial, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="row">
+
+                    <div class="col-md-4">
+                        <label>Accesorios</label>
+                        @Html.EditorFor(m => m.Accesorio, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Accesorio, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        <label>Número de serie</label>
+                        @Html.EditorFor(m => m.Serial, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Serial, "", new { @class = "text-danger" })
+                    </div>
                     <div class="col-md-6">
                         <label>Descripción o nombre del equipo</label>
                         <input type="text" class="form-control" name="product_description" id="product_description" required="" data-rule-rangelength="4,100">
@@ -147,11 +248,13 @@
                 <div class="row">
                     <div class="col-md-6">
                         <label>Problema del equipo</label>
-                        <textarea class="form-control" name="issue" id="issue" rows="4" required="" data-rule-rangelength="5,255"></textarea>
+                        <textarea class="form-control" name="Falla" id="Falla" rows="4" required="" data-rule-rangelength="5,255"></textarea>
+                        @Html.ValidationMessageFor(model => model.Falla, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-6">
                         <label>Observaciones</label>
-                        <textarea class="form-control" name="note" id="note" rows="4" data-rule-rangelength="5,255"></textarea>
+                        <textarea class="form-control" name="Observaciones" id="Observaciones" rows="4" data-rule-rangelength="5,255"></textarea>
+                        @Html.ValidationMessageFor(model => model.Observaciones, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
