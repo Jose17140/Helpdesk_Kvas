@@ -236,9 +236,10 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDe
 ('Deposito','Deposito final, equipos no retirados',26,'glyphicon glyphicon-th-list',3,0,'*',GETDATE());
 --EQUIPOS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
-('Estante Vitrina','Vitrina de equipos recibidos',26,'glyphicon glyphicon-th-list',1,0,'*',GETDATE()),
-('Estante Taller','Estante de equipos area de soporte',26,'glyphicon glyphicon-th-list',2,0,'*',GETDATE()),
-('Deposito','Deposito final, equipos no retirados',26,'glyphicon glyphicon-th-list',3,0,'*',GETDATE());
+('Multifuncional','Impresora multifuncional',14,'glyphicon glyphicon-th-list',1,0,'*',GETDATE()),
+('Laser','Impresora Laser',14,'glyphicon glyphicon-th-list',2,0,'*',GETDATE()),
+('Tablet','Tableta',14,'glyphicon glyphicon-th-list',3,0,'*',GETDATE()),
+('Switches','Conmutadores de red',14,'glyphicon glyphicon-th-list',3,0,'*',GETDATE());
 --PRIORIDADES
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 ('Normal','Requerimientos en cola',19,'lyphicon glyphicon-flash',1,0,'*',GETDATE()),
@@ -250,12 +251,12 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDe
 --MODELO DE EQUIPOS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 ('L120','Impresora Multifuncional',27,'lyphicon glyphicon-flash',0,106,'*',GETDATE()),
-('Tx130','Impresora Multifuncional',27,'lyphicon glyphicon-flash',0,106,'*',GETDATE()),
+('Tx130','Impresora Multifuncional',27,'lyphicon glyphicon-flash',0,115,'*',GETDATE()),
 ('T22','Impresora simple',27,'lyphicon glyphicon-flash',0,106,'*',GETDATE()),
 ('V2400','Laptop',27,'lyphicon glyphicon-flash',0,108,'*',GETDATE()),
 ('Pavillion 6801us','Laptop',27,'lyphicon glyphicon-flash',0,108,'*',GETDATE()),
 ('Tl-720w','Router',27,'lyphicon glyphicon-flash',0,109,'*',GETDATE()),
-('Cx5600','Impresora Multifuncional',27,'lyphicon glyphicon-flash',0,106,'*',GETDATE()),
+('Cx5600','Impresora Multifuncional',27,'lyphicon glyphicon-flash',0,115,'*',GETDATE()),
 ('Fierce 2','Telefono Inteligente',27,'lyphicon glyphicon-flash',0,111,'*',GETDATE()),
 ('Generico','Equipo generico',27,'lyphicon glyphicon-flash',0,107,'*',GETDATE());
 --SUB MENU REQUERIMIENTO
@@ -281,12 +282,17 @@ UPDATE GruposDetalles SET IdPadre = 134 WHERE IdGrupoDetalle = 85;
 UPDATE GruposDetalles SET IdPadre = 139 WHERE IdGrupoDetalle = 86;
 UPDATE ProductoServicios SET IdCondicion = 103;
 UPDATE ProductoServicios SET IdCategoria = 134 WHERE IdProducto = 2;
-UPDATE GruposDetalles SET IdPadre = 134 WHERE IdGrupoDetalle = 106;
-UPDATE GruposDetalles SET IdPadre = 135 WHERE IdGrupoDetalle = 107;
-UPDATE GruposDetalles SET IdPadre = 135 WHERE IdGrupoDetalle = 108;
-UPDATE GruposDetalles SET IdPadre = 137 WHERE IdGrupoDetalle = 109;
-UPDATE GruposDetalles SET IdPadre = 135 WHERE IdGrupoDetalle = 110;
-UPDATE GruposDetalles SET IdPadre = 136 WHERE IdGrupoDetalle = 111;
+UPDATE GruposDetalles SET IdPadre = 135 WHERE IdGrupoDetalle = 106;
+UPDATE GruposDetalles SET IdPadre = 136 WHERE IdGrupoDetalle = 107;
+UPDATE GruposDetalles SET IdPadre = 136 WHERE IdGrupoDetalle = 108;
+UPDATE GruposDetalles SET IdPadre = 138 WHERE IdGrupoDetalle = 109;
+UPDATE GruposDetalles SET IdPadre = 136 WHERE IdGrupoDetalle = 110;
+UPDATE GruposDetalles SET IdPadre = 137 WHERE IdGrupoDetalle = 111;
+UPDATE GruposDetalles SET IdPadre = 135 WHERE IdGrupoDetalle = 115;
+UPDATE GruposDetalles SET IdPadre = 135 WHERE IdGrupoDetalle = 116;
+UPDATE GruposDetalles SET IdPadre = 137 WHERE IdGrupoDetalle = 117;
+UPDATE GruposDetalles SET IdPadre = 138 WHERE IdGrupoDetalle = 118;
+SELECT * FROM GruposDetalles where IdGrupo = 27
 --ESTATUS 2.0
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 ('Comprobacion','Requerimiento Resuelto',29,'fa fa-hourglass-o',4,58,'*',GETDATE()),

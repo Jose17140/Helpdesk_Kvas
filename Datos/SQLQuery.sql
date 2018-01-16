@@ -15,8 +15,8 @@ DROP TABLE IF EXISTS UsuariosRoles;
 DROP TABLE IF EXISTS SerialesProductos;
 DROP TABLE IF EXISTS ProductoServicios;
 DROP TABLE IF EXISTS Requerimientos;
-DROP TABLE IF EXISTS Personas;
 DROP TABLE IF EXISTS Usuarios;
+DROP TABLE IF EXISTS Personas;
 DROP TABLE IF EXISTS GruposDetalles;
 DROP TABLE IF EXISTS Grupos;
 
@@ -196,11 +196,11 @@ CREATE TABLE Requerimientos(
 	IdMarca INT NULL,
 	IdModelo INT NULL,
 	IdPrioridad INT NOT NULL,
-	Falla VARCHAR(100) NOT NULL,
-	Diagnostico VARCHAR(100) NULL,
-	Solucion VARCHAR(100) NULL,
+	Falla VARCHAR(250) NOT NULL,
+	Diagnostico VARCHAR(250) NULL,
+	Solucion VARCHAR(250) NULL,
 	Serial VARCHAR(30) NOT NULL,
-	Observaciones VARCHAR(50) NOT NULL,
+	Observaciones VARCHAR(250) NOT NULL,
 	Accesorios VARCHAR(30) NULL,
 	IdTecnico INT NULL, -- USUARIO TECNICO ENCARGADO DE ATENDER EL REQUERIMIENTO
 	IdDeposito INT NOT NULL,
@@ -291,8 +291,8 @@ CREATE TABLE Presupuesto_x_Requerimiento(
 
 
 SELECT * FROM Grupos;
-SELECT * FROM GruposDetalles where IdGrupo = 14;
-SELECT * FROM GruposDetalles where IdGrupo = 27;
+SELECT * FROM GruposDetalles where IdPadre = 134 AND IdGrupo = 14;
+SELECT * FROM GruposDetalles where IdGrupo = 10 AND IdPadre = 129;
 SELECT * FROM ProductoServicios;
 SELECT * FROM Personas;
 SELECT * FROM Usuarios;

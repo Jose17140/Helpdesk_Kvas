@@ -37,7 +37,7 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
                     Observaciones = req.Observaciones,
                     Accesorios = req.Accesorio,
                     IdTecnico = req.IdTecnico,
-                    IdDeposito = req.IdDeposito,
+                    //IdDeposito = req.IdDeposito,
                     IdEstatus = req.IdEstatus,
                 };
                 db.Requerimientos.InsertOnSubmit(_requerimiento);

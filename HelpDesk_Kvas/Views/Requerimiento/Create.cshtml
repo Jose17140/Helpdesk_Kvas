@@ -10,7 +10,7 @@
         $("#BuscarCliente").autocomplete({
             source: function (request, response) {
                 $.ajax({
-                    url: "/Persona/Filtros",
+                    url: "/Requerimiento/BuscarPersona",
                     type: "POST",
                     dataType: "json",
                     data: { _ci: request.term },
@@ -25,7 +25,7 @@
                 })
             },
             messages: {
-                noResults: "", results: ""
+                noResults: "", results: "No existe"
             }
         });
     })
@@ -44,7 +44,7 @@
                     // states contains the JSON formatted list
                     // of states passed from the controller
                     $.each(equipos, function (i, data) {
-                        $("#IdEquipo").append('<option value="' + data.IdGrupoDetalle + '">' + data.Titulo + '</option>');
+                        $("#IdEquipo").append('<option value="' + data.Value + '">' + data.Text + '</option>');
                     }); // here we are adding option for States
                 },
                 error: function (ex) {
@@ -56,38 +56,53 @@
     });
 </script>
 <script type="text/javascript">
-
-
     $(document).ready(function () {
-
-        $("#country").change(function () {
-            $("#State").empty();
+        //Dropdownlist Filtro
+        $("#IdEquipo").change(function () {
+            $("#IdModelo").empty();
             $.ajax({
                 type: 'POST',
-                url: '@Url.Action("getstate")',
-
+                url: '@Url.Action("ObtenerModelo")', // we are calling json method
                 dataType: 'json',
-
-                data: { id: $("#country").val() },
-
-
-                success: function (states) {
-
-
-                    $.each(states, function (i, state) {
-                        $("#State").append('<option value="' + state.Value + '">' +
-                             state.Text + '</option>');
-
-                    });
+                data: { _equipo: $("#IdEquipo").val() },
+                success: function (modelos) {
+                    // states contains the JSON formatted list
+                    // of states passed from the controller
+                    $.each(modelos, function (i, data) {
+                        $("#IdModelo").append('<option value="' + data.Value + '">' + data.Text + '</option>');
+                    }); // here we are adding option for States
                 },
                 error: function (ex) {
-                    alert('Failed to retrieve country states.' + ex);
+                    alert('Failed to retrieve states.' + ex);
                 }
             });
             return false;
         })
     });
-
+</script>
+<script>
+    $('#iddropdownlist').change(function () {
+        var url = "/nombreControlador/BuscarCargoLider?claveLider=" + $('#iddropdownlist option:selected').val();
+        $.ajax({
+            url: url,
+            type: 'GET',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            async: true,
+            success: function (result) {
+                var lider;
+                if (result != null && result.length > 0) {
+                    lider = JSON.parse(result);
+                }
+                if (lider != null) {
+                    $('#idinput').val(lider.cargo);//cargo debe ser la propiedad de la clase lider donde se almacena el cargo del lider 
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("error al consultar datos del lider");
+            }
+        });
+    }
 </script>
 <section class="content-header">
     <h1>
@@ -101,7 +116,7 @@
     <br />
 </section>
 <br />
-@ViewBag.IdUsuario
+
 <section class="content-header">
     <div class="box box-default">
         <div class="box-header with-border">
@@ -113,8 +128,7 @@
     @using (Html.BeginForm("Create", "Requerimiento", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
     {
         @Html.AntiForgeryToken()
-        <input type="text" id="IdEmpleado" name="IdEmpleado" value="1" />
-        <input type="text" id="IdCliente" name="IdCliente" value="1" />
+        <input type="text" id="IdEmpleado" name="IdEmpleado" value="@ViewBag.IdUsuario" />
         <!--Datos Usuario-->
         <div class="box box-info">
             <div class="box-header with-border">
@@ -200,21 +214,19 @@
                 <div class="row">
                     <div class="col-md-4">
                         <label>Equipo:</label>
-                        @Html.DropDownList("IdEquipo", new SelectList(string.Empty, "IdGrupoDetalle", "Titulo"), "Seleccione Equipo", htmlAttributes: new { @class = "form-control" })
-
-                        @Html.DropDownListFor(model => model.IdEquipo, ViewBag.Equipos as SelectList, "Seleccione Equipo", htmlAttributes: new { @class = "form-control" })
+                        @Html.DropDownList("IdEquipo", new SelectList(string.Empty, "Value", "Text"), "Seleccione Equipo", htmlAttributes: new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.IdEquipo, "", new { @class = "text-danger" })
-
-                        @Html.DropDownList("IdEquipo", new SelectList(string.Empty, "IdGrupoDetalle", "Titulo"), "Seleccione un equipo", new { style = "width:250px", @class = "dropdown1" })
-
                     </div>
                     <div class="col-md-4">
                         <label>Modelo</label>
-                        @Html.DropDownListFor(model => model.IdModelo, ViewBag.Modelos as SelectList, "Seleccione Modelo", htmlAttributes: new { @class = "form-control" })
+                        @Html.DropDownList("IdModelo", new SelectList(string.Empty, "Value", "Text"), "Seleccione Modelo", htmlAttributes: new { @class = "form-control" })
+
+                        @*@Html.DropDownListFor(model => model.IdModelo, ViewBag.Modelos as SelectList, "Seleccione Modelo", htmlAttributes: new { @class = "form-control" })*@
                         @Html.ValidationMessageFor(model => model.IdModelo, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-4">
                         <label>Marca</label>
+                        @*@Html.DropDownList("IdMarca", new SelectList(string.Empty, "Value", "Text"), "Seleccione Marca", htmlAttributes: new { @class = "form-control" })*@
                         @Html.DropDownListFor(model => model.IdMarca, ViewBag.Marcas as SelectList, "Seleccione Marca", htmlAttributes: new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.IdMarca, "", new { @class = "text-danger" })
                     </div>
@@ -225,35 +237,28 @@
                     </div>
                 </div>
                 <div class="row">
-
                     <div class="col-md-4">
                         <label>Accesorios</label>
                         @Html.EditorFor(m => m.Accesorio, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Accesorio, "", new { @class = "text-danger" })
                     </div>
-                    <div class="col-md-4">
+                    @*<div class="col-md-4">
                         <label>Número de serie</label>
                         @Html.EditorFor(m => m.Serial, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Serial, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="col-md-6">
-                        <label>Descripción o nombre del equipo</label>
-                        <input type="text" class="form-control" name="product_description" id="product_description" required="" data-rule-rangelength="4,100">
-                    </div>
-                    <div class="col-md-6">
-                        <label>Accesorios</label>
-                        <input type="text" class="form-control" name="accessories" id="accessories">
-                    </div>
+                    </div>*@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
                         <label>Problema del equipo</label>
-                        <textarea class="form-control" name="Falla" id="Falla" rows="4" required="" data-rule-rangelength="5,255"></textarea>
+                        @*<textarea class="form-control" name="Falla" id="Falla" rows="4" required="" data-rule-rangelength="5,255"></textarea>*@
+                        @Html.EditorFor(m => m.Falla, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Falla, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-6">
                         <label>Observaciones</label>
-                        <textarea class="form-control" name="Observaciones" id="Observaciones" rows="4" data-rule-rangelength="5,255"></textarea>
+                        @Html.EditorFor(m => m.Observaciones, new { htmlAttributes = new { @class = "form-control" } })
+                        @*<textarea class="form-control" name="Observaciones" id="Observaciones" rows="4" data-rule-rangelength="5,255"></textarea>*@
                         @Html.ValidationMessageFor(model => model.Observaciones, "", new { @class = "text-danger" })
                     </div>
                 </div>

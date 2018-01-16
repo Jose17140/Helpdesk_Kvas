@@ -72,15 +72,32 @@ namespace HelpDesk_Kvas.Controllers
             return Json(new SelectList(_equipos, "IdGrupoDetalle", "Titulo"));
         }
 
-        public JsonResult ObtenerModelo(int _equipo)
+        public JsonResult ObtenerModelo(string _equipo)
         {
             var list = objGrupoDetalleLogic.Listar();
             var _modelos = list.Where(m => m.IdGrupo.Equals(27)).Where(m=>m.IdPadre.Equals(Convert.ToInt32(_equipo))).ToList();
-            return Json(new SelectList(_modelos, "IdGrupoDetalle", "Titulo", JsonRequestBehavior.AllowGet));
+            return Json(new SelectList(_modelos, "IdGrupoDetalle", "Titulo"));
+        }
+
+        public JsonResult ObtenerMarca(string _marca)
+        {
+            var list = objGrupoDetalleLogic.Listar();
+            var _modelos = list.Where(m => m.IdGrupo.Equals(10)).Where(m => m.IdPadre.Equals(Convert.ToInt32(_marca))).ToList();
+            return Json(new SelectList(_modelos, "IdGrupoDetalle", "Titulo"));
+        }
+
+        [HttpPost]
+        public JsonResult BuscarPersona(string _ci)
+        {
+            var personas = objPersonaLogic.Listar();
+            var p = (from m in personas
+                     where m.CiRif.ToUpper().StartsWith(_ci)
+                     select new { BuscarCliente = m.CiRif, Nombres=m.Nombres, Telefonos=m.Telefonos, Direccion=m.Direccion, Correo=m.Email }).ToList();
+            return Json(p, JsonRequestBehavior.AllowGet);
         }
         #endregion
 
-        #region Pasos para crear que un analista cree un requerimiento
+        #region PASOS PARA QUE UN CLIENTE GENERE UN REQUERIMEINTO
         // GET: Requerimiento/Create
         public ActionResult ElegirDepartamento()
         {
@@ -96,10 +113,9 @@ namespace HelpDesk_Kvas.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-
             MensajeInicioRegistrar();
-            #region LISTADO DE SELECT QUE SE DESPLEGARAN EN LA VISTA
             var list = objGrupoDetalleLogic.Listar();
+            #region LISTADO DE SELECT QUE SE DESPLEGARAN EN LA VISTA
             //Lista Departamento
             var _departamentos = list.Where(m => m.IdPadre.Equals(36)).ToList();
             SelectList listDepartamentos = new SelectList(_departamentos, "IdGrupoDetalle", "Titulo");
@@ -108,25 +124,34 @@ namespace HelpDesk_Kvas.Controllers
             var _prioridades = list.Where(m => m.IdGrupo.Equals(19)).ToList();
             SelectList listPrioridadess = new SelectList(_prioridades, "IdGrupoDetalle", "Titulo");
             ViewBag.Prioridades = listPrioridadess;
-            //Lista Equipo
-            var _equipos = list.Where(m => m.IdGrupo.Equals(14)).ToList();
-            SelectList listEquipos = new SelectList(_equipos, "IdGrupoDetalle", "Titulo");
-            ViewBag.Equipos = listEquipos;
             //Lista Marca
             var _marcas = list.Where(m => m.IdGrupo.Equals(10)).ToList();
             SelectList listMarcas = new SelectList(_marcas, "IdGrupoDetalle", "Titulo");
             ViewBag.Marcas = listMarcas;
-            //Lista Modelo
-            var _modelos = list.Where(m => m.IdGrupo.Equals(27)).ToList();
-            SelectList listModelos = new SelectList(_modelos, "IdGrupoDetalle", "Titulo");
-            ViewBag.Modelos = listModelos;
+            //Lista Marca
+            var _estatus = list.Where(m => m.IdGrupo.Equals(29)).ToList();
+            SelectList listEstatus = new SelectList(_estatus, "IdGrupoDetalle", "Titulo");
+            ViewBag.Marcas = listEstatus;
+            #endregion
+            #region LISTA DE ACCESORIOS
+            var _accesorios = list.Where(m => m.IdGrupo.Equals(11)).ToList();
+            var viewModel = new List<AxR>();
+            foreach (var accsesorios in _accesorios)
+            {
+                viewModel.Add(new AxR
+                {
+                    IdAccesorio = accsesorios.IdGrupoDetalle,
+                    Nombre = accsesorios.Titulo,
+                    //Asigando = instructorCourses.Contains(course.CourseID)
+                });
+            }
+            ViewBag.Accesorios = viewModel;
             #endregion
             if (User.Identity.IsAuthenticated)
             {
                 var user = HttpContext.User.Identity.Name;
                 var u = objUsuario.Buscar_x_Nombre(user);
                 ViewBag.IdUsuario = u.IdUsuario;
-
             }
             return View();
         }
@@ -151,6 +176,11 @@ namespace HelpDesk_Kvas.Controllers
             {
                 return View();
             }
+        }
+        private void AsignarAccesoriosPorRequermiento(RequerimientosEntity requerimeitno)
+        {
+            var lista = objGrupoDetalleLogic.Listar();
+            
         }
 
         // GET: Requerimiento/Edit/5

@@ -50,15 +50,18 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
         public int IdPrioridad { get; set; }
 
         [Required]
-        [StringLength(100)]
+        [StringLength(250)]
+        [DataType(DataType.MultilineText)]
         [Display(Name = "Falla:")]
         public string Falla { get; set; }
 
-        [StringLength(100)]
+        [StringLength(250)]
+        [DataType(DataType.MultilineText)]
         [Display(Name = "Diagnostico:")]
         public string Diagnostico { get; set; }
 
-        [StringLength(100)]
+        [StringLength(250)]
+        [DataType(DataType.MultilineText)]
         [Display(Name = "Solucion:")]
         public string Solucion { get; set; }
 
@@ -68,7 +71,8 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
         public string Serial { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [StringLength(250)]
+        [DataType(DataType.MultilineText)]
         [Display(Name = "Observaciones:")]
         public string Observaciones { get; set; }
         
