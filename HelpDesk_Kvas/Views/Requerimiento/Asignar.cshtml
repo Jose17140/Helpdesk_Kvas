@@ -1,4 +1,4 @@
-﻿@model HelpDesk_Kvas.Models.Datos.Entity.RequerimientosEntity
+﻿@model HelpDesk_Kvas.Models.Datos.Entity.RequerimientoViewEntity
 @{
     ViewBag.Title = "Nueva Tabla";
     //Layout = null;
@@ -7,7 +7,7 @@
 @Scripts.Render("~/bundles/jquery")
 <script>
     $(document).ready(function () {
-        $("#Nombres").autocomplete({
+        $("#BuscarCliente").autocomplete({
             source: function (request, response) {
                 $.ajax({
                     url: "/Requerimiento/BuscarPersona",
@@ -17,7 +17,7 @@
                     success: function (data) {
                         response($.map(data, function (item) {
                             return {
-                                label: item.Nombres, value: item.Nombres
+                                label: item.BuscarCliente, value: item.BuscarCliente
                             };
                         }))
 
@@ -81,29 +81,29 @@
     });
 </script>
 @*<script>
-    $('#iddropdownlist').change(function () {
-        var url = "/nombreControlador/BuscarCargoLider?claveLider=" + $('#iddropdownlist option:selected').val();
-        $.ajax({
-            url: url,
-            type: 'GET',
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            async: true,
-            success: function (result) {
-                var lider;
-                if (result != null && result.length > 0) {
-                    lider = JSON.parse(result);
+        $('#iddropdownlist').change(function () {
+            var url = "/nombreControlador/BuscarCargoLider?claveLider=" + $('#iddropdownlist option:selected').val();
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                async: true,
+                success: function (result) {
+                    var lider;
+                    if (result != null && result.length > 0) {
+                        lider = JSON.parse(result);
+                    }
+                    if (lider != null) {
+                        $('#idinput').val(lider.cargo);//cargo debe ser la propiedad de la clase lider donde se almacena el cargo del lider
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("error al consultar datos del lider");
                 }
-                if (lider != null) {
-                    $('#idinput').val(lider.cargo);//cargo debe ser la propiedad de la clase lider donde se almacena el cargo del lider 
-                }
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert("error al consultar datos del lider");
-            }
-        });
-    }
-</script>*@
+            });
+        }
+    </script>*@
 <section class="content-header">
     <h1>
         Tablero
@@ -121,7 +121,7 @@
     </div>
 </section>
 <section class="content">
-    @using (Html.BeginForm("Create", "Requerimiento", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+    @using (Html.BeginForm("Asignar", "Requerimiento", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
     {
         @Html.AntiForgeryToken()
         <input type="hidden" id="IdEmpleado" name="IdEmpleado" value="@ViewBag.IdUsuario" />
@@ -140,35 +140,39 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="exampleInputPassword1">Buscar Cedula:</label>
-                            @Html.EditorFor(model => model.Nombres, new { htmlAttributes = new { @class = "form-control", @placeholder = "Buscar por cedula..." } })
+                            @Html.EditorFor(model => model.CiRif, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.CiRif, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Nombres:</label>
+                            @Html.EditorFor(model => model.Nombres, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
                         </div>
                         @Html.ValidationMessageFor(model => model.Nombres, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Nombres:</label>
-                            <input type="text" class="form-control" id="contact_name" placeholder="" readonly="">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
                             <label for="exampleInputPassword1">Teléfonos:</label>
-                            <input type="text" class="form-control" id="contact_name" placeholder="" readonly="">
+                            @Html.EditorFor(model => model.Telefonos, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
                         </div>
+                        @Html.ValidationMessageFor(model => model.Telefonos, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Direccion:</label>
-                            <input type="text" class="form-control" id="contact_phone" placeholder="" readonly="">
+                            <label for="exampleInputPassword1">Email:</label>
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
                         </div>
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Email:</label>
-                            <input type="text" class="form-control" id="contact_email" placeholder="" readonly="">
+                            <label for="exampleInputPassword1">Direccion:</label>
+                            @Html.EditorFor(model => model.Direccion, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
                         </div>
+                        @Html.ValidationMessageFor(model => model.Direccion, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
@@ -181,19 +185,37 @@
             </div>
             <div class="box-body">
                 <div class="row">
-                    <div class="col-md-3">
-                        <label>Departamento</label>
-                        @Html.DropDownListFor(model => model.IdDepartamento, ViewBag.Departamentos as SelectList, "Seleccione Departamento", htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.IdDepartamento, "", new { @class = "text-danger" })
-                    </div>
-                    @*<div class="col-md-4">
-                            <label>Fecha</label>
-                            <input type="text" class="form-control datepicker" name="order_date" value="12/01/2018" disabled="">
-                        </div>*@
                     <div class="col-md-2">
-                        <label>Prioridad</label>
+                        <label>Nro. Orden:</label>
+                        @Html.EditorFor(model => model.IdRequerimiento, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                        @Html.ValidationMessageFor(model => model.IdRequerimiento, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Departamento:</label>
+                        @Html.EditorFor(model => model.Departamento, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                        @Html.ValidationMessageFor(model => model.Departamento, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-2">
+                        <label>Prioridad:</label>
                         @Html.DropDownListFor(model => model.IdPrioridad, ViewBag.Prioridades as SelectList, "Seleccione Prioridad", htmlAttributes: new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.IdPrioridad, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-2">
+                        <label>Tecnico:</label>
+                        @Html.DropDownListFor(model => model.IdTecnico, ViewBag.Prioridades as SelectList, "Seleccione Prioridad", htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.IdTecnico, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-2">
+                        <label>Fecha Entrada:</label>
+                        @Html.EditorFor(model => model.FechaEntrada.Date, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                        @Html.ValidationMessageFor(model => model.FechaEntrada, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-2">
+                        <label>Fecha Salida:</label>
+                        @Html.EditorFor(model => model.FechaSalida.Date, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                        @Html.ValidationMessageFor(model => model.FechaSalida, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
@@ -210,75 +232,70 @@
                 <div class="row">
                     <div class="col-md-4">
                         <label>Equipo:</label>
-                        @Html.DropDownList("IdEquipo", new SelectList(string.Empty, "Value", "Text"), "Seleccione Equipo", htmlAttributes: new { @class = "form-control" })
+                        @Html.EditorFor(model => model.Equipo, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
                         @Html.ValidationMessageFor(model => model.IdEquipo, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-4">
-                        <label>Modelo</label>
-                        @Html.DropDownList("IdModelo", new SelectList(string.Empty, "Value", "Text"), "Seleccione Modelo", htmlAttributes: new { @class = "form-control" })
-
-                        @*@Html.DropDownListFor(model => model.IdModelo, ViewBag.Modelos as SelectList, "Seleccione Modelo", htmlAttributes: new { @class = "form-control" })*@
+                        <label>Modelo:</label>
+                        @Html.EditorFor(model => model.Modelo, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
                         @Html.ValidationMessageFor(model => model.IdModelo, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-4">
-                        <label>Marca</label>
-                        @*@Html.DropDownList("IdMarca", new SelectList(string.Empty, "Value", "Text"), "Seleccione Marca", htmlAttributes: new { @class = "form-control" })*@
-                        @Html.DropDownListFor(model => model.IdMarca, ViewBag.Marcas as SelectList, "Seleccione Marca", htmlAttributes: new { @class = "form-control" })
+                        <label>Marca:</label>
+                        @Html.EditorFor(model => model.Marca, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
                         @Html.ValidationMessageFor(model => model.IdMarca, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-4">
-                        <label>Número de serie</label>
-                        @Html.EditorFor(m => m.Serial, new { htmlAttributes = new { @class = "form-control" } })
+                        <label>Número de serie:</label>
+                        @Html.EditorFor(model => model.Serial, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
                         @Html.ValidationMessageFor(model => model.Serial, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="row">
 
                     @*<div class="form-group">
-                        <label>Accesorios</label><br />
-                        <div class="col-md-10">
-                            <table>
-                                <tr>
-                                    @{
-                                        int cnt = 0;
-                                        List<HelpDesk_Kvas.Models.AxR> accesorios = ViewBag.Accesorios;
-                                        foreach (var i in accesorios)
-                                        {
-                                            if (cnt++ % 10 == 0)
+                            <label>Accesorios</label><br />
+                            <div class="col-md-10">
+                                <table>
+                                    <tr>
+                                        @{
+                                            int cnt = 0;
+                                            List<HelpDesk_Kvas.Models.AxR> accesorios = ViewBag.Accesorios;
+                                            foreach (var i in accesorios)
                                             {
-                                                @:</tr><tr>
+                                                if (cnt++ % 10 == 0)
+                                                {
+                                                    @:</tr><tr>
+                                                }
+                                                @:<td>
+                                                    <input type="checkbox"
+                                                        name="selectedCourses"
+                                                        value="@i.IdAccesorio"
+                                                        @(Html.Raw(i.Asigando ? "checked=\"checked\"" : "")) />
+                                                        @i.Nombre @:
+                                                @:</td>
                                             }
-                                            @:<td>
-                                                <input type="checkbox"
-                                                    name="selectedCourses"
-                                                    value="@i.IdAccesorio"
-                                                    @(Html.Raw(i.Asigando ? "checked=\"checked\"" : "")) />
-                                                    @i.Nombre @:
-                                            @:</td>
+                                            @:</tr>
                                         }
-                                        @:</tr>
-                                    }
-                            </table>
-                        </div>
-                    </div>*@
+                                </table>
+                            </div>
+                        </div>*@
 
                     <div class="col-md-4">
-                        <label>Accesorios</label>
-                        @Html.EditorFor(m => m.Accesorio, new { htmlAttributes = new { @class = "form-control" } })
+                        <label>Accesorios:</label>
+                        @Html.EditorFor(model => model.Accesorio, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
                         @Html.ValidationMessageFor(model => model.Accesorio, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <label>Problema del equipo</label>
-                        @*<textarea class="form-control" name="Falla" id="Falla" rows="4" required="" data-rule-rangelength="5,255"></textarea>*@
-                        @Html.EditorFor(m => m.Falla, new { htmlAttributes = new { @class = "form-control" } })
+                        <label>Problema del equipo:</label>
+                        @Html.EditorFor(model => model.Falla, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
                         @Html.ValidationMessageFor(model => model.Falla, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-6">
-                        <label>Observaciones</label>
-                        @Html.EditorFor(m => m.Observaciones, new { htmlAttributes = new { @class = "form-control" } })
-                        @*<textarea class="form-control" name="Observaciones" id="Observaciones" rows="4" data-rule-rangelength="5,255"></textarea>*@
+                        <label>Observaciones:</label>
+                        @Html.EditorFor(model => model.Observaciones, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
                         @Html.ValidationMessageFor(model => model.Observaciones, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -303,3 +320,4 @@
     </div>
 </div>
 <script src="~/Content/js/PruebaModal.js"></script>
+

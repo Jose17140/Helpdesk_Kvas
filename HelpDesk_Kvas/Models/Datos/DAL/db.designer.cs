@@ -7110,6 +7110,12 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 		
 		private string _Cedula;
 		
+		private string _Telefonos;
+		
+		private string _Email;
+		
+		private string _Direccion;
+		
 		private int _IdEquipo;
 		
 		private string _Equipo;
@@ -7326,6 +7332,54 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 				if ((this._Cedula != value))
 				{
 					this._Cedula = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Telefonos", DbType="VarChar(60) NOT NULL", CanBeNull=false)]
+		public string Telefonos
+		{
+			get
+			{
+				return this._Telefonos;
+			}
+			set
+			{
+				if ((this._Telefonos != value))
+				{
+					this._Telefonos = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="VarChar(60)")]
+		public string Email
+		{
+			get
+			{
+				return this._Email;
+			}
+			set
+			{
+				if ((this._Email != value))
+				{
+					this._Email = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Direccion", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
+		public string Direccion
+		{
+			get
+			{
+				return this._Direccion;
+			}
+			set
+			{
+				if ((this._Direccion != value))
+				{
+					this._Direccion = value;
 				}
 			}
 		}

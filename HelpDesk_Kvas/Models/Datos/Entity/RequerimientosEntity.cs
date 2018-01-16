@@ -12,7 +12,7 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
         public string BuscarCliente { get; set; }
     }
 
-    public class RequerimientosEntity : FiltroClienteEntity
+    public class RequerimientosEntity : PersonasEntity
     {
         [Key]
         public int IdRequerimiento { get; set; }
@@ -23,6 +23,7 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
         [Display(Name = "Atendido:")]
         public bool Atendido { get; set; }
 
+        [Required]
         [Display(Name = "Empleado:")]
         public int IdEmpleado { get; set; }
 
@@ -34,8 +35,8 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
         [Display(Name = "Fecha de Salida:")]
         public DateTime FechaSalida { get; set; }
 
-        [Display(Name = "Cliente:")]
-        public int IdCliente { get; set; }
+        //[Display(Name = "Cliente:")]
+        //public int IdPersona { get; set; }
 
         [Display(Name = "Equipo:")]
         public int IdEquipo { get; set; }
@@ -88,8 +89,6 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
 
         [Display(Name = "Estatus:")]
         public int IdEstatus { get; set; }
-
-        public int Mensaje { get; set; }
      }
 
     public class RequerimientoViewEntity : RequerimientosEntity
@@ -100,11 +99,14 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
         [Display(Name = "Empleado:")]
         public string Empleado { get; set; }
 
-        [Display(Name = "Cliente:")]
-        public string Cliente { get; set; }
+        //[Display(Name = "Cliente:")]
+        //public string Cliente { get; set; }
+        
+        //[Display(Name = "Cedula:")]
+        //public string Cedula { get; set; }
 
-        [Display(Name = "Cedula:")]
-        public string Cedula { get; set; }
+        //[Display(Name = "Telefonos:")]
+        //public string Telefonos { get; set; }
 
         [Display(Name = "Equipo:")]
         public string Equipo { get; set; }

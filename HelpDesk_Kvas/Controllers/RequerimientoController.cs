@@ -1,8 +1,9 @@
-﻿using HelpDesk_Kvas.DataGrid;
+﻿//using HelpDesk_Kvas.DataGrid;
 using HelpDesk_Kvas.Models;
 using HelpDesk_Kvas.Models.Datos.DAL;
 using HelpDesk_Kvas.Models.Datos.Entity;
 using HelpDesk_Kvas.Models.Datos.Logica;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,33 +30,86 @@ namespace HelpDesk_Kvas.Controllers
             objPersonaLogic = new PersonasLogic();
             db = new DAL_Main();
         }
-
+        #region INDEX HECHO PARA CARGAR CON JSON 
         // GET: Requerimiento
-        public ActionResult Index(int idEstatus = 58, string filter = null, int page = 1, int pageSize = 15, string sort = "IdRequerimiento")
+        //public ActionResult Index(int idEstatus = 58, string filter = null, int page = 1, int pageSize = 15, string sort = "IdRequerimiento")
+        //{
+        //    var records = new PagedList<RequerimientoViewEntity>();
+        //    ViewBag.Id = idEstatus;
+        //    ViewBag.filter = filter;
+        //    var grupos = objRequerimientoLogic.Listar();
+
+
+        //    records.Content = grupos.Where(m => filter == null || (m.Cliente.ToUpper().Contains(filter.ToUpper()))
+        //                        || m.Cedula.ToUpper().Contains(filter.ToUpper())
+        //                        //|| m.FechaEntrada == filter.ToU) filtro por fecha
+        //                        )
+        //                        //.OrderBy(sort + " " + sortdir)
+        //                        .Skip((page - 1) * pageSize)
+        //                        .Take(pageSize).ToList();
+
+        //    // Count
+        //    records.TotalRecords = grupos.Where(m => filter == null || (m.Cliente.ToUpper().Contains(filter.ToUpper()))
+        //                        || m.Cedula.ToUpper().Contains(filter.ToUpper())
+        //                        ).Count();
+
+        //    records.CurrentPage = page;
+        //    records.PageSize = pageSize;
+
+        //    return View(records);
+        //}
+        #endregion
+
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            var records = new PagedList<RequerimientoViewEntity>();
-            ViewBag.Id = idEstatus;
-            ViewBag.filter = filter;
-            var grupos = objRequerimientoLogic.Listar();
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.IdSortParm = String.IsNullOrEmpty(sortOrder) ? "id_grupo" : "";
+            ViewBag.OrdenSortParm = sortOrder == "Date" ? "date_desc" : "Date";
 
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = searchString;
 
-            records.Content = grupos.Where(m => filter == null || (m.Cliente.ToUpper().Contains(filter.ToUpper()))
-                                || m.Cedula.ToUpper().Contains(filter.ToUpper())
-                                //|| m.FechaEntrada == filter.ToU) filtro por fecha
-                                )
-                                //.OrderBy(sort + " " + sortdir)
-                                .Skip((page - 1) * pageSize)
-                                .Take(pageSize).ToList();
+            var requerimientos = objRequerimientoLogic.Listar();
 
-            // Count
-            records.TotalRecords = grupos.Where(m => filter == null || (m.Cliente.ToUpper().Contains(filter.ToUpper()))
-                                || m.Cedula.ToUpper().Contains(filter.ToUpper())
-                                ).Count();
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                requerimientos = requerimientos.Where(s => s.Nombres.ToUpper().Contains(searchString.ToUpper())
+                                       || s.CiRif.ToUpper().Contains(searchString.ToUpper())
+                                       || s.CiRif.ToUpper().Contains(searchString.ToUpper()));
 
-            records.CurrentPage = page;
-            records.PageSize = pageSize;
+            }
+            //if (!String.IsNullOrEmpty(searchString))
+            //{
+            //    requerimientos = requerimientos.Where(s => s.Cliente.ToUpper().Contains(searchString.ToUpper())
+            //                           || s.Cedula.ToUpper().Contains(searchString.ToUpper())
+            //                           || s.Cedula.ToUpper().Contains(searchString.ToUpper()));
 
-            return View(records);
+            //}
+
+            switch (sortOrder)
+            {
+                case "id_grupo":
+                    requerimientos = requerimientos.OrderByDescending(s => s.IdRequerimiento);
+                    break;
+                case "name_desc":
+                    requerimientos = requerimientos.OrderByDescending(s => s.FechaEntrada);
+                    break;
+                default:  // Name ascending 
+                    requerimientos = requerimientos.OrderBy(s => s.IdPrioridad);
+                    break;
+            }
+
+            int pageSize = 23;
+            int pageNumber = (page ?? 1);
+            return View(requerimientos.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Requerimiento/Details/5
@@ -115,24 +169,7 @@ namespace HelpDesk_Kvas.Controllers
         {
             MensajeInicioRegistrar();
             var list = objGrupoDetalleLogic.Listar();
-            #region LISTADO DE SELECT QUE SE DESPLEGARAN EN LA VISTA
-            //Lista Departamento
-            var _departamentos = list.Where(m => m.IdPadre.Equals(36)).ToList();
-            SelectList listDepartamentos = new SelectList(_departamentos, "IdGrupoDetalle", "Titulo");
-            ViewBag.Departamentos = listDepartamentos;
-            //Lista Prioridades
-            var _prioridades = list.Where(m => m.IdGrupo.Equals(19)).ToList();
-            SelectList listPrioridadess = new SelectList(_prioridades, "IdGrupoDetalle", "Titulo");
-            ViewBag.Prioridades = listPrioridadess;
-            //Lista Marca
-            var _marcas = list.Where(m => m.IdGrupo.Equals(10)).ToList();
-            SelectList listMarcas = new SelectList(_marcas, "IdGrupoDetalle", "Titulo");
-            ViewBag.Marcas = listMarcas;
-            //Lista Marca
-            var _estatus = list.Where(m => m.IdGrupo.Equals(29)).ToList();
-            SelectList listEstatus = new SelectList(_estatus, "IdGrupoDetalle", "Titulo");
-            ViewBag.Marcas = listEstatus;
-            #endregion
+            Listas();
             #region LISTA DE ACCESORIOS
             var _accesorios = list.Where(m => m.IdGrupo.Equals(11)).ToList();
             var viewModel = new List<AxR>();
@@ -158,29 +195,75 @@ namespace HelpDesk_Kvas.Controllers
 
         // POST: Requerimiento/Create
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(RequerimientosEntity objRequerimiento)
         {
             var listPersonas = objPersonaLogic.Listar();
-            var idCliente = listPersonas.Where(m => m.CiRif.Equals(objRequerimiento.BuscarCliente)).Select(m=>m.IdPersona).SingleOrDefault();
-            if (ModelState.IsValid)
+            objRequerimiento.IdPersona = listPersonas.Where(m => m.CiRif.Equals(objRequerimiento.Nombres)).Select(m=>m.IdPersona).SingleOrDefault();
+            objRequerimiento.IdEstatus = 61;
+            if (!User.IsInRole("Cliente"))
             {
-
+                objRequerimiento.IdEstatus = 62;
             }
             try
             {
-                // TODO: Add insert logic here
+                if (ModelState.IsValid)
+                {
+                    objRequerimientoLogic.Insertar(objRequerimiento);
+                    MensajeErrorRegistrar(objRequerimiento);
+                }
 
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                Listas();
+                return View(objRequerimiento);
             }
         }
-        private void AsignarAccesoriosPorRequermiento(RequerimientosEntity requerimeitno)
+
+        [HttpGet]
+        public ActionResult Asignar(int id)
         {
-            var lista = objGrupoDetalleLogic.Listar();
-            
+            var list = objGrupoDetalleLogic.Listar();
+            var requerimiento = objRequerimientoLogic.Listar().Where(m=>m.IdRequerimiento.Equals(id)).SingleOrDefault();
+            Listas();
+            //Lista Tecnico
+            var _departamentos = list.Where(m => m.IdPadre.Equals(36)).ToList();
+            SelectList listDepartamentos = new SelectList(_departamentos, "IdGrupoDetalle", "Titulo");
+            ViewBag.Departamentos = listDepartamentos;
+            return View(requerimiento);
+        }
+
+        [HttpPost]
+        public ActionResult Asignar(RequerimientoViewEntity objRequerimiento)
+        {
+            return View();
+        }
+
+
+        private void Listas()
+        {
+            var list = objGrupoDetalleLogic.Listar();
+            #region LISTADO DE SELECT QUE SE DESPLEGARAN EN LA VISTA
+            //Lista Departamento
+            var _departamentos = list.Where(m => m.IdPadre.Equals(36)).ToList();
+            SelectList listDepartamentos = new SelectList(_departamentos, "IdGrupoDetalle", "Titulo");
+            ViewBag.Departamentos = listDepartamentos;
+            //Lista Prioridades
+            var _prioridades = list.Where(m => m.IdGrupo.Equals(19)).ToList();
+            SelectList listPrioridadess = new SelectList(_prioridades, "IdGrupoDetalle", "Titulo");
+            ViewBag.Prioridades = listPrioridadess;
+            //Lista Marca
+            var _marcas = list.Where(m => m.IdGrupo.Equals(10)).ToList();
+            SelectList listMarcas = new SelectList(_marcas, "IdGrupoDetalle", "Titulo");
+            ViewBag.Marcas = listMarcas;
+            //Lista Marca
+            var _estatus = list.Where(m => m.IdGrupo.Equals(29)).ToList();
+            SelectList listEstatus = new SelectList(_estatus, "IdGrupoDetalle", "Titulo");
+            ViewBag.Estatus = listEstatus;
+            #endregion
+
         }
 
         // GET: Requerimiento/Edit/5
@@ -235,9 +318,9 @@ namespace HelpDesk_Kvas.Controllers
         {
             ViewBag.MensajeInicio = "Ingrese Datos De la Categoria y Click en Guardar";
         }
-        public void MensajeErrorRegistrar(GruposEntity objGrupo)
+        public void MensajeErrorRegistrar(RequerimientosEntity objRequerimiento)
         {
-            switch (objGrupo.Mensaje)
+            switch (objRequerimiento.Mensaje)
             {
                 case 1000://campo codigo vacio
                     ViewBag.MensajeError = "Error!!! Revise la instruccion Insertar";
@@ -265,13 +348,13 @@ namespace HelpDesk_Kvas.Controllers
                     break;
 
                 case 8://error de duplicidad
-                    ViewBag.MensajeError = "Categoria [" + objGrupo.IdGrupo + "] ya esta Registrada en el Sistema";
+                    ViewBag.MensajeError = "Categoria [" + objRequerimiento.IdRequerimiento + "] ya esta Registrada en el Sistema";
                     break;
                 case 99://carrera registrada con exito
-                    ViewBag.MensajeExito = "Categoria [" + objGrupo.IdGrupo + "] fue Registrado en el Sistema";
+                    ViewBag.MensajeExito = "Categoria [" + objRequerimiento.IdRequerimiento + "] fue Registrado en el Sistema";
                     break;
                 case 98://carrera registrada con exito
-                    ViewBag.MensajeExito = "Categoria [" + objGrupo.IdGrupo + "] Ya existe";
+                    ViewBag.MensajeExito = "Categoria [" + objRequerimiento.IdRequerimiento + "] Ya existe";
                     break;
             }
         }
@@ -279,9 +362,9 @@ namespace HelpDesk_Kvas.Controllers
         {
             ViewBag.MensajeInicio = "Ingrese Datos De la Categoria y Click en Guardar";
         }
-        public void MensajeErrorActualizar(GruposEntity objGrupo)
+        public void MensajeErrorActualizar(RequerimientosEntity objRequerimiento)
         {
-            switch (objGrupo.Mensaje)
+            switch (objRequerimiento.Mensaje)
             {
                 case 1000://campo codigo vacio
                     ViewBag.MensajeError = "Error!!! Revise la instruccion de actualizar";
@@ -309,7 +392,7 @@ namespace HelpDesk_Kvas.Controllers
                     break;
 
                 case 99://carrera registrada con exito
-                    ViewBag.MensajeExito = "Datos de la Categoria [" + objGrupo.IdGrupo + "] Fueron Actualizados";
+                    ViewBag.MensajeExito = "Datos de la Categoria [" + objRequerimiento.IdRequerimiento + "] Fueron Actualizados";
                     break;
             }
         }
@@ -317,26 +400,26 @@ namespace HelpDesk_Kvas.Controllers
         {
             ViewBag.MensajeInicialEliminar = "Formulario de Eliminacion";
         }
-        public void MostrarMensajeEliminar(GruposEntity objGrupo)
+        public void MostrarMensajeEliminar(RequerimientosEntity objRequerimiento)
         {
 
-            switch (objGrupo.Mensaje)
+            switch (objRequerimiento.Mensaje)
             {
                 case 1000://campo codigo vacio
                     ViewBag.MensajeError = "Error!!! Revise la instruccion de Eliminar";
                     break;
                 case 1: //ERROR DE EXISTENCIA
-                    ViewBag.MensajeError = "Categoria [" + objGrupo.IdGrupo + "] No Esta Registrado en el Sistema ";
+                    ViewBag.MensajeError = "Categoria [" + objRequerimiento.IdRequerimiento + "] No Esta Registrado en el Sistema ";
                     break;
 
                 case 33://CLIENTE NO EXISTE
-                    ViewBag.MensajeError = "Categoria: [" + objGrupo.Titulo + "]Ya Fue Eliminada";
+                    ViewBag.MensajeError = "Categoria: [" + objRequerimiento.IdRequerimiento + "]Ya Fue Eliminada";
                     break;
                 case 34:
-                    ViewBag.MensajeError = "No se Puede Eliminar la Categoria [" + objGrupo.Titulo + "] Tiene  Productos asignadoss!!!";
+                    ViewBag.MensajeError = "No se Puede Eliminar la Categoria [" + objRequerimiento.IdRequerimiento + "] Tiene  Productos asignadoss!!!";
                     break;
                 case 99: //EXITO
-                    ViewBag.MensajeExito = "Categoria [" + objGrupo.Titulo + "] Fue Eliminado!!!";
+                    ViewBag.MensajeExito = "Categoria [" + objRequerimiento.IdRequerimiento + "] Fue Eliminado!!!";
                     break;
 
                 default:
@@ -344,9 +427,9 @@ namespace HelpDesk_Kvas.Controllers
                     break;
             }
         }
-        public void MensajeErrorServidor(GruposEntity objGrupo)
+        public void MensajeErrorServidor(RequerimientosEntity objRequerimiento)
         {
-            switch (objGrupo.Mensaje)
+            switch (objRequerimiento.Mensaje)
             {
                 case 1000:
                     ViewBag.MensajeError = "ERROR DE SERVIDOR DE SQL SERVER";

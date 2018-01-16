@@ -273,7 +273,7 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDe
 ('Soporte de Moviles','SubDepartamento Smartphone y Tablet',28,'glyphicon glyphicon-phone',2,36,'*',GETDATE()),
 ('Soporte de Redes','SubDepartamento Redes',28,'glyphicon glyphicon-signal',3,36,'*',GETDATE()),
 ('Atencion al Cliente','SubDepartamento Atencion al Cliente',28,'glyphicon glyphicon-user',3,37,'*',GETDATE()),
-('Administrativo','SubDepartamento Administracion',28,'glyphicon glyphicon-briefcase',3,133,'*',GETDATE()),
+('Administrativo','SubDepartamento Administracion',28,'glyphicon glyphicon-briefcase',3,134,'*',GETDATE()),
 --CARGOS PENDIENTES
 ('Tecnico Celulares','Tecnico',20,'fa fa-users',2,136,'*',GETDATE()),
 ('Tecnico PC','Tecnico',20,'fa fa-users',2,135,'*',GETDATE());
@@ -308,7 +308,7 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDe
 ('Inactivo','inactiva elementos',31,'fa fa-hourglass-o',2,60,'*',GETDATE());
 --REQUERIMIENTO
 INSERT INTO Requerimientos(IdDepartamento,IdEmpleado,FechaEntrada,IdCliente,IdEquipo,IdMarca,IdModelo,IdPrioridad,Falla,Serial,Observaciones,Accesorios,IdDeposito,IdEstatus)VALUES
-(134,4,'2018-01-03 19:45:28.087',5,106,68,122,118,'Imprime con rayas','XWWWW00001','Equipo en mal estado','Ninguno',116,61);
+(135,4,'2018-01-03 19:45:28.087',5,106,68,122,118,'Imprime con rayas','XWWWW00001','Equipo en mal estado','Ninguno',116,61);
 
 ---- PRODUCTOS
 --INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES

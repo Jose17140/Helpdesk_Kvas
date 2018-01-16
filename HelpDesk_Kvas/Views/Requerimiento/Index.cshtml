@@ -1,7 +1,7 @@
-﻿@model HelpDesk_Kvas.DataGrid.PagedList<HelpDesk_Kvas.Models.Datos.Entity.RequerimientoViewEntity>
-
+﻿@model PagedList.IPagedList<HelpDesk_Kvas.Models.Datos.Entity.RequerimientoViewEntity>
+@using PagedList.Mvc;
 @{
-    ViewBag.Title = "Lista de Tablas";
+    ViewBag.Title = "Requerimientos";
 }
 
 @Styles.Render("~/Content/css/Grupos.css")
@@ -10,7 +10,7 @@
 <section class="content-header">
     <h1>
         Tablero
-        <small>@ViewBag.Nombre</small>
+        <small>@ViewBag.Title</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
@@ -19,81 +19,140 @@
     <br />
 </section>
 <br />
-<h1>Colocar filtros de busqueda, por tecnico, departamento,fecha,estatus, cliente,</h1>
-<div class="well">
-    @using (Html.BeginForm("index", null, FormMethod.Get))
+<section class="content">
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    @using (Html.BeginForm("Index", "Requerimiento", FormMethod.Get))
     {
-        <div class="row">
-            <div class="col-sm-3">
-                <div class="input-group">
-
-                    <input type="text"
-                           name="filter"
-                           value="@ViewBag.filter"
-                           class="form-control"
-                           style="display: inline"
-                           placeholder="Buscar..." />
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="submit">Go</button>
-                    </span>
-
-                </div>
-            </div>
-            @if (User.IsInRole("Master") || User.IsInRole("Supervisor") || User.IsInRole("Analista") || User.IsInRole("Tecnico"))
-            {
-                <div class="pull-right col-lg-1">
-                    <a class="btn btn-success" data-modal="" href="/Requerimiento/Create/@ViewBag.Id" id="btnCreate">
-                        <span class="glyphicon glyphicon-plus"></span>
-                    </a>
-                </div>
-            }
-        </div>
-        <div style="margin-top:17px;">
-            @{
-        var grid = new WebGrid(
-            canPage: true,
-            rowsPerPage: Model.PageSize,
-            canSort: true,
-            ajaxUpdateContainerId: "grid");
-
-        grid.Bind(Model.Content, rowCount: Model.TotalRecords, autoSortAndPage: false);
-        grid.Pager(WebGridPagerModes.All);
-
-        @grid.GetHtml(htmlAttributes: new { id = "grid" },
-       fillEmptyRows: false,
-       tableStyle: "table table-bordered table-hover",
-       mode: WebGridPagerModes.All,
-       columns: grid.Columns(
-         grid.Column("IdRequerimiento", "ID"),
-         grid.Column("FechaEntrada", header: "Fecha Entrada", format: @<text>@String.Format("{0:MM/dd/yy}", item.FechaEntrada) </text>),
-         grid.Column("Cliente", "Solicitante"),
-         grid.Column("Departamento", "Departamento"),
-         grid.Column("Tecnico", "Tecnico"),
-         grid.Column("Falla", "Falla"),
-         grid.Column("Diagnostico", "Diagnostico"),
-         //grid.Column("IdEquipo", header: "Icono", format: @<text>@Html.Raw("<span class='" + item.IdEquipo + "'></span>")</text>),
-         grid.Column("Estatus", "Estatus"),
-
-         grid.Column(header: "Acciones", canSort: false, style: "action",
-         format: @<text>
-            @Html.Raw("<a data-modal='' href='/Requerimiento/asignar/" + item.IdRequerimiento + "' id='" + item.IdRequerimiento + "' title='Asignar'> <span class='glyphicon glyphicon-search'> </span> </a>")
-            @Html.Raw("<a data-modal='' href='/Requerimiento/details/" + item.IdRequerimiento + "' id='" + item.IdRequerimiento + "' title='Detalle'> <span class='glyphicon glyphicon-search'> </span> </a>")
-            @Html.Raw("<a data-modal='' href='/Requerimiento/edit/" + item.IdRequerimiento + "' id='" + item.IdRequerimiento + "' title='Editar'> <span class='glyphicon glyphicon-edit'> </span> </a>")
-            @if (User.IsInRole("Master") || User.IsInRole("Supervisor"))
-                 {
-        @Html.Raw("<a data-modal='' href='/Requerimiento/delete/" + item.IdRequerimiento + "' id='" + item.IdRequerimiento + "' title='Eliminar'> <span class='glyphicon glyphicon-trash'> </span> </a>")
-         }
-        </text>)));
-            }
-        </div>
+        <p>
+            Buscar: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+            <input type="submit" value="Search" />
+        </p>
     }
-</div>
-<!-- modal placeholder-->
-<div id='myModal' class='modal fade in'>
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div id='myModalContent'></div>
-        </div>
-    </div>
-</div>
-<script src="~/Content/js/PruebaModal.js"></script>
+    <table class="table table-hover">
+        <tr>
+            <th>
+                #
+            </th>
+            <th>
+                @Html.ActionLink("Fecha", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("Cliente", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                Equipo
+            </th>
+            <th>
+                Falla
+            </th>
+            <th>
+                Tecnico
+            </th>
+            <th>
+                @Html.ActionLink("Estatus", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("Prioridad", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdRequerimiento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaEntrada.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombres)<br />
+                    <i class="fa fa-phone"></i>
+                    @Html.DisplayFor(modelItem => item.Telefonos)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Equipo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Falla)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tecnico)
+                </td>
+                <td>
+                    @if (item.IdEstatus == 61)
+                    {
+                        <span class="label label-default">@Html.DisplayFor(modelItem => item.Estatus)</span>
+                    }
+                    else if (item.IdEstatus == 62)
+                    {
+                        <span class="label label-info">@Html.DisplayFor(modelItem => item.Estatus)</span>
+                    }
+                    else if (item.IdEstatus == 63)
+                    {
+                        <span class="label label-warning">@Html.DisplayFor(modelItem => item.Estatus)</span>
+                    }
+                    @if (item.IdEstatus == 143)
+                    {
+                        <span class="label label-primary">@Html.DisplayFor(modelItem => item.Estatus)</span>
+                    }
+                    else if (item.IdEstatus == 144)
+                    {
+                        <span class="label label-success">@Html.DisplayFor(modelItem => item.Estatus)</span>
+                    }
+                    else if (item.IdEstatus == 145)
+                    {
+                        <span class="label label-danger">@Html.DisplayFor(modelItem => item.Estatus)</span>
+                    }
+                    @if (item.IdEstatus == 166)
+                    {
+                        <span class="label label-success">@Html.DisplayFor(modelItem => item.Estatus)</span>
+                    }
+                    else if (item.IdEstatus == 147)
+                    {
+                        <span class="label label-danger">@Html.DisplayFor(modelItem => item.Estatus)</span>
+                    }
+                </td>
+                <td>
+                    @if (item.IdPrioridad == 119)
+                    {
+                        <span class="label label-success">@Html.DisplayFor(modelItem => item.Prioridad)</span>
+                    }
+                    else if (item.IdPrioridad == 120)
+                    {
+                        <span class="label label-warning">@Html.DisplayFor(modelItem => item.Prioridad)</span>
+                    }
+                    else if (item.IdPrioridad == 121)
+                    {
+                        <span class="label label-danger">@Html.DisplayFor(modelItem => item.Prioridad)</span>
+                    }
+                </td>
+                <td>
+                    <!-- Single button -->
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Acciones <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="/Requerimiento/Asignar/@item.IdRequerimiento">Asignar</a></li>
+                            <li><a href="#">Editar</a></li>
+                            <li><a href="#">Presupuesto</a></li>
+                            <li><a href="#">Separated link</a></li>
+                        </ul>
+                    </div>
+                    @*@Html.ActionLink("Edit", "Edit", new { id = item.IdRequerimiento }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.IdRequerimiento }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.IdRequerimiento })*@
+                </td>
+            </tr>
+        }
+
+    </table>
+    <br />
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+</section>

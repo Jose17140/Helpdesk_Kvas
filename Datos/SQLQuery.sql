@@ -292,7 +292,7 @@ CREATE TABLE Presupuesto_x_Requerimiento(
 
 SELECT * FROM Grupos;
 SELECT * FROM GruposDetalles where IdPadre = 134 AND IdGrupo = 14;
-SELECT * FROM GruposDetalles where IdGrupo = 10 AND IdPadre = 129;
+SELECT * FROM GruposDetalles where IdGrupo = 27 AND IdPadre = 129;
 SELECT * FROM ProductoServicios;
 SELECT * FROM Personas;
 SELECT * FROM Usuarios;
