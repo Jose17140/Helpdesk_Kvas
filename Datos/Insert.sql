@@ -198,6 +198,7 @@ EXEC sp_AgregarUsuario 'Jonas','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=',40
 EXEC sp_AgregarUsuario 'Iveet','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=',40,'edmundo romero','user3-128x128.jpg',1,'2018-01-03 19:45:28.087',48
 EXEC sp_AgregarUsuario 'David','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=',40,'edmundo romero','user4-128x128.jpg',1,'2018-01-03 19:45:28.087',49
 EXEC sp_AgregarUsuario 'Jesus','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=',40,'edmundo romero','user5-128x128.jpg',1,'2018-01-03 19:45:28.087',50
+UPDATE Usuarios SET IdPersona = 16 WHERE IdUsuario = 1
 --CAT PRODUCTOS Y SERVICIOS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 --CAT PRODUCTOS
@@ -262,7 +263,7 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDe
 --SUB MENU REQUERIMIENTO
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 ('Nuevo Ticket','Sub Menu',2,'glyphicon glyphicon-qrcode',1,2,'/Requerimiento/Create',GETDATE()),
-('Consultar','Sub Menu',2,'glyphicon glyphicon-search',2,2,'/Requerimiento/Consultar',GETDATE());
+('Consultar','Sub Menu',2,'glyphicon glyphicon-search',2,2,'/Requerimiento/Index',GETDATE());
 --SUB DEPARTAMENTOS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 --DEPARTAMENTOS
@@ -308,7 +309,7 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDe
 ('Inactivo','inactiva elementos',31,'fa fa-hourglass-o',2,60,'*',GETDATE());
 --REQUERIMIENTO
 INSERT INTO Requerimientos(IdDepartamento,IdEmpleado,FechaEntrada,IdCliente,IdEquipo,IdMarca,IdModelo,IdPrioridad,Falla,Serial,Observaciones,Accesorios,IdDeposito,IdEstatus)VALUES
-(135,4,'2018-01-03 19:45:28.087',5,106,68,122,118,'Imprime con rayas','XWWWW00001','Equipo en mal estado','Ninguno',116,61);
+(135,4,'2018-01-03 19:45:28.087',5,106,68,129,118,'Imprime con rayas','XWWWW00001','Equipo en mal estado','Ninguno',116,61);
 
 ---- PRODUCTOS
 --INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES

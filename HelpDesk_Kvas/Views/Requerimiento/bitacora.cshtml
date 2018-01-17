@@ -1,0 +1,95 @@
+﻿@model IEnumerable<HelpDesk_Kvas.Models.Datos.Entity.BitacorasEntity>
+@{
+    Layout = null;
+    ViewBag.Title = "bitacora";
+}
+
+<div class="col-md-4">
+    <!-- DIRECT CHAT -->
+    <div class="box box-info direct-chat direct-chat-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">Bitácora</h3>
+            <div class="box-tools pull-right">
+                <span data-toggle="tooltip" title="Mensajes" class="badge bg-danger">@ViewBag.Mensajes</span>
+                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                    <i class="fa fa-minus"></i>
+                </button>
+            </div>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <!-- Conversations are loaded here -->
+            <div class="direct-chat-messages">
+                <!-- Message. Default to the left -->
+                @foreach (var i in Model)
+                {
+                    if (i.Rol == "Tecnico")
+                    {
+                        <div class="direct-chat-msg">
+                            <div class="direct-chat-info clearfix">
+                                <span class="direct-chat-name pull-left"><span class="label label-warning">@i.Rol</span> @i.UserName</span>
+                                <span class="direct-chat-timestamp pull-right">@i.FechaRegistro</span>
+                            </div>
+                            <!-- /.direct-chat-info -->
+                            <img class="direct-chat-img" src="/Content/images/img/@i.Avatar" alt="Imagen de usuario"><!-- /.direct-chat-img -->
+                            <div class="direct-chat-text">
+                                <label class="danger"></label> @i.Observaciones
+
+                            </div>
+                            <!-- /.direct-chat-text -->
+                        </div>
+                    }
+                    if (i.Rol =="Master")
+                    {
+                        <div class="direct-chat-msg right">
+                            <div class="direct-chat-info clearfix">
+                                <span class="direct-chat-name pull-right">@i.UserName <span class="label label-danger">@i.Rol</span></span>
+                                <span class="direct-chat-timestamp pull-left">@i.FechaRegistro</span>
+                            </div>
+                            <!-- /.direct-chat-info -->
+                            <img class="direct-chat-img" src="/Content/images/img/@i.Avatar" alt="Imagen de usuario"><!-- /.direct-chat-img -->
+                            <div class="direct-chat-text">
+                                @i.Observaciones
+                            </div>
+                            <!-- /.direct-chat-text -->
+                        </div>
+                    }
+                    if (i.Rol !="Master" && i.Rol !="Tecnico")
+                    {
+                        <div class="direct-chat-msg right">
+                            <div class="direct-chat-info clearfix">
+                                <span class="direct-chat-name pull-right"> @i.UserName <span class="label label-info">@i.Rol</span></span>
+                                <span class="direct-chat-timestamp pull-left">@i.FechaRegistro</span>
+                            </div>
+                            <!-- /.direct-chat-info -->
+                            <img class="direct-chat-img" src="/Content/images/img/@i.Avatar" alt="Imagen de usuario"><!-- /.direct-chat-img -->
+                            <div class="direct-chat-text">
+                                @i.Observaciones
+                            </div>
+                            <!-- /.direct-chat-text -->
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+        @using (Ajax.BeginForm("Bitacora", "Requerimiento", new AjaxOptions { HttpMethod = "POST", OnSuccess = "onAjaxRequestSuccess" }, new { @id = "AjaxformId", @class = "form-horizontal", role = "form" }))
+
+        {
+            @Html.AntiForgeryToken()
+            <!-- /.box-body -->
+            <div class="box-footer">
+                <form action="#" method="post">
+                    <div class="input-group">
+                        <input type="text" name="message" placeholder="Escribir mensaje" class="form-control">
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-success btn-flat">Enviar</button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        }
+        <!-- /.box-footer-->
+    </div>
+    <!--/.direct-chat -->
+</div>
+

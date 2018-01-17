@@ -126,189 +126,205 @@
         @Html.AntiForgeryToken()
         <input type="hidden" id="IdEmpleado" name="IdEmpleado" value="@ViewBag.IdUsuario" />
         <!--Datos Usuario-->
-        <div class="box box-info">
-            <div class="box-header with-border">
-                <h3 class="box-title">Detalle del Cliente</h3>
-                <div class="pull-right">
-                    <a class="btn btn-success btn-sm" data-modal="" href="/Persona/Create" id="btnCreate">
-                        <span class="glyphicon glyphicon-plus"></span> Agregar Cliente
-                    </a>
-                </div>
-            </div>
-            <div class="box-body">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Buscar Cedula:</label>
-                            @Html.EditorFor(model => model.CiRif, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
-                        </div>
-                        @Html.ValidationMessageFor(model => model.CiRif, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Nombres:</label>
-                            @Html.EditorFor(model => model.Nombres, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
-                        </div>
-                        @Html.ValidationMessageFor(model => model.Nombres, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Teléfonos:</label>
-                            @Html.EditorFor(model => model.Telefonos, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
-                        </div>
-                        @Html.ValidationMessageFor(model => model.Telefonos, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Email:</label>
-                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
-                        </div>
-                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Direccion:</label>
-                            @Html.EditorFor(model => model.Direccion, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
-                        </div>
-                        @Html.ValidationMessageFor(model => model.Direccion, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--Datos Orden-->
-        <!-- Horizontal Form -->
-        <div class="box box-info">
-            <div class="box-header with-border">
-                <h3 class="box-title">Detalle de la orden</h3>
-            </div>
-            <div class="box-body">
-                <div class="row">
-                    <div class="col-md-2">
-                        <label>Nro. Orden:</label>
-                        @Html.EditorFor(model => model.IdRequerimiento, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
-                        @Html.ValidationMessageFor(model => model.IdRequerimiento, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <label>Departamento:</label>
-                        @Html.EditorFor(model => model.Departamento, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
-                        @Html.ValidationMessageFor(model => model.Departamento, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="col-md-2">
-                        <label>Prioridad:</label>
-                        @Html.DropDownListFor(model => model.IdPrioridad, ViewBag.Prioridades as SelectList, "Seleccione Prioridad", htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.IdPrioridad, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="col-md-2">
-                        <label>Tecnico:</label>
-                        @Html.DropDownListFor(model => model.IdTecnico, ViewBag.Prioridades as SelectList, "Seleccione Prioridad", htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.IdTecnico, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="col-md-2">
-                        <label>Fecha Entrada:</label>
-                        @Html.EditorFor(model => model.FechaEntrada.Date, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
-                        @Html.ValidationMessageFor(model => model.FechaEntrada, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="col-md-2">
-                        <label>Fecha Salida:</label>
-                        @Html.EditorFor(model => model.FechaSalida.Date, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
-                        @Html.ValidationMessageFor(model => model.FechaSalida, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            </div>
-            <!-- /.box-body -->
-        </div>
-        <!--Datos Usuario-->
-        <!-- general form elements disabled -->
-        <div class="box box-warning">
-            <div class="box-header with-border">
-                <h3 class="box-title">Detalles del equipo</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-                <div class="row">
-                    <div class="col-md-4">
-                        <label>Equipo:</label>
-                        @Html.EditorFor(model => model.Equipo, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
-                        @Html.ValidationMessageFor(model => model.IdEquipo, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="col-md-4">
-                        <label>Modelo:</label>
-                        @Html.EditorFor(model => model.Modelo, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
-                        @Html.ValidationMessageFor(model => model.IdModelo, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="col-md-4">
-                        <label>Marca:</label>
-                        @Html.EditorFor(model => model.Marca, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
-                        @Html.ValidationMessageFor(model => model.IdMarca, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="col-md-4">
-                        <label>Número de serie:</label>
-                        @Html.EditorFor(model => model.Serial, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
-                        @Html.ValidationMessageFor(model => model.Serial, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="row">
+        <div class="row">
+            <!--AQUI VA LA BITACORA DE REQUERIMIENTOS-->
+            @{ Html.RenderAction("Bitacora", "Requerimiento");}
 
-                    @*<div class="form-group">
-                            <label>Accesorios</label><br />
-                            <div class="col-md-10">
-                                <table>
-                                    <tr>
-                                        @{
-                                            int cnt = 0;
-                                            List<HelpDesk_Kvas.Models.AxR> accesorios = ViewBag.Accesorios;
-                                            foreach (var i in accesorios)
-                                            {
-                                                if (cnt++ % 10 == 0)
-                                                {
-                                                    @:</tr><tr>
-                                                }
-                                                @:<td>
-                                                    <input type="checkbox"
-                                                        name="selectedCourses"
-                                                        value="@i.IdAccesorio"
-                                                        @(Html.Raw(i.Asigando ? "checked=\"checked\"" : "")) />
-                                                        @i.Nombre @:
-                                                @:</td>
-                                            }
-                                            @:</tr>
-                                        }
-                                </table>
+            <div class="col-md-8">
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Detalle del Cliente</h3>
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Buscar Cedula:</label>
+                                    @Html.EditorFor(model => model.CiRif, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.CiRif, "", new { @class = "text-danger" })
                             </div>
-                        </div>*@
-
-                    <div class="col-md-4">
-                        <label>Accesorios:</label>
-                        @Html.EditorFor(model => model.Accesorio, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
-                        @Html.ValidationMessageFor(model => model.Accesorio, "", new { @class = "text-danger" })
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Nombres:</label>
+                                    @Html.EditorFor(model => model.Nombres, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Nombres, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Teléfonos:</label>
+                                    @Html.EditorFor(model => model.Telefonos, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Telefonos, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Email:</label>
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Direccion:</label>
+                                    @Html.EditorFor(model => model.Direccion, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Direccion, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <label>Problema del equipo:</label>
-                        @Html.EditorFor(model => model.Falla, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
-                        @Html.ValidationMessageFor(model => model.Falla, "", new { @class = "text-danger" })
+                <!--Datos Orden-->
+                <!-- Horizontal Form -->
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Detalle de la orden</h3>
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                        <div class="pull-right">
+                            <a class="btn btn-success btn-sm" data-modal="" href="/Persona/Create" id="btnCreate">
+                                <span class="glyphicon glyphicon-plus"></span> Presupuesto
+                            </a>
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                        <label>Observaciones:</label>
-                        @Html.EditorFor(model => model.Observaciones, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
-                        @Html.ValidationMessageFor(model => model.Observaciones, "", new { @class = "text-danger" })
+                    
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label>Nro. Orden:</label>
+                                @Html.EditorFor(model => model.IdRequerimiento, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                @Html.ValidationMessageFor(model => model.IdRequerimiento, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>Departamento:</label>
+                                @Html.EditorFor(model => model.Departamento, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                @Html.ValidationMessageFor(model => model.Departamento, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-2">
+                                <label>Prioridad:</label>
+                                @Html.DropDownListFor(model => model.IdPrioridad, ViewBag.Prioridades as SelectList, "Seleccione Prioridad", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.IdPrioridad, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-2">
+                                <label>Tecnico:</label>
+                                @Html.DropDownListFor(model => model.IdTecnico, ViewBag.Prioridades as SelectList, "Seleccione Prioridad", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.IdTecnico, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-2">
+                                <label>Fecha Entrada:</label>
+                                @Html.EditorFor(model => model.FechaEntrada.Date, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                @Html.ValidationMessageFor(model => model.FechaEntrada, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-2">
+                                <label>Fecha Salida:</label>
+                                @Html.EditorFor(model => model.FechaSalida.Date, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                @Html.ValidationMessageFor(model => model.FechaSalida, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
                     </div>
+                    <!-- /.box-body -->
+                </div>
+                <!--Datos Usuario-->
+                <!-- general form elements disabled -->
+                <div class="box box-warning">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Detalles del equipo</h3>
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>Equipo:</label>
+                                @Html.EditorFor(model => model.Equipo, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                @Html.ValidationMessageFor(model => model.IdEquipo, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-4">
+                                <label>Modelo:</label>
+                                @Html.EditorFor(model => model.Modelo, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                @Html.ValidationMessageFor(model => model.IdModelo, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-4">
+                                <label>Marca:</label>
+                                @Html.EditorFor(model => model.Marca, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                @Html.ValidationMessageFor(model => model.IdMarca, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-4">
+                                <label>Número de serie:</label>
+                                @Html.EditorFor(model => model.Serial, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                @Html.ValidationMessageFor(model => model.Serial, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            @*<div class="form-group">
+                    <label>Accesorios</label><br />
+                    <div class="col-md-10">
+                        <table>
+                            <tr>
+                                @{
+                                    int cnt = 0;
+                                    List<HelpDesk_Kvas.Models.AxR> accesorios = ViewBag.Accesorios;
+                                    foreach (var i in accesorios)
+                                    {
+                                        if (cnt++ % 10 == 0)
+                                        {
+                                            @:</tr><tr>
+                                        }
+                                        @:<td>
+                                            <input type="checkbox"
+                                                name="selectedCourses"
+                                                value="@i.IdAccesorio"
+                                                @(Html.Raw(i.Asigando ? "checked=\"checked\"" : "")) />
+                                                @i.Nombre @:
+                                        @:</td>
+                                    }
+                                    @:</tr>
+                                }
+                        </table>
+                    </div>
+                </div>*@
+
+                            <div class="col-md-4">
+                                <label>Accesorios:</label>
+                                @Html.EditorFor(model => model.Accesorio, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                @Html.ValidationMessageFor(model => model.Accesorio, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Problema del equipo:</label>
+                                @Html.EditorFor(model => model.Falla, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                @Html.ValidationMessageFor(model => model.Falla, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-6">
+                                <label>Observaciones:</label>
+                                @Html.EditorFor(model => model.Observaciones, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                @Html.ValidationMessageFor(model => model.Observaciones, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+
+                </div>
+                <!--/.col (right) -->
+                <div class="box-footer">
+                    <div id="resultados_ajax" style="position:relative;"> </div>
+                    <button type="submit" class="btn btn-primary pull-right">Guardar datos</button>
                 </div>
             </div>
-            <!-- /.box-body -->
-
         </div>
-        <!--/.col (right) -->
-        <div class="box-footer">
-            <div id="resultados_ajax" style="position:relative;"> </div>
-            <button type="submit" class="btn btn-primary pull-right">Guardar datos</button>
-        </div>
-
     }
 
 </section>

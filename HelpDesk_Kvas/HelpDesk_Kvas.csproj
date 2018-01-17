@@ -212,6 +212,7 @@
     <Compile Include="Controllers\GrupoDetalleController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PersonaController.cs" />
+    <Compile Include="Controllers\PresupuestoController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
     <Compile Include="Controllers\RequerimientoController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
@@ -233,10 +234,12 @@
     <Compile Include="Models\Datos\DAL\GrupoDetalleDAL.cs" />
     <Compile Include="Models\Datos\DAL\MenuDAL.cs" />
     <Compile Include="Models\Datos\DAL\Obligatorios.cs" />
+    <Compile Include="Models\Datos\DAL\OxRDAL.cs" />
     <Compile Include="Models\Datos\DAL\PersonaDAL.cs" />
     <Compile Include="Models\Datos\DAL\ProductoDAL.cs" />
     <Compile Include="Models\Datos\DAL\RequerimientoDAL.cs" />
     <Compile Include="Models\Datos\DAL\UsuarioDAL.cs" />
+    <Compile Include="Models\Datos\Entity\BitacorasEntity.cs" />
     <Compile Include="Models\Datos\Entity\EmpleadosEntity.cs" />
     <Compile Include="Models\Datos\Entity\GruposDetallesEntity.cs" />
     <Compile Include="Models\Datos\Entity\GruposEntity.cs" />
@@ -245,6 +248,7 @@
     <Compile Include="Models\Datos\Entity\ProductosEntity.cs" />
     <Compile Include="Models\Datos\Entity\RequerimientosEntity.cs" />
     <Compile Include="Models\Datos\Entity\UsuariosEntity.cs" />
+    <Compile Include="Models\Datos\Logica\BitacoraLogic.cs" />
     <Compile Include="Models\Datos\Logica\GrupoDetalleLogic.cs" />
     <Compile Include="Models\Datos\Logica\GrupoLogic.cs" />
     <Compile Include="Models\Datos\Logica\MenuLogic.cs" />
@@ -2832,10 +2836,12 @@
     <Content Include="Views\Requerimiento\ElegirDepartamento.cshtml" />
     <Content Include="Views\Requerimiento\Index.cshtml" />
     <Content Include="Views\Requerimiento\Asignar.cshtml" />
+    <Content Include="Views\Requerimiento\bitacora.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\images\Productos\" />
+    <Folder Include="Views\Presupuesto\" />
     <Folder Include="Views\Soporte\" />
     <Folder Include="Views\Usuario\" />
   </ItemGroup>

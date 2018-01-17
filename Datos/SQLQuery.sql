@@ -301,6 +301,24 @@ SELECT * FROM Requerimientos;
 SELECT * FROM Accesorios_x_Requerimiento;
 SELECT * FROM vw_Requerimientos;
 SELECT * FROM Empleados;
+SELECT * FROM Observaciones_x_Requerimiento;
+
+INSERT INTO Observaciones_x_Requerimiento(IdRequerimiento,IdUsuario,Observaciones,FechaRegistro)VALUES
+(1,4,'No se como repararlo','2018-01-03 19:45:28.087');
+
+SELECT us.IdUsuario, us.NombreUsuario, gd.IdGrupoDetalle AS IdRol, gd.Nombre AS Rol, ps.Nombres
+FROM GruposDetalles AS gd
+INNER JOIN UsuariosRoles AS ur ON gd.IdGrupoDetalle = ur.IdRoles
+INNER JOIN Usuarios AS us ON ur.IdUsuario = us.IdUsuario
+LEFT JOIN Personas AS ps ON us.IdPersona = ps.IdPersona;
 
 
+SELECT bt.IdOxR, bt.IdRequerimiento, bt.IdUsuario, us.NombreUsuario, bt.Observaciones, bt.Leido, bt.FechaRegistro
+	FROM Observaciones_x_Requerimiento AS bt
+	INNER JOIN Usuarios AS us ON bt.IdUsuario = us.IdUsuario
+
+SELECT bt.IdRequerimiento, COUNT(bt.IdOxR) AS 'Numero de Mensajes'
+	FROM Observaciones_x_Requerimiento AS bt
+	INNER JOIN Usuarios AS us ON bt.IdUsuario = us.IdUsuario
+	GROUP BY IdRequerimiento
 

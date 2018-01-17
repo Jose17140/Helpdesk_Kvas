@@ -19,6 +19,7 @@ namespace HelpDesk_Kvas.Controllers
         RequerimientoLogic objRequerimientoLogic;
         UsuarioLogic objUsuario;
         PersonasLogic objPersonaLogic;
+        BitacoraLogic objBitacora;
         DAL_Main db;
 
         public RequerimientoController()
@@ -28,6 +29,7 @@ namespace HelpDesk_Kvas.Controllers
             objRequerimientoLogic = new RequerimientoLogic();
             objUsuario = new UsuarioLogic();
             objPersonaLogic = new PersonasLogic();
+            objBitacora = new BitacoraLogic();
             db = new DAL_Main();
         }
         #region INDEX HECHO PARA CARGAR CON JSON 
@@ -237,6 +239,20 @@ namespace HelpDesk_Kvas.Controllers
 
         [HttpPost]
         public ActionResult Asignar(RequerimientoViewEntity objRequerimiento)
+        {
+            return View();
+        }
+
+        public ActionResult Bitacora()
+        {
+            var bitacora = objBitacora.Listar();
+            ViewBag.Mensajes = bitacora.Where(m => m.IdRequerimiento.Equals(1)).Count();
+            return View(bitacora);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Bitacora(BitacorasEntity ObjBitacora)
         {
             return View();
         }

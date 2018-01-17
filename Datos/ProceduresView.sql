@@ -163,7 +163,7 @@ DROP VIEW IF EXISTS vw_Requerimientos;
 GO
 CREATE VIEW vw_Requerimientos AS (
 	SELECT rq.IdRequerimiento, rq.Atendido, dt.IdGrupoDetalle AS IdDepartamento, dt.Nombre AS Departamento, em.IdUsuario AS IdEmpleado, em.NombreUsuario AS Empleado, rq.FechaEntrada, 
-		rq.FechaSalida, ps.IdPersona, ps.Nombres, CONCAT(tp.Nombre, ps.CiRif) AS Cedula, ps.Telefonos, eq.IdGrupoDetalle AS IdEquipo, eq.Nombre AS Equipo, mq.IdGrupoDetalle AS IdMarca, mq.Nombre AS Marca,
+		rq.FechaSalida, ps.IdPersona, ps.Nombres, CONCAT(tp.Nombre, ps.CiRif) AS Cedula, ps.Telefonos, ps.Email, ps.Direccion, eq.IdGrupoDetalle AS IdEquipo, eq.Nombre AS Equipo, mq.IdGrupoDetalle AS IdMarca, mq.Nombre AS Marca,
 		md.IdGrupoDetalle AS IdModelo, md.Nombre AS Modelo, pr.IdGrupoDetalle AS IdPrioridad, pr.Nombre AS Prioridad, rq.Falla, rq.Diagnostico, rq.Solucion, rq.Serial, rq.Observaciones, 
 		rq.Accesorios, tc.IdUsuario AS IdTecnico, tc.NombreUsuario AS Tecnico, dp.IdGrupoDetalle AS IdDeposito, dp.Nombre AS Deposito, st.IdGrupoDetalle AS IdEstatus, st.Nombre AS Estatus
 	FROM Requerimientos AS rq
@@ -181,7 +181,15 @@ CREATE VIEW vw_Requerimientos AS (
 )
 GO
 
-
+DROP VIEW IF EXISTS vw_Bitacora
+GO
+CREATE VIEW vw_Bitacora AS(
+	SELECT bt.IdOxR,bt.IdRequerimiento, bt.IdUsuario, us.NombreUsuario, us.Avatar, bt.Observaciones, bt.Leido, bt.FechaRegistro, ru.IdRoles, gd.Nombre AS Rol
+	FROM Observaciones_x_Requerimiento AS bt
+	INNER JOIN Usuarios AS us ON bt.IdUsuario = us.IdUsuario
+	INNER JOIN UsuariosRoles AS ru ON us.IdUsuario = ru.IdUsuario
+	INNER JOIN GruposDetalles AS gd ON ru.IdRoles = gd.IdGrupoDetalle
+)
 
 
 --DROP PROCEDURE IF EXISTS sp_BuscarProducto;
