@@ -1,6 +1,64 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+<script src="~/Content/js/loader.js"></script>
+
+<script type="text/javascript">
+
+      // Load the Visualization API and the corechart package.
+      google.charts.load('current', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.charts.setOnLoadCallback(drawChart);
+      google.charts.setOnLoadCallback(drawCharts);
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Topping');
+        data.addColumn('number', 'Slices');
+        data.addRows([
+          ['Recibidas', 3],
+          ['No Atendidas', 1],
+          ['Reclamos', 1],
+          ['Entregadas', 1]
+        ]);
+
+        // Set chart options
+        var options = {'title':'Estadisticas de requerimientos',
+                       'width':400,
+                       'height':300};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+
+      function drawCharts() {
+          var data = google.visualization.arrayToDataTable([
+              ['Year', 'Requerimientos', 'Productos'],
+              ['2004', 1000, 400],
+              ['2005', 1170, 460],
+              ['2006', 660, 1120],
+              ['2007', 1030, 540]
+          ]);
+
+          var options = {
+              title: 'Productos por requerimiento',
+              curveType: 'function',
+              legend: { position: 'bottom' }
+          };
+
+          var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+          chart.draw(data, options);
+      }
+</script>
+
 <section class="content-header">
     <h1>
         Tablero
@@ -24,7 +82,7 @@
                     <a href="/Requerimiento">
                         <span class="info-box-text">ORDENES DE TRABAJO</span>
                     </a>
-                    <span class="info-box-number">363</span>
+                    <span class="info-box-number">@ViewBag.ContarRequerimientos</span>
                     <span class="progress-description">
                         Ordenes nuevas: 6
                     </span>
@@ -44,7 +102,7 @@
                     <a href="/Producto">
                         <span class="info-box-text">PRODUCTOS</span>
                     </a>
-                    <span class="info-box-number">35</span>
+                    <span class="info-box-number">@ViewBag.ContarProductos</span>
                     <span class="progress-description">
                         Productos nuevos: 0
                     </span>
@@ -63,7 +121,7 @@
                     <a href="/Servicio">
                         <span class="info-box-text">SERVICIOS</span>
                     </a>
-                    <span class="info-box-number">44</span>
+                    <span class="info-box-number">@ViewBag.ContarServicios</span>
                     <span class="progress-description">
                         Servicios nuevos: 0
                     </span>
@@ -82,7 +140,7 @@
                     <a href="/Persona">
                         <span class="info-box-text">CLIENTES</span>
                     </a>
-                    <span class="info-box-number">147</span>
+                    <span class="info-box-number">@ViewBag.ContarPersonas</span>
                     <span class="progress-description">
                         Clientes nuevos: 1
                     </span>
@@ -219,8 +277,15 @@
         </div>
         <!-- /.col -->
     </div>
+    <br />
+    <div class="row">
+        <div id="curve_chart" style="width: 900px; height: 500px"></div>
+    </div>
+    <div class="row">
+        <div id="chart_div" style="width: 900px; height: 500px"></div>
+    </div>
 </section>
-
+<div id="chart_div"></div>
 @if (Request.IsAuthenticated)
 {
     <text>Welcome @HttpContext.Current.User.Identity.Name</text> <br />

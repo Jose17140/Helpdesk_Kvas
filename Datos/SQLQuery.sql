@@ -276,14 +276,17 @@ CREATE TABLE Presupuesto_x_Requerimiento(
 	FechaVencimiento DATETIME NOT NULL,
 	IdPoS INT NOT NULL, --Producto o Servicio
 	Cant INT NOT NULL,
-	Concepto VARCHAR(50) NOT NULL,
 	PrecioUnit DECIMAL(8,2) NOT NULL,
 	SubTotal AS (PrecioUnit*Cant),
+	IdIva INT NOT NULL,
 	CONSTRAINT PK_PresupuestoPorRequerimiento_Id PRIMARY KEY(IdPresupuesto,IdRequerimiento),
 	CONSTRAINT FK_PresupuestoPorRequerimiento_Requerimientos_Id FOREIGN KEY(IdRequerimiento) REFERENCES Requerimientos(IdRequerimiento)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION,
-	CONSTRAINT FK_PresupuestoPorRequerimiento_Servicio_Id FOREIGN KEY(IdRequerimiento) REFERENCES Requerimientos(IdRequerimiento)
+	CONSTRAINT FK_PresupuestoPorRequerimiento_PoS_IdProducto FOREIGN KEY(IdPoS) REFERENCES ProductoServicios(IdProducto)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION,
+	CONSTRAINT FK_PresupuestoPorRequerimiento_GruposDetalles_IdIva FOREIGN KEY(IdRequerimiento) REFERENCES Requerimientos(IdRequerimiento)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION,
 );

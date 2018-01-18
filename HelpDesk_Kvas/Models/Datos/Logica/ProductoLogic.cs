@@ -68,6 +68,11 @@ namespace HelpDesk_Kvas.Models.Datos.Logica
             return objProductoDAL.Listar();
         }
 
+        public IEnumerable<ProductosEntityView> BuscarNombre(string _nombre)
+        {
+            return objProductoDAL.BuscarNombre(_nombre);
+        }
+
         public ProductosEntity Buscar(int _idProducto)
         {
             return objProductoDAL.Buscar(_idProducto);

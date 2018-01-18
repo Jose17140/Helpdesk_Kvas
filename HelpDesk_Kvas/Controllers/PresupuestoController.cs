@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HelpDesk_Kvas.Models.Datos.Logica;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,25 @@ namespace HelpDesk_Kvas.Controllers
 {
     public class PresupuestoController : Controller
     {
+        GrupoDetalleLogic objGrupoDetalleLogic;
+        GrupoLogic objGrupoLogic;
+        RequerimientoLogic objRequerimientoLogic;
+        ProductoLogic objProducto;
+        UsuarioLogic objUsuario;
+        PersonasLogic objPersonaLogic;
+        BitacoraLogic objBitacora;
+
+        public PresupuestoController()
+        {
+            objGrupoDetalleLogic = new GrupoDetalleLogic();
+            objGrupoLogic = new GrupoLogic();
+            objRequerimientoLogic = new RequerimientoLogic();
+            objUsuario = new UsuarioLogic();
+            objPersonaLogic = new PersonasLogic();
+            objBitacora = new BitacoraLogic();
+            objProducto = new ProductoLogic();
+        }
+
         // GET: Presupuesto
         public ActionResult Index()
         {
@@ -24,6 +44,12 @@ namespace HelpDesk_Kvas.Controllers
         public ActionResult Create()
         {
             return View();
+        }
+
+        public JsonResult BuscarProducto(string _nombre)
+        {
+            var list = objProducto.BuscarNombre(_nombre);
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
 
         // POST: Presupuesto/Create

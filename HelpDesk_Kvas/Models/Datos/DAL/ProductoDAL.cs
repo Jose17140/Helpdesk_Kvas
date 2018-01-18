@@ -142,6 +142,51 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
             }
         }
 
+        public IEnumerable<ProductosEntityView> BuscarNombre(string _nombre)
+        {
+            try
+            {
+                IList<ProductosEntityView> lista = new List<ProductosEntityView>();
+                var query = db.vw_ListarProductos.Where(m => m.Nombre.ToUpper().Contains(_nombre.ToUpper())
+                                                            || m.Sku.ToUpper().Contains(_nombre.ToUpper())).Take(5).ToList();
+                foreach (var producto in query)
+                {
+                    lista.Add(new ProductosEntityView()
+                    {
+                        IdProducto = Convert.ToInt32(producto.IdProducto),
+                        Sku = producto.Sku,
+                        IdCategoria = producto.IdCategoria,
+                        Categoria = producto.Categoria,
+                        IdGrupo = producto.IdGrupo,
+                        Grupo = producto.Grupo,
+                        Nombre = producto.Nombre,
+                        Descripcion = producto.Descripcion,
+                        IdFabricante = producto.IdFabricante,
+                        Fabricante = producto.Fabricante,
+                        IdUnidad = producto.IdUnidad,
+                        Unidad = producto.Unidad,
+                        Imagen = producto.Imagen,
+                        Stock = producto.Stock,
+                        StockMin = Convert.ToInt32(producto.StockMin),
+                        PrecioCompra = Convert.ToDecimal(producto.PrecioCompra),
+                        PrecioVenta = producto.PrecioVenta,
+                        Garantia = Convert.ToInt32(producto.Garantia),
+                        Estatus = producto.Estatus,
+                        FechaRegistro = DateTime.Now
+                    });
+                }
+                return lista;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+
+            }
+        }
+
         public IEnumerable<ProductosEntityView> Listar()
         {
             try

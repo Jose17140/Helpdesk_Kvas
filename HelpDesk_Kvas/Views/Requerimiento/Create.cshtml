@@ -8,6 +8,7 @@
 <script>
     $(document).ready(function () {
         $("#Nombres").autocomplete({
+            dataType: 'JSON',
             source: function (request, response) {
                 $.ajax({
                     url: "/Requerimiento/BuscarPersona",
@@ -17,18 +18,27 @@
                     success: function (data) {
                         response($.map(data, function (item) {
                             return {
-                                label: item.Nombres, value: item.Nombres
-                            };
+                                //label: item.Nombres, value: item.Nombres
+                                id: item.id,
+                                value: item.Nombres,
+                                precio: item.Precio
+                            }
                         }))
 
                     }
                 })
             },
-            messages: {
-                noResults: "", results: "No existe"
+            select: function (e, ui) {
+                $("#IdProducto").val(ui.item.id);
+                $("#PrecioProducto").val(ui.item.precio);
+                $("#PrecioProducto").val(ui.item.precio);
+                $("#PrecioProducto").val(ui.item.precio);
+                $("#PrecioProducto").val(ui.item.precio);
             }
         });
     })
+
+
 </script>
 <script type="text/javascript">
     $(document).ready(function () {
@@ -81,29 +91,29 @@
     });
 </script>
 @*<script>
-    $('#iddropdownlist').change(function () {
-        var url = "/nombreControlador/BuscarCargoLider?claveLider=" + $('#iddropdownlist option:selected').val();
-        $.ajax({
-            url: url,
-            type: 'GET',
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            async: true,
-            success: function (result) {
-                var lider;
-                if (result != null && result.length > 0) {
-                    lider = JSON.parse(result);
+        $('#iddropdownlist').change(function () {
+            var url = "/nombreControlador/BuscarCargoLider?claveLider=" + $('#iddropdownlist option:selected').val();
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                async: true,
+                success: function (result) {
+                    var lider;
+                    if (result != null && result.length > 0) {
+                        lider = JSON.parse(result);
+                    }
+                    if (lider != null) {
+                        $('#idinput').val(lider.cargo);//cargo debe ser la propiedad de la clase lider donde se almacena el cargo del lider
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("error al consultar datos del lider");
                 }
-                if (lider != null) {
-                    $('#idinput').val(lider.cargo);//cargo debe ser la propiedad de la clase lider donde se almacena el cargo del lider 
-                }
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert("error al consultar datos del lider");
-            }
-        });
-    }
-</script>*@
+            });
+        }
+    </script>*@
 <section class="content-header">
     <h1>
         Tablero
@@ -235,32 +245,32 @@
                 <div class="row">
 
                     @*<div class="form-group">
-                        <label>Accesorios</label><br />
-                        <div class="col-md-10">
-                            <table>
-                                <tr>
-                                    @{
-                                        int cnt = 0;
-                                        List<HelpDesk_Kvas.Models.AxR> accesorios = ViewBag.Accesorios;
-                                        foreach (var i in accesorios)
-                                        {
-                                            if (cnt++ % 10 == 0)
+                            <label>Accesorios</label><br />
+                            <div class="col-md-10">
+                                <table>
+                                    <tr>
+                                        @{
+                                            int cnt = 0;
+                                            List<HelpDesk_Kvas.Models.AxR> accesorios = ViewBag.Accesorios;
+                                            foreach (var i in accesorios)
                                             {
-                                                @:</tr><tr>
+                                                if (cnt++ % 10 == 0)
+                                                {
+                                                    @:</tr><tr>
+                                                }
+                                                @:<td>
+                                                    <input type="checkbox"
+                                                        name="selectedCourses"
+                                                        value="@i.IdAccesorio"
+                                                        @(Html.Raw(i.Asigando ? "checked=\"checked\"" : "")) />
+                                                        @i.Nombre @:
+                                                @:</td>
                                             }
-                                            @:<td>
-                                                <input type="checkbox"
-                                                    name="selectedCourses"
-                                                    value="@i.IdAccesorio"
-                                                    @(Html.Raw(i.Asigando ? "checked=\"checked\"" : "")) />
-                                                    @i.Nombre @:
-                                            @:</td>
+                                            @:</tr>
                                         }
-                                        @:</tr>
-                                    }
-                            </table>
-                        </div>
-                    </div>*@
+                                </table>
+                            </div>
+                        </div>*@
 
                     <div class="col-md-4">
                         <label>Accesorios</label>

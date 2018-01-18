@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HelpDesk_Kvas.Models.Datos.Logica;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,8 +9,21 @@ namespace HelpDesk_Kvas.Controllers
 {
     public class HomeController : Controller
     {
+        PersonasLogic objPersona;
+        RequerimientoLogic objRequerimiento;
+        ProductoLogic objProducto;
+        public HomeController()
+        {
+            objPersona = new PersonasLogic();
+            objRequerimiento = new RequerimientoLogic();
+            objProducto = new ProductoLogic();
+        }
         public ActionResult Index()
         {
+            ViewBag.ContarPersonas = objPersona.Listar().Count();
+            ViewBag.ContarRequerimientos = objRequerimiento.Listar().Count();
+            ViewBag.ContarProductos = objProducto.Listar().Where(m => m.IdGrupo.Equals(16)).Count();
+            ViewBag.ContarServicios = objProducto.Listar().Where(m => m.IdGrupo.Equals(17)).Count();
             return View();
         }
 

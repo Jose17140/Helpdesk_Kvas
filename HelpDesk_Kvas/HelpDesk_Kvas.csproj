@@ -245,6 +245,7 @@
     <Compile Include="Models\Datos\Entity\GruposEntity.cs" />
     <Compile Include="Models\Datos\Entity\MenusEntity.cs" />
     <Compile Include="Models\Datos\Entity\PersonasEntity.cs" />
+    <Compile Include="Models\Datos\Entity\PresupuestoEntity.cs" />
     <Compile Include="Models\Datos\Entity\ProductosEntity.cs" />
     <Compile Include="Models\Datos\Entity\RequerimientosEntity.cs" />
     <Compile Include="Models\Datos\Entity\UsuariosEntity.cs" />
@@ -308,6 +309,7 @@
     <Content Include="Content\images\img\user6-128x128.jpg" />
     <Content Include="Content\images\img\user7-128x128.jpg" />
     <Content Include="Content\images\img\user8-128x128.jpg" />
+    <Content Include="Content\images\Productos\product.png" />
     <Content Include="Content\js\app.js" />
     <Content Include="Content\js\dashboard.js" />
     <Content Include="Content\js\demo.js" />
@@ -315,6 +317,7 @@
     <Content Include="Content\css\jquery.dataTables.min.css" />
     <Content Include="Content\js\jquery.dataTables.min.js" />
     <Content Include="Content\js\jquery.Grid.min.js" />
+    <Content Include="Content\js\loader.js" />
     <Content Include="Content\js\moment.min.js" />
     <Content Include="Content\js\PruebaModal.js" />
     <Content Include="Content\js\raphael.min.js" />
@@ -2837,11 +2840,12 @@
     <Content Include="Views\Requerimiento\Index.cshtml" />
     <Content Include="Views\Requerimiento\Asignar.cshtml" />
     <Content Include="Views\Requerimiento\bitacora.cshtml" />
+    <Content Include="Views\Presupuesto\Index.cshtml" />
+    <Content Include="Views\Presupuesto\Create.cshtml" />
+    <Content Include="Views\Presupuesto\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\images\Productos\" />
-    <Folder Include="Views\Presupuesto\" />
     <Folder Include="Views\Soporte\" />
     <Folder Include="Views\Usuario\" />
   </ItemGroup>

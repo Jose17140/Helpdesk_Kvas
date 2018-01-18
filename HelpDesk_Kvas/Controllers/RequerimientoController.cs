@@ -261,6 +261,7 @@ namespace HelpDesk_Kvas.Controllers
         private void Listas()
         {
             var list = objGrupoDetalleLogic.Listar();
+            //var lis = objUsuario
             #region LISTADO DE SELECT QUE SE DESPLEGARAN EN LA VISTA
             //Lista Departamento
             var _departamentos = list.Where(m => m.IdPadre.Equals(36)).ToList();
@@ -278,6 +279,7 @@ namespace HelpDesk_Kvas.Controllers
             var _estatus = list.Where(m => m.IdGrupo.Equals(29)).ToList();
             SelectList listEstatus = new SelectList(_estatus, "IdGrupoDetalle", "Titulo");
             ViewBag.Estatus = listEstatus;
+            //Lista Tecnicos
             #endregion
 
         }

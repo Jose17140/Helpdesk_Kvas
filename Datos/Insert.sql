@@ -216,7 +216,7 @@ INSERT INTO ProductoServicios (Sku,IdCategoria,IdGrupo,Nombre,Descripcion,IdFabr
 ('123456789',97,16,'Procesador I7','Procesador I7 XXXX LGA123',64,31,'IMAGEN',10,1,200000,500000,10,1,'2018-01-03 19:45:28.087');
 --SERVICIO
 INSERT INTO ProductoServicios (Sku,IdCategoria,IdGrupo,Nombre,Descripcion,IdFabricante,IdUnidad,Imagen,Stock,StockMin,PrecioCompra,PrecioVenta,Garantia,Estatus,FechaRegistro) VALUES
-('987654321',102,17,'Limpieza de Cabezal','Solvente y ultrasonido',67,31,'glyphicon glyphicon-wrench',0,0,200000,500000,15,1,'2018-01-03 19:45:28.087');
+('976543217',135,17,'Limpieza de Cabezal','Solvente y ultrasonido',67,31,'glyphicon glyphicon-wrench',0,0,200000,500000,15,1,'2018-01-03 19:45:28.087');
 --CONDICIONES
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 ('Nuevo','Producto Nuevo',25,'glyphicon glyphicon-tags',1,0,'*',GETDATE()),
@@ -307,6 +307,10 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDe
 --estado
 ('Activo','activa elementos',31,'fa fa-hourglass-o',1,60,'*',GETDATE()),
 ('Inactivo','inactiva elementos',31,'fa fa-hourglass-o',2,60,'*',GETDATE());
+--REQUERIMIENTO
+--SUB MENU REQUERIMIENTO 2
+INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
+('Presupuesto','Sub Menu',2,'fa-file',3,2,'/Presupuesto/Create',GETDATE());
 --REQUERIMIENTO
 INSERT INTO Requerimientos(IdDepartamento,IdEmpleado,FechaEntrada,IdCliente,IdEquipo,IdMarca,IdModelo,IdPrioridad,Falla,Serial,Observaciones,Accesorios,IdDeposito,IdEstatus)VALUES
 (135,4,'2018-01-03 19:45:28.087',5,106,68,129,118,'Imprime con rayas','XWWWW00001','Equipo en mal estado','Ninguno',116,61);
