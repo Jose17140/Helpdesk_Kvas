@@ -148,7 +148,7 @@ namespace HelpDesk_Kvas.Controllers
             var personas = objPersonaLogic.Listar();
             var p = (from m in personas
                      where m.CiRif.ToUpper().StartsWith(_ci)
-                     select new { BuscarCliente = m.CiRif, Nombres=m.Nombres, Telefonos=m.Telefonos, Direccion=m.Direccion, Correo=m.Email }).ToList();
+                     select m).Take(5).ToList();
             return Json(p, JsonRequestBehavior.AllowGet);
         }
         #endregion

@@ -2,163 +2,330 @@
 @{
     ViewBag.Title = "Create";
 }
+<script>
+    $(document).ready(function () {
+        $("#Producto").autocomplete({
+            dataType: 'JSON',
+            source: function (request, response) {
+                $.ajax({
+                    url: "/Presupuesto/BuscarProducto",
+                    type: "POST",
+                    dataType: "json",
+                    data: { _nombre: request.term },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return {
+                                id: item.IdProducto,
+                                sku: item.Sku,
+                                value: item.Nombre,
+                                precio: item.PrecioVenta
+                            }
+                        }))
 
-@using (Html.BeginForm("Create", "Presupuesto", FormMethod.Post, new { id = "frm-comprobante" }))
-{
+                    }
+                })
+            },
+            select: function (e, ui) {
+                $("#IdProducto").val(ui.item.id);
+                $("#Sku").val(ui.item.sku);
+                $("#PrecioProducto").val(ui.item.precio);
+                $("#CantidadProducto").focus();
+            }
+        });
+    })
+
+
+</script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        //cliente
+        $("a[rel='pop-up']").click(function () {
+            var caracteristicas = "height=550,width=1000,scrollTo,resizable=1,scrollbars=1,location=0";
+            nueva = window.open(this.href, 'popup', caracteristicas);
+
+
+            return false;
+        });
+
+        //botones guardar
+        $("#finalizar").click(function () {
+            //alertify.alert("Boton Iniciado");
+            //console.info('hola');
+            var i = 0;
+            var envio = "{Fecha:'" + $("#id_fecha").val() + "',ModoPago:'" + $("#modoPago").val() + "',IdCliente:'" + $("#codigoCliente").val() + "',IdCabecera:'2',Total:'" + $('#TotalaPagar').val() + "',";
+            $("#detalle tbody tr").each(function (index) {
+                if (i == 0) {
+                    envio += "ListadoDetalle:[{IdProducto:'" + $(this).find('td').eq(0).text() +
+                        "',Cantidad:'" + $(this).find('td').eq(2).text() +
+                        "',Descuento:'" + $(this).find('td').eq(4).text() +
+                        "',SubTotal:'" + $(this).find('td').eq(5).text() + "'}";
+                } else {
+                    envio += ",{IdProducto:'" + $(this).find('td').eq(0).text() +
+                        "',Cantidad:'" + $(this).find('td').eq(2).text() +
+                        "',Descuento:'" + $(this).find('td').eq(4).text() +
+                        "',SubTotal:'" + $(this).find('td').eq(5).text() + "'}"
+                }
+                i = 1;
+            });
+            envio += "]}";
+
+            var json = eval("(" + envio + ')');
+
+            //alertify.alert("INGRESE DATOS");
+            console.info(json);
+
+            $.ajax({
+                url: "GuardarVenta",
+                data: JSON.stringify(json),
+                type: "POST",
+                async: false,//this makes the ajax-call blocking
+                contentType: 'application/json;charset=UTF-8',
+                dataType: 'json',
+                success: function (response) {
+                    alertify.alert(response);
+                    valid = response.valid;
+                },
+                error: function (error) {
+                    alertify.alert(error);
+
+                }
+            });
+        });
+
+    });
+    //variables
+    var total = 0;
+    var valor = 0;
+    var subtotal = 0;
+
+    function fn_agregar() {
+
+        cadena = "<tr>"
+        cadena = cadena + "<td>" + $("#IdProducto").val() + "</td>";
+        cadena = cadena + "<td>" + $("#NombreProducto").val() + "</td>";
+        cadena = cadena + "<td>" + $("#CantidadProducto").val() + "</td>";
+        cadena = cadena + "<td>" + $("#PrecioProducto").val() + "</td>";
+
+        var y = 0;
+        var x = 0;
+        y = $("#CantidadProducto").val();
+        x = $("#PrecioProducto").val();
+        subtotal = (x * y);
+        cadena = cadena + "<td>" + subtotal + "</td>"
+        cadena = cadena + "<td><a class ='elimina'><button class='btn btn-danger' type='button'><span class='fa fa-remove'></span></button></a></td>";
+        $("#tproductos tbody").append(cadena);
+        sumar();
+        fn_dar_eliminar();
+        limpiarCliente();
+        limpiar();
+    };
+
+    function limpiar() {
+        $("#nombreproducto").val("");
+        $("#idproducto").val("");
+        $("#precio").val("");
+        $("#ListaProducto").val("");
+        $("#cantidad").val("");
+        $("#descuento").val("");
+    }
+
+    function limpiarCliente() {
+        $("tbody tr #txtnombre").val('');
+        $("tbody tr #idCliente").val('');
+        $("tbody tr #codigoCliente").val('');
+    }
+
+    function limpiarDetalle() {
+        $("#detalle tbody tr").val("");
+    }
+
+    function sumar() {
+        total = total + subtotal;
+        console.info(total);
+        $("#TotalaPagar").val(total);
+
+    }
+
+    function restar() {
+        total = total - valor;
+        $("#TotalaPagar").val(total);
+    }
+
+    function fn_dar_eliminar() {
+        $("a.elimina").click(function () {
+            valor = $(this).parents("tr").find("td").eq(5).html();
+
+            $(this).parents("tr").fadeOut("normal", function () {
+                $(this).remove();
+                restar();
+            });
+        });
+    };
+
+
+</script>
+
+<section class="content-header">
+    <h1>
+        Tablero
+        <small>@ViewBag.Title</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+        <li class="active">Dashboard</li>
+    </ol>
+</section>
+<br /><br />
+
+<section class="content">
+    @using (Html.BeginForm("Create", "Presupuesto", FormMethod.Post, new { id = "frm-comprobante" }))
+    {
+
+    }
+    <div class="row">
+        <div>@Html.ValidationSummary("", new { @class = "text-danger" })</div>
+    </div>
     <div class="row">
         <div class="col-xs-12">
-            <div class="form-group">
-                @*@Html.EditorFor(m=>m.n)
-                    @Html.LabelFor(x => x.Nombres)
-                    @Html.TextBoxFor(x => x.Nombres, new { @class = "form-control", placeholder = "Ingrese el nombre del cliente" })
-                    @Html.ValidationMessage("Cliente", null, new { @class = "label label-danger" })*@
-            </div>
             <div class="well well-sm">
-                <div class="row">
-                    <!--Nombre-->
-                    <div class="col-xs-7">
-                        @Html.TextBoxFor(x => x.IdProducto)
-                        @Html.TextBoxFor(x => x.NombreProducto, new { @class = "form-control", placeholder = "Buscar producto", id = "Producto" })
-                        @Html.ValidationMessage("producto_agregar", null, new { @class = "label label-danger" })
-                    </div>
-                    <!--Nombre-->
-                    <div class="col-xs-2">
-                        @Html.TextBoxFor(x => x.CantidadProducto, new { @class = "form-control", placeholder = "Cantidad" })
-                    </div>
-                    <!--Nombre-->
-                    <div class="col-xs-2">
-                        <div class="input-group">
-                            <span class="input-group-addon" id="basic-addon1">Bs.</span>
-                            @Html.TextBoxFor(x => x.PrecioProducto, new { @class = "form-control", placeholder = "Precio" })
+                <form action="javascript:fn_agregar()" method="post" id="frm_usu" class="form-horizontal">
+                    @Html.AntiForgeryToken()
+                    <div>@Html.ValidationSummary("", new { @class = "text-danger" })</div>
+                    <div class="row">
+                        <!--Nombre-->
+                        @Html.HiddenFor(x => x.IdProducto)
+                        @Html.HiddenFor(x => x.IdProducto)
+                        <div class="col-xs-4">
+                            @*@Html.LabelFor(x => x.NombreProducto)*@
+                            @Html.TextBoxFor(x => x.NombreProducto, new { @class = "form-control", placeholder = "Buscar producto por nombre...", id = "Producto" })
+                            @Html.ValidationMessageFor(model => model.NombreProducto, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-xs-3">
+                            @Html.TextBoxFor(x => x.Sku, new { @class = "form-control", @disabled = "disabled", placeholder = "Codigo SKU" })
+                            @Html.ValidationMessageFor(model => model.Sku, "", new { @class = "text-danger" })
+                        </div>
+                        <!--Nombre-->
+                        <div class="col-xs-2">
+                            @Html.TextBoxFor(x => x.CantidadProducto, new { @class = "form-control", placeholder = "Cantidad" })
+                            @Html.ValidationMessageFor(model => model.CantidadProducto, "", new { @class = "text-danger" })
+                        </div>
+                        <!--Nombre-->
+                        <div class="col-xs-2">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">Bs.</span>
+                                @Html.TextBoxFor(x => x.PrecioProducto, new { @class = "form-control", placeholder = "Precio" })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.PrecioProducto, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-xs-1">
+                            <button class="btn btn-primary" type="submit" value="agregar_producto" name="action">
+                                <i class="glyphicon glyphicon-plus"></i>
+                            </button>
                         </div>
                     </div>
-                    <div class="col-xs-1">
-                        <button class="btn btn-primary" type="submit" value="agregar_producto" name="action">
-                            <i class="glyphicon glyphicon-plus"></i>
-                        </button>
+                </form>
+                <br /><br />
+
+                <div class="row">
+                    <div class="col-xs-12 table-responsive">
+                        <table id="tproductos" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Producto</th>
+                                    <th>Descripcion</th>
+                                    <th>Cant.</th>
+                                    <th>Precio</th>
+                                    <th>Subtotal</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
                     </div>
+                    <!-- /.col -->
+                </div>
+                <div class="row">
+                    <!-- accepted payments column -->
+                    <div class="col-xs-8">
+                        <p class="lead">Formas de pago:</p>
+                        <img src="~/Content/images/img/credit/visa.png" alt="Visa">
+                        <img src="~/Content/images/img/credit/mastercard.png" alt="Mastercard">
+                        <img src="~/Content/images/img/credit/american-express.png" alt="American Express">
+                        <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+                            Terminos y condiciones
+                        </p>
+                    </div>
+                    <!-- /.col -->
+                    <br />
+                    <div class="col-xs-4">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <tr></tr>
+                                <tr>
+                                    <th style="width:50%">Subtotal:</th>
+                                    <td>Bs. 250.30</td>
+                                </tr>
+                                <tr>
+                                    <th>IVA (12%)</th>
+                                    <td>Bs. 10.34</td>
+                                </tr>
+                                <tr>
+                                    <th>Total:</th>
+                                    <td>Bs. 265.24</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <table class="table">
+                    <tr>
+                        <td style="float:right;font-size:20px;">Total a Pagar</td>
+                        <th></th>
+                        <td><input style="font-size:20px; font-weight:700;" class="form-control" type="text" name="TotalaPagar" id="TotalaPagar" required readonly /></td>
+                    </tr>
+                </table>
+                <div class="row">
+                    <div id="resultados_ajax"> </div>
+                    <button type="submit" class="btn btn-primary pull-right" id="finalizar">Agregar</button>
                 </div>
             </div>
             <hr />
-
-            <ul id="facturador-detalle" class="list-group">
-                @*
-                    @if (Model.ComprobanteDetalle.Count > 0)
-                    {
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col-xs-1"></div>
-                                <div class="col-xs-5">
-                                    <b>Producto</b>
-                                </div>
-                                <div class="col-xs-2 text-center">
-                                    <b>Cantidad</b>
-                                </div>
-                                <div class="col-xs-2 text-right">
-                                    <b>Precio Unitario</b>
-                                </div>
-                                <div class="col-xs-2 text-right">
-                                    <b>Monto</b>
-                                </div>
-                            </div>
-                        </li>
-                    }
-                    @foreach (var d in Model.ComprobanteDetalle)
-                    {
-                        var i = Model.ComprobanteDetalle.IndexOf(d);
-                        <li class="list-group-item">
-                            <!-- Modelo -->
-                            @Html.Hidden("ComprobanteDetalle[" + i + "].ProductoId", d.ProductoId)
-                            @Html.Hidden("ComprobanteDetalle[" + i + "].ProductoNombre", d.ProductoNombre)
-                            @Html.Hidden("ComprobanteDetalle[" + i + "].PrecioUnitario", d.PrecioUnitario)
-                            @Html.Hidden("ComprobanteDetalle[" + i + "].Cantidad", d.Cantidad)
-                            @Html.Hidden("ComprobanteDetalle[" + i + "].Retirar", d.Retirar, new { @class = "retirar" })
-                            <div class="row">
-                                <div class="col-xs-1 text-right">
-                                    <button class="btn btn-danger btn-xs btn-block btn-retirar" type="submit" value="retirar_producto" name="action">
-                                        <i class="glyphicon glyphicon-remove"></i>
-                                    </button>
-                                </div>
-                                <div class="col-xs-5">
-                                    @d.ProductoNombre
-                                </div>
-                                <div class="col-xs-2 text-center">
-                                    @d.Cantidad
-                                </div>
-                                <div class="col-xs-2 text-right">
-                                    @string.Format("{0:c}", d.PrecioUnitario)
-                                </div>
-                                <div class="col-xs-2 text-right">
-                                    @string.Format("{0:c}", d.Monto())
-                                </div>
-                            </div>
-                        </li>
-                    }
-                    @if (Model.ComprobanteDetalle.Count > 0)
-                    {
-                        <li class="list-group-item text-right" style="font-size:18px;">
-                            @string.Format("{0:c}", Model.Total())
-                        </li>
-                    }*@
-            </ul>
-            @*@if (Model.ComprobanteDetalle.Count > 0)
-                {
-                    <button class="btn btn-primary btn-block btn-lg" type="submit" value="generar" name="action">Generar comprobante</button>
-                }*@
-
         </div>
     </div>
-}
+</section>
 
-@section Scripts{
-    <script>
-        $(document).ready(function () {
-            LimpiarAgregarProducto();
+<form action="javascript:fn_agregar()" ; method="post" id="frm_usu" class="form-horizontal">
+    <table class="table">
+        <tr style="font-size:20px;">
+            <td>Nombre del Producto <input style="font-size:20px; font-weight:700;" class="form-control" type="text" id="nombreproducto" readonly required /></td>
+            <td>Id <input style="font-size:20px; font-weight:700;" type="text" id="idproducto" class="form-control" readonly required /></td>
+            <td>Precio <input style="font-size:20px; font-weight:700;" type="text" id="precio" class="form-control" readonly required /></td>
+            <td>Descuento <input style="font-size:20px; font-weight:700;" class="form-control" type="number" id="descuento" value="0" onfocus="this.value = '';" required /></td>
+            <td>Cantidad <input style="font-size:20px; font-weight:700;" class="form-control" type="number" id="cantidad" value="Ingrese Cantidad" onfocus="this.value = '';" required /></td>
+            <td colspan="2"><input class="btn btn-primary btn-lg" type="submit" name="agregar" id="agregar" value="Agregar" /></td>
+        </tr>
+    </table>
+</form>
 
-            $(".btn-retirar").click(function () {
-                if (confirm('¿Está seguro de retirar el item seleccionado?')) {
-                    $(this).closest('.list-group-item').find('.retirar').val("True");
-                    return true;
-                }
+<table id="detalle" class="lista table" border="1">
+    <thead style="font-size:18px;">
+        <tr class="bg-success">
+            <td>Detalle de la Compra</td>
+        </tr>
+        <tr class="bg-danger">
+            <th>Id</th>
+            <th>Descripcion del Producto</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th>Descuento</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
 
-                return false;
-            })
-            /* Autocomplete de producto, jquery UI */
-            $("#Producto").autocomplete({
-                dataType: 'JSON',
-                source: function (request, response) {
-                    jQuery.ajax({
-                        url: '/Presupuesto/BuscarProducto',
-                        type: "post",
-                        dataType: "json",
-                        data: {
-                            _nombre: request.term
-                        },
-                        success: function (data) {
-                            response($.map(data, function (item) {
-                                return {
-                                    id: item.IdProducto,
-                                    value: item.Nombre,
-                                    precio: item.PrecioVenta
-                                }
-                            }))
-                        }
-                    })
-                },
-                select: function (e, ui) {
-                    $("#IdProducto").val(ui.item.id);
-                    $("#PrecioProducto").val(ui.item.precio);
-                    $("#CantidadProducto").focus();
-                }
-            })
-        })
-
-        function LimpiarAgregarProducto() {
-            $("#CabeceraProductoId").val("");
-            $("#Producto").val("");
-            $("#CabeceraProductoPrecio").val("");
-            $("#CabeceraProductoCantidad").val(1);
-        }
-    </script>
-}
-
+</table>

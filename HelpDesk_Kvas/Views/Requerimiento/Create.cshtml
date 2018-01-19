@@ -7,7 +7,7 @@
 @Scripts.Render("~/bundles/jquery")
 <script>
     $(document).ready(function () {
-        $("#Nombres").autocomplete({
+        $("#CiRif").autocomplete({
             dataType: 'JSON',
             source: function (request, response) {
                 $.ajax({
@@ -20,8 +20,11 @@
                             return {
                                 //label: item.Nombres, value: item.Nombres
                                 id: item.id,
-                                value: item.Nombres,
-                                precio: item.Precio
+                                value: item.CiRif,
+                                nombre: item.Nombres,
+                                telefono: item.Telefonos,
+                                direccion: item.Direccion,
+                                email: item.Email
                             }
                         }))
 
@@ -29,11 +32,10 @@
                 })
             },
             select: function (e, ui) {
-                $("#IdProducto").val(ui.item.id);
-                $("#PrecioProducto").val(ui.item.precio);
-                $("#PrecioProducto").val(ui.item.precio);
-                $("#PrecioProducto").val(ui.item.precio);
-                $("#PrecioProducto").val(ui.item.precio);
+                $("#Nombres").val(ui.item.nombre);
+                $("#Telefonos").val(ui.item.telefono);
+                $("#Direccion").val(ui.item.direccion);
+                $("#Email").val(ui.item.email);
             }
         });
     })
@@ -145,25 +147,28 @@
                     </a>
                 </div>
             </div>
+            @Html.EditorFor(model => model.Identificacion, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.Cedula, disabled = "disabled" } })
+            @Html.HiddenFor(model => model.IdTipoPersona)
+            @Html.ValidationMessageFor(model => model.IdTipoPersona, "", new { @class = "text-danger" })
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="exampleInputPassword1">Buscar Cedula:</label>
-                            @Html.EditorFor(model => model.Nombres, new { htmlAttributes = new { @class = "form-control", @placeholder = "Buscar por cedula..." } })
+                            @Html.EditorFor(model => model.CiRif, new { htmlAttributes = new { @class = "form-control", @placeholder = "Buscar por cedula..." } })
                         </div>
-                        @Html.ValidationMessageFor(model => model.Nombres, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(model => model.CiRif, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="exampleInputPassword1">Nombres:</label>
-                            <input type="text" class="form-control" id="contact_name" placeholder="" readonly="">
+                            @Html.EditorFor(model => model.Nombres, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.Cedula, disabled = "disabled" } })
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="exampleInputPassword1">Teléfonos:</label>
-                            <input type="text" class="form-control" id="contact_name" placeholder="" readonly="">
+                            @Html.EditorFor(model => model.Telefonos, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.Cedula, disabled = "disabled" } })
                         </div>
                     </div>
                 </div>
@@ -171,13 +176,13 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="exampleInputPassword1">Direccion:</label>
-                            <input type="text" class="form-control" id="contact_phone" placeholder="" readonly="">
+                            @Html.EditorFor(model => model.Direccion, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.Cedula, disabled = "disabled" } })
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="exampleInputPassword1">Email:</label>
-                            <input type="text" class="form-control" id="contact_email" placeholder="" readonly="">
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.Cedula, disabled = "disabled" } })
                         </div>
                     </div>
                 </div>

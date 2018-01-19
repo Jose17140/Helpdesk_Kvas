@@ -278,17 +278,14 @@ CREATE TABLE Presupuesto_x_Requerimiento(
 	Cant INT NOT NULL,
 	PrecioUnit DECIMAL(8,2) NOT NULL,
 	SubTotal AS (PrecioUnit*Cant),
-	IdIva INT NOT NULL,
+	IdIva DECIMAL(8,2) NOT NULL,
 	CONSTRAINT PK_PresupuestoPorRequerimiento_Id PRIMARY KEY(IdPresupuesto,IdRequerimiento),
 	CONSTRAINT FK_PresupuestoPorRequerimiento_Requerimientos_Id FOREIGN KEY(IdRequerimiento) REFERENCES Requerimientos(IdRequerimiento)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION,
 	CONSTRAINT FK_PresupuestoPorRequerimiento_PoS_IdProducto FOREIGN KEY(IdPoS) REFERENCES ProductoServicios(IdProducto)
 		ON DELETE NO ACTION
-		ON UPDATE NO ACTION,
-	CONSTRAINT FK_PresupuestoPorRequerimiento_GruposDetalles_IdIva FOREIGN KEY(IdRequerimiento) REFERENCES Requerimientos(IdRequerimiento)
-		ON DELETE NO ACTION
-		ON UPDATE NO ACTION,
+		ON UPDATE NO ACTION
 );
 
 
@@ -296,6 +293,7 @@ CREATE TABLE Presupuesto_x_Requerimiento(
 SELECT * FROM Grupos;
 SELECT * FROM GruposDetalles where IdPadre = 134 AND IdGrupo = 14;
 SELECT * FROM GruposDetalles where IdGrupo = 27 AND IdPadre = 129;
+SELECT * FROM GruposDetalles WHERE IdGrupoDetalle = 135
 SELECT * FROM ProductoServicios;
 SELECT * FROM Personas;
 SELECT * FROM Usuarios;
@@ -305,6 +303,7 @@ SELECT * FROM Accesorios_x_Requerimiento;
 SELECT * FROM vw_Requerimientos;
 SELECT * FROM Empleados;
 SELECT * FROM Observaciones_x_Requerimiento;
+SELECT * FROM vw_ListarProductos
 
 INSERT INTO Observaciones_x_Requerimiento(IdRequerimiento,IdUsuario,Observaciones,FechaRegistro)VALUES
 (1,4,'No se como repararlo','2018-01-03 19:45:28.087');

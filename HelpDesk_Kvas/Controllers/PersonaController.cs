@@ -56,7 +56,7 @@ namespace HelpDesk_Kvas.Controllers
             var p = (from m in personas
                      where m.CiRif.ToUpper().StartsWith(Convert.ToInt32(_ci).ToString())
                      //select new {IdCliente =m.CiRif, m.Nombres,m.Telefonos,m.Direccion,m.Email }).ToList();
-                    select new { BuscarCliente = m.CiRif, m.Nombres, m.Telefonos, m.Direccion, m.Email }).ToList();
+                    select m).ToList();
             return Json(p, JsonRequestBehavior.AllowGet);
         }
 
