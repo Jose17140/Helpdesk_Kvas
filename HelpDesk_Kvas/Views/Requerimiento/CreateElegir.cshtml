@@ -1,0 +1,151 @@
+﻿@model HelpDesk_Kvas.Models.Datos.Entity.RequerimientosEntity
+@{
+    ViewBag.Title = "Nueva Tabla";
+    //Layout = null;
+}
+@Styles.Render("~/Content/css/Grupos.css")
+@Scripts.Render("~/bundles/jquery")
+<script type="text/javascript">
+    $(document).ready(function () {
+        //Dropdownlist Filtro
+        $("#IdDepartamento").change(function () {
+            $("#IdEquipo").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("ObtenerEquipo")', // we are calling json method
+                dataType: 'json',
+                data: { _departamento: $("#IdDepartamento").val() },
+                success: function (equipos) {
+                    // states contains the JSON formatted list
+                    // of states passed from the controller
+                    $.each(equipos, function (i, data) {
+                        $("#IdEquipo").append('<option value="' + data.Value + '">' + data.Text + '</option>');
+                    }); // here we are adding option for States
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve states.' + ex);
+                }
+            });
+            return false;
+        })
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //Dropdownlist Filtro
+        $("#IdEquipo").change(function () {
+            $("#IdModelo").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("ObtenerModelo")', // we are calling json method
+                dataType: 'json',
+                data: { _equipo: $("#IdEquipo").val() },
+                success: function (modelos) {
+                    // states contains the JSON formatted list
+                    // of states passed from the controller
+                    $.each(modelos, function (i, data) {
+                        $("#IdModelo").append('<option value="' + data.Value + '">' + data.Text + '</option>');
+                    }); // here we are adding option for States
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve states.' + ex);
+                }
+            });
+            return false;
+        })
+    });
+</script>
+<section class="content-header">
+    <h1>
+        Tablero
+        <small> <span class="fa  fa-wrench"></span>Requerimiento</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"> </i> Inicio</a></li>
+        <li class="active">Dashboard</li>
+    </ol>
+    <br />
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title">@ViewBag.MensajeInicio</h3>
+        </div>
+    </div>
+</section>
+<section class="content">
+    @using (Html.BeginForm("CreateElegir", "Requerimiento", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <input type="hidden" id="IdCliente" name="IdCliente" value="@ViewBag.IdUsuario" />
+        <input type="hidden" id="IdDepartamento" name="IdDepartamento" value="@ViewBag.IdDepartamento" />
+        <!-- general form elements disabled -->
+        <div class="box box-warning">
+            <div class="box-header with-border">
+                <h3 class="box-title"><span class="fa  fa-wrench"></span> Detalles del equipo</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Equipo:</label>
+                        @Html.DropDownListFor(model => model.IdEquipo, ViewBag.ListaEquipos as SelectList, "Seleccione Equipo", htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.IdEquipo, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        <label>Modelo</label>
+                        @Html.DropDownList("IdModelo", new SelectList(string.Empty, "Value", "Text"), "Seleccione Modelo", htmlAttributes: new { @class = "form-control" })
+
+                        @*@Html.DropDownListFor(model => model.IdModelo, ViewBag.Modelos as SelectList, "Seleccione Modelo", htmlAttributes: new { @class = "form-control" })*@
+                        @Html.ValidationMessageFor(model => model.IdModelo, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        <label>Marca</label>
+                        @Html.DropDownListFor(model => model.IdMarca, ViewBag.Marcas as SelectList, "Seleccione Marca", htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.IdMarca, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        <label>Número de serie</label>
+                        @Html.EditorFor(m => m.Serial, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Serial, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        <label>Accesorios</label>
+                        @Html.EditorFor(m => m.Accesorio, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Accesorio, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Problema del equipo</label>
+                        @*<textarea class="form-control" name="Falla" id="Falla" rows="4" required="" data-rule-rangelength="5,255"></textarea>*@
+                        @Html.EditorFor(m => m.Falla, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Falla, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-6">
+                        <label>Observaciones</label>
+                        @Html.EditorFor(m => m.Observaciones, new { htmlAttributes = new { @class = "form-control" } })
+                        @*<textarea class="form-control" name="Observaciones" id="Observaciones" rows="4" data-rule-rangelength="5,255"></textarea>*@
+                        @Html.ValidationMessageFor(model => model.Observaciones, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-body -->
+
+        </div>
+        <!--/.col (right) -->
+        <div class="box-footer">
+            <div id="resultados_ajax" style="position:relative;"> </div>
+            <button type="submit" class="btn btn-primary pull-right">Guardar datos</button>
+        </div>
+
+    }
+
+</section>
+<div id='myModal' class='modal fade in'>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+</div>
+<script src="~/Content/js/PruebaModal.js"></script>
+

@@ -20,9 +20,44 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
         {
             try
             {
-                var fecha = DateTime.Now;
-                db.sp_AgregarUsuario(user.UserName, user.Password, user.IdPregunta, user.RespuestaSeguridad, user.Avatar,
-                                    user.Estatus, fecha, user.IdRoles);
+                Usuarios _user = new Usuarios()
+                {
+                    NombreUsuario = user.UserName,
+                    Contrasena = user.Password,
+                    Avatar = user.Avatar,
+                    IdRoles = Convert.ToInt32(user.IdRoles),
+                    IdPreguntaSeguridad = Convert.ToInt32(user.IdPregunta),
+                    RespuestaSeguridad = user.RespuestaSeguridad,
+                    Estatus = user.Estatus,
+                    FechaRegistro = DateTime.Now
+                };
+                db.Usuarios.InsertOnSubmit(_user);
+                db.SubmitChanges();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+
+            }
+        }
+
+        public void InsertarCompleto(RegisterUserEntity user)
+        {
+            try
+            {
+                Usuarios _user = new Usuarios()
+                {
+                    NombreUsuario = user.UserName,
+                    Contrasena = user.Password,
+                    IdPreguntaSeguridad = user.IdPregunta,
+                    RespuestaSeguridad = user.RespuestaSeguridad,
+                    Avatar = user.Avatar,
+                    FechaRegistro = DateTime.Now
+                };
+                db.Usuarios.InsertOnSubmit(_user);
                 db.SubmitChanges();
             }
             catch (Exception)
@@ -55,20 +90,31 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 
         public void Actualizar(RegisterUserEntity user)
         {
-            try
-            {
-                var fecha = DateTime.Now;
-                db.sp_ActualizarUsuario(user.IdUsuario,user.Password,user.IdPregunta,user.RespuestaSeguridad,user.Estatus,fecha,user.IdRoles);
-                db.SubmitChanges();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
+            //try
+            //{
+            //    var fecha = DateTime.Now;
+            //    db.sp_ActualizarUsuario(user.IdUsuario,user.Password,user.IdPregunta,user.RespuestaSeguridad,user.Estatus,fecha,user.IdRoles);
+            //    db.SubmitChanges();
+            //}
+            //catch (Exception)
+            //{
+            //    throw;
+            //}
+            //finally
+            //{
 
-            }
+            //}
+
+            //GruposDetalles query = db.GruposDetalles.Where(m => m.IdGrupoDetalle == grupo.IdGrupoDetalle).SingleOrDefault();
+            //query.Nombre = grupo.Titulo;
+            //query.Descripcion = grupo.Descripcion;
+            //query.Orden = grupo.Orden;
+            //query.IdGrupo = Convert.ToInt32(grupo.IdGrupo);
+            //query.IdPadre = grupo.IdPadre;
+            //query.UrlDetalle = grupo.UrlDetalle;
+            //query.Imagen = grupo.Icono;
+            //query.Estatus = grupo.Estatus;
+            //db.SubmitChanges();
         }
 
         public UsuariosEntityView Buscar(int idUsuario)
@@ -83,7 +129,7 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
                     UserName = query.NombreUsuario,
                     Password = query.Contrasena,
                     IdRoles = query.IdRoles,
-                    Roles = query.NombreRol,
+                    Roles = query.Rol,
                     IdPregunta = query.IdPregunta,
                     Pregunta = query.Pregunta,
                     RespuestaSeguridad = query.RespuestaSeguridad,
@@ -112,7 +158,7 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
             {
                 if (_usuario!=null)
                 {
-                    var query = db.vw_UsuariosMenu.Where(m => m.NombreUsuario.ToUpper().Equals(_usuario.ToUpper())).SingleOrDefault();
+                    var query = db.vw_ListarUsuarios.Where(m => m.NombreUsuario.ToUpper().Equals(_usuario.ToUpper())).SingleOrDefault();
                     var model = new UsuarioLogEntity()
                     {
                         IdUsuario = query.IdUsuario,
@@ -201,7 +247,7 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
                         UserName = grupos.NombreUsuario,
                         //Email = grupos.Correo,
                         IdRoles = grupos.IdRoles,
-                        Roles = grupos.NombreRol,
+                        Roles = grupos.Rol,
                         Estatus = grupos.Estatus,
                         FechaRegistro = grupos.FechaRegistro
                     });

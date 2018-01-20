@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HelpDesk_Kvas.Models.Datos.Entity
 {
-    public class UsuariosEntity : PersonasEntity
+    public class UsuariosEntity
     {
         [Key]
         public int IdUsuario { get; set; }
@@ -40,13 +40,26 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
         [DataType(DataType.DateTime)]
         [Display(Name = "Fecha de Modificacion:")]
         public DateTime? FechaModificacion { get; set; }
+
+        [DataType(DataType.Date)]
+        [Display(Name = "Fecha de Registro:")]
+        public DateTime FechaRegistro { get; set; }
+
+        public int Mensaje { get; set; }
     }
 
     public class ForgotUserEntity
     {
+        [Display(Name = "Pregunta de Seguridad")]
+        public int? IdPregunta { get; set; }
+
         [Required]
         [Display(Name = "Nombre de Usuario")]
         public string UserName { get; set; }
+
+        [StringLength(50, ErrorMessage = "El número de caracteres de {0} debe ser al menos {2}.", MinimumLength = 6)]
+        [Display(Name = "Respuesta:")]
+        public string RespuestaSeguridad { get; set; }
     }
 
     public class LoginUserEntity

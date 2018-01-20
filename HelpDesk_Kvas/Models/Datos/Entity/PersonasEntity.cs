@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HelpDesk_Kvas.Models.Datos.Entity
 {
-    public class PersonasEntity
+    public class PersonasEntity : UsuariosEntity
     {
         [Key]
         public int IdPersona { get; set; }
@@ -44,13 +44,13 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
         [EmailAddress]
         public string Email { get; set; }
 
-        [DataType(DataType.Date)]
-        [Display(Name = "Fecha de Registro:")]
-        public DateTime FechaRegistro { get; set; }
+        //[DataType(DataType.Date)]
+        //[Display(Name = "Fecha de Registro:")]
+        //public DateTime FechaRegistro { get; set; }
 
         [Display(Name = "Identificacion")]
         public string Identificacion { get { return TipoPersona + CiRif; } }
 
-        public int Mensaje { get; set; }
+        //public int Mensaje { get; set; }
     }
 }

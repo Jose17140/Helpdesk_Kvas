@@ -22,14 +22,14 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
         {
             try
             {
-                Observaciones_x_Requerimiento m = new Observaciones_x_Requerimiento()
+                Observaciones m = new Observaciones()
                 {
                     IdRequerimiento = _bitacora.IdRequerimiento,
                     IdUsuario = _bitacora.IdUsuario,
-                    Observaciones = _bitacora.Observaciones,
+                    Observacion = _bitacora.Observaciones,
                     FechaRegistro = DateTime.Now
                 };
-                db.Observaciones_x_Requerimiento.InsertOnSubmit(m);
+                db.Observaciones.InsertOnSubmit(m);
                 db.SubmitChanges();
             }
             catch (Exception)
@@ -64,10 +64,10 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
         {
             try
             {
-                Observaciones_x_Requerimiento query = db.Observaciones_x_Requerimiento.Where(m => m.IdOxR == _bitacora.IdBitacora).SingleOrDefault();
+                Observaciones query = db.Observaciones.Where(m => m.IdOxR == _bitacora.IdBitacora).SingleOrDefault();
                 query.IdRequerimiento = _bitacora.IdRequerimiento;
                 query.IdUsuario = _bitacora.IdUsuario;
-                query.Observaciones = _bitacora.Observaciones;
+                query.Observacion = _bitacora.Observaciones;
                 query.FechaRegistro = DateTime.Now;
                 db.SubmitChanges();
             }
@@ -128,7 +128,7 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
                         Avatar = _bitacora.Avatar,
                         IdRoles = _bitacora.IdRoles,
                         Rol = _bitacora.Rol,
-                        Observaciones = _bitacora.Observaciones,
+                        Observaciones = _bitacora.Observacion,
                         Leido = _bitacora.Leido,
                         FechaRegistro = _bitacora.FechaRegistro
                     });

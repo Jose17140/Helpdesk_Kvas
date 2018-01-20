@@ -1,9 +1,11 @@
-﻿@model IEnumerable<HelpDesk_Kvas.Models.Datos.Entity.GruposEntity>
+﻿@model IEnumerable<HelpDesk_Kvas.Models.Datos.Entity.GruposDetallesEntity>
 @using PagedList.Mvc;
 @{
     ViewBag.Title = "ElegirDepartamento";
 }
 @Styles.Render("~/Content/css/Grupos.css")
+<link href="~/Content/css/font-awesome.min.css" rel="stylesheet" />
+<link href="~/Content/css/Metro.css" rel="stylesheet" />
 <section class="content-header">
     <h1>
         Tablero
@@ -24,7 +26,7 @@
             @foreach (var i in Model)
             {
                 <div class="btn dropdown">
-                    <a class="btn btn-apps dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="height:300px; width:300px;" href="/">
+                    <a class="btn btn-apps dropdown-toggle" role="button" aria-expanded="false" style="height:300px; width:300px;" href="/Requerimiento/CreateElegir/@i.IdGrupoDetalle">
                         <span class="@i.Icono" style="font-size:150px;"></span>
                         <span style="font-size:25px;">Departamento de:</span>
                         <br />
@@ -34,7 +36,4 @@
             }
         </div>
     </div>
-
-
-
 </section>

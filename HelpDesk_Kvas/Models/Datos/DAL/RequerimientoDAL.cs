@@ -147,8 +147,6 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
                     Accesorio = query.Accesorios,
                     IdTecnico = query.IdTecnico,
                     Tecnico = query.Tecnico,
-                    IdDeposito = Convert.ToInt32(query.IdDeposito),
-                    Deposito = query.Deposito,
                     IdEstatus = Convert.ToInt32(query.IdEstatus),
                     Estatus = query.Estatus
                 };
@@ -204,8 +202,6 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
                         Accesorio = req.Accesorios,
                         IdTecnico = req.IdTecnico,
                         Tecnico = req.Tecnico,
-                        IdDeposito = Convert.ToInt32(req.IdDeposito),
-                        Deposito = req.Deposito,
                         IdEstatus = Convert.ToInt32(req.IdEstatus),
                         Estatus = req.Estatus
                     });

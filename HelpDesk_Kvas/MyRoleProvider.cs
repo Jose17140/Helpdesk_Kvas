@@ -66,7 +66,7 @@ namespace HelpDesk_Kvas
             {
                 roles = (from g in dc.vw_ListarUsuarios
                          where g.NombreUsuario.Equals(username)
-                         select g.NombreRol).ToArray<string>();
+                         select g.Rol).ToArray<string>();
                 //roles = (from g in dc.GruposDetalles
                 //         join u in dc.UsuariosRoles on g.IdGrupoDetalle equals u.IdRoles
                 //         join s in dc.Usuarios on u.IdUsuario equals s.IdUsuario

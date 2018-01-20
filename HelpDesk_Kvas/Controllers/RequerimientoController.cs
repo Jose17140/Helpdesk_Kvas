@@ -68,50 +68,91 @@ namespace HelpDesk_Kvas.Controllers
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.IdSortParm = String.IsNullOrEmpty(sortOrder) ? "id_grupo" : "";
             ViewBag.OrdenSortParm = sortOrder == "Date" ? "date_desc" : "Date";
-
-            if (searchString != null)
+            if (User.IsInRole("Cliente"))
             {
-                page = 1;
+                var _user = User.Identity.Name;
+                var u = objUsuario.Buscar_x_Nombre(_user);
+                var requerimientos = objRequerimientoLogic.Listar().Where(m => m.IdPersona == u.IdUsuario);
+                if (searchString != null)
+                {
+                    page = 1;
+                }
+                else
+                {
+                    searchString = currentFilter;
+                }
+
+                ViewBag.CurrentFilter = searchString;
+
+
+
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    requerimientos = requerimientos.Where(s => s.Nombres.ToUpper().Contains(searchString.ToUpper())
+                                           || s.CiRif.ToUpper().Contains(searchString.ToUpper())
+                                           || s.CiRif.ToUpper().Contains(searchString.ToUpper()));
+
+                }
+
+                switch (sortOrder)
+                {
+                    case "id_grupo":
+                        requerimientos = requerimientos.OrderByDescending(s => s.IdRequerimiento);
+                        break;
+                    case "name_desc":
+                        requerimientos = requerimientos.OrderByDescending(s => s.FechaEntrada);
+                        break;
+                    default:  // Name ascending 
+                        requerimientos = requerimientos.OrderBy(s => s.IdPrioridad);
+                        break;
+                }
+
+                int pageSize = 23;
+                int pageNumber = (page ?? 1);
+                return View(requerimientos.ToPagedList(pageNumber, pageSize));
             }
             else
             {
-                searchString = currentFilter;
+                
+                if (searchString != null)
+                {
+                    page = 1;
+                }
+                else
+                {
+                    searchString = currentFilter;
+                }
+
+                ViewBag.CurrentFilter = searchString;
+
+                var requerimientos = objRequerimientoLogic.Listar();
+
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    requerimientos = requerimientos.Where(s => s.Nombres.ToUpper().Contains(searchString.ToUpper())
+                                           || s.CiRif.ToUpper().Contains(searchString.ToUpper())
+                                           || s.CiRif.ToUpper().Contains(searchString.ToUpper()));
+
+                }
+
+                switch (sortOrder)
+                {
+                    case "id_grupo":
+                        requerimientos = requerimientos.OrderByDescending(s => s.IdRequerimiento);
+                        break;
+                    case "name_desc":
+                        requerimientos = requerimientos.OrderByDescending(s => s.FechaEntrada);
+                        break;
+                    default:  // Name ascending 
+                        requerimientos = requerimientos.OrderBy(s => s.IdPrioridad);
+                        break;
+                }
+
+                int pageSize = 23;
+                int pageNumber = (page ?? 1);
+                return View(requerimientos.ToPagedList(pageNumber, pageSize));
             }
-            ViewBag.CurrentFilter = searchString;
-
-            var requerimientos = objRequerimientoLogic.Listar();
-
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                requerimientos = requerimientos.Where(s => s.Nombres.ToUpper().Contains(searchString.ToUpper())
-                                       || s.CiRif.ToUpper().Contains(searchString.ToUpper())
-                                       || s.CiRif.ToUpper().Contains(searchString.ToUpper()));
-
-            }
-            //if (!String.IsNullOrEmpty(searchString))
-            //{
-            //    requerimientos = requerimientos.Where(s => s.Cliente.ToUpper().Contains(searchString.ToUpper())
-            //                           || s.Cedula.ToUpper().Contains(searchString.ToUpper())
-            //                           || s.Cedula.ToUpper().Contains(searchString.ToUpper()));
-
-            //}
-
-            switch (sortOrder)
-            {
-                case "id_grupo":
-                    requerimientos = requerimientos.OrderByDescending(s => s.IdRequerimiento);
-                    break;
-                case "name_desc":
-                    requerimientos = requerimientos.OrderByDescending(s => s.FechaEntrada);
-                    break;
-                default:  // Name ascending 
-                    requerimientos = requerimientos.OrderBy(s => s.IdPrioridad);
-                    break;
-            }
-
-            int pageSize = 23;
-            int pageNumber = (page ?? 1);
-            return View(requerimientos.ToPagedList(pageNumber, pageSize));
+            
         }
 
         // GET: Requerimiento/Details/5
@@ -162,6 +203,70 @@ namespace HelpDesk_Kvas.Controllers
             var _lista = lista.Where(m => m.IdPadre == 36).ToList();
             return View(_lista);
         }
+        
+
+        public ActionResult CreateElegir(int id)
+        {
+            MensajeInicioRegistrar();
+            var list = objGrupoDetalleLogic.Listar();
+            Listas();
+            ViewBag.IdDepartamento = id;
+            var _equipos = list.Where(m => m.IdPadre.Equals(id)).Where(m=>m.IdGrupo.Equals(14)).ToList();
+            SelectList equipos = new SelectList(_equipos, "IdGrupoDetalle", "Titulo");
+            ViewBag.ListaEquipos = equipos;
+            #region LISTA DE ACCESORIOS
+            var _accesorios = list.Where(m => m.IdGrupo.Equals(11)).ToList();
+            var viewModel = new List<AxR>();
+            foreach (var accsesorios in _accesorios)
+            {
+                viewModel.Add(new AxR
+                {
+                    IdAccesorio = accsesorios.IdGrupoDetalle,
+                    Nombre = accsesorios.Titulo,
+                    //Asigando = instructorCourses.Contains(course.CourseID)
+                });
+            }
+            ViewBag.Accesorios = viewModel;
+            #endregion
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = HttpContext.User.Identity.Name;
+                var u = objUsuario.Buscar_x_Nombre(user);
+                ViewBag.IdUsuario = u.IdUsuario;
+            }
+            return View();
+        }
+
+        // POST: Requerimiento/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateElegir(RequerimientosEntity objRequerimiento)
+        {
+            var listPersonas = objPersonaLogic.Listar();
+            objRequerimiento.IdPersona = listPersonas.Where(m => m.CiRif.Equals(objRequerimiento.Nombres)).Select(m => m.IdPersona).SingleOrDefault();
+            objRequerimiento.IdEstatus = 61;
+            if (!User.IsInRole("Cliente"))
+            {
+                objRequerimiento.IdEstatus = 62;
+            }
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    objRequerimientoLogic.Insertar(objRequerimiento);
+                    MensajeErrorRegistrar(objRequerimiento);
+                }
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                Listas();
+                return View(objRequerimiento);
+            }
+        }
+
+
         #endregion
 
 

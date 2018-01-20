@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace HelpDesk_Kvas.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         PersonasLogic objPersona;
@@ -18,8 +19,13 @@ namespace HelpDesk_Kvas.Controllers
             objRequerimiento = new RequerimientoLogic();
             objProducto = new ProductoLogic();
         }
+        [Authorize(Roles="Master")]
         public ActionResult Index()
         {
+            if (User.IsInRole("Cliente"))
+            {
+                RedirectToAction("Index", "Requerimiento");
+            }
             ViewBag.ContarPersonas = objPersona.Listar().Count();
             ViewBag.ContarRequerimientos = objRequerimiento.Listar().Count();
             ViewBag.ContarProductos = objProducto.Listar().Where(m => m.IdGrupo.Equals(16)).Count();

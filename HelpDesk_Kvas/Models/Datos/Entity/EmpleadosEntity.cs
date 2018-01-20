@@ -5,7 +5,7 @@ using System.Web;
 
 namespace HelpDesk_Kvas.Models.Datos.Entity
 {
-    public class EmpleadosEntity : PersonasEntity
+    public class EmpleadosEntity : UsuariosEntity
     {
     }
 }

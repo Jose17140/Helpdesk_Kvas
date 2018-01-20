@@ -52,7 +52,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="/GrupoDetalle/index/@g.IdGrupo">Listar</a></li>
                         <li><a href="/Grupo/Details/@g.IdGrupo">Detalle</a></li>
-                        @if (User.IsInRole("Master") || User.IsInRole("Supervisor"))
+                        @if (User.IsInRole("Master"))
                         {
                             <li><a href="/Grupo/Edit/@g.IdGrupo">Editar</a></li>
                         }
@@ -85,4 +85,3 @@
         </div>
     </div>
 }
-

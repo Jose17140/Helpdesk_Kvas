@@ -35,7 +35,6 @@ INSERT INTO Grupos(Nombre,Descripcion,IdPadre,Icono,Estatus,FechaRegistro)VALUES
 ('Estatus de Requerimiento','Descripcion de los estatus de un requerimiento',18,'glyphicon glyphicon-lock',1,GETDATE()),
 ('Estatus de Aprobacion','Descripcion aprobado o rechazado',18,'glyphicon glyphicon-lock',1,GETDATE()),
 ('Estatus de Estado','Activo o inactivo',18,'glyphicon glyphicon-lock',1,GETDATE());
-UPDATE Grupos SET IdPadre = 28 WHERE IdGrupo = 20;
 UPDATE Grupos SET IdPadre = 28 WHERE IdGrupo = 14;
 --NULOS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
@@ -93,24 +92,6 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDe
 ('Hora','Hora de Servicio',22,'fa fa-archive',3,0,'*',GETDATE()),
 ('Litro','Litro de Tinta',22,'fa fa-archive',4,0,'*',GETDATE()),
 ('Mililitro','Tinta por mililitro',22,'fa fa-archive',5,0,'*',GETDATE());
---INSERTAR PERSONAS
-INSERT Personas (Nombres, IdTipoPersona, CiRif, Direccion, Telefonos, Email, FechaRegistro) VALUES 
-( N'JUAN ARCOS', 27, N'22012345', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
-( N'YADELSY REYES', 27, N'22012346', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
-( N'TERESA BRAVO', 27, N'22012347', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
-( N'ANA PRINCIPE', 27, N'22012348', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
-( N'LUIS TORRES', 27, N'22012349', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
-( N'MARIA OSPINA', 27, N'22012350', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
-( N'ANYELI MORA', 27, N'21018642', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
-( N'ROSNELLY MORA', 27, N'21018643', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
-( N'MARIA GUEVARA', 27, N'21018645', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
-( N'MARIA GUEVARA', 27, N'21018646', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
-( N'YOSNELLY PINTO', 27, N'21018660', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
-( N'JOSE RODRIGUEZ', 27, N'21018662', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
-( N'DOUGLAS GARCIA', 27, N'21018668', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
-( N'YERALDINE PAEZ', 27, N'21018669', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
-( N'ELIECER JARABA', 27, N'21018672', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
-( N'JOSE BOLIVAR', 27, N'17243451', N'Catia', N'04265556677', N'help@help.com', GETDATE());
 --DEPARTAMENTOS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 ('Soporte','Departamento de Soporte',6,'fa fa-archive',1,0,'*',GETDATE()),
@@ -192,13 +173,6 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDe
 ('Tinta','Envase de tinta',11,'fa fa-users',6,0,'*',GETDATE()),
 ('CD/DVD','Driver y documentacion',11,'fa fa-users',7,0,'*',GETDATE()),
 ('Cartuchos','Cartuchos de tinta',11,'fa fa-users',8,0,'*',GETDATE());
---USUARIOS
-EXEC sp_AgregarUsuario 'Jose','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=',40,'edmundo romero','user1-128x128.jpg',1,'2018-01-03 19:45:28.087',46
-EXEC sp_AgregarUsuario 'Jonas','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=',40,'edmundo romero','user2-160x160.jpg',1,'2018-01-03 19:45:28.087',47
-EXEC sp_AgregarUsuario 'Iveet','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=',40,'edmundo romero','user3-128x128.jpg',1,'2018-01-03 19:45:28.087',48
-EXEC sp_AgregarUsuario 'David','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=',40,'edmundo romero','user4-128x128.jpg',1,'2018-01-03 19:45:28.087',49
-EXEC sp_AgregarUsuario 'Jesus','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=',40,'edmundo romero','user5-128x128.jpg',1,'2018-01-03 19:45:28.087',50
-UPDATE Usuarios SET IdPersona = 16 WHERE IdUsuario = 1
 --CAT PRODUCTOS Y SERVICIOS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 --CAT PRODUCTOS
@@ -211,12 +185,6 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDe
 ('Redes','Equipos de red y comunicaciones',24,'glyphicon glyphicon-tags',1,0,'*',GETDATE()),
 ('Computadoras','Computadoras y laptop',24,'glyphicon glyphicon-tags',2,0,'*',GETDATE()),
 ('Impresoras','Equipos de impresion',24,'glyphicon glyphicon-tags',3,0,'*',GETDATE());
---PRODUCTOS
-INSERT INTO ProductoServicios (Sku,IdCategoria,IdGrupo,Nombre,Descripcion,IdFabricante,IdUnidad,Imagen,Stock,StockMin,PrecioCompra,PrecioVenta,Garantia,Estatus,FechaRegistro) VALUES
-('123456789',97,16,'Procesador I7','Procesador I7 XXXX LGA123',64,31,'IMAGEN',10,1,200000,500000,10,1,'2018-01-03 19:45:28.087');
---SERVICIO
-INSERT INTO ProductoServicios (Sku,IdCategoria,IdGrupo,Nombre,Descripcion,IdFabricante,IdUnidad,Imagen,Stock,StockMin,PrecioCompra,PrecioVenta,Garantia,Estatus,FechaRegistro) VALUES
-('976543217',135,17,'Limpieza de Cabezal','Solvente y ultrasonido',67,31,'glyphicon glyphicon-wrench',0,0,200000,500000,15,1,'2018-01-03 19:45:28.087');
 --CONDICIONES
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 ('Nuevo','Producto Nuevo',25,'glyphicon glyphicon-tags',1,0,'*',GETDATE()),
@@ -262,7 +230,7 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDe
 ('Generico','Equipo generico',27,'lyphicon glyphicon-flash',0,107,'*',GETDATE());
 --SUB MENU REQUERIMIENTO
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
-('Nuevo Ticket','Sub Menu',2,'glyphicon glyphicon-qrcode',1,2,'/Requerimiento/Create',GETDATE()),
+('Nuevo Ticket','Sub Menu',2,'glyphicon glyphicon-qrcode',1,2,'/Requerimiento/elegirDepartamento',GETDATE()),
 ('Consultar','Sub Menu',2,'glyphicon glyphicon-search',2,2,'/Requerimiento/Index',GETDATE());
 --SUB DEPARTAMENTOS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
@@ -276,8 +244,8 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDe
 ('Atencion al Cliente','SubDepartamento Atencion al Cliente',28,'glyphicon glyphicon-user',3,37,'*',GETDATE()),
 ('Administrativo','SubDepartamento Administracion',28,'glyphicon glyphicon-briefcase',3,134,'*',GETDATE()),
 --CARGOS PENDIENTES
-('Tecnico Celulares','Tecnico',20,'fa fa-users',2,136,'*',GETDATE()),
-('Tecnico PC','Tecnico',20,'fa fa-users',2,135,'*',GETDATE());
+('Tecnico Celulares','Tecnico',20,'fa fa-users',2,0,'*',GETDATE()),
+('Tecnico PC','Tecnico',20,'fa fa-users',2,0,'*',GETDATE());
 UPDATE GruposDetalles SET IdPadre = 138 WHERE IdGrupoDetalle = 84;
 UPDATE GruposDetalles SET IdPadre = 134 WHERE IdGrupoDetalle = 85;
 UPDATE GruposDetalles SET IdPadre = 139 WHERE IdGrupoDetalle = 86;
@@ -307,13 +275,20 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDe
 --estado
 ('Activo','activa elementos',31,'fa fa-hourglass-o',1,60,'*',GETDATE()),
 ('Inactivo','inactiva elementos',31,'fa fa-hourglass-o',2,60,'*',GETDATE());
---REQUERIMIENTO
 --SUB MENU REQUERIMIENTO 2
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 ('Presupuesto','Sub Menu',2,'fa-file',3,2,'/Presupuesto/Create',GETDATE());
+--PRODUCTOS
+INSERT INTO ProductoServicios (Sku,IdCategoria,IdGrupo,Nombre,Descripcion,IdFabricante,IdUnidad,Imagen,Stock,StockMin,PrecioCompra,PrecioVenta,Garantia,Estatus,FechaRegistro) VALUES
+('123456789',97,16,'Procesador I7','Procesador I7 XXXX LGA123',64,31,'IMAGEN',10,1,200000,500000,10,1,'2018-01-03 19:45:28.087');
+--SERVICIO
+INSERT INTO ProductoServicios (Sku,IdCategoria,IdGrupo,Nombre,Descripcion,IdFabricante,IdUnidad,Imagen,Stock,StockMin,PrecioCompra,PrecioVenta,Garantia,Estatus,FechaRegistro) VALUES
+('976543217',135,17,'Limpieza de Cabezal','Solvente y ultrasonido',67,31,'glyphicon glyphicon-wrench',0,0,200000,500000,15,1,'2018-01-03 19:45:28.087');
+
 --REQUERIMIENTO
-INSERT INTO Requerimientos(IdDepartamento,IdEmpleado,FechaEntrada,IdCliente,IdEquipo,IdMarca,IdModelo,IdPrioridad,Falla,Serial,Observaciones,Accesorios,IdDeposito,IdEstatus)VALUES
-(135,4,'2018-01-03 19:45:28.087',5,106,68,129,118,'Imprime con rayas','XWWWW00001','Equipo en mal estado','Ninguno',116,61);
+INSERT INTO Requerimientos(IdDepartamento,IdEmpleado,FechaEntrada,IdCliente,IdEquipo,IdMarca,IdModelo,IdPrioridad,Falla,Serial,Observaciones,Accesorios,IdEstatus)VALUES
+(135,4,GETDATE(),5,106,68,129,118,'Imprime con rayas','XWWWW00001','Equipo en mal estado','Ninguno',61);
+
 
 ---- PRODUCTOS
 --INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Icono,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
@@ -324,3 +299,31 @@ INSERT INTO Requerimientos(IdDepartamento,IdEmpleado,FechaEntrada,IdCliente,IdEq
 --('Fan Cooler','I7',9,'fa fa-archive',5,40,'*',GETDATE()),
 --('Disco Duro','500Gb',9,'fa fa-archive',6,40,'*',GETDATE()),
 --('Tinta 100ml','Tinta CM',9,'fa fa-archive',7,42,'*',GETDATE());
+
+
+--USUARIOS
+INSERT INTO Usuarios(NombreUsuario,Contrasena,IdPreguntaSeguridad,RespuestaSeguridad,Avatar,IdRoles,Estatus,FechaRegistro)VALUES
+('Jose','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=',40,'edmundo romero','user1-128x128.jpg',46,1,GETDATE()),
+('Jonas','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=',40,'edmundo romero','user1-128x128.jpg',47,1,GETDATE()),
+('Iveet','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=',40,'edmundo romero','user1-128x128.jpg',48,1,GETDATE()),
+('David','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=',40,'edmundo romero','user1-128x128.jpg',49,1,GETDATE()),
+('Jesus','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=',40,'edmundo romero','user1-128x128.jpg',50,1,GETDATE());
+--INSERTAR PERSONAS
+INSERT Personas (Nombres, IdTipoPersona, CiRif, Direccion, Telefonos, Email, FechaRegistro) VALUES 
+( N'JUAN ARCOS', 27, N'22012345', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
+( N'YADELSY REYES', 27, N'22012346', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
+( N'TERESA BRAVO', 27, N'22012347', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
+( N'ANA PRINCIPE', 27, N'22012348', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
+( N'LUIS TORRES', 27, N'22012349', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
+( N'MARIA OSPINA', 27, N'22012350', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
+( N'ANYELI MORA', 27, N'21018642', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
+( N'ROSNELLY MORA', 27, N'21018643', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
+( N'MARIA GUEVARA', 27, N'21018645', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
+( N'MARIA GUEVARA', 27, N'21018646', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
+( N'YOSNELLY PINTO', 27, N'21018660', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
+( N'JOSE RODRIGUEZ', 27, N'21018662', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
+( N'DOUGLAS GARCIA', 27, N'21018668', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
+( N'YERALDINE PAEZ', 27, N'21018669', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
+( N'ELIECER JARABA', 27, N'21018672', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),
+( N'JOSE BOLIVAR', 27, N'17243451', N'Catia', N'04265556677', N'help@help.com', GETDATE());
+

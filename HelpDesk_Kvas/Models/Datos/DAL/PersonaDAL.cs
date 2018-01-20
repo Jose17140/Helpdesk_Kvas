@@ -117,22 +117,22 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
             try
             {
                 IList<PersonasEntity> lista = new List<PersonasEntity>();
-                var query = (from m in db.vw_Personas
-                             select m).ToList();
-                foreach (var personas in query)
-                {
-                    lista.Add(new PersonasEntity()
-                    {
-                        IdPersona = personas.IdPersona,
-                        Nombres = personas.Nombres,
-                        TipoPersona = personas.TipoPersona,
-                        CiRif = personas.CiRif,
-                        Telefonos = personas.Telefonos,
-                        Direccion = personas.Direccion,
-                        Email = personas.Email,
-                        FechaRegistro = personas.FechaRegistro
-                    });
-                }
+                //var query = (from m in db.vw_Personas
+                //             select m).ToList();
+                //foreach (var personas in query)
+                //{
+                //    lista.Add(new PersonasEntity()
+                //    {
+                //        IdPersona = personas.IdPersona,
+                //        Nombres = personas.Nombres,
+                //        TipoPersona = personas.TipoPersona,
+                //        CiRif = personas.CiRif,
+                //        Telefonos = personas.Telefonos,
+                //        Direccion = personas.Direccion,
+                //        Email = personas.Email,
+                //        FechaRegistro = personas.FechaRegistro
+                //    });
+                //}
                 return lista;
             }
             catch (Exception)

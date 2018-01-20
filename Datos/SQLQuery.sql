@@ -5,18 +5,14 @@ USE Helpdesk_Kvas;
 GO
 
 --DROP TABLE IF EXISTS Empleados;
+
 DROP TABLE IF EXISTS Empleados;
-DROP TABLE IF EXISTS Fallas_x_Requerimiento;
-DROP TABLE IF EXISTS Observaciones_x_Requerimiento;
-DROP TABLE IF EXISTS Presupuesto_x_Requerimiento;
-DROP TABLE IF EXISTS Accesorios_x_Requerimiento;
-DROP TABLE IF EXISTS Mensajes_x_Requerimiento;
-DROP TABLE IF EXISTS UsuariosRoles;
-DROP TABLE IF EXISTS SerialesProductos;
+DROP TABLE IF EXISTS Personas;
+DROP TABLE IF EXISTS Observaciones;
+DROP TABLE IF EXISTS Presupuestos;
 DROP TABLE IF EXISTS ProductoServicios;
 DROP TABLE IF EXISTS Requerimientos;
 DROP TABLE IF EXISTS Usuarios;
-DROP TABLE IF EXISTS Personas;
 DROP TABLE IF EXISTS GruposDetalles;
 DROP TABLE IF EXISTS Grupos;
 
@@ -53,31 +49,15 @@ CREATE TABLE GruposDetalles(
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION,
 );
-DROP TABLE IF EXISTS Personas;
-CREATE TABLE Personas(
-	IdPersona INT IDENTITY(1,1) NOT NULL,
-	Nombres VARCHAR(50) NOT NULL,
-	IdTipoPersona INT NOT NULL,
-	CiRif VARCHAR(11) NOT NULL,
-	Direccion VARCHAR(100) NOT NULL,
-	Telefonos VARCHAR(60) NOT NULL,
-	Email VARCHAR(60) NULL,
-	FechaRegistro DATETIME NOT NULL,
-	CONSTRAINT PK_Personas_IdPersona PRIMARY KEY(IdPersona),
-	CONSTRAINT UQ_Personas_CiRif UNIQUE(CiRif),
-	CONSTRAINT FK_Personas_GruposDetalles_IdDetalles FOREIGN KEY (IdTipoPersona) REFERENCES GruposDetalles(IdGrupoDetalle)
-		ON DELETE CASCADE
-		ON UPDATE CASCADE
-);
 DROP TABLE IF EXISTS Usuarios;
 CREATE TABLE Usuarios(
 	IdUsuario INT IDENTITY(1,1) NOT NULL,
-	IdPersona INT NULL,
 	NombreUsuario VARCHAR(30) NOT NULL,
 	Contrasena VARCHAR(100) NOT NULL,
 	IdPreguntaSeguridad INT NULL,
 	RespuestaSeguridad VARCHAR(50) NULL,
 	Avatar VARCHAR(30) NOT NULL,
+	IdRoles INT NOT NULL,
 	FechaLogin DATETIME NULL,
 	ContadorFallido INT NOT NULL DEFAULT 0,
 	Estatus BIT NOT NULL DEFAULT 0,
@@ -89,28 +69,34 @@ CREATE TABLE Usuarios(
 	CONSTRAINT FK_Usuarios_GrupoDetalles_IdRespuestaSeguridad FOREIGN KEY(IdPreguntaSeguridad) REFERENCES GruposDetalles(IdGrupoDetalle)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION,
-	CONSTRAINT FK_Usuarios_Personas_IdPersona FOREIGN KEY(IdPersona) REFERENCES Personas(IdPersona)
+	CONSTRAINT FK_Usuarios_GruposDetalles_IdRoles FOREIGN KEY (IdRoles) REFERENCES GruposDetalles(IdGrupoDetalle)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
 );
-DROP TABLE IF EXISTS UsuariosRoles;
-CREATE TABLE UsuariosRoles(
-	IdUserRoles INT IDENTITY(1,1) NOT NULL,
+DROP TABLE IF EXISTS Personas;
+CREATE TABLE Personas(
+	IdPersona INT IDENTITY(1,1) NOT NULL,
 	IdUsuario INT NOT NULL,
-	IdRoles INT NOT NULL,
-	CONSTRAINT PK_Permisos PRIMARY KEY(IdUserRoles),
-	CONSTRAINT FK_UsuariosRoles_Usuarios_Usuario FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario)
-		ON DELETE NO ACTION
-		ON UPDATE NO ACTION,
-	CONSTRAINT FK_UsuariosRoles_GruposDetalles_Roles FOREIGN KEY (IdRoles) REFERENCES GruposDetalles(IdGrupoDetalle)
+	Nombres VARCHAR(50) NOT NULL,
+	IdTipoPersona INT NOT NULL,
+	CiRif VARCHAR(11) NOT NULL,
+	Direccion VARCHAR(100) NOT NULL,
+	Telefonos VARCHAR(60) NOT NULL,
+	Email VARCHAR(60) NULL,
+	FechaRegistro DATETIME NOT NULL,
+	CONSTRAINT PK_Personas_IdPersona PRIMARY KEY(IdPersona),
+	CONSTRAINT UQ_Personas_CiRif UNIQUE(CiRif),
+	CONSTRAINT FK_Personas_GruposDetalles_IdDetalles FOREIGN KEY (IdTipoPersona) REFERENCES GruposDetalles(IdGrupoDetalle)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
+	CONSTRAINT FK_Personas_Usuarios_IdUsuario FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
 );
 DROP TABLE IF EXISTS Empleados;
 CREATE TABLE Empleados(
 	IdEmpleado INT NOT NULL IDENTITY(1,1),
-	IdPersona INT NOT NULL,
-	IdDepartamento INT NOT NULL,
+	IdUsuario INT NOT NULL,
 	IdCargo INT NOT NULL,
 	IdSexo INT NOT NULL,
 	FechaNaciomiento DATE NULL,
@@ -118,11 +104,8 @@ CREATE TABLE Empleados(
 	FechaRetiro DATE NULL,
 	FechaRegistro DATETIME NOT NULL,
 	CONSTRAINT PK_Empleados PRIMARY KEY(IdEmpleado),
-	CONSTRAINT UQ_Empleado_IdUsuario UNIQUE(IdPersona),
-	CONSTRAINT FK_Empleados_Persona_IdPersona FOREIGN KEY (IdPersona) REFERENCES Personas(IdPersona)
-		ON DELETE NO ACTION
-		ON UPDATE NO ACTION,
-	CONSTRAINT FK_Empleados_GruposDetalles_IdDepartamento FOREIGN KEY (IdDepartamento) REFERENCES GruposDetalles(IdGrupoDetalle)
+	CONSTRAINT UQ_Empleado_IdUsuario UNIQUE(IdUsuario),
+	CONSTRAINT FK_Empleados_Usuarios_IdUsuario FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION,
 	CONSTRAINT FK_Empleados_GruposDetalles_IdCargo FOREIGN KEY (IdCargo) REFERENCES GruposDetalles(IdGrupoDetalle)
@@ -132,7 +115,6 @@ CREATE TABLE Empleados(
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
 );
-
 --PRODUCTOS Y SERVICIOS
 DROP TABLE IF EXISTS ProductoServicios;
 CREATE TABLE ProductoServicios(
@@ -171,27 +153,17 @@ CREATE TABLE ProductoServicios(
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
 );
-DROP TABLE IF EXISTS SerialesProductos;
-CREATE TABLE SerialesProductos(
-	IdSerial INT IDENTITY(1,1) NOT NULL,
-	IdProducto INT NOT NULL,
-	Serial VARCHAR(40) NOT NULL,
-	Estatus BIT NOT NULL DEFAULT 1,
-	CONSTRAINT PK_Seriales PRIMARY KEY(IdProducto,IdSerial),
-	CONSTRAINT FK_Seriales_Productos FOREIGN KEY (IdProducto) REFERENCES ProductoServicios(IdProducto)
-		ON DELETE CASCADE
-		ON UPDATE CASCADE
-);
 --TABLAS DE REQUERIMIENTO
 DROP TABLE IF EXISTS Requerimientos;
 CREATE TABLE Requerimientos(
 	IdRequerimiento INT IDENTITY(1,1) NOT NULL,
 	IdDepartamento INT NOT NULL, -- SUB DEPARTAMENTO ENCARGADO DE ATENDER EL REQUERIMIENTO
 	Atendido BIT NOT NULL DEFAULT 0,
-	IdEmpleado INT NOT NULL, -- USUARIO QUE GENERA EL REQUERIMIENTO O LO APRUEBA
+	IdEmpleado INT NULL, -- USUARIO QUE GENERA EL REQUERIMIENTO O LO APRUEBA
+	IdTecnico INT NULL, -- USUARIO TECNICO ENCARGADO DE ATENDER EL REQUERIMIENTO
+	IdCliente INT NOT NULL, -- PERSONA QUE SOLICITA EL REQUERIMIENTO
 	FechaEntrada DATETIME NOT NULL,
 	FechaSalida DATETIME NULL,
-	IdCliente INT NOT NULL, -- PERSONA QUE SOLICITA EL REQUERIMIENTO
 	IdEquipo INT NOT NULL,
 	IdMarca INT NULL,
 	IdModelo INT NULL,
@@ -200,10 +172,8 @@ CREATE TABLE Requerimientos(
 	Diagnostico VARCHAR(250) NULL,
 	Solucion VARCHAR(250) NULL,
 	Serial VARCHAR(30) NOT NULL,
-	Observaciones VARCHAR(250) NOT NULL,
+	Observaciones VARCHAR(250) NULL,
 	Accesorios VARCHAR(30) NULL,
-	IdTecnico INT NULL, -- USUARIO TECNICO ENCARGADO DE ATENDER EL REQUERIMIENTO
-	IdDeposito INT NOT NULL,
 	IdEstatus INT NOT NULL,
 	CONSTRAINT PK_Requerimientos_Id PRIMARY KEY(IdRequerimiento),
 	CONSTRAINT FK_Requerimientos_GruposDetalles_IdDepartamento FOREIGN KEY(IdDepartamento) REFERENCES GruposDetalles(IdGrupoDetalle)
@@ -212,51 +182,35 @@ CREATE TABLE Requerimientos(
 	CONSTRAINT FK_Requerimientos_Usuarios_IdEmpleado FOREIGN KEY(IdEmpleado) REFERENCES Usuarios(IdUsuario)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION,
-	CONSTRAINT FK_Requerimientos_Personas FOREIGN KEY(IdCliente) REFERENCES Personas(IdPersona)
+	CONSTRAINT FK_Requerimientos_Usuarios_IdTecnico FOREIGN KEY(IdTecnico) REFERENCES Usuarios(IdUsuario)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION,
-	CONSTRAINT FK_Requerimientos_GruposDetalles_Equipo FOREIGN KEY(IdEquipo) REFERENCES GruposDetalles(IdGrupoDetalle)
+	CONSTRAINT FK_Requerimientos_Usuarios_IdCliente FOREIGN KEY(IdCliente) REFERENCES Usuarios(IdUsuario)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION,
-	CONSTRAINT FK_Requerimientos_GruposDetalles_Marca FOREIGN KEY(IdMarca) REFERENCES GruposDetalles(IdGrupoDetalle)
+	CONSTRAINT FK_Requerimientos_GruposDetalles_IdEquipo FOREIGN KEY(IdEquipo) REFERENCES GruposDetalles(IdGrupoDetalle)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION,
-	CONSTRAINT FK_Requerimientos_GruposDetalles_Modelo FOREIGN KEY(IdModelo) REFERENCES GruposDetalles(IdGrupoDetalle)
+	CONSTRAINT FK_Requerimientos_GruposDetalles_IdMarca FOREIGN KEY(IdMarca) REFERENCES GruposDetalles(IdGrupoDetalle)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION,
-	CONSTRAINT FK_Requerimientos_GruposDetalles_Prioridad FOREIGN KEY(IdPrioridad) REFERENCES GruposDetalles(IdGrupoDetalle)
+	CONSTRAINT FK_Requerimientos_GruposDetalles_IdModelo FOREIGN KEY(IdModelo) REFERENCES GruposDetalles(IdGrupoDetalle)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION,
-	CONSTRAINT FK_Requerimientos_Usuarios_IdUsuario FOREIGN KEY(IdTecnico) REFERENCES Usuarios(IdUsuario)
-		ON DELETE NO ACTION
-		ON UPDATE NO ACTION,
-	CONSTRAINT FK_Requerimientos_GruposDetalles_Deposito FOREIGN KEY(IdDeposito) REFERENCES GruposDetalles(IdGrupoDetalle)
+	CONSTRAINT FK_Requerimientos_GruposDetalles_IdPrioridad FOREIGN KEY(IdPrioridad) REFERENCES GruposDetalles(IdGrupoDetalle)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION,
 	CONSTRAINT FK_Requerimientos_GruposDetalles_Estatus FOREIGN KEY(IdEstatus) REFERENCES GruposDetalles(IdGrupoDetalle)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
 );
-
-DROP TABLE IF EXISTS Accesorios_x_Requerimiento;
-CREATE TABLE Accesorios_x_Requerimiento(
-	IdAccesorio INT NOT NULL,
-	IdRequerimiento INT NOT NULL,
-	CONSTRAINT PK_AxR_Ids PRIMARY KEY(IdAccesorio,IdRequerimiento),
-	CONSTRAINT FK_AxR_ FOREIGN KEY(IdAccesorio) REFERENCES GruposDetalles(IdGrupoDetalle)
-		ON DELETE NO ACTION
-		ON UPDATE NO ACTION,
-	CONSTRAINT FK_AxR_Requerimientos_id FOREIGN KEY(IdRequerimiento) REFERENCES Requerimientos(IdRequerimiento)
-		ON DELETE NO ACTION
-		ON UPDATE NO ACTION
-);
-
-DROP TABLE IF EXISTS Observaciones_x_Requerimiento;
-CREATE TABLE Observaciones_x_Requerimiento(
+--OBSERVACIONES POR REQUERIMIENTO
+DROP TABLE IF EXISTS Observaciones;
+CREATE TABLE Observaciones(
 	IdOxR INT IDENTITY(1,1) NOT NULL,
 	IdRequerimiento INT NOT NULL,
-	IdUsuario INT NOT NULL,
-	Observaciones VARCHAR(100) NOT NULL,
+	IdUsuario INT NOT NULL, --USUARIO QUE REALIZO EL MENSAJE
+	Observacion VARCHAR(100) NOT NULL,
 	Leido BIT NOT NULL DEFAULT 0, -- SIN LEER 0, LEIDO 1
 	FechaRegistro DATETIME NOT NULL,
 	CONSTRAINT PK_OxR_Id PRIMARY KEY(IdOxR,IdRequerimiento),
@@ -267,23 +221,30 @@ CREATE TABLE Observaciones_x_Requerimiento(
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
 );
-
-DROP TABLE IF EXISTS Presupuesto_x_Requerimiento;
-CREATE TABLE Presupuesto_x_Requerimiento(
+DROP TABLE IF EXISTS Presupuestos;
+CREATE TABLE Presupuestos(
 	IdPresupuesto INT IDENTITY(1,1) NOT NULL,
 	IdRequerimiento INT NOT NULL,
+	IdUsuario INT NOT NULL,
 	FechaEmision DATETIME NOT NULL,
-	FechaVencimiento DATETIME NOT NULL,
+	FechaVencimiento DATETIME NULL,
 	IdPoS INT NOT NULL, --Producto o Servicio
 	Cant INT NOT NULL,
 	PrecioUnit DECIMAL(8,2) NOT NULL,
 	SubTotal AS (PrecioUnit*Cant),
-	IdIva DECIMAL(8,2) NOT NULL,
+	Iva AS (PrecioUnit*Cant)*0.12,
+	IdEstatus INT NOT NULL,
 	CONSTRAINT PK_PresupuestoPorRequerimiento_Id PRIMARY KEY(IdPresupuesto,IdRequerimiento),
 	CONSTRAINT FK_PresupuestoPorRequerimiento_Requerimientos_Id FOREIGN KEY(IdRequerimiento) REFERENCES Requerimientos(IdRequerimiento)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION,
 	CONSTRAINT FK_PresupuestoPorRequerimiento_PoS_IdProducto FOREIGN KEY(IdPoS) REFERENCES ProductoServicios(IdProducto)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION,
+	CONSTRAINT FK_PxR_Usuarios_IdUsuario FOREIGN KEY(IdUsuario) REFERENCES Usuarios(IdUsuario)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION,
+	CONSTRAINT FK_Presupuesto_GruposDetalles_Estatus FOREIGN KEY(IdEstatus) REFERENCES GruposDetalles(IdGrupoDetalle)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
 );
@@ -291,36 +252,36 @@ CREATE TABLE Presupuesto_x_Requerimiento(
 
 
 SELECT * FROM Grupos;
-SELECT * FROM GruposDetalles where IdPadre = 134 AND IdGrupo = 14;
-SELECT * FROM GruposDetalles where IdGrupo = 27 AND IdPadre = 129;
+SELECT * FROM GruposDetalles where IdPadre = 135 AND IdGrupo = 14;
+SELECT * FROM GruposDetalles where IdGrupo = 4 AND IdPadre = 129;
 SELECT * FROM GruposDetalles WHERE IdGrupoDetalle = 135
 SELECT * FROM ProductoServicios;
 SELECT * FROM Personas;
 SELECT * FROM Usuarios;
-SELECT * FROM UsuariosRoles;
 SELECT * FROM Requerimientos;
-SELECT * FROM Accesorios_x_Requerimiento;
 SELECT * FROM vw_Requerimientos;
 SELECT * FROM Empleados;
-SELECT * FROM Observaciones_x_Requerimiento;
+SELECT * FROM Observaciones;
 SELECT * FROM vw_ListarProductos
+SELECT * FROM Presupuestos;
 
-INSERT INTO Observaciones_x_Requerimiento(IdRequerimiento,IdUsuario,Observaciones,FechaRegistro)VALUES
-(1,4,'No se como repararlo','2018-01-03 19:45:28.087');
+INSERT INTO Observaciones(IdRequerimiento,IdUsuario,Observacion,FechaRegistro)VALUES
+(1,1,'Resuelve',GETDATE());
 
-SELECT us.IdUsuario, us.NombreUsuario, gd.IdGrupoDetalle AS IdRol, gd.Nombre AS Rol, ps.Nombres
-FROM GruposDetalles AS gd
-INNER JOIN UsuariosRoles AS ur ON gd.IdGrupoDetalle = ur.IdRoles
-INNER JOIN Usuarios AS us ON ur.IdUsuario = us.IdUsuario
-LEFT JOIN Personas AS ps ON us.IdPersona = ps.IdPersona;
+INSERT INTO Presupuestos(IdRequerimiento,IdUsuario,FechaEmision,IdPoS,Cant,PrecioUnit)VALUES
+(1,4,GETDATE(),1,2,550000)
 
 
-SELECT bt.IdOxR, bt.IdRequerimiento, bt.IdUsuario, us.NombreUsuario, bt.Observaciones, bt.Leido, bt.FechaRegistro
-	FROM Observaciones_x_Requerimiento AS bt
-	INNER JOIN Usuarios AS us ON bt.IdUsuario = us.IdUsuario
 
-SELECT bt.IdRequerimiento, COUNT(bt.IdOxR) AS 'Numero de Mensajes'
-	FROM Observaciones_x_Requerimiento AS bt
-	INNER JOIN Usuarios AS us ON bt.IdUsuario = us.IdUsuario
-	GROUP BY IdRequerimiento
+SELECT u.IdUsuario, u.NombreUsuario, u.Contrasena, ur.IdRoles,gd.Nombre AS NombreRol, u.IdPreguntaSeguridad AS IdPregunta, gdd.Nombre AS Pregunta, u.RespuestaSeguridad,
+		u.Avatar, u.FechaLogin, u.ContadorFallido, u.Estatus,u u.FechaRegistro, u.FechaModificacion
+	FROM Usuarios AS u
+	INNER JOIN GruposDetalles AS gd ON u.IdRol = gd.IdGrupoDetalle
+	INNER JOIN GruposDetalles AS gdd ON u.IdPreguntaSeguridad = gdd.IdGrupoDetalle 
+
+	--REQUERIMIENTO
+INSERT INTO Requerimientos(IdDepartamento,IdEmpleado,FechaEntrada,IdCliente,IdEquipo,IdMarca,IdModelo,IdPrioridad,Falla,Serial,Observaciones,Accesorios,IdEstatus)VALUES
+(135,4,GETDATE(),5,106,68,129,118,'Imprime con rayas','XWWWW00001','Equipo en mal estado','Ninguno',61);
+
+
 

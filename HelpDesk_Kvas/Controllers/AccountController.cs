@@ -51,10 +51,6 @@ namespace HelpDesk_Kvas.Controllers
             {
                 var isExistEmail = false;
                 #region //Email is already Exist 
-                if (user.Email!=null)
-                {
-                    isExistEmail = objUsuarioLogic.IsEmailExist(user.Email);
-                }
                 var isExistUser = objUsuarioLogic.IsUserExist(user.UserName);
                 if (isExistEmail)
                 {
@@ -137,10 +133,6 @@ namespace HelpDesk_Kvas.Controllers
             {
                 var isExistEmail = false;
                 #region //Email is already Exist 
-                if (user.Email != null)
-                {
-                    isExistEmail = objUsuarioLogic.IsEmailExist(user.Email);
-                }
                 var isExistUser = objUsuarioLogic.IsUserExist(user.UserName);
                 if (isExistEmail)
                 {
@@ -221,7 +213,7 @@ namespace HelpDesk_Kvas.Controllers
                         }
                         else
                         {
-                            return RedirectToAction("Index", "Home");
+                            return RedirectToAction("Index", "Requerimiento");
                         }
                     }
                     else

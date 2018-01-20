@@ -236,6 +236,7 @@
     <Compile Include="Models\Datos\DAL\Obligatorios.cs" />
     <Compile Include="Models\Datos\DAL\OxRDAL.cs" />
     <Compile Include="Models\Datos\DAL\PersonaDAL.cs" />
+    <Compile Include="Models\Datos\DAL\PresupuestoDAL.cs" />
     <Compile Include="Models\Datos\DAL\ProductoDAL.cs" />
     <Compile Include="Models\Datos\DAL\RequerimientoDAL.cs" />
     <Compile Include="Models\Datos\DAL\UsuarioDAL.cs" />
@@ -245,7 +246,7 @@
     <Compile Include="Models\Datos\Entity\GruposEntity.cs" />
     <Compile Include="Models\Datos\Entity\MenusEntity.cs" />
     <Compile Include="Models\Datos\Entity\PersonasEntity.cs" />
-    <Compile Include="Models\Datos\Entity\PresupuestoEntity.cs" />
+    <Compile Include="Models\Datos\Entity\PresupuestosEntity.cs" />
     <Compile Include="Models\Datos\Entity\ProductosEntity.cs" />
     <Compile Include="Models\Datos\Entity\RequerimientosEntity.cs" />
     <Compile Include="Models\Datos\Entity\UsuariosEntity.cs" />
@@ -254,6 +255,7 @@
     <Compile Include="Models\Datos\Logica\GrupoLogic.cs" />
     <Compile Include="Models\Datos\Logica\MenuLogic.cs" />
     <Compile Include="Models\Datos\Logica\PersonasLogic.cs" />
+    <Compile Include="Models\Datos\Logica\PresupuestoLogic.cs" />
     <Compile Include="Models\Datos\Logica\ProductoLogic.cs" />
     <Compile Include="Models\Datos\Logica\RequerimientoLogic.cs" />
     <Compile Include="Models\Datos\Logica\UsuarioLogic.cs" />
@@ -269,9 +271,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\AdminLTE.css" />
+    <Content Include="Content\css\font-awesome.css" />
+    <Content Include="Content\css\font-awesome.min.css" />
+    <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\css\Form.css" />
     <Content Include="Content\css\Grupos.css" />
     <Content Include="Content\css\LogReg.css" />
+    <Content Include="Content\css\Metro.css" />
     <Content Include="Content\css\PagedList.css" />
     <Content Include="Content\css\site.css" />
     <Content Include="Content\css\site.min.css" />
@@ -2735,6 +2741,40 @@
       <LastGenOutput>db.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="ClassDiagram1.cd" />
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\fonts\FontAwesome.otf" />
+    <Content Include="Content\less\animated.less" />
+    <Content Include="Content\less\bordered-pulled.less" />
+    <Content Include="Content\less\core.less" />
+    <Content Include="Content\less\fixed-width.less" />
+    <Content Include="Content\less\font-awesome.less" />
+    <Content Include="Content\less\icons.less" />
+    <Content Include="Content\less\larger.less" />
+    <Content Include="Content\less\list.less" />
+    <Content Include="Content\less\mixins.less" />
+    <Content Include="Content\less\path.less" />
+    <Content Include="Content\less\rotated-flipped.less" />
+    <Content Include="Content\less\screen-reader.less" />
+    <Content Include="Content\less\stacked.less" />
+    <Content Include="Content\less\variables.less" />
+    <Content Include="Content\scss\_animated.scss" />
+    <Content Include="Content\scss\_bordered-pulled.scss" />
+    <Content Include="Content\scss\_core.scss" />
+    <Content Include="Content\scss\_fixed-width.scss" />
+    <Content Include="Content\scss\_icons.scss" />
+    <Content Include="Content\scss\_larger.scss" />
+    <Content Include="Content\scss\_list.scss" />
+    <Content Include="Content\scss\_mixins.scss" />
+    <Content Include="Content\scss\_path.scss" />
+    <Content Include="Content\scss\_rotated-flipped.scss" />
+    <Content Include="Content\scss\_screen-reader.scss" />
+    <Content Include="Content\scss\_stacked.scss" />
+    <Content Include="Content\scss\_variables.scss" />
+    <Content Include="Content\scss\font-awesome.scss" />
     <None Include="Properties\PublishProfiles\KvasTEG - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -2843,6 +2883,7 @@
     <Content Include="Views\Presupuesto\Index.cshtml" />
     <Content Include="Views\Presupuesto\Create.cshtml" />
     <Content Include="Views\Presupuesto\Details.cshtml" />
+    <Content Include="Views\Requerimiento\CreateElegir.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

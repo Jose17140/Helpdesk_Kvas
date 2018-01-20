@@ -1,4 +1,5 @@
-﻿using HelpDesk_Kvas.Models.Datos.Logica;
+﻿using HelpDesk_Kvas.Models.Datos.Entity;
+using HelpDesk_Kvas.Models.Datos.Logica;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,32 +41,39 @@ namespace HelpDesk_Kvas.Controllers
             return View();
         }
 
-        // GET: Presupuesto/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
         public JsonResult BuscarProducto(string _nombre)
         {
             var list = objProducto.BuscarNombre(_nombre);
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
+        // GET: Presupuesto/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
+        
         // POST: Presupuesto/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(string IdRequerimiento, List<PresupuestosEntity> ListadoDetalle)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
+                try
+                {
+                    foreach (var i in ListadoDetalle)
+                    {
+                        //ListadoDetalle.
+                    }
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    return View();
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return View();
         }
 
         // GET: Presupuesto/Edit/5
