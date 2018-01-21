@@ -24,17 +24,13 @@
                             @foreach (var lv2 in lv1.ICollection)
                             {
                                 <li>
-                                    @if (lv2.Nombre != "Presupuesto")
-                                    {
-                                        <a href="@lv2.UrlDetalle">
-                                            <i class="@lv2.Imagen"></i>
-                                            @lv2.Nombre
-                                            <span class="pull-right-container">
-                                                <i class="fa fa-angle-left pull-right"></i>
-                                            </span>
-                                        </a>
-                                    }
-
+                                    <a href="@lv2.UrlDetalle">
+                                        <i class="@lv2.Imagen"></i>
+                                        @lv2.Nombre
+                                        <span class="pull-right-container">
+                                            <i class="fa fa-angle-left pull-right"></i>
+                                        </span>
+                                    </a>
                                     @if (lv2.ICollection.Count > 0)
                                     {
                                         <ul class="treeview-menu">
@@ -120,14 +116,14 @@
                                                 if (lv3.Nombre != "Roles")
                                                 {
                                                     <li>
-                                                    <a href="@lv3.UrlDetalle">
-                                                        <i class="@lv3.Imagen"></i>
-                                                        @lv3.Nombre
-                                                        <span class="pull-right-container">
-                                                            <i class="fa fa-angle-left pull-right"></i>
-                                                        </span>
-                                                    </a>
-                                                </li>
+                                                        <a href="@lv3.UrlDetalle">
+                                                            <i class="@lv3.Imagen"></i>
+                                                            @lv3.Nombre
+                                                            <span class="pull-right-container">
+                                                                <i class="fa fa-angle-left pull-right"></i>
+                                                            </span>
+                                                        </a>
+                                                    </li>
                                                 }
                                             }
                                         </ul>
@@ -164,7 +160,7 @@
         }
     </ul>
 }
-@if (User.IsInRole("Analista"))
+@if (User.IsInRole("Analista") || User.IsInRole("Tecnico"))
 {
     <ul class="sidebar-menu">
         @if (Model != null)
@@ -357,20 +353,22 @@
                                             </span>
                                         </a>
                                     }
-
                                     @if (lv2.ICollection.Count > 0)
                                     {
                                         <ul class="treeview-menu">
                                             @foreach (var lv3 in lv2.ICollection)
                                             {
                                                 <li>
-                                                    <a href="@lv3.UrlDetalle">
-                                                        <i class="@lv3.Imagen"></i>
-                                                        @lv3.Nombre
-                                                        <span class="pull-right-container">
-                                                            <i class="fa fa-angle-left pull-right"></i>
-                                                        </span>
-                                                    </a>
+                                                    @if (lv3.Nombre != "Ticket local")
+                                                    {
+                                                        <a href="@lv3.UrlDetalle">
+                                                            <i class="@lv3.Imagen"></i>
+                                                            @lv3.Nombre
+                                                            <span class="pull-right-container">
+                                                                <i class="fa fa-angle-left pull-right"></i>
+                                                            </span>
+                                                        </a>
+                                                    }
                                                 </li>
                                             }
                                         </ul>

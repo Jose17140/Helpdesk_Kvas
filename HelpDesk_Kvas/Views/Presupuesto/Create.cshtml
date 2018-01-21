@@ -55,9 +55,8 @@
                         "',PrecioUnitario:'" + $(this).find('td').eq(4).text() + "'}";
                 } else {
                     envio += ",{IdProducto:'" + $(this).find('td').eq(0).text() +
-                        "',Cantidad:'" + $(this).find('td').eq(2).text() +
-                        "',Descuento:'" + $(this).find('td').eq(4).text() +
-                        "',SubTotal:'" + $(this).find('td').eq(5).text() + "'}"
+                        "',Cantidad:'" + $(this).find('td').eq(3).text() +
+                        "',PrecioUnitario:'" + $(this).find('td').eq(4).text() + "'}";
                 }
                 i = 1;
             });

@@ -46,8 +46,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
@@ -300,6 +301,7 @@
     <Content Include="Content\images\img\credit\mestro.png" />
     <Content Include="Content\images\img\credit\paypal.png" />
     <Content Include="Content\images\img\credit\paypal2.png" />
+    <Content Include="Content\images\img\user.png" />
     <Content Include="Content\images\img\credit\visa.png" />
     <Content Include="Content\images\img\default-50x50.gif" />
     <Content Include="Content\images\img\icons.png" />
@@ -2741,7 +2743,6 @@
       <LastGenOutput>db.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="ClassDiagram1.cd" />
     <Content Include="Content\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\fonts\fontawesome-webfont.woff" />
@@ -2775,6 +2776,7 @@
     <Content Include="Content\scss\_stacked.scss" />
     <Content Include="Content\scss\_variables.scss" />
     <Content Include="Content\scss\font-awesome.scss" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Properties\PublishProfiles\KvasTEG - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

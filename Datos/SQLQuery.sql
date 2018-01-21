@@ -130,8 +130,8 @@ CREATE TABLE ProductoServicios(
 	IdCondicion INT NULL,
 	Stock INT NOT NULL,
 	StockMin INT NULL,
-	PrecioCompra DECIMAL(8,2) NULL,
-	PrecioVenta DECIMAL(8,2) NOT NULL,
+	PrecioCompra DECIMAL(15,2) NULL,
+	PrecioVenta DECIMAL(15,2) NOT NULL,
 	Garantia INT NOT NULL DEFAULT 0,
 	Estatus BIT NOT NULL DEFAULT 1,
 	FechaRegistro DATETIME NOT NULL,
@@ -230,7 +230,7 @@ CREATE TABLE Presupuestos(
 	FechaVencimiento DATETIME NULL,
 	IdPoS INT NOT NULL, --Producto o Servicio
 	Cant INT NOT NULL,
-	PrecioUnit DECIMAL(8,2) NOT NULL,
+	PrecioUnit DECIMAL(15,2) NOT NULL,
 	SubTotal AS (PrecioUnit*Cant),
 	Iva AS (PrecioUnit*Cant)*0.12,
 	IdEstatus INT NOT NULL,
@@ -253,7 +253,7 @@ CREATE TABLE Presupuestos(
 
 SELECT * FROM Grupos;
 SELECT * FROM GruposDetalles where IdPadre = 135 AND IdGrupo = 14;
-SELECT * FROM GruposDetalles where IdGrupo = 4 AND IdPadre = 129;
+SELECT * FROM GruposDetalles where IdGrupo = 19 AND IdPadre = 129;
 SELECT * FROM GruposDetalles WHERE IdGrupoDetalle = 135
 SELECT * FROM ProductoServicios;
 SELECT * FROM Personas;
@@ -264,24 +264,24 @@ SELECT * FROM Empleados;
 SELECT * FROM Observaciones;
 SELECT * FROM vw_ListarProductos
 SELECT * FROM Presupuestos;
+SELECT * FROM vw_ListarUsuarios;
+SELECT * FROM vw_Personas;
+SELECT * FROM vw_Bitacora
+
+
 
 INSERT INTO Observaciones(IdRequerimiento,IdUsuario,Observacion,FechaRegistro)VALUES
-(1,1,'Resuelve',GETDATE());
+(1,1,'Por favor atender',GETDATE());
 
 INSERT INTO Presupuestos(IdRequerimiento,IdUsuario,FechaEmision,IdPoS,Cant,PrecioUnit)VALUES
 (1,4,GETDATE(),1,2,550000)
 
+		  
+		 
+
+	
 
 
-SELECT u.IdUsuario, u.NombreUsuario, u.Contrasena, ur.IdRoles,gd.Nombre AS NombreRol, u.IdPreguntaSeguridad AS IdPregunta, gdd.Nombre AS Pregunta, u.RespuestaSeguridad,
-		u.Avatar, u.FechaLogin, u.ContadorFallido, u.Estatus,u u.FechaRegistro, u.FechaModificacion
-	FROM Usuarios AS u
-	INNER JOIN GruposDetalles AS gd ON u.IdRol = gd.IdGrupoDetalle
-	INNER JOIN GruposDetalles AS gdd ON u.IdPreguntaSeguridad = gdd.IdGrupoDetalle 
-
-	--REQUERIMIENTO
-INSERT INTO Requerimientos(IdDepartamento,IdEmpleado,FechaEntrada,IdCliente,IdEquipo,IdMarca,IdModelo,IdPrioridad,Falla,Serial,Observaciones,Accesorios,IdEstatus)VALUES
-(135,4,GETDATE(),5,106,68,129,118,'Imprime con rayas','XWWWW00001','Equipo en mal estado','Ninguno',61);
 
 
 

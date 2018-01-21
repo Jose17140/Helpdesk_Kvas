@@ -100,6 +100,7 @@ namespace HelpDesk_Kvas.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(ProductosEntity producto)
         {
+            producto.Imagen = "product.png";
             producto.IdGrupo = 16;
             if (ModelState.IsValid)
             {

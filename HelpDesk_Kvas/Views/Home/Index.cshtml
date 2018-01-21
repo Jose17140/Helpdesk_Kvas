@@ -1,63 +1,6 @@
 ﻿@{
     ViewBag.Title = "Página de Início";
 }
-<script src="~/Content/js/loader.js"></script>
-
-<script type="text/javascript">
-
-      // Load the Visualization API and the corechart package.
-      google.charts.load('current', {'packages':['corechart']});
-
-      // Set a callback to run when the Google Visualization API is loaded.
-      google.charts.setOnLoadCallback(drawChart);
-      google.charts.setOnLoadCallback(drawCharts);
-
-      // Callback that creates and populates a data table,
-      // instantiates the pie chart, passes in the data and
-      // draws it.
-      function drawChart() {
-
-        // Create the data table.
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Topping');
-        data.addColumn('number', 'Slices');
-        data.addRows([
-          ['Recibidas', 3],
-          ['No Atendidas', 1],
-          ['Reclamos', 1],
-          ['Entregadas', 1]
-        ]);
-
-        // Set chart options
-        var options = {'title':'Estadisticas de requerimientos',
-                       'width':400,
-                       'height':300};
-
-        // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-      }
-
-      function drawCharts() {
-          var data = google.visualization.arrayToDataTable([
-              ['Year', 'Requerimientos', 'Productos'],
-              ['2004', 1000, 400],
-              ['2005', 1170, 460],
-              ['2006', 660, 1120],
-              ['2007', 1030, 540]
-          ]);
-
-          var options = {
-              title: 'Productos por requerimiento',
-              curveType: 'function',
-              legend: { position: 'bottom' }
-          };
-
-          var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-
-          chart.draw(data, options);
-      }
-</script>
 
 <section class="content-header">
     <h1>
@@ -151,215 +94,166 @@
         </div>
         <!-- /.col -->
     </div>
+
     <div class="row">
-        <div class="col-md-12">
-            <div class="box">
+        <div class="col-md-6">
+            <!-- AREA CHART -->
+            <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Monthly Recap Report</h3>
+                    <h3 class="box-title">Area Chart</h3>
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse">
                             <i class="fa fa-minus"></i>
                         </button>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-wrench"></i>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                            </ul>
-                        </div>
                         <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                     </div>
                 </div>
-                <!-- /.box-header -->
-                <div class="box-body">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <p class="text-center">
-                                <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
-                            </p>
-                            <div class="chart">
-                                <!-- Sales Chart Canvas -->
-                                <canvas id="salesChart" style="height: 180px;"></canvas>
-                            </div>
-                            <!-- /.chart-responsive -->
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-md-4">
-                            <p class="text-center">
-                                <strong>Goal Completion</strong>
-                            </p>
-                            <div class="progress-group">
-                                <span class="progress-text">Add Products to Cart</span>
-                                <span class="progress-number"><b>160</b>/200</span>
-                                <div class="progress sm">
-                                    <div class="progress-bar progress-bar-aqua" style="width: 80%"></div>
-                                </div>
-                            </div>
-                            <!-- /.progress-group -->
-                            <div class="progress-group">
-                                <span class="progress-text">Complete Purchase</span>
-                                <span class="progress-number"><b>310</b>/400</span>
-                                <div class="progress sm">
-                                    <div class="progress-bar progress-bar-red" style="width: 80%"></div>
-                                </div>
-                            </div>
-                            <!-- /.progress-group -->
-                            <div class="progress-group">
-                                <span class="progress-text">Visit Premium Page</span>
-                                <span class="progress-number"><b>480</b>/800</span>
-                                <div class="progress sm">
-                                    <div class="progress-bar progress-bar-green" style="width: 80%"></div>
-                                </div>
-                            </div>
-                            <!-- /.progress-group -->
-                            <div class="progress-group">
-                                <span class="progress-text">Send Inquiries</span>
-                                <span class="progress-number"><b>250</b>/500</span>
-                                <div class="progress sm">
-                                    <div class="progress-bar progress-bar-yellow" style="width: 80%"></div>
-                                </div>
-                            </div>
-                            <!-- /.progress-group -->
-                        </div>
-                        <!-- /.col -->
-                    </div>
-                    <!-- /.row -->
+                <div class="box-body chart-responsive">
+                    <div class="chart" id="revenue-chart" style="height: 300px;"></div>
                 </div>
-                <!-- ./box-body -->
-                <div class="box-footer">
-                    <div class="row">
-                        <div class="col-sm-3 col-xs-6">
-                            <div class="description-block border-right">
-                                <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 17%</span>
-                                <h5 class="description-header">$35,210.43</h5>
-                                <span class="description-text">TOTAL REVENUE</span>
-                            </div>
-                            <!-- /.description-block -->
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-3 col-xs-6">
-                            <div class="description-block border-right">
-                                <span class="description-percentage text-yellow"><i class="fa fa-caret-left"></i> 0%</span>
-                                <h5 class="description-header">$10,390.90</h5>
-                                <span class="description-text">TOTAL COST</span>
-                            </div>
-                            <!-- /.description-block -->
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-3 col-xs-6">
-                            <div class="description-block border-right">
-                                <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 20%</span>
-                                <h5 class="description-header">$24,813.53</h5>
-                                <span class="description-text">TOTAL PROFIT</span>
-                            </div>
-                            <!-- /.description-block -->
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-3 col-xs-6">
-                            <div class="description-block">
-                                <span class="description-percentage text-red"><i class="fa fa-caret-down"></i> 18%</span>
-                                <h5 class="description-header">1200</h5>
-                                <span class="description-text">GOAL COMPLETIONS</span>
-                            </div>
-                            <!-- /.description-block -->
-                        </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+            <!-- DONUT CHART -->
+            <div class="box box-danger">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Donut Chart</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                     </div>
-                    <!-- /.row -->
                 </div>
-                <!-- /.box-footer -->
+                <div class="box-body chart-responsive">
+                    <div class="chart" id="sales-chart" style="height: 300px; position: relative;"></div>
+                </div>
+                <!-- /.box-body -->
             </div>
             <!-- /.box -->
         </div>
-        <!-- /.col -->
-    </div>
-    <br />
-    <div class="row">
-        <div id="curve_chart" style="width: 900px; height: 500px"></div>
-    </div>
-    <div class="row">
-        <div id="chart_div" style="width: 900px; height: 500px"></div>
+        <!-- /.col (LEFT) -->
+        <div class="col-md-6">
+            <!-- LINE CHART -->
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Line Chart</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="box-body chart-responsive">
+                    <div class="chart" id="line-chart" style="height: 300px;"></div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+            <!-- BAR CHART -->
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Bar Chart</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="box-body chart-responsive">
+                    <div class="chart" id="bar-chart" style="height: 300px;"></div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col (RIGHT) -->
     </div>
 </section>
-<div id="chart_div"></div>
-@if (Request.IsAuthenticated)
-{
-    <text>Welcome @HttpContext.Current.User.Identity.Name</text> <br />
-    using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { id = "logoutForm" }))
-    {
-        <a href="javascript:document.getElementById('logoutForm').submit()">Logout</a>
-    }
-}
-else
-{
-    @Html.ActionLink("Iniciar sesión", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
-}
+<script src="~/Content/lib/plugins/morris/morris.min.js"></script>
 
-@Html.ActionLink("Buscar", "BuscarUxR", "Persona")
+<script>
+    $(function () {
+        "use strict";
 
-@*<!-- Small boxes (Stat box) -->
-<section class="content">
-    <div class="row">
-        <div class="col-lg-3 col-xs-6">
-            <!-- small box -->
-            <div class="small-box bg-aqua">
-                <div class="inner">
-                    <h3>150</h3>
-                    <p>Ordenes de trabajo</p>
-                </div>
-                <div class="icon">
-                    <i class="ion ion-clipboard"></i>
-                </div>
-                <a href="/Requerimiento" class="small-box-footer">Ver mas <i class="fa fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-            <!-- small box -->
-            <div class="small-box bg-yellow">
-                <div class="inner">
-                    <h3>44</h3>
-                    <p>Equipos en el taller</p>
-                </div>
-                <div class="icon">
-                    <i class="ion ion-monitor"></i>
-                </div>
-                <a href="/Producto" class="small-box-footer">Ver mas <i class="fa fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-            <!-- small box -->
-            <div class="small-box bg-green">
-                <div class="inner">
-                    <h3>53<sup style="font-size: 20px">%</sup></h3>
-                    <p>Equipos terminados</p>
-                </div>
-                <div class="icon">
-                    <i class="ion ion-laptop"></i>
-                </div>
-                <a href="#" class="small-box-footer">Ver mas <i class="fa fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-            <!-- small box -->
-            <div class="small-box bg-red">
-                <div class="inner">
-                    <h3>65</h3>
-                    <p>Reclamos</p>
-                </div>
-                <div class="icon">
-                    <i class="ion ion-radio-waves"></i>
-                </div>
-                <a href="/Servicio" class="small-box-footer">Ver mas <i class="fa fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
-        <!-- ./col -->
-    </div>
-    <!-- /.row -->
-</section>*@
+        // AREA CHART
+        var area = new Morris.Area({
+            element: 'revenue-chart',
+            resize: true,
+            data: [
+                { y: '2011 Q1', item1: 2666, item2: 2666 },
+                { y: '2011 Q2', item1: 2778, item2: 2294 },
+                { y: '2011 Q3', item1: 4912, item2: 1969 },
+                { y: '2011 Q4', item1: 3767, item2: 3597 },
+                { y: '2012 Q1', item1: 6810, item2: 1914 },
+                { y: '2012 Q2', item1: 5670, item2: 4293 },
+                { y: '2012 Q3', item1: 4820, item2: 3795 },
+                { y: '2012 Q4', item1: 15073, item2: 5967 },
+                { y: '2013 Q1', item1: 10687, item2: 4460 },
+                { y: '2013 Q2', item1: 8432, item2: 5713 }
+            ],
+            xkey: 'y',
+            ykeys: ['item1', 'item2'],
+            labels: ['Item 1', 'Item 2'],
+            lineColors: ['#a0d0e0', '#3c8dbc'],
+            hideHover: 'auto'
+        });
+
+        // LINE CHART
+        var line = new Morris.Line({
+            element: 'line-chart',
+            resize: true,
+            data: [
+                { y: '2011 Q1', item1: 2666 },
+                { y: '2011 Q2', item1: 2778 },
+                { y: '2011 Q3', item1: 4912 },
+                { y: '2011 Q4', item1: 3767 },
+                { y: '2012 Q1', item1: 6810 },
+                { y: '2012 Q2', item1: 5670 },
+                { y: '2012 Q3', item1: 4820 },
+                { y: '2012 Q4', item1: 15073 },
+                { y: '2013 Q1', item1: 10687 },
+                { y: '2013 Q2', item1: 8432 }
+            ],
+            xkey: 'y',
+            ykeys: ['item1'],
+            labels: ['Item 1'],
+            lineColors: ['#3c8dbc'],
+            hideHover: 'auto'
+        });
+
+        //DONUT CHART
+        var donut = new Morris.Donut({
+            element: 'sales-chart',
+            resize: true,
+            colors: ["#3c8dbc", "#f56954", "#00a65a"],
+            data: [
+                { label: "Download Sales", value: 12 },
+                { label: "In-Store Sales", value: 30 },
+                { label: "Mail-Order Sales", value: 20 }
+            ],
+            hideHover: 'auto'
+        });
+        //BAR CHART
+        var bar = new Morris.Bar({
+            element: 'bar-chart',
+            resize: true,
+            data: [
+                { y: '2006', a: 100, b: 90 },
+                { y: '2007', a: 75, b: 65 },
+                { y: '2008', a: 50, b: 40 },
+                { y: '2009', a: 75, b: 65 },
+                { y: '2010', a: 50, b: 40 },
+                { y: '2011', a: 75, b: 65 },
+                { y: '2012', a: 100, b: 90 }
+            ],
+            barColors: ['#00a65a', '#f56954'],
+            xkey: 'y',
+            ykeys: ['a', 'b'],
+            labels: ['CPU', 'DISK'],
+            hideHover: 'auto'
+        });
+    });
+</script>

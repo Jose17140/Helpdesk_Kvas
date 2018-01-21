@@ -36,6 +36,20 @@ namespace HelpDesk_Kvas.Models.Datos.Logica
             }
         }
 
+        public void InsertarCliente(RequerimientosEntity objRequerimiento)
+        {
+            try
+            {
+                objRequerimientoDAL.InsertarCliente(objRequerimiento);
+                objRequerimiento.Mensaje = 99;
+                return;
+            }
+            catch
+            {
+                objRequerimiento.Mensaje = 1;
+            }
+        }
+
         public void AsignarTecnico(RequerimientosEntity objRequerimiento)
         {
             try

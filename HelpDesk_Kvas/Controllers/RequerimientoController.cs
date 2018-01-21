@@ -72,7 +72,7 @@ namespace HelpDesk_Kvas.Controllers
             {
                 var _user = User.Identity.Name;
                 var u = objUsuario.Buscar_x_Nombre(_user);
-                var requerimientos = objRequerimientoLogic.Listar().Where(m => m.IdPersona == u.IdUsuario);
+                var requerimientos = objRequerimientoLogic.Listar().Where(m => m.IdCliente == u.IdUsuario);
                 if (searchString != null)
                 {
                     page = 1;
@@ -194,7 +194,7 @@ namespace HelpDesk_Kvas.Controllers
         }
         #endregion
 
-        #region PASOS PARA QUE UN CLIENTE GENERE UN REQUERIMEINTO
+        #region METODOS DONDE EL CLIENTE PUEDE SOLICITAR EL REQUERIMIENTO DE FOMA REMOTA
         // GET: Requerimiento/Create
         public ActionResult ElegirDepartamento()
         {
@@ -203,7 +203,6 @@ namespace HelpDesk_Kvas.Controllers
             var _lista = lista.Where(m => m.IdPadre == 36).ToList();
             return View(_lista);
         }
-        
 
         public ActionResult CreateElegir(int id)
         {
@@ -240,11 +239,10 @@ namespace HelpDesk_Kvas.Controllers
         // POST: Requerimiento/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateElegir(RequerimientosEntity objRequerimiento)
+        public ActionResult CreateElegir(RequerimientoViewEntity objRequerimiento)
         {
-            var listPersonas = objPersonaLogic.Listar();
-            objRequerimiento.IdPersona = listPersonas.Where(m => m.CiRif.Equals(objRequerimiento.Nombres)).Select(m => m.IdPersona).SingleOrDefault();
             objRequerimiento.IdEstatus = 61;
+            objRequerimiento.IdPrioridad = 119;
             if (!User.IsInRole("Cliente"))
             {
                 objRequerimiento.IdEstatus = 62;
@@ -265,11 +263,9 @@ namespace HelpDesk_Kvas.Controllers
                 return View(objRequerimiento);
             }
         }
-
-
         #endregion
 
-
+        #region METODOS PARA REALIZAR EL REQUERIMIENTO EN TIENDA
         // GET: Requerimiento/Create
         [HttpGet]
         public ActionResult Create()
@@ -303,10 +299,10 @@ namespace HelpDesk_Kvas.Controllers
         // POST: Requerimiento/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(RequerimientosEntity objRequerimiento)
+        public ActionResult Create(RequerimientoViewEntity objRequerimiento)
         {
             var listPersonas = objPersonaLogic.Listar();
-            objRequerimiento.IdPersona = listPersonas.Where(m => m.CiRif.Equals(objRequerimiento.Nombres)).Select(m=>m.IdPersona).SingleOrDefault();
+            objRequerimiento.IdCliente = listPersonas.Where(m => m.CiRif.Equals(objRequerimiento.CiRif)).Select(m=>m.IdPersona).SingleOrDefault();
             objRequerimiento.IdEstatus = 61;
             if (!User.IsInRole("Cliente"))
             {
@@ -328,6 +324,7 @@ namespace HelpDesk_Kvas.Controllers
                 return View(objRequerimiento);
             }
         }
+        #endregion
 
         [HttpGet]
         public ActionResult Asignar(int id)
@@ -348,10 +345,11 @@ namespace HelpDesk_Kvas.Controllers
             return View();
         }
 
-        public ActionResult Bitacora()
+        #region BITACORA
+        public ActionResult Bitacora(int id)
         {
-            var bitacora = objBitacora.Listar();
-            ViewBag.Mensajes = bitacora.Where(m => m.IdRequerimiento.Equals(1)).Count();
+            var bitacora = objBitacora.Listar().Where(m=>m.IdRequerimiento.Equals(id)).ToList();
+            ViewBag.Mensajes = bitacora.Where(m => m.IdRequerimiento.Equals(id)).Count();
             return View(bitacora);
         }
 
@@ -361,7 +359,7 @@ namespace HelpDesk_Kvas.Controllers
         {
             return View();
         }
-
+        #endregion
 
         private void Listas()
         {

@@ -30,7 +30,7 @@ DROP VIEW IF EXISTS vw_Personas;
 GO
 CREATE VIEW vw_Personas
 AS
-	SELECT p.IdPersona, p.Nombres, gd.Nombre AS TipoPersona, p.CiRif, p.Direccion, p.Telefonos, p.Email, p.FechaRegistro
+	SELECT p.IdPersona, p.IdUsuario, p.Nombres, gd.Nombre AS TipoPersona, p.CiRif, p.Direccion, p.Telefonos, p.Email, p.FechaRegistro
 	FROM Personas AS p
 	INNER JOIN GruposDetalles AS gd ON P.IdTipoPersona = gd.IdGrupoDetalle
 GO
@@ -104,13 +104,14 @@ GO
 DROP VIEW IF EXISTS vw_Requerimientos;
 GO
 CREATE VIEW vw_Requerimientos AS (
-	SELECT rq.IdRequerimiento, rq.Atendido, dt.IdGrupoDetalle AS IdDepartamento, dt.Nombre AS Departamento, em.IdUsuario AS IdEmpleado, em.NombreUsuario AS Empleado, rq.FechaEntrada, 
-		rq.FechaSalida, ps.IdPersona, ps.Nombres, CONCAT(tp.Nombre, ps.CiRif) AS Cedula, ps.Telefonos, ps.Email, ps.Direccion, eq.IdGrupoDetalle AS IdEquipo, eq.Nombre AS Equipo, mq.IdGrupoDetalle AS IdMarca, mq.Nombre AS Marca,
-		md.IdGrupoDetalle AS IdModelo, md.Nombre AS Modelo, pr.IdGrupoDetalle AS IdPrioridad, pr.Nombre AS Prioridad, rq.Falla, rq.Diagnostico, rq.Solucion, rq.Serial, rq.Observaciones, 
-		rq.Accesorios, tc.IdUsuario AS IdTecnico, tc.NombreUsuario AS Tecnico, st.IdGrupoDetalle AS IdEstatus, st.Nombre AS Estatus
+	SELECT rq.IdRequerimiento,rq.Atendido, rq.IdDepartamento, dt.Nombre AS Departamento, IdEmpleado, em.NombreUsuario AS Empleado, RQ.FechaEntrada, rq.FechaSalida,
+			rq.IdCliente, ps.Nombres AS NombreCliente, CONCAT(tp.Nombre, ps.CiRif) AS Cedula,ps.Telefonos, ps.Email, ps.Direccion, eq.IdGrupoDetalle AS IdEquipo, 
+			eq.Nombre AS Equipo, mq.IdGrupoDetalle AS IdMarca, mq.Nombre AS Marca, md.IdGrupoDetalle AS IdModelo, md.Nombre AS Modelo, pr.IdGrupoDetalle AS IdPrioridad, 
+			pr.Nombre AS Prioridad, rq.Falla, rq.Diagnostico, rq.Solucion, rq.Serial, rq.Observaciones, rq.Accesorios, tc.IdUsuario AS IdTecnico, tc.NombreUsuario AS Tecnico,
+			st.IdGrupoDetalle AS IdEstatus, st.Nombre AS Estatus
 	FROM Requerimientos AS rq
 		INNER JOIN GruposDetalles AS dt ON rq.IdDepartamento = dt.IdGrupoDetalle
-		INNER JOIN Usuarios AS em ON rq.IdEmpleado = em.IdUsuario
+		LEFT JOIN Usuarios AS em ON rq.IdEmpleado = em.IdUsuario
 		INNER JOIN Personas AS ps ON rq.IdCliente = ps.IdPersona
 		INNER JOIN GruposDetalles AS tp ON ps.IdTipoPersona = tp.IdGrupoDetalle
 		INNER JOIN GruposDetalles AS eq ON rq.IdEquipo = eq.IdGrupoDetalle
@@ -125,11 +126,10 @@ GO
 DROP VIEW IF EXISTS vw_Bitacora
 GO
 CREATE VIEW vw_Bitacora AS(
-	SELECT bt.IdOxR,bt.IdRequerimiento, bt.IdUsuario, us.NombreUsuario, us.Avatar, bt.Observacion, bt.Leido, bt.FechaRegistro, ru.IdRoles, gd.Nombre AS Rol
+	SELECT bt.IdOxR,bt.IdRequerimiento, bt.IdUsuario, us.NombreUsuario, us.Avatar, bt.Observacion, bt.Leido, bt.FechaRegistro, us.IdRoles, gd.Nombre AS Rol
 	FROM Observaciones AS bt
 	INNER JOIN Usuarios AS us ON bt.IdUsuario = us.IdUsuario
-	INNER JOIN UsuariosRoles AS ru ON us.IdUsuario = ru.IdUsuario
-	INNER JOIN GruposDetalles AS gd ON ru.IdRoles = gd.IdGrupoDetalle
+	INNER JOIN GruposDetalles AS gd ON us.IdRoles = gd.IdGrupoDetalle
 )
 
 

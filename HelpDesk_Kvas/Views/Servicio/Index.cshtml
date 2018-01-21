@@ -71,12 +71,12 @@
             @*grid.Column("FechaRegistro", header: "Fecha", format: @<text>@String.Format("{0:MM/dd/yy}", item.FechaRegistro) </text>),*@
               grid.Column(header: "Acciones", canSort: false, style: "action",
                 format: @<text>
-             @Html.Raw("<a data-modal='' href='/Producto/details/" + item.IdProducto + "' id='" + item.IdProducto + "' title='Detail'> <span class='glyphicon glyphicon-search'> </span> </a>")
+             @Html.Raw("<a data-modal='' href='/Producto/details/" + item.IdProducto + "' id='" + item.IdProducto + "' title='Detalles'> <span class='glyphicon glyphicon-search'> </span> </a>")
 
                     @if (User.IsInRole("Master") || User.IsInRole("Supervisor"))
                     {
-                        @Html.Raw("<a data-modal='' href='/Producto/edit/" + item.IdProducto + "' id='" + item.IdProducto + "' title='Edit'> <span class='glyphicon glyphicon-edit'> </span> </a>")
-                        @Html.Raw("<a data-modal='' href='/Producto/delete/" + item.IdProducto + "' id='" + item.IdProducto + "' title='Delete'> <span class='glyphicon glyphicon-trash'> </span> </a>")
+                        @Html.Raw("<a data-modal='' href='/Producto/edit/" + item.IdProducto + "' id='" + item.IdProducto + "' title='Editar'> <span class='glyphicon glyphicon-edit'> </span> </a>")
+                        @Html.Raw("<a data-modal='' href='/Producto/delete/" + item.IdProducto + "' id='" + item.IdProducto + "' title='Eliminar'> <span class='glyphicon glyphicon-trash'> </span> </a>")
                     }
                 </text>)
 

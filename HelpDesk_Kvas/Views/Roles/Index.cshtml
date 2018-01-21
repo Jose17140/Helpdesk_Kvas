@@ -73,11 +73,11 @@
               grid.Column("FechaRegistro", header: "Fecha", format: @<text>@String.Format("{0:MM/dd/yy}", item.FechaRegistro) </text>),
               grid.Column(header: "Acciones", canSort: false, style: "action",
                 format: @<text>
-                @Html.Raw("<a data-modal='' href='/Roles/details/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Detail'> <span class='glyphicon glyphicon-search'> </span> </a>")
-                @Html.Raw("<a data-modal='' href='/Roles/edit/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Edit'> <span class='glyphicon glyphicon-edit'> </span> </a>")
+                @Html.Raw("<a data-modal='' href='/Roles/details/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Detalles'> <span class='glyphicon glyphicon-search'> </span> </a>")
+                @Html.Raw("<a data-modal='' href='/Roles/edit/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Editar'> <span class='glyphicon glyphicon-edit'> </span> </a>")
                 @if (User.IsInRole("Master"))
                 {
-                    @Html.Raw("<a data-modal='' href='/Roles/delete/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Delete'> <span class='glyphicon glyphicon-trash'> </span> </a>")
+                    @Html.Raw("<a data-modal='' href='/Roles/delete/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Eliminar'> <span class='glyphicon glyphicon-trash'> </span> </a>")
                 
                 }
                 </text>)

@@ -7,7 +7,7 @@
 <section class="content-header">
     <h1>
         Tablero
-        <small>@ViewBag.Title</small>
+        <small>Lista Clientes</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
@@ -30,15 +30,15 @@
                            style="display: inline"
                            placeholder="Buscar..." />
                     <span class="input-group-btn">
-                        <button class="btn btn-default" type="submit">Go</button>
+                        <button class="btn btn-default" type="submit"><span class="fa fa-search"></span></button>
                     </span>
 
                 </div>
             </div>
             <div class="pull-right col-lg-1">
-                <a class="btn btn-success" data-modal="" href="/Persona/Create" id="btnCreate">
+                @*<a class="btn btn-success" data-modal="" href="/Persona/Create" id="btnCreate">
                     <span class="glyphicon glyphicon-plus"></span>
-                </a>
+                </a>*@
             </div>
         </div>
 
@@ -66,9 +66,12 @@
               grid.Column("FechaRegistro", header: "Fecha", format: @<text>@String.Format("{0:MM/dd/yy}", item.FechaRegistro) </text>),
               grid.Column(header: "Acciones", canSort: false, style: "action",
                 format: @<text>
-                @Html.Raw("<a data-modal='' href='/Persona/details/" + item.IdPersona + "' id='" + item.IdPersona + "' title='Detail'> <span class='glyphicon glyphicon-search'> </span> </a>")
-                @Html.Raw("<a data-modal='' href='/Persona/edit/" + item.IdPersona + "' id='" + item.IdPersona + "' title='Edit'> <span class='glyphicon glyphicon-edit'> </span> </a>")
-                @Html.Raw("<a data-modal='' href='/Persona/delete/" + item.IdPersona + "' id='" + item.IdPersona + "' title='Delete'> <span class='glyphicon glyphicon-trash'> </span> </a>")
+                @Html.Raw("<a data-modal='' href='/Persona/details/" + item.IdPersona + "' id='" + item.IdPersona + "' title='Detalles'> <span class='glyphicon glyphicon-search'> </span> </a>")
+                @if (User.IsInRole("Master") == true || User.IsInRole("Supervisor") == true) {
+                    @Html.Raw("<a data-modal='' href='/Persona/edit/" + item.IdPersona + "' id='" + item.IdPersona + "' title='Editar'> <span class='glyphicon glyphicon-edit'> </span> </a>")
+                    if (User.IsInRole("Analista") == false) {
+                    @Html.Raw("<a data-modal='' href='/Persona/delete/" + item.IdPersona + "' id='" + item.IdPersona + "' title='Eliminar'> <span class='glyphicon glyphicon-trash'> </span> </a>")
+                        } }
                 </text>)
 
             ));

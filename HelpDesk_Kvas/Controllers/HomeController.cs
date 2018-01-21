@@ -19,7 +19,7 @@ namespace HelpDesk_Kvas.Controllers
             objRequerimiento = new RequerimientoLogic();
             objProducto = new ProductoLogic();
         }
-        [Authorize(Roles="Master")]
+        [Authorize(Roles="Master,Supervisor,Analista,Tecnico")]
         public ActionResult Index()
         {
             if (User.IsInRole("Cliente"))
@@ -30,6 +30,7 @@ namespace HelpDesk_Kvas.Controllers
             ViewBag.ContarRequerimientos = objRequerimiento.Listar().Count();
             ViewBag.ContarProductos = objProducto.Listar().Where(m => m.IdGrupo.Equals(16)).Count();
             ViewBag.ContarServicios = objProducto.Listar().Where(m => m.IdGrupo.Equals(17)).Count();
+            //ViewBag.FRequerimientos = objRequerimiento.Listar().Where(m => m.FechaEntrada.AddDays());
             return View();
         }
 

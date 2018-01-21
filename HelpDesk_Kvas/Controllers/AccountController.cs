@@ -81,7 +81,7 @@ namespace HelpDesk_Kvas.Controllers
                     return View(user);
                 }
                 #endregion
-                user.Avatar = "user7-128x128.jpg";
+                user.Avatar = "user.png";
 
                 #region  Password Hashing 
                 user.Password = Crypto.Hash(user.Password);
@@ -122,6 +122,7 @@ namespace HelpDesk_Kvas.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult RegistrarB([Bind(Exclude = "Email,FechaLogin,ContadorFallido,FechaModificacion")] RegisterUserEntity user)
         {
@@ -155,7 +156,7 @@ namespace HelpDesk_Kvas.Controllers
                 user.Password = Crypto.Hash(user.Password);
                 user.ConfirmPassword = Crypto.Hash(user.ConfirmPassword);
                 #endregion
-                user.Avatar = "user7-128x128.jpg";
+                user.Avatar = "user.png";
                 user.Estatus = true;
                 user.IdRoles = _Roles.Select(m => m.IdGrupoDetalle).SingleOrDefault();
                 #region Save to Database
@@ -213,7 +214,14 @@ namespace HelpDesk_Kvas.Controllers
                         }
                         else
                         {
-                            return RedirectToAction("Index", "Requerimiento");
+                            if (User.IsInRole("Cliente")==false)
+                            {
+                                return RedirectToAction("Index", "Home");
+                            }
+                            else
+                            {
+                                return RedirectToAction("Index", "Requerimiento");
+                            }
                         }
                     }
                     else

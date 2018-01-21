@@ -13,6 +13,7 @@ namespace HelpDesk_Kvas.Controllers
         GrupoDetalleLogic objGrupoDetalleLogic;
         GrupoLogic objGrupoLogic;
         RequerimientoLogic objRequerimientoLogic;
+        PresupuestoLogic objPresupuestoLogic;
         ProductoLogic objProducto;
         UsuarioLogic objUsuario;
         PersonasLogic objPersonaLogic;
@@ -27,6 +28,7 @@ namespace HelpDesk_Kvas.Controllers
             objPersonaLogic = new PersonasLogic();
             objBitacora = new BitacoraLogic();
             objProducto = new ProductoLogic();
+            objPresupuestoLogic = new PresupuestoLogic();
         }
 
         // GET: Presupuesto
@@ -61,11 +63,15 @@ namespace HelpDesk_Kvas.Controllers
             {
                 try
                 {
+                    var user = HttpContext.User.Identity.Name;
+                    var u = objUsuario.Buscar_x_Nombre(user);
+                    ViewBag.IdUsuario = u.IdUsuario;
                     foreach (var i in ListadoDetalle)
                     {
-                        //ListadoDetalle.
+                        i.IdEmpleado = u.IdUsuario;
+                        i.IdRequerimiento = Convert.ToInt32(IdRequerimiento);
+                        objPresupuestoLogic.Insertar(i);
                     }
-
                     return RedirectToAction("Index");
                 }
                 catch

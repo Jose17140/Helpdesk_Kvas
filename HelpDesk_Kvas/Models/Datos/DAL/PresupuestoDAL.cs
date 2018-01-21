@@ -21,7 +21,7 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
                 Presupuestos i = new Presupuestos()
                 {
                     IdRequerimiento = Convert.ToInt32(objPresupuesto.IdRequerimiento),
-                    IdUsuario = objPresupuesto.IdEmpleado,
+                    IdUsuario = Convert.ToInt32(objPresupuesto.IdEmpleado),
                     FechaEmision = DateTime.Now,
                     FechaVencimiento = date.AddDays(5),
                     IdPoS = objPresupuesto.IdPoS,

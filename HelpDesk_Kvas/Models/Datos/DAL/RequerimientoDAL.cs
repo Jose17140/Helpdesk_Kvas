@@ -25,7 +25,7 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
                     IdEmpleado = req.IdEmpleado,
                     FechaEntrada = DateTime.Now,
                     //FechaSalida DATETIME NULL,
-                    IdCliente = req.IdPersona,
+                    IdCliente = req.IdCliente,
                     IdEquipo = req.IdEquipo,
                     IdMarca = req.IdMarca,
                     IdPrioridad = req.IdPrioridad,
@@ -37,6 +37,44 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
                     Observaciones = req.Observaciones,
                     Accesorios = req.Accesorio,
                     IdTecnico = req.IdTecnico,
+                    //IdDeposito = req.IdDeposito,
+                    IdEstatus = req.IdEstatus,
+                };
+                db.Requerimientos.InsertOnSubmit(_requerimiento);
+                db.SubmitChanges();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+
+            }
+        }
+
+        public void InsertarCliente(RequerimientosEntity req)
+        {
+            try
+            {
+                Requerimientos _requerimiento = new Requerimientos()
+                {
+                    IdDepartamento = req.IdDepartamento,
+                    //IdEmpleado = req.IdEmpleado,
+                    FechaEntrada = DateTime.Now,
+                    //FechaSalida DATETIME NULL,
+                    IdCliente = req.IdCliente,
+                    IdEquipo = req.IdEquipo,
+                    IdMarca = req.IdMarca,
+                    IdPrioridad = req.IdPrioridad,
+                    IdModelo = req.IdModelo,
+                    Falla = req.Falla,
+                    //Diagnostico = req.Diagnostico,
+                    //Solucion = req.Solucion,
+                    Serial = req.Serial,
+                    //Observaciones = req.Observaciones,
+                    Accesorios = req.Accesorio,
+                    //IdTecnico = req.IdTecnico,
                     //IdDeposito = req.IdDeposito,
                     IdEstatus = req.IdEstatus,
                 };
@@ -121,12 +159,12 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
                     IdRequerimiento = idRequerimiento,
                     IdDepartamento = query.IdDepartamento,
                     Departamento = query.Departamento,
-                    IdEmpleado = query.IdEmpleado,
+                    IdEmpleado = Convert.ToInt32(query.IdEmpleado),
                     Empleado = query.Empleado,
                     FechaEntrada = query.FechaEntrada,
                     FechaSalida = Convert.ToDateTime(query.FechaSalida),
-                    IdPersona = query.IdPersona,
-                    Nombres = query.Nombres,
+                    IdCliente = query.IdCliente,
+                    Nombres = query.NombreCliente,
                     CiRif = query.Cedula,
                     Telefonos = query.Telefonos,
                     Email = query.Email,
@@ -176,12 +214,12 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
                         IdRequerimiento = req.IdRequerimiento,
                         IdDepartamento = req.IdDepartamento,
                         Departamento = req.Departamento,
-                        IdEmpleado = req.IdEmpleado,
+                        IdEmpleado = Convert.ToInt32(req.IdEmpleado),
                         Empleado = req.Empleado,
                         FechaEntrada = req.FechaEntrada,
                         FechaSalida = Convert.ToDateTime(req.FechaSalida),
-                        IdPersona = req.IdPersona,
-                        Nombres = req.Nombres,
+                        IdCliente = req.IdCliente,
+                        Nombres = req.NombreCliente,
                         CiRif = req.Cedula,
                         Telefonos = req.Telefonos,
                         Email = req.Email,

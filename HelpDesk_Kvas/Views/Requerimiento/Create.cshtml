@@ -1,4 +1,4 @@
-﻿@model HelpDesk_Kvas.Models.Datos.Entity.RequerimientosEntity
+﻿@model HelpDesk_Kvas.Models.Datos.Entity.RequerimientoViewEntity
 @{
     ViewBag.Title = "Nueva Tabla";
     //Layout = null;
@@ -140,16 +140,14 @@
         <!--Datos Usuario-->
         <div class="box box-info">
             <div class="box-header with-border">
-                <h3 class="box-title">Detalle del Cliente</h3>
+                <h3 class="box-title"><span class="glyphicon glyphicon-user"></span> Detalle del Cliente</h3>
                 <div class="pull-right">
                     <a class="btn btn-success btn-sm" data-modal="" href="/Persona/Create" id="btnCreate">
                         <span class="glyphicon glyphicon-plus"></span> Agregar Cliente
                     </a>
                 </div>
             </div>
-            @Html.EditorFor(model => model.Identificacion, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.Cedula, disabled = "disabled" } })
-            @Html.HiddenFor(model => model.IdTipoPersona)
-            @Html.ValidationMessageFor(model => model.IdTipoPersona, "", new { @class = "text-danger" })
+            
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-4">
@@ -192,7 +190,7 @@
         <!-- Horizontal Form -->
         <div class="box box-info">
             <div class="box-header with-border">
-                <h3 class="box-title">Detalle de la orden</h3>
+                <h3 class="box-title"><span class="glyphicon glyphicon-file"></span> Detalle de la orden</h3>
             </div>
             <div class="box-body">
                 <div class="row">
@@ -218,7 +216,7 @@
         <!-- general form elements disabled -->
         <div class="box box-warning">
             <div class="box-header with-border">
-                <h3 class="box-title">Detalles del equipo</h3>
+                <h3 class="box-title"><span class="fa fa-laptop"></span> Detalles del equipo</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -246,37 +244,6 @@
                         @Html.EditorFor(m => m.Serial, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Serial, "", new { @class = "text-danger" })
                     </div>
-                </div>
-                <div class="row">
-
-                    @*<div class="form-group">
-                            <label>Accesorios</label><br />
-                            <div class="col-md-10">
-                                <table>
-                                    <tr>
-                                        @{
-                                            int cnt = 0;
-                                            List<HelpDesk_Kvas.Models.AxR> accesorios = ViewBag.Accesorios;
-                                            foreach (var i in accesorios)
-                                            {
-                                                if (cnt++ % 10 == 0)
-                                                {
-                                                    @:</tr><tr>
-                                                }
-                                                @:<td>
-                                                    <input type="checkbox"
-                                                        name="selectedCourses"
-                                                        value="@i.IdAccesorio"
-                                                        @(Html.Raw(i.Asigando ? "checked=\"checked\"" : "")) />
-                                                        @i.Nombre @:
-                                                @:</td>
-                                            }
-                                            @:</tr>
-                                        }
-                                </table>
-                            </div>
-                        </div>*@
-
                     <div class="col-md-4">
                         <label>Accesorios</label>
                         @Html.EditorFor(m => m.Accesorio, new { htmlAttributes = new { @class = "form-control" } })

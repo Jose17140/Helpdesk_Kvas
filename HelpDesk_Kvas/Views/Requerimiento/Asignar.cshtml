@@ -80,30 +80,6 @@
         })
     });
 </script>
-@*<script>
-        $('#iddropdownlist').change(function () {
-            var url = "/nombreControlador/BuscarCargoLider?claveLider=" + $('#iddropdownlist option:selected').val();
-            $.ajax({
-                url: url,
-                type: 'GET',
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                async: true,
-                success: function (result) {
-                    var lider;
-                    if (result != null && result.length > 0) {
-                        lider = JSON.parse(result);
-                    }
-                    if (lider != null) {
-                        $('#idinput').val(lider.cargo);//cargo debe ser la propiedad de la clase lider donde se almacena el cargo del lider
-                    }
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    alert("error al consultar datos del lider");
-                }
-            });
-        }
-    </script>*@
 <section class="content-header">
     <h1>
         Tablero
@@ -121,19 +97,17 @@
     </div>
 </section>
 <section class="content">
-    @using (Html.BeginForm("Asignar", "Requerimiento", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
-    {
-        @Html.AntiForgeryToken()
-        <input type="hidden" id="IdEmpleado" name="IdEmpleado" value="@ViewBag.IdUsuario" />
-        <!--Datos Usuario-->
-        <div class="row">
-            <!--AQUI VA LA BITACORA DE REQUERIMIENTOS-->
-            @{ Html.RenderAction("Bitacora", "Requerimiento");}
 
-            <div class="col-md-8">
+    <div class="row">
+        @{ Html.RenderAction("Bitacora", "Requerimiento");}
+        <div class="col-md-8">
+            @using (Html.BeginForm("Asignar", "Requerimiento", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <input type="hidden" id="IdEmpleado" name="IdEmpleado" value="@ViewBag.IdUsuario" />
                 <div class="box box-info">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Detalle del Cliente</h3>
+                        <h3 class="box-title"><span class="glyphicon glyphicon-user"></span> Detalle del Cliente</h3>
                         <button type="button" class="btn btn-box-tool" data-widget="collapse">
                             <i class="fa fa-minus"></i>
                         </button>
@@ -184,7 +158,7 @@
                 <!-- Horizontal Form -->
                 <div class="box box-info">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Detalle de la orden</h3>
+                        <h3 class="box-title"><span class="glyphicon glyphicon-file"></span> Detalle de la orden</h3>
                         <button type="button" class="btn btn-box-tool" data-widget="collapse">
                             <i class="fa fa-minus"></i>
                         </button>
@@ -194,7 +168,7 @@
                             </a>
                         </div>
                     </div>
-                    
+
                     <div class="box-body">
                         <div class="row">
                             <div class="col-md-2">
@@ -237,7 +211,7 @@
                 <!-- general form elements disabled -->
                 <div class="box box-warning">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Detalles del equipo</h3>
+                        <h3 class="box-title"><span class="fa fa-laptop"></span> Detalles del equipo</h3>
                         <button type="button" class="btn btn-box-tool" data-widget="collapse">
                             <i class="fa fa-minus"></i>
                         </button>
@@ -265,37 +239,6 @@
                                 @Html.EditorFor(model => model.Serial, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
                                 @Html.ValidationMessageFor(model => model.Serial, "", new { @class = "text-danger" })
                             </div>
-                        </div>
-                        <div class="row">
-
-                            @*<div class="form-group">
-                    <label>Accesorios</label><br />
-                    <div class="col-md-10">
-                        <table>
-                            <tr>
-                                @{
-                                    int cnt = 0;
-                                    List<HelpDesk_Kvas.Models.AxR> accesorios = ViewBag.Accesorios;
-                                    foreach (var i in accesorios)
-                                    {
-                                        if (cnt++ % 10 == 0)
-                                        {
-                                            @:</tr><tr>
-                                        }
-                                        @:<td>
-                                            <input type="checkbox"
-                                                name="selectedCourses"
-                                                value="@i.IdAccesorio"
-                                                @(Html.Raw(i.Asigando ? "checked=\"checked\"" : "")) />
-                                                @i.Nombre @:
-                                        @:</td>
-                                    }
-                                    @:</tr>
-                                }
-                        </table>
-                    </div>
-                </div>*@
-
                             <div class="col-md-4">
                                 <label>Accesorios:</label>
                                 @Html.EditorFor(model => model.Accesorio, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
@@ -316,17 +259,15 @@
                         </div>
                     </div>
                     <!-- /.box-body -->
-
                 </div>
                 <!--/.col (right) -->
                 <div class="box-footer">
                     <div id="resultados_ajax" style="position:relative;"> </div>
                     <button type="submit" class="btn btn-primary pull-right">Guardar datos</button>
                 </div>
-            </div>
+            }
         </div>
-    }
-
+    </div>
 </section>
 <div id='myModal' class='modal fade in'>
     <div class="modal-dialog modal-lg">
