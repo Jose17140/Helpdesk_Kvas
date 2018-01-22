@@ -24,7 +24,6 @@ CREATE PROCEDURE sp_ListarNivelGrupo(
 			ORDER BY ct.LevelGrupo ASC
 		END
 GO
-
 --PERSONAS
 DROP VIEW IF EXISTS vw_Personas;
 GO
@@ -34,9 +33,6 @@ AS
 	FROM Personas AS p
 	INNER JOIN GruposDetalles AS gd ON P.IdTipoPersona = gd.IdGrupoDetalle
 GO
-
-
-
 --GRUPOSDETALLES
 DROP VIEW IF EXISTS vw_GruposDetalles;
 GO
@@ -85,6 +81,63 @@ CREATE VIEW vw_ListarUsuarios
 	INNER JOIN GruposDetalles AS rl ON us.IdRoles = rl.IdGrupoDetalle
 	INNER JOIN GruposDetalles AS ps ON  us.IdPreguntaSeguridad = ps.IdGrupoDetalle         
  GO
+ --VISTA QUE MUESTRA TODOS LOS USUARIOS CON SUS DATOS PERSONALES
+DROP VIEW IF EXISTS vw_Usuarios_Personas;
+GO
+CREATE VIEW vw_Usuarios_Personas
+AS
+	SELECT lu.IdUsuario, lu.NombreUsuario, lu.Contrasena, lu.IdRoles, lu.Rol, lu.IdPregunta, lu.Pregunta, lu.RespuestaSeguridad, lu.Avatar, lu.FechaLogin,
+			lu.ContadorFallido, lu.Estatus, lu.FormColor, lu.FechaRegistro AS FechaRegistroUsuario, lu.FechaModificacion, lp.IdPersona, lp.Nombres,
+			lp.TipoPersona, lp.CiRif, lp.Direccion, lp.Telefonos, lp.Email, lp.FechaRegistro AS FechaRegistroPersona
+	FROM vw_ListarUsuarios AS lu
+	LEFT JOIN vw_Personas AS lp ON lu.IdUsuario = lp.IdUsuario
+GO
+--AGREGAR USURAIOS COMPLETOS
+IF OBJECT_ID('sp_AgregarUsuarioA') IS NOT NULL
+BEGIN 
+	DROP PROC sp_AgregarUsuarioA 
+END
+GO
+CREATE PROCEDURE sp_AgregarUsuarioA (
+	--DATOS DE USUARIO
+	@NombreUsuario VARCHAR(30),      
+    @Contrasena VARCHAR(100),      
+    @IdPreguntaSeguridad INT,
+	@RespuestaSeguridad VARCHAR(50),
+	@Avatar VARCHAR(30),
+	@IdRoles INT,
+	@Estatus BIT,
+	@FormColor VARCHAR(20),
+	@FechaRegistro DATETIME,
+	----DATOS PERSONALES
+	@Nombres VARCHAR(50),
+	@IdTipoPersona INT,
+	@CiRif VARCHAR(11),
+	@Direccion VARCHAR(100),
+	@Telefonos VARCHAR(60),
+	@Email VARCHAR(60)
+)
+	AS
+	BEGIN TRY
+		BEGIN TRAN Usuarios
+			DECLARE @Id INT
+			INSERT INTO Usuarios(NombreUsuario,Contrasena,IdPreguntaSeguridad,RespuestaSeguridad,Avatar,IdRoles,Estatus,FormColor,FechaRegistro) 
+				VALUES(@NombreUsuario,@Contrasena,@IdPreguntaSeguridad,@RespuestaSeguridad,@Avatar,@IdRoles,@Estatus,@FormColor,@FechaRegistro)
+			SELECT @Id = SCOPE_IDENTITY();
+			INSERT INTO Personas(IdUsuario,Nombres,IdTipoPersona,CiRif,Direccion,Telefonos,Email,FechaRegistro) 
+				VALUES (@Id,@Nombres,@IdTipoPersona,@CiRif,@Direccion,@Telefonos,@Email,@FechaRegistro)
+		COMMIT TRANSACTION Usuarios
+	END TRY
+	BEGIN CATCH
+		SELECT ERROR_NUMBER() AS errNumber,
+			   ERROR_SEVERITY() AS errSeverity,
+			   ERROR_STATE() AS errState,
+			   ERROR_PROCEDURE() AS errProcedure,
+			   ERROR_LINE() AS errLine,
+			   ERROR_MESSAGE() AS errMessage
+		ROLLBACK TRAN Usuarios
+	END CATCH
+GO
 
  --PRODUCTOS
 DROP VIEW IF EXISTS vw_ListarProductos;
@@ -99,12 +152,11 @@ GO
 		 INNER JOIN GruposDetalles AS gf ON p.IdFabricante = gf.IdGrupoDetalle
 		 INNER JOIN GruposDetalles AS gu ON p.IdUnidad = gu.IdGrupoDetalle
 GO
-
 -- REQUERIMIENTOS
 DROP VIEW IF EXISTS vw_Requerimientos;
 GO
 CREATE VIEW vw_Requerimientos AS (
-	SELECT rq.IdRequerimiento,rq.Atendido, rq.IdDepartamento, dt.Nombre AS Departamento, IdEmpleado, em.NombreUsuario AS Empleado, RQ.FechaEntrada, rq.FechaSalida,
+	SELECT rq.IdRequerimiento,rq.Atendido, rq.IdDepartamento, dt.Nombre AS Departamento, rq.IdEmpleado, em.NombreUsuario AS Empleado, RQ.FechaEntrada, rq.FechaSalida,
 			rq.IdCliente, ps.Nombres AS NombreCliente, CONCAT(tp.Nombre, ps.CiRif) AS Cedula,ps.Telefonos, ps.Email, ps.Direccion, eq.IdGrupoDetalle AS IdEquipo, 
 			eq.Nombre AS Equipo, mq.IdGrupoDetalle AS IdMarca, mq.Nombre AS Marca, md.IdGrupoDetalle AS IdModelo, md.Nombre AS Modelo, pr.IdGrupoDetalle AS IdPrioridad, 
 			pr.Nombre AS Prioridad, rq.Falla, rq.Diagnostico, rq.Solucion, rq.Serial, rq.Observaciones, rq.Accesorios, tc.IdUsuario AS IdTecnico, tc.NombreUsuario AS Tecnico,
@@ -122,7 +174,6 @@ CREATE VIEW vw_Requerimientos AS (
 		LEFT JOIN GruposDetalles AS st ON rq.IdEstatus = st.IdGrupoDetalle
 )
 GO
-
 DROP VIEW IF EXISTS vw_Bitacora
 GO
 CREATE VIEW vw_Bitacora AS(

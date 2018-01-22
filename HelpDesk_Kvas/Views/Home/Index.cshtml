@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "Página de Início";
 }
-
+<link href="~/Content/lib/plugins/morris/morris.css" rel="stylesheet" />
 <section class="content-header">
     <h1>
         Tablero
@@ -183,21 +183,23 @@
             element: 'revenue-chart',
             resize: true,
             data: [
-                { y: '2011 Q1', item1: 2666, item2: 2666 },
-                { y: '2011 Q2', item1: 2778, item2: 2294 },
-                { y: '2011 Q3', item1: 4912, item2: 1969 },
-                { y: '2011 Q4', item1: 3767, item2: 3597 },
-                { y: '2012 Q1', item1: 6810, item2: 1914 },
-                { y: '2012 Q2', item1: 5670, item2: 4293 },
-                { y: '2012 Q3', item1: 4820, item2: 3795 },
-                { y: '2012 Q4', item1: 15073, item2: 5967 },
-                { y: '2013 Q1', item1: 10687, item2: 4460 },
-                { y: '2013 Q2', item1: 8432, item2: 5713 }
+                { y: '2018 M1', item1: 2666, item2: 2666, item3: 100 },
+                { y: '2018 M2', item1: 2778, item2: 2294 },
+                { y: '2018 M3', item1: 4912, item2: 1969 },
+                { y: '2018 M4', item1: 3767, item2: 3597 },
+                { y: '2018 M5', item1: 4912, item2: 1969 },
+                { y: '2018 M6', item1: 3767, item2: 3597 },
+                { y: '2018 M7', item1: 4912, item2: 1969 },
+                { y: '2018 M8', item1: 3767, item2: 3597 },
+                { y: '2018 M9', item1: 4912, item2: 1969 },
+                { y: '2018 M10', item1: 3767, item2: 3597 },
+                { y: '2018 M11', item1: 4912, item2: 1969 },
+                { y: '2018 M12', item1: 3767, item2: 3597 }
             ],
             xkey: 'y',
-            ykeys: ['item1', 'item2'],
-            labels: ['Item 1', 'Item 2'],
-            lineColors: ['#a0d0e0', '#3c8dbc'],
+            ykeys: ['item1', 'item2', 'item3'],
+            labels: ['Recibidas', 'Terminas', 'Devueltas'],
+            lineColors: ['#a0d0e0', '#3c8dbc', '#ffff'],
             hideHover: 'auto'
         });
 
@@ -206,20 +208,14 @@
             element: 'line-chart',
             resize: true,
             data: [
-                { y: '2011 Q1', item1: 2666 },
-                { y: '2011 Q2', item1: 2778 },
-                { y: '2011 Q3', item1: 4912 },
-                { y: '2011 Q4', item1: 3767 },
-                { y: '2012 Q1', item1: 6810 },
-                { y: '2012 Q2', item1: 5670 },
-                { y: '2012 Q3', item1: 4820 },
-                { y: '2012 Q4', item1: 15073 },
-                { y: '2013 Q1', item1: 10687 },
-                { y: '2013 Q2', item1: 8432 }
+                { y: 'Pc', item1: 2666, item2: 444 },
+                { y: 'Laptop', item1: 2666, item2: 444 }
+
+                
             ],
             xkey: 'y',
-            ykeys: ['item1'],
-            labels: ['Item 1'],
+            ykeys: ['item1', 'item2'],
+            labels: ['Pc', 'Laptop'],
             lineColors: ['#3c8dbc'],
             hideHover: 'auto'
         });
@@ -228,14 +224,16 @@
         var donut = new Morris.Donut({
             element: 'sales-chart',
             resize: true,
-            colors: ["#3c8dbc", "#f56954", "#00a65a"],
+            colors: ["#3c8dbc", "#f56954", "#00a85a", "#3c8dbc"],
             data: [
-                { label: "Download Sales", value: 12 },
-                { label: "In-Store Sales", value: 30 },
-                { label: "Mail-Order Sales", value: 20 }
+                { label: "Impresoras", value: 12 },
+                { label: "Pc", value: 30 },
+                { label: "Laptop", value: 20 },
+                { label: "Otros", value: 20 }
             ],
             hideHover: 'auto'
         });
+
         //BAR CHART
         var bar = new Morris.Bar({
             element: 'bar-chart',

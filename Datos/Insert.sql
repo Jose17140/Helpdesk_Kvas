@@ -292,9 +292,9 @@ INSERT INTO ProductoServicios (Sku,IdCategoria,IdGrupo,Nombre,Descripcion,IdFabr
 ('976543217',135,17,'Limpieza de Cabezal','Solvente y ultrasonido',67,31,'glyphicon glyphicon-wrench',0,0,200000,500000,15,1,'2018-01-03 19:45:28.087');
 --USUARIOS
 INSERT INTO Usuarios(NombreUsuario,Contrasena,IdPreguntaSeguridad,RespuestaSeguridad,Avatar,IdRoles,Estatus,FechaRegistro)VALUES
-('Jose','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=',40,'edmundo romero','user1-128x128.jpg',46,1,GETDATE()),
-('JUAN','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=',40,'edmundo romero','user1-128x128.jpg',47,1,GETDATE()),
-('Iveet','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=',40,'edmundo romero','user1-128x128.jpg',48,1,GETDATE()),
+('Jose','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=',40,'edmundo romero','user.png',46,1,GETDATE()),
+('JUAN','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=',40,'edmundo romero','user.png',47,1,GETDATE()),
+('Iveet','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=',40,'edmundo romero','user.png',48,1,GETDATE()),
 ('TERESA','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=',40,'edmundo romero','user1-128x128.jpg',49,1,GETDATE()),
 ('ANA','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=',40,'edmundo romero','user1-128x128.jpg',50,1,GETDATE()),
 ('LUIS','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=',40,'edmundo romero','user1-128x128.jpg',50,1,GETDATE()),
@@ -309,6 +309,7 @@ INSERT INTO Usuarios(NombreUsuario,Contrasena,IdPreguntaSeguridad,RespuestaSegur
 ('YERALDINE','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=',40,'edmundo romero','user1-128x128.jpg',50,1,GETDATE()),
 ('ELIECER','l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=',40,'edmundo romero','user1-128x128.jpg',50,1,GETDATE());
 --INSERTAR PERSONAS
+UPDATE Usuarios SET Avatar='user.png'
 INSERT Personas (IdUsuario, Nombres, IdTipoPersona, CiRif, Direccion, Telefonos, Email, FechaRegistro) VALUES 
 ( 1,N'JOSE BOLIVAR', 27, N'17243451', N'Catia', N'04265556677', N'help@help.com', GETDATE()),
 ( 2,N'JUAN ARCOS', 27, N'22012345', N'Caracas', N'04265556677', N'help@help.com', GETDATE()),

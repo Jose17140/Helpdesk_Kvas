@@ -99,6 +99,9 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
         [Display(Name = "Confirmar contraseña")]
         [Compare("Password", ErrorMessage = "La contraseña y la contraseña de confirmación no coinciden.")]
         public string ConfirmPassword { get; set; }
+
+        [Display(Name = "Color de formularios")]
+        public string FormColor { get; set; }
     }
 
     public class RecuperarContrasenaUserEntity
@@ -148,5 +151,132 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
 
         public DateTime FechaLogin { get; set; }
 
+    }
+
+    public class UsuarioViewEntity 
+    {
+        #region DATOS DEL USUARIO
+        public int IdUsuario { get; set; }
+        
+        [Display(Name = "Nombre de Usuario")]
+        public string UserName { get; set; }
+
+        [Display(Name = "Contrasena")]
+        public string Password { get; set; }
+
+        [Display(Name = "Roles")]
+        public int IdRoles { get; set; }
+
+        [Display(Name = "Roles")]
+        public string Rol { get; set; }
+
+        [Display(Name = "Pregunta de seguridad")]
+        public int IdPregunta { get; set; }
+
+        [Display(Name = "Pregunta de seguridad")]
+        public string Pregunta { get; set; }
+
+        [Display(Name = "Respuesta de seguridad")]
+        public string Respuesta { get; set; }
+
+        [Display(Name = "Avatar")]
+        public string Avatar { get; set; }
+
+        [Display(Name = "Fecha de login")]
+        public DateTime Fechalogin { get; set; }
+
+        [Display(Name = "Contador de inicio")]
+        public int Contador { get; set; }
+
+        [Display(Name = "Estatus")]
+        public bool Estatus { get; set; }
+
+        [Display(Name = "Color")]
+        public string Color { get; set; }
+
+        [Display(Name = "Fecha de Registro")]
+        public DateTime FechaRegistroUsuario { get; set; }
+
+        [Display(Name = "Fecha de Modificacion")]
+        public DateTime Modificacion { get; set; }
+        #endregion
+        #region DATOS CLIENTE
+        public int IdPersona { get; set; }
+        
+        [StringLength(50)]
+        [Display(Name = "Nombres:")]
+        public string Nombres { get; set; }
+        
+        [Display(Name = "Identificacion:")]
+        public int IdTipoPersona { get; set; }
+
+        [Display(Name = "Identificacion:")]
+        public string TipoPersona { get; set; }
+        
+        [StringLength(11)]
+        [Display(Name = "Cedula:")]
+        public string CiRif { get; set; }
+        
+        [StringLength(100)]
+        [Display(Name = "Direccion:")]
+        public string Direccion { get; set; }
+        
+        [StringLength(60)]
+        [Display(Name = "Telefonos:")]
+        public string Telefonos { get; set; }
+
+        [StringLength(60)]
+        [Display(Name = "Correo:")]
+        [EmailAddress]
+        public string Email { get; set; }
+
+        [Display(Name = "Identificacion")]
+        public string Identificacion { get { return TipoPersona + CiRif; } }
+
+        [Display(Name = "Fecha de Registro")]
+        public DateTime FechaRegistroPersona { get; set; }
+
+        public int Mensaje { get; set; }
+        #endregion
+    }
+
+    public class UsuarioRegisterA :RegisterUserEntity
+    {
+        #region DATOS CLIENTE
+        public int IdPersona { get; set; }
+
+        [StringLength(50)]
+        [Display(Name = "Nombres:")]
+        public string Nombres { get; set; }
+
+        [Display(Name = "Identificacion:")]
+        public int IdTipoPersona { get; set; }
+
+        [Display(Name = "Identificacion:")]
+        public string TipoPersona { get; set; }
+
+        [StringLength(11)]
+        [Display(Name = "Cedula:")]
+        public string CiRif { get; set; }
+
+        [StringLength(100)]
+        [Display(Name = "Direccion:")]
+        public string Direccion { get; set; }
+
+        [StringLength(60)]
+        [Display(Name = "Telefonos:")]
+        public string Telefonos { get; set; }
+
+        [StringLength(60)]
+        [Display(Name = "Correo:")]
+        [EmailAddress]
+        public string Email { get; set; }
+
+        [Display(Name = "Identificacion")]
+        public string Identificacion { get { return TipoPersona + CiRif; } }
+
+        [Display(Name = "Fecha de Registro")]
+        public DateTime FechaRegistroPersona { get; set; }
+        #endregion
     }
 }

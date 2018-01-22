@@ -69,7 +69,14 @@
               grid.Column("Descripcion", "Descripcion"),
               grid.Column("Orden", "Orden"),
               grid.Column("Icono", header: "Icono", format: @<text>@Html.Raw("<span class='"+ item.Icono +"'></span>")</text>),
-              grid.Column("Estatus", "Estatus"),
+              grid.Column("Estatus", header: "Estatus", format: @<text>
+                @if (item.Estatus == true) {
+                            @Html.Raw("<span class='label label-success'>Activo</span>")
+                        }
+                         @if (item.Estatus == false) {
+                             @Html.Raw("<span class='label label-danger'>Inactivo</span>")
+                         }
+                </text>),
               grid.Column("FechaRegistro", header: "Fecha", format: @<text>@String.Format("{0:MM/dd/yy}", item.FechaRegistro) </text>),
               grid.Column(header: "Acciones", canSort: false, style: "action",
                 format: @<text>

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KvasLogic
+namespace HelpDesk_Kvas.DataGrid
 {
     /// <summary>
     /// GRID DEL SISTEMA

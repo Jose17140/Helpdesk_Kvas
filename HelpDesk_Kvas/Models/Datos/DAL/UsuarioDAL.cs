@@ -44,20 +44,12 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
             }
         }
 
-        public void InsertarCompleto(RegisterUserEntity user)
+        public void InsertarCompleto(UsuarioRegisterA user)
         {
             try
             {
-                Usuarios _user = new Usuarios()
-                {
-                    NombreUsuario = user.UserName,
-                    Contrasena = user.Password,
-                    IdPreguntaSeguridad = user.IdPregunta,
-                    RespuestaSeguridad = user.RespuestaSeguridad,
-                    Avatar = user.Avatar,
-                    FechaRegistro = DateTime.Now
-                };
-                db.Usuarios.InsertOnSubmit(_user);
+                db.sp_AgregarUsuarioA(user.UserName,user.Password,user.IdPregunta,user.RespuestaSeguridad,user.Avatar,user.IdRoles,user.Estatus,user.FormColor,DateTime.Now,
+                                        user.Nombres,user.IdTipoPersona,user.CiRif,user.Direccion,user.Telefonos,user.Email);
                 db.SubmitChanges();
             }
             catch (Exception)
@@ -233,23 +225,40 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
             }
         }
 
-        public IEnumerable<UsuariosEntityView> Listar()
+        public IEnumerable<UsuarioViewEntity> Listar()
         {
             try
             {
-                IList<UsuariosEntityView> lista = new List<UsuariosEntityView>();
-                var query = db.vw_ListarUsuarios;
-                foreach (var grupos in query)
+                IList<UsuarioViewEntity> lista = new List<UsuarioViewEntity>();
+                var query = db.vw_Usuarios_Personas;
+                foreach (var user in query)
                 {
-                    lista.Add(new UsuariosEntityView()
+                    lista.Add(new UsuarioViewEntity()
                     {
-                        IdUsuario = grupos.IdUsuario,
-                        UserName = grupos.NombreUsuario,
-                        //Email = grupos.Correo,
-                        IdRoles = grupos.IdRoles,
-                        Roles = grupos.Rol,
-                        Estatus = grupos.Estatus,
-                        FechaRegistro = grupos.FechaRegistro
+                        IdUsuario = user.IdUsuario,
+                        UserName = user.NombreUsuario,
+                        Password = user.Contrasena,
+                        IdRoles = user.IdRoles,
+                        Rol = user.Rol,
+                        IdPregunta = Convert.ToInt32(user.IdPregunta),
+                        Pregunta = user.Pregunta,
+                        Respuesta = user.RespuestaSeguridad,
+                        Avatar = user.Avatar,
+                        Fechalogin = Convert.ToDateTime(user.FechaLogin),
+                        Contador = user.ContadorFallido,
+                        Estatus = user.Estatus,
+                        Color = user.FormColor,
+                        FechaRegistroUsuario = user.FechaRegistroUsuario,
+                        Modificacion = Convert.ToDateTime(user.FechaModificacion),
+
+                        IdPersona = Convert.ToInt32(user.IdPersona),
+                        Nombres = user.Nombres,
+                        TipoPersona = user.TipoPersona,
+                        CiRif = user.CiRif,
+                        Telefonos = user.Telefonos,
+                        Direccion = user.Direccion,
+                        Email = user.Email,
+                        FechaRegistroPersona = Convert.ToDateTime(user.FechaRegistroPersona)
                     });
                 }
                 return lista;

@@ -67,7 +67,14 @@
               grid.Column("PrecioCompra", "Pvp. Compra", format: @<text>@Html.Raw("<text>Bs. " + item.PrecioCompra + "</text>")</text>),
               grid.Column("PrecioVenta", "Pvp. Venta", format: @<text>@Html.Raw("<text>Bs. " + item.PrecioVenta + "</text>")</text>),
               grid.Column("Imagen", header: "Imagen", format: @<text>@Html.Raw("<span class='" + item.Imagen + "'></span>")</text>),
-              grid.Column("Estatus", "Estatus"),
+              grid.Column("Estatus", header: "Estatus", format: @<text>
+                @if (item.Estatus == true) {
+                            @Html.Raw("<span class='label label-success'>Activo</span>")
+                        }
+                         @if (item.Estatus == false) {
+                             @Html.Raw("<span class='label label-danger'>Inactivo</span>")
+                         }
+                </text>),
             @*grid.Column("FechaRegistro", header: "Fecha", format: @<text>@String.Format("{0:MM/dd/yy}", item.FechaRegistro) </text>),*@
               grid.Column(header: "Acciones", canSort: false, style: "action",
                 format: @<text>

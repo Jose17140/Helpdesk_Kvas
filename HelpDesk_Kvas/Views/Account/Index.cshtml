@@ -1,4 +1,6 @@
-﻿@{
+﻿@model PagedList.IPagedList<HelpDesk_Kvas.Models.Datos.Entity.UsuarioViewEntity>
+@using PagedList.Mvc;
+@{
     ViewBag.Title = "Usuarios";
 }
 
@@ -10,174 +12,144 @@
 <section class="content-header">
     <h1>
         Tablero
-        <small>@ViewBag.Title</small>
+        <small><span class="fa fa-users"></span> @ViewBag.Title</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
         <li class="active">Usuarios</li>
     </ol>
 </section>
-<section class="content">
-    <div class="section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                </div>
-            </div>
-        </div>
-    </div>
-    <br /><br /><br />
-    <div class="section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
 
+<section class="content">
+    <div class=" row">
+        @using (Html.BeginForm("Index", "Account", FormMethod.Get))
+        {
+
+            <div class="col-sm-4">
+                <div class="input-group">
+
+                    <input type="text"
+                           name="SearchString"
+                           id="SearchString"
+                           value="@ViewBag.filter"
+                           class="form-control"
+                           style="display: inline"
+                           placeholder="Buscar..." />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit"><span class="fa fa-search"></span></button>
+                    </span>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12 well">
-                    <a class="btn btn-primary" data-modal="" href="/Account/RegistrarA" id="btnCreate"><i class="fa fa-fw -square -circle fa-plus-square"></i> Usuario nuevo</a>
-                </div>
-            </div>
-        </div>
+            
+        }
     </div>
-    <div class="section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table table-hover table-striped">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Listado de Usuarios</h3>
+                    <div class="pull-right col-lg-1">
+                        <a class="btn btn-success" data-modal="" href="/Account/RegistrarA" id="btnCreate">
+                            <span class="glyphicon glyphicon-plus">Nuevo</span>
+                        </a>
+                    </div>
+                </div><!-- /.box-header -->
+
+                <div class="box-body">
+                    <table class="table table-condensed table-hover table-striped">
                         <tbody>
                             <tr>
-                                <td>
-                                    <a href="#"><i class="-alt fa fa-2x fa-eye fa-fw"></i></a>
-                                </td>
-                                <td>
-                                    <h4>
-                                        <b>Asistente de sistemas</b>
-                                    </h4>
-                                    <p>ramonvillaw</p>
-                                </td>
-                                <td>
-                                    <img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" class="img-circle" width="60">
-                                </td>
-                                <td>
-                                    <h4>
-                                        <b>Ramón Villa Awad</b>
-                                    </h4>
-                                    <a href="mailto:ramonvillaw@gmail.com">ramonvillaw@gmail.com</a>
-                                </td>
-                                <td>2 años</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <button class="btn btn-default" value="left" type="button">
-                                            <i class="fa fa-fw s fa-remove"></i>Eliminar
-                                        </button>
-                                        <button class="btn btn-default" value="right" type="button">
-                                            <i class="fa fa-fw fa-cog"></i>Configurar
-                                        </button>
-                                    </div>
-                                </td>
+                                <th>
+                                    #
+                                </th>
+                                <th>
+                                    @Html.ActionLink("Nombres", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+                                </th>
+                                <th>
+                                    @Html.ActionLink("Usuario", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+                                </th>
+                                <th>
+                                    Correo
+                                </th>
+                                <th>
+                                    @Html.ActionLink("Grupo", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+                                </th>
+                                <th>
+                                    @Html.ActionLink("Fecha", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
+                                </th>
+                                <th>
+                                    Estatus
+                                </th>
+                                <th></th>
                             </tr>
-                            <tr>
-                                <td>
-                                    <a href="#"><i class="fa fa-2x fa-fw fa-eye-slash"></i></a>
-                                </td>
-                                <td>
-                                    <h4>
-                                        <b>Supervisora</b>
-                                    </h4>
-                                    <p>claudiaramos</p>
-                                </td>
-                                <td>
-                                    <img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" class="img-circle" width="60">
-                                </td>
-                                <td>
-                                    <h4>
-                                        <b>Claudia Ramos</b>
-                                    </h4>
-                                    <a href="mailto:claudia@mail.com">claudia@mail.com</a>
-                                </td>
-                                <td>3 años</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <button class="btn btn-default" value="left" type="button">
-                                            <i class="fa fa-fw s fa-remove"></i>Eliminar
-                                        </button>
-                                        <button class="btn btn-default" value="right" type="button">
-                                            <i class="fa fa-fw fa-cog"></i>Configurar
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="#"><i class="fa fa-2x fa-fw fa-eye"></i></a>
-                                </td>
-                                <td>
-                                    <h4>
-                                        <b>Gerente de capacitación</b>
-                                    </h4>
-                                    <p>anaojeda</p>
-                                </td>
-                                <td>
-                                    <img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" class="img-circle" width="60">
-                                </td>
-                                <td>
-                                    <h4>
-                                        <b>Ana Isabel Ojeda</b>
-                                    </h4>
-                                    <a href="mailto:ana@mail.com">ana@mail.com</a>
-                                </td>
-                                <td>1 mes</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <button class="btn btn-default" value="left" type="button">
-                                            <i class="fa fa-fw s fa-remove"></i>Eliminar
-                                        </button>
-                                        <button class="btn btn-default" value="right" type="button">
-                                            <i class="fa fa-fw fa-cog"></i>Configurar
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="#"><i class="fa fa-2x fa-fw -alt fa-eye-slash"></i></a>
-                                </td>
-                                <td>
-                                    <h4>
-                                        <b>Director de Recursos Humanos</b>
-                                    </h4>
-                                    <p>Carlos Enciso</p>
-                                </td>
-                                <td>
-                                    <img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" class="img-circle" width="60">
-                                </td>
-                                <td>
-                                    <h4>
-                                        <b>Carlos Enciso</b>
-                                    </h4>
-                                    <a href="mailto: carlos@mail.com"> carlos@mail.com</a>
-                                </td>
-                                <td>5 años</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <button class="btn btn-default" value="left" type="button">
-                                            <i class="fa fa-fw s fa-remove"></i>Eliminar
-                                        </button>
-                                        <button class="btn btn-default" value="right" type="button">
-                                            <i class="fa fa-fw fa-cog"></i>Configurar
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.IdUsuario)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Nombres)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UserName)<br />
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Email)<br />
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Rol)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FechaRegistroUsuario)
+                                    </td>
+                                    <td>
+                                        @if (item.Estatus == true)
+                                        {
+                                            <span class="label label-success">Activo</span>
+                                        }
+                                        @if (item.Estatus == false)
+                                        {
+                                            <span class="label label-danger">Inactivo</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <!-- Single button -->
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Acciones <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="/Account/Detalles/@item.IdUsuario" title="Detalles">Detalle</a></li>
+                                                @if (User.IsInRole("Cliente") == false)
+                                                {
+                                                    <li><a href="/Account/Editar/@item.IdUsuario" title="Asignar">>Editar</a></li>
+                                                    <li><a href="#" title="Presupuestar">Presupuesto</a></li>
+                                                    <li><a href="#" title="Editar">Editar</a></li>
+                                                }
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+
                         </tbody>
                     </table>
-                </div>
-            </div>
-        </div>
+                    <br />
+                    Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+                    @Html.PagedListPager(Model, page => Url.Action("Index",
+                                             new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div><!-- /.col -->
     </div>
+
 </section>
+
+
+
 
 <!-- modal placeholder-->
 <div id='myModal' class='modal fade in'>

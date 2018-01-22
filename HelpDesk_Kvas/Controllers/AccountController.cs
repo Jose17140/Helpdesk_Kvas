@@ -1,5 +1,6 @@
 ﻿using HelpDesk_Kvas.Models.Datos.Entity;
 using HelpDesk_Kvas.Models.Datos.Logica;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,36 +15,73 @@ namespace HelpDesk_Kvas.Controllers
     {
         UsuarioLogic objUsuarioLogic;
         GrupoDetalleLogic objGrupoDetalleLogic;
+        PersonasLogic objPersonaLogic;
         public AccountController()
         {
             objUsuarioLogic = new UsuarioLogic();
             objGrupoDetalleLogic = new GrupoDetalleLogic();
+            objPersonaLogic = new PersonasLogic();
         }
 
         // GET: Usuario
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            return View();
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.IdSortParm = String.IsNullOrEmpty(sortOrder) ? "id_grupo" : "";
+            ViewBag.OrdenSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var usuarios = objUsuarioLogic.Listar();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                usuarios = usuarios.Where(s => s.UserName.ToUpper().Contains(searchString.ToUpper())
+                                            || s.Rol.ToUpper().Contains(searchString.ToUpper())
+                );
+
+            }
+
+            switch (sortOrder)
+            {
+                case "id_grupo":
+                    usuarios = usuarios.OrderByDescending(s => s.IdUsuario);
+                    break;
+                case "name_desc":
+                    usuarios = usuarios.OrderByDescending(s => s.UserName);
+                    break;
+                default:  // Name ascending 
+                    usuarios = usuarios.OrderBy(s => s.FechaRegistroUsuario);
+                    break;
+            }
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(usuarios.ToPagedList(pageNumber, pageSize));
         }
 
         [HttpGet]
         public ActionResult RegistrarA()
         {
-            var _ListaDetalle = objGrupoDetalleLogic.Listar();
-            var _Roles = _ListaDetalle.Where(m => m.IdGrupo == 4).ToList();
-            var _Preguntas = _ListaDetalle.Where(m => m.IdGrupo == 12).ToList();
-            //Departamento Roles
-            SelectList listaRoles = new SelectList(_Roles, "IdGrupoDetalle", "Titulo");
-            //Departamento hijo
-            SelectList listaPreguntas = new SelectList(_Preguntas, "IdGrupoDetalle", "Titulo");
-            ViewBag.ListaRoles = listaRoles;
-            ViewBag.ListaPreguntas = listaPreguntas;
+            Listas();
             return View();
         }
 
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult RegistrarA([Bind(Exclude = "FechaLogin,ContadorFallido,FechaModificacion")] RegisterUserEntity user)
+        public ActionResult RegistrarA([Bind(Exclude = "FechaLogin,ContadorFallido,FechaModificacion")] UsuarioRegisterA user)
         {
             string message = "";
             // Model Validation 
@@ -52,32 +90,23 @@ namespace HelpDesk_Kvas.Controllers
                 var isExistEmail = false;
                 #region //Email is already Exist 
                 var isExistUser = objUsuarioLogic.IsUserExist(user.UserName);
+                var isExistCi = objUsuarioLogic.IsCiExist(user.CiRif);
                 if (isExistEmail)
                 {
                     ModelState.AddModelError("EmailExist", "Correo electronico ya esta registrado");
-                    var _ListaDetalle = objGrupoDetalleLogic.Listar();
-                    var _Roles = _ListaDetalle.Where(m => m.IdGrupo == 4).ToList();
-                    var _Preguntas = _ListaDetalle.Where(m => m.IdGrupo == 12).ToList();
-                    //Departamento Roles
-                    SelectList listaRoles = new SelectList(_Roles, "IdGrupoDetalle", "Titulo");
-                    //Departamento hijo
-                    SelectList listaPreguntas = new SelectList(_Preguntas, "IdGrupoDetalle", "Titulo");
-                    ViewBag.ListaRoles = listaRoles;
-                    ViewBag.ListaPreguntas = listaPreguntas;
+                    Listas();
                     return View(user);
                 }
                 if (isExistUser)
                 {
                     ModelState.AddModelError("UserExist", "El nombre de usuario ya se encuantra registrado");
-                    var _ListaDetalle = objGrupoDetalleLogic.Listar();
-                    var _Roles = _ListaDetalle.Where(m => m.IdGrupo == 4).ToList();
-                    var _Preguntas = _ListaDetalle.Where(m => m.IdGrupo == 12).ToList();
-                    //Departamento Roles
-                    SelectList listaRoles = new SelectList(_Roles, "IdGrupoDetalle", "Titulo");
-                    //Departamento hijo
-                    SelectList listaPreguntas = new SelectList(_Preguntas, "IdGrupoDetalle", "Titulo");
-                    ViewBag.ListaRoles = listaRoles;
-                    ViewBag.ListaPreguntas = listaPreguntas;
+                    Listas();
+                    return View(user);
+                }
+                if (isExistCi)
+                {
+                    ModelState.AddModelError("UserExist", "El nombre de usuario ya se encuantra registrado");
+                    Listas();
                     return View(user);
                 }
                 #endregion
@@ -88,19 +117,20 @@ namespace HelpDesk_Kvas.Controllers
                 user.ConfirmPassword = Crypto.Hash(user.ConfirmPassword);
                 #endregion
 
-                user.Estatus = false;
+                user.Estatus = true;
 
                 #region Save to Database
-                objUsuarioLogic.Insertar(user);
+                objUsuarioLogic.InsertarCompletoA(user);
                 message = "Registro exitoso";
                 #endregion
                 //return RedirectToAction("Index", "Home");
                 var text = "Agregado Exitosamente";
-                return this.Json(new { EnableSuccess = true, SuccessTitle = "Success", SuccessMsg = text });
+                //return this.Json(new { EnableSuccess = true, SuccessTitle = "Success", SuccessMsg = text });
+                return View(user);
             }
             else
             {
-                message = "Verifique los Datos e intente nuevamente";
+                ModelState.AddModelError("EmailExist", "Por favor llenar ambas pestanas");
             }
             ViewBag.Message = message;
             return View(user);
@@ -170,6 +200,43 @@ namespace HelpDesk_Kvas.Controllers
             }
             return View(user);
         }
+
+        [NonAction]
+        private void Listas()
+        {
+            var _ListaDetalle = objGrupoDetalleLogic.Listar();
+            var _Roles = _ListaDetalle.Where(m => m.IdGrupo == 4).ToList();
+            _Roles = _ListaDetalle.Where(m => m.IdGrupo == 4).Where(m => m.IdGrupoDetalle >= 50).ToList();
+            #region
+            if (User.Identity.IsAuthenticated)
+            {
+                if (User.IsInRole("Master") == true)
+                {
+                    _Roles = _ListaDetalle.Where(m => m.IdGrupo == 4).Where(m => m.IdGrupoDetalle >= 46).ToList();
+                }
+                #region
+                if (User.IsInRole("Supervidor") == true)
+                {
+                    _Roles = _ListaDetalle.Where(m => m.IdGrupo == 4).Where(m => m.IdGrupoDetalle >= 47).ToList();
+                }
+            }
+            #endregion
+            var grupos = objGrupoDetalleLogic.ListarPorGrupo(3);
+            var _TiposP = _ListaDetalle.Where(m => m.IdGrupo == 3).ToList();
+            SelectList listaGrupos = new SelectList(_TiposP, "IdGrupoDetalle", "Titulo");
+            ViewBag.Lista = listaGrupos;
+
+            SelectList listaRoles = new SelectList(_Roles, "IdGrupoDetalle", "Titulo");
+            ViewBag.ListaRoles = listaRoles;
+
+            //Lista Preguntas
+            var _Preguntas = _ListaDetalle.Where(m => m.IdGrupo == 12).ToList();
+            SelectList listaPreguntas = new SelectList(_Preguntas, "IdGrupoDetalle", "Titulo");
+            ViewBag.ListaPreguntas = listaPreguntas;
+            #endregion
+
+        }
+
         [HttpGet]
         public ActionResult Login()
         {
@@ -246,6 +313,24 @@ namespace HelpDesk_Kvas.Controllers
         {
             FormsAuthentication.SignOut();
             return RedirectToAction("Login", "Account");
+        }
+
+
+        public ActionResult Detalles(int id)
+        {
+            var objUser = objUsuarioLogic.Listar().Where(m => m.IdUsuario.Equals(id)).SingleOrDefault();
+            return View(objUser);
+        }
+
+        public ActionResult Editar(int id)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Editar(RegisterUserEntity objUser)
+        {
+            return View();
         }
 
     }

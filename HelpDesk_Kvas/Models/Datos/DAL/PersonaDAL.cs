@@ -40,7 +40,7 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 
             }
         }
-
+        
         public void Eliminar(PersonasEntity persona)
         {
             try

@@ -11,10 +11,12 @@ namespace HelpDesk_Kvas.Models.Datos.Logica
     public class UsuarioLogic
     {
         private UsuarioDAL objUsuarioDAL;
+        PersonaDAL objPersonaDAL; 
         dbDataContext db;
         public UsuarioLogic()
         {
             objUsuarioDAL = new UsuarioDAL();
+            objPersonaDAL = new PersonaDAL();
             db = new dbDataContext();
         }
 
@@ -23,6 +25,20 @@ namespace HelpDesk_Kvas.Models.Datos.Logica
             try
             {
                 objUsuarioDAL.Insertar(objUsuario);
+                objUsuario.Mensaje = 99;
+                return;
+            }
+            catch
+            {
+                objUsuario.Mensaje = 1;
+            }
+        }
+
+        public void InsertarCompletoA(UsuarioRegisterA objUsuario)
+        {
+            try
+            {
+                objUsuarioDAL.InsertarCompleto(objUsuario);
                 objUsuario.Mensaje = 99;
                 return;
             }
@@ -44,6 +60,12 @@ namespace HelpDesk_Kvas.Models.Datos.Logica
             return v != null;
         }
 
+        public bool IsCiExist(string _ci)
+        {
+            var v = db.Personas.Where(a => a.CiRif.ToUpper().Contains(_ci.ToUpper())).FirstOrDefault();
+            return v != null;
+        }
+
         public UsuarioLogEntity Buscar_x_Nombre(string _usuario)
         {
             return objUsuarioDAL.Buscarview(_usuario);
@@ -53,6 +75,11 @@ namespace HelpDesk_Kvas.Models.Datos.Logica
         public IEnumerable<LoginUserEntity> ListarLogin()
         {
             return objUsuarioDAL.Login();
+        }
+
+        public IEnumerable<UsuarioViewEntity> Listar()
+        {
+            return objUsuarioDAL.Listar();
         }
 
         public void LoginControl(LoginUserEntity objUsuario)
