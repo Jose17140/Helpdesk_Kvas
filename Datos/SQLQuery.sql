@@ -282,52 +282,7 @@ INSERT INTO Presupuestos(IdRequerimiento,IdUsuario,FechaEmision,IdPoS,Cant,Preci
 
 
 
-EXEC sp_AgregarUsuarioA 'Jose17140', 'l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=',40,'Trinidad Figueira','user.png',47,1,'ROJO','2018-01-03 19:45:28.087',
-	'jose11',27,'12121212','Catia','1212121212','josej@gg.com'
+EXEC sp_AgregarUsuarioA 'Jose1710', 'l8lOvl12ejU7d/PAzi1Cl0Hy6MmUc8PBUOL6o9FMnaY=',40,'Trinidad Figueira','user.png',47,1,'ROJO','2018-01-03 19:45:28.087',
+	'jose121',27,'121211212','Catia','1212121212','josej@gg.com'
 --CRUDL PRODUCTOS
-IF OBJECT_ID('sp_AgregarUsuarioA') IS NOT NULL
-BEGIN 
-	DROP PROC sp_AgregarUsuarioA 
-END
-GO
-CREATE PROCEDURE sp_AgregarUsuarioA (
-	--DATOS DE USUARIO
-	@NombreUsuario VARCHAR(30),      
-    @Contrasena VARCHAR(100),      
-    @IdPreguntaSeguridad INT,
-	@RespuestaSeguridad VARCHAR(50),
-	@Avatar VARCHAR(30),
-	@IdRoles INT,
-	@Estatus BIT,
-	@FormColor VARCHAR(20),
-	@FechaRegistro DATETIME
-	----DATOS PERSONALES
-	--@IdUsuario INT,
-	--@Nombres VARCHAR(50),
-	--@IdTipoPersona INT,
-	--@CiRif VARCHAR(11),
-	--@Direccion VARCHAR(100),
-	--@Telefonos VARCHAR(60),
-	--@Email VARCHAR(60)
-)
-	AS
-	BEGIN TRY
-		BEGIN TRAN Usuarios
-			DECLARE @Id INT
-			INSERT INTO Usuarios(NombreUsuario,Contrasena,IdPreguntaSeguridad,RespuestaSeguridad,Avatar,IdRoles,Estatus,FormColor,FechaRegistro) 
-				VALUES(@NombreUsuario,@Contrasena,@IdPreguntaSeguridad,@RespuestaSeguridad,@Avatar,@IdRoles,@Estatus,@FormColor,@FechaRegistro)
-			--SELECT @Id = SCOPE_IDENTITY();
-			--INSERT INTO Personas(IdUsuario,Nombres,IdTipoPersona,CiRif,Direccion,Telefonos,Email,FechaRegistro) 
-			--	VALUES (@Id,@Nombres,@IdTipoPersona,@CiRif,@Direccion,@Telefonos,@Email,@FechaRegistro)
-		COMMIT TRANSACTION Usuarios
-	END TRY
-	BEGIN CATCH
-		SELECT ERROR_NUMBER() AS errNumber,
-			   ERROR_SEVERITY() AS errSeverity,
-			   ERROR_STATE() AS errState,
-			   ERROR_PROCEDURE() AS errProcedure,
-			   ERROR_LINE() AS errLine,
-			   ERROR_MESSAGE() AS errMessage
-		ROLLBACK TRAN Usuarios
-	END CATCH
-GO
+

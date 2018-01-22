@@ -444,6 +444,8 @@ namespace HelpDesk_Kvas.Controllers
             return View(objUser);
         }
 
+        #region CAMBIO DE CONTRASENA
+
         public ActionResult ForgotPassword()
         {
             return View();
@@ -465,6 +467,7 @@ namespace HelpDesk_Kvas.Controllers
                 var filtrar = lista.Where(m => m.UserName.ToUpper().Equals(user.UserName.ToUpper()));
                 var selectuser = objUsuarioLogic.Listar().Where(m => m.UserName.ToUpper().Equals(user.UserName.ToUpper())).SingleOrDefault();
                 var _user = selectuser.UserName;
+                _user = Crypto.CodeHash(_user);
                 RouteValueDictionary routeValueDictionary = new System.Web.Routing.RouteValueDictionary();
                 routeValueDictionary.Add("_user", _user);
                 
@@ -473,17 +476,62 @@ namespace HelpDesk_Kvas.Controllers
             }
             return View(user);
         }
-
+        
         public ActionResult Confirmar(string _user)
         {
+            Listas();
+            _user = Crypto.DecodeHash(_user);
+            var isExistUser = objUsuarioLogic.IsUserExist(_user);
+            var lista = objUsuarioLogic.ListarPregunta();
+            var user = lista.Where(m => m.UserName.ToUpper().Equals(_user.ToUpper())).SingleOrDefault();
+            return View(user);
+        }
+
+        [HttpPost]
+        public ActionResult Confirmar(ForgotQuestionUserEntity user)
+        {
+            var ConfirQuest = objUsuarioLogic.ConfirQuestion(user.RespuestaPregunta);
+            if (ConfirQuest == false)
+            {
+                ModelState.AddModelError("UserExist", "Respuesta incorrecta");
+                Listas();
+                return View(user);
+            }
+            if (ModelState.IsValid)
+            {
+                var selectuser = objUsuarioLogic.Listar().Where(m => m.UserName.ToUpper().Equals(user.UserName.ToUpper())).SingleOrDefault();
+                var _user = selectuser.UserName;
+                _user = Crypto.CodeHash(_user);
+                RouteValueDictionary routeValueDictionary = new System.Web.Routing.RouteValueDictionary();
+                routeValueDictionary.Add("_user", _user);
+                //return RedirectToAction("Confirmar", "Account", new { dato = _user });
+                return RedirectToAction("RecuperarPass", "Account", routeValueDictionary);
+            }
+            return View(user);
+        }
+
+        public ActionResult RecuperarPass(string _user)
+        {
+            Listas();
+            _user = Crypto.DecodeHash(_user);
+            ViewBag.UserName = _user;
             return View();
         }
 
         [HttpPost]
-        public ActionResult Confirmar()
+        public ActionResult RecuperarPass(ChanagePasswordEntity user)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                #region  Password Hashing 
+                user.Password = Crypto.Hash(user.Password);
+                user.ConfirmPassword = Crypto.Hash(user.ConfirmPassword);
+                #endregion
+                objUsuarioLogic.CambiarPass(user);
+                return RedirectToAction("Login", "Account");
+            }
+            return View(user);
         }
-
+        #endregion
     }
 }

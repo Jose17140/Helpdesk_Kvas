@@ -66,6 +66,12 @@ namespace HelpDesk_Kvas.Models.Datos.Logica
             return v != null;
         }
 
+        public bool ConfirQuestion(string answer)
+        {
+            var v = db.Usuarios.Where(a => a.RespuestaSeguridad.ToUpper().Equals(answer.ToUpper())).FirstOrDefault();
+            return v != null;
+        }
+
         public UsuarioLogEntity Buscar_x_Nombre(string _usuario)
         {
             return objUsuarioDAL.Buscarview(_usuario);
@@ -158,5 +164,24 @@ namespace HelpDesk_Kvas.Models.Datos.Logica
                 throw;
             }
         }
+
+        #region RECUPERACION DE CONTRASENA
+        public IEnumerable<ForgotQuestionUserEntity> ListarPregunta()
+        {
+            return objUsuarioDAL.ListarPregunta();
+        }
+
+        public void CambiarPass(ChanagePasswordEntity objUser)
+        {
+            try
+            {
+                objUsuarioDAL.CambiarPass(objUser);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        #endregion
     }
 }

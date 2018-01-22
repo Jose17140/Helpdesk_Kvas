@@ -130,13 +130,6 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
         public string UserName { get; set; }
     }
 
-    public class ForgotPasswordUserEntity
-    {
-        [Required]
-        [Display(Name = "Nombre de usuario")]
-        public string UserName { get; set; }
-    }
-
     public class UsuariosEntityView : RegisterUserEntity
     {
         public string Pregunta { get; set; }
@@ -332,4 +325,34 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
 
         public int Mensaje { get; set; }
     }
+
+    #region RECUPERACION DE CONTRASENA
+    public class ForgotPasswordUserEntity
+    {
+        [Required]
+        [Display(Name = "Nombre de usuario")]
+        public string UserName { get; set; }
+    }
+
+    public class ForgotQuestionUserEntity : ForgotPasswordUserEntity
+    {
+        public string PreguntaSeguridad { get; set; }
+
+        public string RespuestaPregunta { get; set; }
+    }
+
+    public class ChanagePasswordEntity : ForgotPasswordUserEntity
+    {
+        [Required]
+        [StringLength(100, ErrorMessage = "El número de caracteres de {0} debe ser al menos {2}.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Contraseña")]
+        public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirmar contraseña")]
+        [Compare("Password", ErrorMessage = "La contraseña y la contraseña de confirmación no coinciden.")]
+        public string ConfirmPassword { get; set; }
+    }
+    #endregion
 }

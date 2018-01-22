@@ -389,5 +389,54 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
 
             }
         }
+
+
+        #region RECUPERACION DE CONTRASENA
+        public IEnumerable<ForgotQuestionUserEntity> ListarPregunta()
+        {
+            try
+            {
+                IList<ForgotQuestionUserEntity> lista = new List<ForgotQuestionUserEntity>();
+                var query = db.vw_Usuarios_Personas;
+                foreach (var user in query)
+                {
+                    lista.Add(new ForgotQuestionUserEntity()
+                    {
+                        UserName = user.NombreUsuario,
+                        PreguntaSeguridad = user.Pregunta
+                    });
+                }
+                return lista;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+
+            }
+        }
+
+        public void CambiarPass(ChanagePasswordEntity user)
+        {
+            var id = db.Usuarios.Where(m => m.NombreUsuario.Equals(user.UserName)).Select(m => m.IdUsuario).SingleOrDefault();
+            try
+            {
+                Usuarios _user = db.Usuarios.Where(m => m.NombreUsuario.Equals(user.UserName)).SingleOrDefault();
+                _user.Contrasena = user.ConfirmPassword;
+                _user.FechaModificacion = DateTime.Now;
+                db.SubmitChanges();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+
+            }
+        }
+        #endregion
     }
 }
