@@ -30,7 +30,7 @@
                                         <div class="btn-group" role="group" aria-label="...">
                                             <div class="btn-group" role="group">
                                                 @Html.LabelFor(m => m.UserName)
-                                                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nombre de Usuario" } })
+                                                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @disabled="disabled" } })
                                             </div>
                                             @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
                                         </div>
@@ -39,39 +39,39 @@
                                         <div class="btn-group" role="group" aria-label="...">
                                             <div class="btn-group" role="group">
                                                 @Html.LabelFor(m => m.IdRoles)
-                                                @Html.DropDownListFor(model => model.IdRoles, ViewBag.ListaRoles as SelectList, "Seleccione Rol", htmlAttributes: new { @class = "form-control" })
+                                                @Html.EditorFor(model => model.Rol, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
                                             </div>
                                             @Html.ValidationMessageFor(model => model.IdRoles, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-6" style="padding-bottom: 10px;">
+                                    @*<div class="col-lg-6 col-md-6 col-sm-6" style="padding-bottom: 10px;">
                                         @Html.LabelFor(m => m.Password)
                                         @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Contrasena", style = "backface-visibility: hidden;" })
                                         <span>@Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })</span>
                                         <br />
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6" style="padding-bottom: 10px;">
+                                    </div>*@
+                                    @*<div class="col-lg-6 col-md-6 col-sm-6" style="padding-bottom: 10px;">
                                         @Html.LabelFor(m => m.ConfirmPassword)
                                         @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Confirme Contrasena", style = "backface-visibility: hidden;" })
                                         <span>@Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })</span>
                                         <br />
-                                    </div>
+                                    </div>*@
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
                                         <div class="btn-group" role="group" aria-label="...">
                                             <div class="btn-group" role="group">
                                                 @Html.LabelFor(m => m.IdPregunta)
-                                                @Html.DropDownListFor(model => model.IdPregunta, ViewBag.ListaPreguntas as SelectList, "Seleccione Pregunta", htmlAttributes: new { @class = "form-control" })
+                                                @Html.EditorFor(model => model.Pregunta, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
                                             </div>
                                             @Html.ValidationMessageFor(model => model.IdPregunta, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
                                         @Html.LabelFor(m => m.RespuestaSeguridad)
-                                        @Html.EditorFor(model => model.RespuestaSeguridad, new { htmlAttributes = new { @class = "form-control", @placeholder = "Respuesta de seguridad" } })
+                                        @Html.EditorFor(model => model.RespuestaSeguridad, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
                                         @Html.ValidationMessageFor(model => model.RespuestaSeguridad, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -83,7 +83,7 @@
                                         </div>*@
                                     <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
                                         @Html.LabelFor(m => m.Estatus)
-                                        @Html.CheckBoxFor(model => model.Estatus, new { htmlAttributes = new { @class = "form-control", @placeholder = "Estatus" } })
+                                        @Html.CheckBoxFor(model => model.Estatus, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
                                         @Html.ValidationMessageFor(model => model.Estatus, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -98,12 +98,12 @@
                                         <div class="btn-group" role="group" aria-label="...">
                                             <div class="btn-group" role="group">
                                                 @Html.LabelFor(model => model.Nombres, htmlAttributes: new { @class = "control-label col-md-2" })
-                                                @Html.EditorFor(model => model.Nombres, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.EditorFor(model => model.Nombres, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
                                             </div>
                                             @Html.ValidationMessageFor(model => model.Nombres, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
+                                    @*<div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
                                         <div class="btn-group" role="group" aria-label="...">
                                             <div class="btn-group" role="group">
                                                 @Html.LabelFor(model => model.IdTipoPersona, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -112,12 +112,12 @@
                                             </div>
                                             @Html.ValidationMessageFor(model => model.IdTipoPersona, "", new { @class = "text-danger" })
                                         </div>
-                                    </div>
+                                    </div>*@
                                     <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
                                         <div class="btn-group" role="group" aria-label="...">
                                             <div class="btn-group" role="group">
                                                 @Html.LabelFor(model => model.CiRif, htmlAttributes: new { @class = "control-label col-md-2" })
-                                                @Html.EditorFor(model => model.CiRif, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.EditorFor(model => model.Identificacion, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
                                             </div>
                                             @Html.ValidationMessageFor(model => model.CiRif, "", new { @class = "text-danger" })
                                         </div>
@@ -128,7 +128,7 @@
                                         <div class="btn-group" role="group" aria-label="...">
                                             <div class="btn-group" role="group">
                                                 @Html.LabelFor(model => model.Telefonos, htmlAttributes: new { @class = "control-label col-md-2" })
-                                                @Html.EditorFor(model => model.Telefonos, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.EditorFor(model => model.Telefonos, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
                                             </div>
                                             @Html.ValidationMessageFor(model => model.Telefonos, "", new { @class = "text-danger" })
                                         </div>
@@ -137,7 +137,7 @@
                                         <div class="btn-group" role="group" aria-label="...">
                                             <div class="btn-group" role="group">
                                                 @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-                                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
                                             </div>
                                             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                                         </div>
@@ -148,7 +148,7 @@
                                         <div class="btn-group" role="group" aria-label="...">
                                             <div class="btn-group" role="group">
                                                 @Html.LabelFor(model => model.Direccion, htmlAttributes: new { @class = "control-label col-md-2" })
-                                                @Html.EditorFor(model => model.Direccion, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.EditorFor(model => model.Direccion, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
                                             </div>
                                             @Html.ValidationMessageFor(model => model.Direccion, "", new { @class = "text-danger" })
                                         </div>
@@ -165,7 +165,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            <button type="submit" class="btn btn-primary">Guardar</button>
+            @*<button type="submit" class="btn btn-primary">Guardar</button>*@
         </div>
     }
 </div>

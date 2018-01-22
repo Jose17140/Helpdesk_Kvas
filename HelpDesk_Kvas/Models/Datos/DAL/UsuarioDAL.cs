@@ -242,7 +242,7 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
                         Rol = user.Rol,
                         IdPregunta = Convert.ToInt32(user.IdPregunta),
                         Pregunta = user.Pregunta,
-                        Respuesta = user.RespuestaSeguridad,
+                        RespuestaSeguridad = user.RespuestaSeguridad,
                         Avatar = user.Avatar,
                         Fechalogin = Convert.ToDateTime(user.FechaLogin),
                         Contador = user.ContadorFallido,
@@ -262,6 +262,123 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
                     });
                 }
                 return lista;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+
+            }
+        }
+
+        public void Actualizar(EditarUsuario user)
+        {
+            var id = db.Usuarios.Where(m => m.NombreUsuario.ToUpper().Equals(user.UserName.ToUpper())).Select(m => m.IdUsuario).SingleOrDefault();
+            try
+            {
+                Usuarios _user = db.Usuarios.Where(m => m.IdUsuario.Equals(id)).SingleOrDefault();
+                _user.IdRoles = user.IdRoles;
+                _user.IdPreguntaSeguridad = user.IdPregunta;
+                _user.RespuestaSeguridad = user.RespuestaSeguridad;
+                _user.Estatus = user.Estatus;
+                _user.FechaModificacion = DateTime.Now;
+                db.SubmitChanges();
+                Personas _persona = db.Personas.Where(m => m.IdUsuario.Equals(id)).SingleOrDefault();
+                _persona.Nombres = user.Nombres;
+                _persona.Telefonos = user.Telefonos;
+                _persona.Email = user.Email;
+                _persona.Direccion = user.Direccion;
+                db.SubmitChanges();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+
+            }
+        }
+
+        public void ActualizarPerfil(EditarUsuario user)
+        {
+            var id = db.Usuarios.Where(m => m.NombreUsuario.ToUpper().Equals(user.UserName.ToUpper())).Select(m => m.IdUsuario).SingleOrDefault();
+            try
+            {
+                Usuarios _user = db.Usuarios.Where(m => m.IdUsuario.Equals(id)).SingleOrDefault();
+                //_user.IdRoles = user.IdRoles;
+                _user.IdPreguntaSeguridad = user.IdPregunta;
+                _user.RespuestaSeguridad = user.RespuestaSeguridad;
+                //_user.Estatus = user.Estatus;
+                _user.FechaModificacion = DateTime.Now;
+                db.SubmitChanges();
+                Personas _persona = db.Personas.Where(m => m.IdUsuario.Equals(id)).SingleOrDefault();
+                _persona.Nombres = user.Nombres;
+                _persona.Telefonos = user.Telefonos;
+                _persona.Email = user.Email;
+                _persona.Direccion = user.Direccion;
+                db.SubmitChanges();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+
+            }
+        }
+
+        public void EmilinarUsuario(EditarUsuario user)
+        {
+            var id = db.Usuarios.Where(m => m.NombreUsuario.ToUpper().Equals(user.UserName.ToUpper())).Select(m => m.IdUsuario).SingleOrDefault();
+            try
+            {
+                Usuarios _user = db.Usuarios.Where(m => m.IdUsuario.Equals(id)).SingleOrDefault();
+                db.Usuarios.DeleteOnSubmit(_user);
+                db.SubmitChanges();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+
+            }
+        }
+
+        public void ActualizarPassId(RecuperarContrasenaIdEntity user)
+        {
+            //var id = db.Usuarios.Where(m => m.NombreUsuario.Equals(user.UserName)).Select(m => m.IdUsuario).SingleOrDefault();
+            try
+            {
+                Usuarios _user = db.Usuarios.Where(m => m.IdUsuario.Equals(user.IdUsuario)).SingleOrDefault();
+                _user.Contrasena = user.ConfirmPassword;
+                _user.FechaModificacion = DateTime.Now;
+                db.SubmitChanges();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+
+            }
+        }
+
+        public void ActualizarPassUser(RecuperarContrasenaUserNameEntity user)
+        {
+            //var id = db.Usuarios.Where(m => m.NombreUsuario.Equals(user.UserName)).Select(m => m.IdUsuario).SingleOrDefault();
+            try
+            {
+                Usuarios _user = db.Usuarios.Where(m => m.NombreUsuario.Equals(user.UserName)).SingleOrDefault();
+                _user.Contrasena = user.ConfirmPassword;
+                _user.FechaModificacion = DateTime.Now;
+                db.SubmitChanges();
             }
             catch (Exception)
             {

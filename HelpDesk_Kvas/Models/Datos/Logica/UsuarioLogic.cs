@@ -95,5 +95,68 @@ namespace HelpDesk_Kvas.Models.Datos.Logica
                 objUsuario.Mensaje = 1;
             }
         }
+
+        public void Actualizar(EditarUsuario objUser)
+        {
+            try
+            {
+                objUsuarioDAL.Actualizar(objUser);
+                objUser.Mensaje = 98;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public void ActualizarPerfil(EditarUsuario objUser)
+        {
+            try
+            {
+                objUsuarioDAL.ActualizarPerfil(objUser);
+                objUser.Mensaje = 98;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public void EliminarUsuario(EditarUsuario objUser)
+        {
+            try
+            {
+                objUsuarioDAL.EmilinarUsuario(objUser);
+                objUser.Mensaje = 98;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public void ActualizarPassId(RecuperarContrasenaIdEntity objUser)
+        {
+            try
+            {
+                objUsuarioDAL.ActualizarPassId(objUser);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public void ActualizarPassUser(RecuperarContrasenaUserNameEntity objUser)
+        {
+            try
+            {
+                objUsuarioDAL.ActualizarPassUser(objUser);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

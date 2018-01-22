@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using System.Web.Security;
 
 namespace HelpDesk_Kvas.Controllers
@@ -76,9 +77,7 @@ namespace HelpDesk_Kvas.Controllers
             Listas();
             return View();
         }
-
-
-
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult RegistrarA([Bind(Exclude = "FechaLogin,ContadorFallido,FechaModificacion")] UsuarioRegisterA user)
@@ -236,7 +235,7 @@ namespace HelpDesk_Kvas.Controllers
             #endregion
 
         }
-
+        [AllowAnonymous]
         [HttpGet]
         public ActionResult Login()
         {
@@ -314,21 +313,174 @@ namespace HelpDesk_Kvas.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Login", "Account");
         }
-
-
+        
+        [Authorize]
         public ActionResult Detalles(int id)
         {
             var objUser = objUsuarioLogic.Listar().Where(m => m.IdUsuario.Equals(id)).SingleOrDefault();
             return View(objUser);
         }
 
+        [Authorize]
         public ActionResult Editar(int id)
+        {
+            Listas();
+            var objUser = objUsuarioLogic.Listar().Where(m => m.IdUsuario.Equals(id)).SingleOrDefault();
+            return View(objUser); ;
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Editar(EditarUsuario objUser)
+        {
+            Listas();
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    objUsuarioLogic.Actualizar(objUser);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return View(objUser);
+        }
+
+        public ActionResult Delete(int id)
+        {
+            Listas();
+            var objUser = objUsuarioLogic.Listar().Where(m => m.IdUsuario.Equals(id)).SingleOrDefault();
+            return View(objUser); ;
+        }
+
+        [HttpPost]
+        public ActionResult Delete(EditarUsuario objUser)
+        {
+            Listas();
+            try
+            {
+                var isExistUser = objUsuarioLogic.IsUserExist(objUser.UserName);
+                if (isExistUser)
+                {
+                    ModelState.AddModelError("UserExist", "El nombre de usuario ya se fue Eliminado");
+                    Listas();
+                    return View(objUser);
+                }
+                if (ModelState.IsValid)
+                {
+                    objUsuarioLogic.EliminarUsuario(objUser);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            ModelState.AddModelError("UserExist", "Registro eliminado exitosamente");
+            return View(objUser);
+        }
+
+        public ActionResult CambiarPass(int id)
+        {
+            Listas();
+            var objUser = objUsuarioLogic.Listar().Where(m => m.IdUsuario.Equals(id)).SingleOrDefault();
+            ViewBag.IdUsuario = objUser.IdUsuario;
+            return View(); ;
+        }
+
+        //[Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CambiarPass(RecuperarContrasenaIdEntity objUser)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    #region  Password Hashing 
+                    objUser.Password = Crypto.Hash(objUser.Password);
+                    objUser.ConfirmPassword = Crypto.Hash(objUser.ConfirmPassword);
+                    #endregion
+                    objUsuarioLogic.ActualizarPassId(objUser);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return View(objUser);
+        }
+
+        public ActionResult Perfil()
+        {
+            Listas();
+            if (User.Identity.IsAuthenticated)
+            {
+                var name = User.Identity.Name;
+                var objUser = objUsuarioLogic.Listar().Where(m => m.UserName.ToUpper().Equals(name.ToUpper())).SingleOrDefault();
+                ViewBag.IdUsuario = objUser.IdUsuario;
+                return View(objUser);
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Perfil(EditarUsuario objUser)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    objUsuarioLogic.ActualizarPerfil(objUser);
+                    return RedirectToAction("Perfil", "Account");
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            Listas();
+            return View(objUser);
+        }
+
+        public ActionResult ForgotPassword()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult Editar(RegisterUserEntity objUser)
+        public ActionResult ForgotPassword(ForgotPasswordUserEntity user)
+        {
+            var isExistUser = objUsuarioLogic.IsUserExist(user.UserName);
+            if (isExistUser == false)
+            {
+                ModelState.AddModelError("UserExist", "El nombre de usuario no se encuantra registrado");
+                Listas();
+                return View(user);
+            }
+            if (ModelState.IsValid)
+            {
+                var lista = objUsuarioLogic.Listar();
+                var filtrar = lista.Where(m => m.UserName.ToUpper().Equals(user.UserName.ToUpper()));
+                var selectuser = objUsuarioLogic.Listar().Where(m => m.UserName.ToUpper().Equals(user.UserName.ToUpper())).SingleOrDefault();
+                var _user = selectuser.UserName;
+                RouteValueDictionary routeValueDictionary = new System.Web.Routing.RouteValueDictionary();
+                routeValueDictionary.Add("_user", _user);
+                
+                //return RedirectToAction("Confirmar", "Account", new { dato = _user });
+                return RedirectToAction("Confirmar", "Account", routeValueDictionary);
+            }
+            return View(user);
+        }
+
+        public ActionResult Confirmar(string _user)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Confirmar()
         {
             return View();
         }

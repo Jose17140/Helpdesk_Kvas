@@ -107,11 +107,6 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
     public class RecuperarContrasenaUserEntity
     {
         [Required]
-        [EmailAddress]
-        [Display(Name = "Correo electrónico")]
-        public string Email { get; set; }
-
-        [Required]
         [StringLength(100, ErrorMessage = "El número de caracteres de {0} debe ser al menos {2}.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Contraseña")]
@@ -123,12 +118,23 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
         public string ConfirmPassword { get; set; }
     }
 
+    public class RecuperarContrasenaIdEntity : RecuperarContrasenaUserEntity
+    {
+        public int IdUsuario { get; set; }
+    }
+
+    public class RecuperarContrasenaUserNameEntity : RecuperarContrasenaUserEntity
+    {
+        [Required]
+        [Display(Name = "Nombre de usuario")]
+        public string UserName { get; set; }
+    }
+
     public class ForgotPasswordUserEntity
     {
         [Required]
-        [EmailAddress]
-        [Display(Name = "Correo electrónico")]
-        public string Email { get; set; }
+        [Display(Name = "Nombre de usuario")]
+        public string UserName { get; set; }
     }
 
     public class UsuariosEntityView : RegisterUserEntity
@@ -157,12 +163,19 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
     {
         #region DATOS DEL USUARIO
         public int IdUsuario { get; set; }
-        
+
+        [Required]
         [Display(Name = "Nombre de Usuario")]
         public string UserName { get; set; }
 
+        [Required]
         [Display(Name = "Contrasena")]
         public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirmar contraseña")]
+        [Compare("Password", ErrorMessage = "La contraseña y la contraseña de confirmación no coinciden.")]
+        public string ConfirmPassword { get; set; }
 
         [Display(Name = "Roles")]
         public int IdRoles { get; set; }
@@ -176,8 +189,9 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
         [Display(Name = "Pregunta de seguridad")]
         public string Pregunta { get; set; }
 
+        [Required]
         [Display(Name = "Respuesta de seguridad")]
-        public string Respuesta { get; set; }
+        public string RespuestaSeguridad { get; set; }
 
         [Display(Name = "Avatar")]
         public string Avatar { get; set; }
@@ -278,5 +292,44 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
         [Display(Name = "Fecha de Registro")]
         public DateTime FechaRegistroPersona { get; set; }
         #endregion
+    }
+
+    public class EditarUsuario
+    {
+        [Required]
+        [Display(Name = "Nombre de usuario")]
+        public string UserName { get; set; }
+
+        [Display(Name = "Pregunta de Seguridad")]
+        public int? IdPregunta { get; set; }
+
+        [StringLength(50, ErrorMessage = "El número de caracteres de {0} debe ser al menos {2}.", MinimumLength = 6)]
+        [Display(Name = "Respuesta:")]
+        public string RespuestaSeguridad { get; set; }
+
+        [Display(Name = "Roles")]
+        public int IdRoles { get; set; }
+        
+        [StringLength(50)]
+        [Display(Name = "Nombres:")]
+        public string Nombres { get; set; }
+
+        [StringLength(60)]
+        [Display(Name = "Telefonos:")]
+        public string Telefonos { get; set; }
+
+        [StringLength(60)]
+        [Display(Name = "Correo:")]
+        [EmailAddress]
+        public string Email { get; set; }
+
+        [StringLength(100)]
+        [Display(Name = "Direccion:")]
+        public string Direccion { get; set; }
+
+        [Display(Name = "Estatus")]
+        public bool Estatus { get; set; }
+
+        public int Mensaje { get; set; }
     }
 }

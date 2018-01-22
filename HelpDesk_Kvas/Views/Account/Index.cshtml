@@ -40,7 +40,7 @@
                     </span>
                 </div>
             </div>
-            
+
         }
     </div>
     <div class="row">
@@ -121,12 +121,12 @@
                                                 Acciones <span class="caret"></span>
                                             </button>
                                             <ul class="dropdown-menu">
-                                                <li><a href="/Account/Detalles/@item.IdUsuario" title="Detalles">Detalle</a></li>
+                                                <li><a data-modal="" href="/Account/Detalles/@item.IdUsuario" id="btnCreate" title="Detalles">Detalle</a></li>
                                                 @if (User.IsInRole("Cliente") == false)
                                                 {
-                                                    <li><a href="/Account/Editar/@item.IdUsuario" title="Asignar">>Editar</a></li>
-                                                    <li><a href="#" title="Presupuestar">Presupuesto</a></li>
-                                                    <li><a href="#" title="Editar">Editar</a></li>
+                                                    <li><a data-modal="" href="/Account/CambiarPass/@item.IdUsuario" id="btnCreate" title="Asignar">Reset Contrasena</a></li>
+                                                    <li><a data-modal="" href="/Account/Editar/@item.IdUsuario" id="btnCreate" title="Asignar">Editar</a></li>
+                                                    <li><a data-modal="" href="/Account/Delete/@item.IdUsuario" id="btnCreate" title="Eliminar">Eliminar</a></li>
                                                 }
                                             </ul>
                                         </div>
@@ -140,7 +140,7 @@
                     Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
                     @Html.PagedListPager(Model, page => Url.Action("Index",
-                                             new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+                                                  new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
                 </div><!-- /.box-body -->
             </div><!-- /.box -->
         </div><!-- /.col -->

@@ -1,0 +1,191 @@
+﻿@model HelpDesk_Kvas.Models.Datos.Entity.UsuarioViewEntity
+@{
+    ViewBag.Title = "Perfil";
+}
+
+@Styles.Render("~/Content/css/Grupos.css")
+@Scripts.Render("~/bundles/jquery")
+
+<section class="content-header">
+    <h1>
+        Tablero
+        <small><span class="fa fa-user"></span>  @ViewBag.Title</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i>Perfil de Usuario</a></li>
+        <li class="active">Dashboard</li>
+    </ol>
+</section>
+<br />
+<section class="content">
+    <div class="row">
+        @using (Html.BeginForm("Perfil", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "login-form", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.UserName)
+            @Html.HiddenFor(m => m.IdUsuario)
+            <input type="hidden" id="IdUsuario" name="IdUsuario" value="@ViewBag.IdUsuario" />
+            <div class="col-md-12">
+                <div class="nav-tabs-custom">
+                    <h3 class="label label-danger">Es Obligatorio llenar ambas pestanas</h3><br /><br /><br />
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#activity" data-toggle="tab"><span class="fa  fa-user-plus"></span> Datos del Usuario</a></li>
+                        <li><a href="#timeline" data-toggle="tab"><span class="fa fa-user"></span> Datos Personales</a></li>
+                        <li><a data-modal="" href="/Account/CambiarPass/@ViewBag.IdUsuario" id="btnCreate" data-toggle="tab"><span class="fa fa-unlock"></span> Contrasena</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="active tab-pane" id="activity">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
+                                    <div class="btn-group" role="group" aria-label="...">
+                                        <div class="btn-group" role="group">
+                                            @Html.LabelFor(m => m.UserName)
+                                            @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
+                                    <div class="btn-group" role="group" aria-label="...">
+                                        <div class="btn-group" role="group">
+                                            @Html.LabelFor(m => m.IdRoles)
+                                            @Html.EditorFor(model => model.Rol, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.IdRoles, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                @*<div class="col-lg-6 col-md-6 col-sm-6" style="padding-bottom: 10px;">
+                                        @Html.LabelFor(m => m.Password)
+                                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Contrasena", style = "backface-visibility: hidden;" })
+                                        <span>@Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })</span>
+                                        <br />
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6" style="padding-bottom: 10px;">
+                                        @Html.LabelFor(m => m.ConfirmPassword)
+                                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Confirme Contrasena", style = "backface-visibility: hidden;" })
+                                        <span>@Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })</span>
+                                        <br />
+                                    </div>*@
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
+                                    <div class="btn-group" role="group" aria-label="...">
+                                        <div class="btn-group" role="group">
+                                            @Html.LabelFor(m => m.IdPregunta)
+                                            @Html.DropDownListFor(model => model.IdPregunta, ViewBag.ListaPreguntas as SelectList, "Seleccione Pregunta", htmlAttributes: new { @class = "form-control" })
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.IdPregunta, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
+                                    @Html.LabelFor(m => m.RespuestaSeguridad)
+                                    @Html.EditorFor(model => model.RespuestaSeguridad, new { htmlAttributes = new { @class = "form-control", @placeholder = "Respuesta de seguridad" } })
+                                    @Html.ValidationMessageFor(model => model.RespuestaSeguridad, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="row">
+                                @*<div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
+                                        @Html.LabelFor(m => m.Avatar)
+                                        @Html.EditorFor(model => model.Avatar, new { htmlAttributes = new { @class = "form-control", @placeholder = "Seleccione una Imagen" } })
+                                        @Html.ValidationMessageFor(model => model.Avatar, "", new { @class = "text-danger" })
+                                    </div>*@
+                                <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
+                                    @Html.LabelFor(m => m.Estatus)
+                                    @Html.CheckBoxFor(model => model.Estatus, new { htmlAttributes = new { @class = "form-control", @placeholder = "Estatus" } })
+                                    @Html.ValidationMessageFor(model => model.Estatus, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.tab-pane -->
+                        <div class="tab-pane" id="timeline">
+                            <!-- The timeline -->
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
+                                    <div class="btn-group" role="group" aria-label="...">
+                                        <div class="btn-group" role="group">
+                                            @Html.LabelFor(model => model.Nombres, htmlAttributes: new { @class = "control-label col-md-2" })
+                                            @Html.EditorFor(model => model.Nombres, new { htmlAttributes = new { @class = "form-control" } })
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.Nombres, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                @*<div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
+                                        <div class="btn-group" role="group" aria-label="...">
+                                            <div class="btn-group" role="group">
+                                                @Html.LabelFor(model => model.IdTipoPersona, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                @Html.DropDownListFor(model => model.IdTipoPersona, ViewBag.lista as SelectList, "Seleccione", htmlAttributes: new { @class = "form-control" })
+
+                                            </div>
+                                            @Html.ValidationMessageFor(model => model.IdTipoPersona, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>*@
+                                <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
+                                    <div class="btn-group" role="group" aria-label="...">
+                                        <div class="btn-group" role="group">
+                                            @Html.LabelFor(model => model.Identificacion, htmlAttributes: new { @class = "control-label col-md-2" })
+                                            @Html.EditorFor(model => model.Identificacion, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.Identificacion, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
+                                    <div class="btn-group" role="group" aria-label="...">
+                                        <div class="btn-group" role="group">
+                                            @Html.LabelFor(model => model.Telefonos, htmlAttributes: new { @class = "control-label col-md-2" })
+                                            @Html.EditorFor(model => model.Telefonos, new { htmlAttributes = new { @class = "form-control" } })
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.Telefonos, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
+                                    <div class="btn-group" role="group" aria-label="...">
+                                        <div class="btn-group" role="group">
+                                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12" style="padding-bottom: 10px;">
+                                    <div class="btn-group" role="group" aria-label="...">
+                                        <div class="btn-group" role="group">
+                                            @Html.LabelFor(model => model.Direccion, htmlAttributes: new { @class = "control-label col-md-2" })
+                                            @Html.EditorFor(model => model.Direccion, new { htmlAttributes = new { @class = "form-control" } })
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.Direccion, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br /><br /><br />
+                        <!-- /.tab-pane -->
+                    </div>
+                    <!-- /.tab-content -->
+                    <div>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                    <br />
+                </div>
+                <!-- /.nav-tabs-custom -->
+            </div>
+        }
+    </div>
+</section>
+
+
+
+<!-- modal placeholder-->
+<div id='myModal' class='modal fade in'>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+</div>
+<script src="~/Content/js/PruebaModal.js"></script>

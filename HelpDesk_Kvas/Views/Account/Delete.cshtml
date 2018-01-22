@@ -10,10 +10,9 @@
     <h3 class="modal-title"><span class="fa fa-users"></span> @ViewBag.Title</h3>
 </div>
 <div class="modal-body">
-    @using (Ajax.BeginForm("Editar", "Account", new AjaxOptions { HttpMethod = "POST", OnSuccess = "onAjaxRequestSuccess" }, new { @id = "AjaxformId", @class = "form-horizontal", role = "form" }))
+    @using (Ajax.BeginForm("Delete", "Account", new AjaxOptions { HttpMethod = "POST", OnSuccess = "onAjaxRequestSuccess" }, new { @id = "AjaxformId", @class = "form-horizontal", role = "form" }))
     {
         @Html.AntiForgeryToken()
-        <h3 class="label label-danger">Es Obligatorio llenar ambas pestanas</h3>
         <div>@Html.ValidationSummary("", new { @class = "text-default" })</div>
         <div class="row">
             @Html.HiddenFor(m => m.UserName)
@@ -48,19 +47,19 @@
                                     </div>
                                 </div>
                                 @*<div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-6" style="padding-bottom: 10px;">
-                                        @Html.LabelFor(m => m.Password)
-                                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Contrasena", style = "backface-visibility: hidden;" })
-                                        <span>@Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })</span>
-                                        <br />
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6" style="padding-bottom: 10px;">
-                                        @Html.LabelFor(m => m.ConfirmPassword)
-                                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Confirme Contrasena", style = "backface-visibility: hidden;" })
-                                        <span>@Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })</span>
-                                        <br />
-                                    </div>
-                                </div>*@
+                                        <div class="col-lg-6 col-md-6 col-sm-6" style="padding-bottom: 10px;">
+                                            @Html.LabelFor(m => m.Password)
+                                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Contrasena", style = "backface-visibility: hidden;" })
+                                            <span>@Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })</span>
+                                            <br />
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6" style="padding-bottom: 10px;">
+                                            @Html.LabelFor(m => m.ConfirmPassword)
+                                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Confirme Contrasena", style = "backface-visibility: hidden;" })
+                                            <span>@Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })</span>
+                                            <br />
+                                        </div>
+                                    </div>*@
                                 <div class="row">
                                     <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
                                         <div class="btn-group" role="group" aria-label="...">
@@ -79,10 +78,10 @@
                                 </div>
                                 <div class="row">
                                     @*<div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
-                                    @Html.LabelFor(m => m.Avatar)
-                                    @Html.EditorFor(model => model.Avatar, new { htmlAttributes = new { @class = "form-control", @placeholder = "Seleccione una Imagen" } })
-                                    @Html.ValidationMessageFor(model => model.Avatar, "", new { @class = "text-danger" })
-                                </div>*@
+                                            @Html.LabelFor(m => m.Avatar)
+                                            @Html.EditorFor(model => model.Avatar, new { htmlAttributes = new { @class = "form-control", @placeholder = "Seleccione una Imagen" } })
+                                            @Html.ValidationMessageFor(model => model.Avatar, "", new { @class = "text-danger" })
+                                        </div>*@
                                     <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
                                         @Html.LabelFor(m => m.Estatus)
                                         @Html.CheckBoxFor(model => model.Estatus, new { htmlAttributes = new { @class = "form-control", @placeholder = "Estatus" } })
@@ -106,15 +105,15 @@
                                         </div>
                                     </div>
                                     @*<div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
-                                    <div class="btn-group" role="group" aria-label="...">
-                                        <div class="btn-group" role="group">
-                                            @Html.LabelFor(model => model.IdTipoPersona, htmlAttributes: new { @class = "control-label col-md-2" })
-                                            @Html.DropDownListFor(model => model.IdTipoPersona, ViewBag.lista as SelectList, "Seleccione", htmlAttributes: new { @class = "form-control" })
+                                            <div class="btn-group" role="group" aria-label="...">
+                                                <div class="btn-group" role="group">
+                                                    @Html.LabelFor(model => model.IdTipoPersona, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                    @Html.DropDownListFor(model => model.IdTipoPersona, ViewBag.lista as SelectList, "Seleccione", htmlAttributes: new { @class = "form-control" })
 
-                                        </div>
-                                        @Html.ValidationMessageFor(model => model.IdTipoPersona, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>*@
+                                                </div>
+                                                @Html.ValidationMessageFor(model => model.IdTipoPersona, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>*@
                                     <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
                                         <div class="btn-group" role="group" aria-label="...">
                                             <div class="btn-group" role="group">
@@ -167,7 +166,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            <button type="submit" class="btn btn-primary">Guardar</button>
+            <button type="submit" class="btn btn-danger">Eliminar</button>
         </div>
     }
 </div>
