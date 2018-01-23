@@ -77,7 +77,11 @@ namespace HelpDesk_Kvas.Controllers
             var lista = objGrupoLogic.Listar();
             var filtro = lista.Where(m => m.IdGrupo == _grupo.IdPadre).FirstOrDefault();
             //SelectList list = new SelectList(lista, "IdGrupo", "Titulo");
-            ViewBag.ListaGrupo = filtro.Titulo;
+            ViewBag.ListaGrupo = "No aplica";
+            if (filtro!=null)
+            {
+                ViewBag.ListaGrupo = filtro.Titulo;
+            }
             return View(_grupo);
         }
         

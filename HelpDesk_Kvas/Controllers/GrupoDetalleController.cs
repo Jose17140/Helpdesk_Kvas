@@ -31,6 +31,7 @@ namespace HelpDesk_Kvas.Controllers
             var grupos = objGrupoDetalleLogic.ListarPorGrupo(id);
             var l = objGrupoLogic.Buscar(id);
             ViewBag.Nombre = l.Titulo;
+            ViewBag.Icono = l.Icono;
             var p = l.IdPadre;
             ViewBag.IdPadre = l.IdPadre;
 
@@ -46,7 +47,7 @@ namespace HelpDesk_Kvas.Controllers
             records.TotalRecords = grupos.Where(m => filter == null || (m.Titulo.ToUpper().Contains(filter.ToUpper()))
                                 || m.Descripcion.ToUpper().Contains(filter.ToUpper())
                                 ).Count();
-
+            ViewBag.Elementos = records.Content.Count();
             records.CurrentPage = page;
             records.PageSize = pageSize;
 

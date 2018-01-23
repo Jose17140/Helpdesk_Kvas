@@ -190,7 +190,7 @@
                             </div>
                             <div class="col-md-2">
                                 <label>Tecnico:</label>
-                                @Html.DropDownListFor(model => model.IdTecnico, ViewBag.Prioridades as SelectList, "Seleccione Prioridad", htmlAttributes: new { @class = "form-control" })
+                                @Html.DropDownListFor(model => model.IdTecnico, ViewBag.Tecnico as SelectList, "Seleccione Tecnico", htmlAttributes: new { @class = "form-control" })
                                 @Html.ValidationMessageFor(model => model.IdTecnico, "", new { @class = "text-danger" })
                             </div>
                             <div class="col-md-2">

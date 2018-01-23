@@ -21,9 +21,9 @@
                             <input type="hidden" value="@ViewBag.IdUsuario" id="IdUsuario" name="IdUsuario" />
                             <div class="form-group" style="backface-visibility: hidden;">
                                 <div class="input-group" style="backface-visibility: hidden;">
-                                    @Html.TextBoxFor(m => m.PreguntaSeguridad, new { @class = "form-control", @placeholder = "Contrasena", style = "backface-visibility: hidden;" })
+                                    @Html.TextBoxFor(m => m.PreguntaSeguridad, new { @class = "form-control", @placeholder = "Contraseña", style = "backface-visibility: hidden;" })
                                     <span class="input-group-addon" style="backface-visibility: hidden;">
-                                        <i class="glyphicon glyphicon-lock" style="backface-visibility: hidden;"></i>
+                                        <i class="glyphicon glyphicon-question-sign" style="backface-visibility: hidden;"></i>
                                     </span>
                                 </div>
                                 <div class="col-md-10">
@@ -34,7 +34,7 @@
                                 <div class="input-group" style="backface-visibility: hidden;">
                                     @Html.TextBoxFor(m => m.RespuestaPregunta, new { @class = "form-control", @placeholder = "Ingrese su respuesta", style = "backface-visibility: hidden;" })
                                     <span class="input-group-addon" style="backface-visibility: hidden;">
-                                        <i class="glyphicon glyphicon-lock" style="backface-visibility: hidden;"></i>
+                                        <i class="glyphicon glyphicon-ok" style="backface-visibility: hidden;"></i>
                                     </span>
                                 </div>
                                 <div class="col-md-10">
@@ -52,14 +52,14 @@
                                 <br />
                                 <br />
                                 <p style="backface-visibility: hidden;">
-                                    <strong style="backface-visibility: hidden;">¿Problemas para iniciar sesion?</strong>
+                                    <strong style="backface-visibility: hidden;">¿Problemas para iniciar sesión?</strong>
                                     <br style="backface-visibility: hidden;">
                                 </p>
                                 <p>
                                     @Html.ActionLink("Registrar como nuevo usuario", "RegistrarB")
                                 </p>
                                 <p>
-                                    @Html.ActionLink("¿Ha olvidado su contraseña?", "ForgotPassword")
+                                    @Html.ActionLink("Iniciar sesión", "Login")
                                 </p>
                             </div>
                         }

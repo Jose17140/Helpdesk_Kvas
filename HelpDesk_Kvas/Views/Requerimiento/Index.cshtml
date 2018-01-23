@@ -25,7 +25,7 @@
     {
         <p>
             Buscar: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
-            <input type="submit"  value="Buscar" />
+            <input type="submit" value="Buscar" />
         </p>
     }
     <table class="table table-hover">
@@ -46,7 +46,7 @@
                 Falla
             </th>
             <th>
-                Tecnico
+                Técnico
             </th>
             <th>
                 @Html.ActionLink("Estatus", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
@@ -138,8 +138,8 @@
                             <li><a href="/Requerimiento/Details/@item.IdRequerimiento" title="Detalles">Detalle</a></li>
                             @if (User.IsInRole("Cliente") == false)
                             {
-                                <li><a href="/Requerimiento/Asignar/@item.IdRequerimiento" title="Asignar">>Asignar</a></li>
-                                <li><a href="#" title="Presupuestar">Presupuesto</a></li>
+                                <li><a href="/Requerimiento/Asignar/@item.IdRequerimiento" title="Asignar">Asignar</a></li>
+                                <li><a href="/Presupuesto/Create/@item.IdRequerimiento" title="Presupuestar">Presupuesto</a></li>
                                 <li><a href="#" title="Editar">Editar</a></li>
                             }
                         </ul>
@@ -149,8 +149,8 @@
         }
     </table>
     <br />
-    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
 
     @Html.PagedListPager(Model, page => Url.Action("Index",
-            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+                new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 </section>

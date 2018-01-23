@@ -8,7 +8,7 @@
 <section class="content-header">
     <h1>
         Tablero
-        <small>@ViewBag.Title</small>
+        <small><span class="glyphicon glyphicon-shopping-cart"></span> @ViewBag.Title</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
@@ -31,7 +31,7 @@
                            style="display: inline"
                            placeholder="Buscar..." />
                     <span class="input-group-btn">
-                        <button class="btn btn-default" type="submit">Go</button>
+                        <button class="btn btn-default" type="submit">Buscar</button>
                     </span>
 
                 </div>
@@ -63,7 +63,7 @@
                    grid.Column("Sku", "Sku"),
                    grid.Column("Nombre", "Nombre"),
                    grid.Column("Fabricante", "Fabricante"),
-                   grid.Column("Categoria", "Categoria"),
+                   grid.Column("Categoria", "Categoría"),
                    grid.Column("Stock", "Inventario"),
                    grid.Column("PrecioCompra", "Pvp. Compra", format: @<text>@Html.Raw("<text>Bs. " + item.PrecioCompra + "</text>")</text>),
                  grid.Column("PrecioVenta", "Pvp. Venta", format: @<text>@Html.Raw("<text>Bs. " + item.PrecioVenta + "</text>")</text>),

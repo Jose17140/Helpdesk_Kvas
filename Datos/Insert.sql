@@ -34,7 +34,8 @@ INSERT INTO Grupos(Nombre,Descripcion,IdPadre,Icono,Estatus,FechaRegistro)VALUES
 ('Sub Departamento','Descripcion de los departamentos',6,'glyphicon glyphicon-lock',1,GETDATE()),
 ('Estatus de Requerimiento','Descripcion de los estatus de un requerimiento',18,'glyphicon glyphicon-lock',1,GETDATE()),
 ('Estatus de Aprobacion','Descripcion aprobado o rechazado',18,'glyphicon glyphicon-lock',1,GETDATE()),
-('Estatus de Estado','Activo o inactivo',18,'glyphicon glyphicon-lock',1,GETDATE());
+('Estatus de Estado','Activo o inactivo',18,'glyphicon glyphicon-lock',1,GETDATE()),
+('Iconos','Iconos de las entidades',0,'glyphicon glyphicon-picture',1,GETDATE());
 UPDATE Grupos SET IdPadre = 28 WHERE IdGrupo = 14;
 --NULOS
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
@@ -43,7 +44,7 @@ INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDe
 INSERT INTO GruposDetalles(Nombre,Descripcion,IdGrupo,Imagen,Orden,IdPadre,UrlDetalle,FechaRegistro)VALUES
 ('Registro','Registro de Clientes, Ticket y Organizaciones',1,'fa fa-plus-circle',1,0,'/',GETDATE()),
 ('Requerimientos','Menu',1,'fa fa-ticket',2,0,'/',GETDATE()),
-('Catalogo','Menu',1,'fa  fa-tags',3,0,'/',GETDATE()),
+('Catálogo','Menu',1,'fa  fa-tags',3,0,'/',GETDATE()),
 ('Clientes','Menu',1,'fa fa-users',4,0,'/Persona',GETDATE()),
 ('Informes','Menu',1,'fa fa-bar-chart',5,0,'/',GETDATE()),
 ('Base de Conocimientos','Menu',1,'fa fa-database',6,0,'/',GETDATE()),
@@ -331,7 +332,8 @@ INSERT Personas (IdUsuario, Nombres, IdTipoPersona, CiRif, Direccion, Telefonos,
 INSERT INTO Requerimientos(IdDepartamento,IdEmpleado,FechaEntrada,IdCliente,IdEquipo,IdMarca,IdModelo,IdPrioridad,Falla,Serial,Observaciones,Accesorios,IdEstatus)VALUES
 (135,null,GETDATE(),5,106,68,129,119,'Limpieza','XWWWW00001','Equipo en mal estado','Ninguno',61),
 (135,null,GETDATE(),7,106,68,129,119,'Cabezal Tapado','XWWWW00001','Equipo tiene tinta derramada','Ninguno',61);
-select * from GruposDetalles where IdPadre = 2
+
+UPDATE GruposDetalles SET Imagen = 'fa fa-puzzle-piece' WHERE IdGrupo = 11
 
 
 SELECT * FROM ProductoServicios

@@ -7,7 +7,7 @@
 
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 class="modal-title">@ViewBag.Title</h3>
+    <h3 class="modal-title"><span class="glyphicon glyphicon-trash"></span> @ViewBag.Title</h3>
 </div>
 <div class="modal-body">
     @using (Html.BeginForm())
@@ -35,7 +35,7 @@
                         @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                <div class="form-group">
+                @*<div class="form-group">
                     @Html.LabelFor(model => model.Orden, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-6">
                         @Html.EditorFor(model => model.Orden, new { htmlAttributes = new { @class = "form-control" } })
@@ -69,7 +69,7 @@
                         @Html.EditorFor(model => model.UrlDetalle, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.UrlDetalle, "", new { @class = "text-danger" })
                     </div>
-                </div>
+                </div>*@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Estatus, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-6">
@@ -80,13 +80,15 @@
                     <div class="col-sm-9 col-sm-offset-3">
                         <h3>
                             <span class="label label-danger">
-                                Desea eliminar el registro @ViewBag.Nombre?
-                            </span>
+                                ¿Desea eliminar el registro @ViewBag.Nombre?<br />
+                                <span class="glyphicon glyphicon-alert"></span>
+                                Esta acción puede dañar el sistema
+                            </span><br />
                         </h3>
                     </div>
                 </div>
                 <div class="form-actions col-md-offset-2">
-                    <input class="btn btn-primary" type="submit" name="btnguardar" value="Eliminar" />|
+                    <input class="btn btn-danger" type="submit" name="btnguardar" value="Eliminar" />|
                     @*@Html.ActionLink("Regresar al Listado", "Index")*@
                 </div>
             </fieldset>

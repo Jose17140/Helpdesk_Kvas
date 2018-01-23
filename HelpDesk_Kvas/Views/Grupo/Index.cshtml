@@ -10,7 +10,7 @@
 <section class="content-header">
     <h1>
         Tablero
-        <small>@ViewBag.Title</small>
+        <small><span class="glyphicon glyphicon-th-list"></span> @ViewBag.Title</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
@@ -41,7 +41,7 @@
                         <span class="glyphicon-class">Nueva Entidad</span>
                     </a>
                 </div>
-            }
+            }<br />
             @foreach (var g in Model)
             {
                 <div class="btn dropdown">
@@ -64,7 +64,7 @@
                 </div>
             }
             <br />
-            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+            Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
 
             @Html.PagedListPager(Model, page => Url.Action("Index",
                  new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))<br /><br /><br />

@@ -2775,6 +2775,7 @@
     <Content Include="Content\scss\_stacked.scss" />
     <Content Include="Content\scss\_variables.scss" />
     <Content Include="Content\scss\font-awesome.scss" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Properties\PublishProfiles\KvasTEG - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

@@ -183,7 +183,7 @@
                     <div>@Html.ValidationSummary("", new { @class = "text-danger" })</div>
                     <div class="row">
                         <!--Nombre-->
-                        <input id="IdRequerimiento" name="IdRequerimiento" type="text" value="1" />
+                        <input id="IdRequerimiento" name="IdRequerimiento" type="hidden" value="@ViewBag.IdRequerimiento" />
                         @*@Html.HiddenFor(x => x.IdRequerimiento, new {@value="1"})*@
                         @Html.HiddenFor(x => x.IdPoS)
                         @Html.HiddenFor(x => x.Descripcion)
@@ -272,13 +272,6 @@
                     </div>
                     <!-- /.col -->
                 </div>
-                <table class="table">
-                    <tr>
-                        <td style="float:right;font-size:20px;">Total a Pagar</td>
-                        <th></th>
-                        <td><input style="font-size:20px; font-weight:700;" class="form-control" type="text" name="TotalaPagar" id="TotalaPagar" required readonly /></td>
-                    </tr>
-                </table>
                 <div class="row">
                     <div id="resultados_ajax"> </div>
                     <button type="submit" class="btn btn-primary pull-right" id="guardar">Agregar</button>

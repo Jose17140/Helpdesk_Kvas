@@ -9,8 +9,8 @@
 
 <section class="content-header">
     <h1>
-        Tablero
-        <small>@ViewBag.Nombre</small>
+        Listado de 
+        <small><span class="@ViewBag.Icono"></span> @ViewBag.Nombre @ViewBag.Elementos</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
@@ -34,7 +34,7 @@
                            style="display: inline"
                            placeholder="Buscar..." />
                     <span class="input-group-btn">
-                        <button class="btn btn-default" type="submit">Go</button>
+                        <button class="btn btn-default" type="submit">Buscar</button>
                     </span>
 
                 </div>
@@ -125,11 +125,11 @@
                         grid.Column("FechaRegistro", header: "Fecha", format: @<text>@String.Format("{0:MM/dd/yy}", item.FechaRegistro) </text>),
                         grid.Column(header: "Acciones", canSort: false, style: "action",
                             format: @<text>
-                                @Html.Raw("<a data-modal='' href='/GrupoDetalle/details/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Detail'> <span class='glyphicon glyphicon-search'> </span> </a>")
-                                @Html.Raw("<a data-modal='' href='/GrupoDetalle/edit/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Edit'> <span class='glyphicon glyphicon-edit'> </span> </a>")
+                                @Html.Raw("<a data-modal='' href='/GrupoDetalle/details/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Detalle'> <span class='glyphicon glyphicon-search'> </span> </a>")
+                                @Html.Raw("<a data-modal='' href='/GrupoDetalle/edit/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Editar'> <span class='glyphicon glyphicon-edit'> </span> </a>")
                                 @if (User.IsInRole("Master") || User.IsInRole("Supervisor"))
                                 {
-                                    @Html.Raw("<a data-modal='' href='/GrupoDetalle/delete/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Delete'> <span class='glyphicon glyphicon-trash'> </span> </a>")
+                                    @Html.Raw("<a data-modal='' href='/GrupoDetalle/delete/" + item.IdGrupoDetalle + "' id='" + item.IdGrupoDetalle + "' title='Eliminar'> <span class='glyphicon glyphicon-trash'> </span> </a>")
                                 }</text>)));
                     }
             </div>

@@ -1,108 +1,279 @@
-﻿@model HelpDesk_Kvas.Models.Datos.Entity.GruposDetallesEntity
-
+﻿@model HelpDesk_Kvas.Models.Datos.Entity.RequerimientoViewEntity
 @{
-    ViewBag.Title = "Modulo Eliminar una Categoria";
-    Layout = null;
+    ViewBag.Title = "Nueva Tabla";
+    //Layout = null;
 }
-
-<div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 class="modal-title">@ViewBag.Title</h3>
-</div>
-<div class="modal-body">
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-        <div class="form-horizontal">
-            <fieldset>
-                <div class="form-group">
-                    <div class="col-md-6">
-                        @Html.HiddenFor(model => model.IdGrupoDetalle, new { htmlAttributes = new { @class = "form-control" } })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Titulo, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-6">
-                        @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control" } })
-
-                        @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-6">
-                        @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Orden, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-6">
-                        @Html.EditorFor(model => model.Orden, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Orden, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.IdGrupo, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-6">
-                        @Html.EditorFor(model => model.IdGrupo, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.IdGrupo, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.IdPadre, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-6">
-                        @Html.EditorFor(model => model.IdPadre, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.IdPadre, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Icono, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-6">
-                        @Html.EditorFor(model => model.Icono, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Icono, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.UrlDetalle, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-6">
-                        @Html.EditorFor(model => model.UrlDetalle, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.UrlDetalle, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Estatus, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-6">
-                        @Html.CheckBoxFor(model => model.Estatus, new { htmlAttributes = new { @class = "form-control" } })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-9 col-sm-offset-3">
-                        <h3>
-                            <span class="label label-danger">
-                                Desea eliminar el registro @ViewBag.Nombre?
-                            </span>
-                        </h3>
-                    </div>
-                </div>
-                <div class="form-actions col-md-offset-2">
-                    <input class="btn btn-primary" type="submit" name="btnguardar" value="Eliminar" />|
-                    @*@Html.ActionLink("Regresar al Listado", "Index")*@
-                </div>
-            </fieldset>
-        </div>
-    }
-</div>
-
-<div class="text-primary text-success text-center">
-    @ViewBag.MensajeExito
-</div>
-<div class="text-primary text-danger text-center">
-    @ViewBag.MensajeError
-</div>
-
+@Styles.Render("~/Content/css/Grupos.css")
+@Scripts.Render("~/bundles/jquery")
 <script>
-    $("form").removeData("validator");
-    $("form").removeData("unobtrusiveValidation");
-    $.validator.unobtrusive.parse("form");
+    $(document).ready(function () {
+        $("#BuscarCliente").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/Requerimiento/BuscarPersona",
+                    type: "POST",
+                    dataType: "json",
+                    data: { _ci: request.term },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return {
+                                label: item.BuscarCliente, value: item.BuscarCliente
+                            };
+                        }))
+
+                    }
+                })
+            },
+            messages: {
+                noResults: "", results: "No existe"
+            }
+        });
+    })
 </script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //Dropdownlist Filtro
+        $("#IdDepartamento").change(function () {
+            $("#IdEquipo").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("ObtenerEquipo")', // we are calling json method
+                dataType: 'json',
+                data: { _departamento: $("#IdDepartamento").val() },
+                success: function (equipos) {
+                    // states contains the JSON formatted list
+                    // of states passed from the controller
+                    $.each(equipos, function (i, data) {
+                        $("#IdEquipo").append('<option value="' + data.Value + '">' + data.Text + '</option>');
+                    }); // here we are adding option for States
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve states.' + ex);
+                }
+            });
+            return false;
+        })
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //Dropdownlist Filtro
+        $("#IdEquipo").change(function () {
+            $("#IdModelo").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("ObtenerModelo")', // we are calling json method
+                dataType: 'json',
+                data: { _equipo: $("#IdEquipo").val() },
+                success: function (modelos) {
+                    // states contains the JSON formatted list
+                    // of states passed from the controller
+                    $.each(modelos, function (i, data) {
+                        $("#IdModelo").append('<option value="' + data.Value + '">' + data.Text + '</option>');
+                    }); // here we are adding option for States
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve states.' + ex);
+                }
+            });
+            return false;
+        })
+    });
+</script>
+<section class="content-header">
+    <h1>
+        Tablero
+        <small>Requerimiento</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+        <li class="active">Dashboard</li>
+    </ol>
+    <br />
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title">@ViewBag.MensajeInicio</h3>
+        </div>
+    </div>
+</section>
+<section class="content">
+
+    <div class="row">
+        @{ Html.RenderAction("Bitacora", "Requerimiento");}
+        <div class="col-md-8">
+            @using (Html.BeginForm("Asignar", "Requerimiento", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <input type="hidden" id="IdEmpleado" name="IdEmpleado" value="@ViewBag.IdUsuario" />
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"><span class="glyphicon glyphicon-user"></span> Detalle del Cliente</h3>
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Buscar Cedula:</label>
+                                    @Html.EditorFor(model => model.CiRif, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.CiRif, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Nombres:</label>
+                                    @Html.EditorFor(model => model.Nombres, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Nombres, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Teléfonos:</label>
+                                    @Html.EditorFor(model => model.Telefonos, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Telefonos, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Email:</label>
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Direccion:</label>
+                                    @Html.EditorFor(model => model.Direccion, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Direccion, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Datos Orden-->
+                <!-- Horizontal Form -->
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"><span class="glyphicon glyphicon-file"></span> Detalle de la orden</h3>
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                        <div class="pull-right">
+                            <a class="btn btn-success btn-sm" data-modal="" href="/Persona/Create" id="btnCreate">
+                                <span class="glyphicon glyphicon-plus"></span> Presupuesto
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label>Nro. Orden:</label>
+                                @Html.EditorFor(model => model.IdRequerimiento, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                @Html.ValidationMessageFor(model => model.IdRequerimiento, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>Departamento:</label>
+                                @Html.EditorFor(model => model.Departamento, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                @Html.ValidationMessageFor(model => model.Departamento, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-2">
+                                <label>Prioridad:</label>
+                                @Html.DropDownListFor(model => model.IdPrioridad, ViewBag.Prioridades as SelectList, "Seleccione Prioridad", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.IdPrioridad, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-2">
+                                <label>Tecnico:</label>
+                                @Html.DropDownListFor(model => model.IdTecnico, ViewBag.Prioridades as SelectList, "Seleccione Prioridad", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.IdTecnico, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-2">
+                                <label>Fecha Entrada:</label>
+                                @Html.EditorFor(model => model.FechaEntrada.Date, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                @Html.ValidationMessageFor(model => model.FechaEntrada, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-2">
+                                <label>Fecha Salida:</label>
+                                @Html.EditorFor(model => model.FechaSalida.Date, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                @Html.ValidationMessageFor(model => model.FechaSalida, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!--Datos Usuario-->
+                <!-- general form elements disabled -->
+                <div class="box box-warning">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"><span class="fa fa-laptop"></span> Detalles del equipo</h3>
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>Equipo:</label>
+                                @Html.EditorFor(model => model.Equipo, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                @Html.ValidationMessageFor(model => model.IdEquipo, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-4">
+                                <label>Modelo:</label>
+                                @Html.EditorFor(model => model.Modelo, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                @Html.ValidationMessageFor(model => model.IdModelo, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-4">
+                                <label>Marca:</label>
+                                @Html.EditorFor(model => model.Marca, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                @Html.ValidationMessageFor(model => model.IdMarca, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-4">
+                                <label>Número de serie:</label>
+                                @Html.EditorFor(model => model.Serial, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                @Html.ValidationMessageFor(model => model.Serial, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-4">
+                                <label>Accesorios:</label>
+                                @Html.EditorFor(model => model.Accesorio, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                @Html.ValidationMessageFor(model => model.Accesorio, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Problema del equipo:</label>
+                                @Html.EditorFor(model => model.Falla, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                @Html.ValidationMessageFor(model => model.Falla, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-6">
+                                <label>Observaciones:</label>
+                                @Html.EditorFor(model => model.Observaciones, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                @Html.ValidationMessageFor(model => model.Observaciones, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!--/.col (right) -->
+                <div class="box-footer">
+                    <div id="resultados_ajax" style="position:relative;"> </div>
+                    <button type="submit" class="btn btn-primary pull-right">Guardar datos</button>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<div id='myModal' class='modal fade in'>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+</div>
+<script src="~/Content/js/PruebaModal.js"></script>

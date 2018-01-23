@@ -50,8 +50,9 @@ namespace HelpDesk_Kvas.Controllers
         }
 
         // GET: Presupuesto/Create
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
+            ViewBag.IdRequerimiento = id;
             return View();
         }
         

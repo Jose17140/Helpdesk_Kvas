@@ -47,7 +47,7 @@ CREATE TABLE GruposDetalles(
 		ON UPDATE NO ACTION,
 	CONSTRAINT FK_GruposDetalles_GruposDetallesPadres FOREIGN KEY(IdPadre) REFERENCES GruposDetalles(IdGrupoDetalle)
 		ON DELETE NO ACTION
-		ON UPDATE NO ACTION,
+		ON UPDATE NO ACTION
 );
 DROP TABLE IF EXISTS Usuarios;
 CREATE TABLE Usuarios(
@@ -264,7 +264,7 @@ SELECT * FROM Empleados;
 SELECT * FROM Observaciones;
 SELECT * FROM vw_ListarProductos
 SELECT * FROM Presupuestos;
-SELECT * FROM vw_ListarUsuarios;
+SELECT * FROM vw_ListarUsuarios where IdRoles = 47
 SELECT * FROM vw_Personas;
 SELECT * FROM vw_Bitacora;
 SELECT * FROM vw_Usuarios_Personas;

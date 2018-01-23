@@ -158,7 +158,14 @@ namespace HelpDesk_Kvas.Controllers
         // GET: Requerimiento/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var list = objGrupoDetalleLogic.Listar();
+            var requerimiento = objRequerimientoLogic.Listar().Where(m => m.IdRequerimiento.Equals(id)).SingleOrDefault();
+            Listas();
+            //Lista Tecnico
+            var _departamentos = list.Where(m => m.IdPadre.Equals(36)).ToList();
+            SelectList listDepartamentos = new SelectList(_departamentos, "IdGrupoDetalle", "Titulo");
+            ViewBag.Departamentos = listDepartamentos;
+            return View(requerimiento);
         }
 
         #region DROPDOWN 
@@ -364,6 +371,7 @@ namespace HelpDesk_Kvas.Controllers
         private void Listas()
         {
             var list = objGrupoDetalleLogic.Listar();
+            var listtec = objUsuario.Listar();
             //var lis = objUsuario
             #region LISTADO DE SELECT QUE SE DESPLEGARAN EN LA VISTA
             //Lista Departamento
@@ -378,11 +386,16 @@ namespace HelpDesk_Kvas.Controllers
             var _marcas = list.Where(m => m.IdGrupo.Equals(10)).ToList();
             SelectList listMarcas = new SelectList(_marcas, "IdGrupoDetalle", "Titulo");
             ViewBag.Marcas = listMarcas;
-            //Lista Marca
+            //Lista ESTATUS
             var _estatus = list.Where(m => m.IdGrupo.Equals(29)).ToList();
             SelectList listEstatus = new SelectList(_estatus, "IdGrupoDetalle", "Titulo");
             ViewBag.Estatus = listEstatus;
-            //Lista Tecnicos
+            //Lista TECNICOS
+            var _tecnico = (from m in listtec
+                            where m.IdRoles == 49
+                            select m).ToList();
+            SelectList listTecnico = new SelectList(_tecnico, "IdUsuario", "Nombres");
+            ViewBag.Tecnico = listTecnico;
             #endregion
 
         }

@@ -31,7 +31,7 @@
                             </div>
                             <div class="form-group" style="backface-visibility: hidden;">
                                 <div class="input-group" style="backface-visibility: hidden;">
-                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Contrasena", style = "backface-visibility: hidden;" })
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Contraseña", style = "backface-visibility: hidden;" })
                                     <span class="input-group-addon" style="backface-visibility: hidden;">
                                         <i class="glyphicon glyphicon-lock" style="backface-visibility: hidden;"></i>
                                     </span>
@@ -42,7 +42,7 @@
                             </div>
                             <div class="form-group" style="backface-visibility: hidden;">
                                 <div class="input-group" style="backface-visibility: hidden;">
-                                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "Confirmar Contrasena", style = "backface-visibility: hidden;" })
+                                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "Confirmar Contraseña", style = "backface-visibility: hidden;" })
                                     <span class="input-group-addon" style="backface-visibility: hidden;">
                                         <i class="glyphicon glyphicon-lock" style="backface-visibility: hidden;"></i>
                                     </span>
@@ -55,7 +55,7 @@
                                 <div class="input-group" style="backface-visibility: hidden;">
                                     @Html.DropDownListFor(model => model.IdPregunta, ViewBag.ListaPreguntas as SelectList, "Seleccione Pregunta", htmlAttributes: new { @class = "form-control" })
                                     <span class="input-group-addon" style="backface-visibility: hidden;">
-                                        <i class="glyphicon glyphicon-lock" style="backface-visibility: hidden;"></i>
+                                        <i class="glyphicon glyphicon-question-sign" style="backface-visibility: hidden;"></i>
                                     </span>
                                 </div>
                                 <div class="col-md-10">
@@ -66,7 +66,7 @@
                                 <div class="input-group" style="backface-visibility: hidden;">
                                     @Html.PasswordFor(m => m.RespuestaSeguridad, new { @class = "form-control", @placeholder = "Respuesta", style = "backface-visibility: hidden;" })
                                     <span class="input-group-addon" style="backface-visibility: hidden;">
-                                        <i class="glyphicon glyphicon-lock" style="backface-visibility: hidden;"></i>
+                                        <i class="glyphicon glyphicon-ok" style="backface-visibility: hidden;"></i>
                                     </span>
                                 </div>
                                 <div class="col-md-10">

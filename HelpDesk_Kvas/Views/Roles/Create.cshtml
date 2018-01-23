@@ -7,7 +7,7 @@
 
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 class="modal-title">Ingrese los datos de @ViewBag.Nombre y haga click en guardar.</h3>
+    <h3 class="modal-title"><span class="glyphicon glyphicon-pencil"></span>Ingrese los datos de @ViewBag.Nombre y haga click en guardar.</h3>
 </div>
 <div class="modal-body">
     @using (Ajax.BeginForm("Create", "GrupoDetalle", new AjaxOptions { HttpMethod = "POST", OnSuccess = "onAjaxRequestSuccess" }, new { @id = "AjaxformId", @class = "form-horizontal", role = "form" }))

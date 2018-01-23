@@ -97,27 +97,10 @@
 
     <div class="row">
         <div class="col-md-6">
-            <!-- AREA CHART -->
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Area Chart</h3>
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                            <i class="fa fa-minus"></i>
-                        </button>
-                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                    </div>
-                </div>
-                <div class="box-body chart-responsive">
-                    <div class="chart" id="revenue-chart" style="height: 300px;"></div>
-                </div>
-                <!-- /.box-body -->
-            </div>
-            <!-- /.box -->
             <!-- DONUT CHART -->
             <div class="box box-danger">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Donut Chart</h3>
+                    <h3 class="box-title">Esquipos recibidos</h3>
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse">
                             <i class="fa fa-minus"></i>
@@ -134,27 +117,10 @@
         </div>
         <!-- /.col (LEFT) -->
         <div class="col-md-6">
-            <!-- LINE CHART -->
-            <div class="box box-info">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Line Chart</h3>
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                            <i class="fa fa-minus"></i>
-                        </button>
-                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                    </div>
-                </div>
-                <div class="box-body chart-responsive">
-                    <div class="chart" id="line-chart" style="height: 300px;"></div>
-                </div>
-                <!-- /.box-body -->
-            </div>
-            <!-- /.box -->
             <!-- BAR CHART -->
             <div class="box box-success">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Bar Chart</h3>
+                    <h3 class="box-title">Grafica de Servicios</h3>
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse">
                             <i class="fa fa-minus"></i>
@@ -177,49 +143,6 @@
 <script>
     $(function () {
         "use strict";
-
-        // AREA CHART
-        var area = new Morris.Area({
-            element: 'revenue-chart',
-            resize: true,
-            data: [
-                { y: '2018 M1', item1: 2666, item2: 2666, item3: 100 },
-                { y: '2018 M2', item1: 2778, item2: 2294 },
-                { y: '2018 M3', item1: 4912, item2: 1969 },
-                { y: '2018 M4', item1: 3767, item2: 3597 },
-                { y: '2018 M5', item1: 4912, item2: 1969 },
-                { y: '2018 M6', item1: 3767, item2: 3597 },
-                { y: '2018 M7', item1: 4912, item2: 1969 },
-                { y: '2018 M8', item1: 3767, item2: 3597 },
-                { y: '2018 M9', item1: 4912, item2: 1969 },
-                { y: '2018 M10', item1: 3767, item2: 3597 },
-                { y: '2018 M11', item1: 4912, item2: 1969 },
-                { y: '2018 M12', item1: 3767, item2: 3597 }
-            ],
-            xkey: 'y',
-            ykeys: ['item1', 'item2', 'item3'],
-            labels: ['Recibidas', 'Terminas', 'Devueltas'],
-            lineColors: ['#a0d0e0', '#3c8dbc', '#ffff'],
-            hideHover: 'auto'
-        });
-
-        // LINE CHART
-        var line = new Morris.Line({
-            element: 'line-chart',
-            resize: true,
-            data: [
-                { y: 'Pc', item1: 2666, item2: 444 },
-                { y: 'Laptop', item1: 2666, item2: 444 }
-
-                
-            ],
-            xkey: 'y',
-            ykeys: ['item1', 'item2'],
-            labels: ['Pc', 'Laptop'],
-            lineColors: ['#3c8dbc'],
-            hideHover: 'auto'
-        });
-
         //DONUT CHART
         var donut = new Morris.Donut({
             element: 'sales-chart',

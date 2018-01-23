@@ -4,7 +4,7 @@
 }
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 class="modal-title">@ViewBag.MensajeInicio</h3>
+    <h3 class="modal-title"><span class="glyphicon glyphicon-pencil"></span> Editar producto</h3>
 </div>
 
 <div class="modal-body">
@@ -110,13 +110,13 @@
                     </div>
                 </div>
             </div>
-            <div class=" row">
+            @*<div class=" row">
                 <div class="col-lg-4 col-md-4 col-sm-4" style="padding-bottom: 10px;">
                     @Html.LabelFor(m => m.Imagen)
                     @Html.EditorFor(model => model.Imagen, new { htmlAttributes = new { @class = "form-control", @placeholder = "Imagen", @type = "file" } })
                     @Html.ValidationMessageFor(model => model.Imagen, "", new { @class = "text-danger" })
                 </div>
-            </div>
+            </div>*@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
