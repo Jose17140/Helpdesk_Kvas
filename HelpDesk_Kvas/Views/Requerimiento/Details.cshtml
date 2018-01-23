@@ -97,10 +97,9 @@
     </div>
 </section>
 <section class="content">
-
     <div class="row">
         @{ Html.RenderAction("Bitacora", "Requerimiento");}
-        <div class="col-md-8">
+        <div class="col-md-9">
             @using (Html.BeginForm("Asignar", "Requerimiento", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
             {
                 @Html.AntiForgeryToken()
@@ -261,79 +260,11 @@
                     <!-- /.box-body -->
                 </div>
                 <!--/.col (right) -->
-                <!--PRESUPUESTO-->
-                <div class="box box-warning">
-                    <div class="box-header with-border">
-                        <h3 class="box-title"><span class="glyphicon glyphicon-list"></span> Presupuesto</h3>
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                            <i class="fa fa-minus"></i>
-                        </button>
-                    </div>
-                    <div class="box-body">
-                        <!-- /.box-header -->
-                        <div class="row">
-                            <div class="col-xs-12 table-responsive">
-                                <table id="tproductos" class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Producto</th>
-                                            <th>Descripcion</th>
-                                            <th>Cant.</th>
-                                            <th>Precio</th>
-                                            <th>Subtotal</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                </table>
-                            </div>
-                            <!-- /.col -->
-                        </div>
-                        <div class="row">
-                            <!-- accepted payments column -->
-                            <div class="col-xs-8">
-                                <p class="lead">Terminos y condiciones:</p>
-                                @*<img src="~/Content/images/img/credit/visa.png" alt="Visa">
-                                    <img src="~/Content/images/img/credit/mastercard.png" alt="Mastercard">
-                                    <img src="~/Content/images/img/credit/american-express.png" alt="American Express">*@
-                                <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
-                                    Terminos y condiciones
-                                </p>
-                            </div>
-                            <!-- /.col -->
-                            <br />
-                            <div class="col-xs-4">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <tr></tr>
-                                        <tr>
-                                            <th style="width:50%">Subtotal:</th>
-                                            <td>Bs. <input id="SubTotal" name="SubTotal" type="text" disabled style="border:0;" /></td>
-                                        </tr>
-                                        <tr>
-                                            <th>IVA (12%)</th>
-                                            <td>Bs. <input id="Iva" name="Iva" type="text" disabled style="border:0;" /></td>
-                                        </tr>
-                                        <tr>
-                                            <th>Total:</th>
-                                            <td>Bs. <input id="TotalFinal" name="TotalFinal" type="text" disabled style="border:0;" /></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                            <!-- /.col -->
-                        </div>
-                        <!-- /.box-body -->
-                    </div>
-                </div>
-                <!--PRESUPUESTO-->
-                <div class="box-footer">
-                    <div id="resultados_ajax" style="position:relative;"> </div>
-                    <button type="submit" class="btn btn-primary pull-right">Guardar datos</button>
-                </div>
             }
         </div>
+    </div>
+    <div class="row">
+        @{ Html.RenderAction("PxR", "Presupuesto"); }
     </div>
 </section>
 <div id='myModal' class='modal fade in'>

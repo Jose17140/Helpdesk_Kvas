@@ -93,28 +93,6 @@ CREATE TABLE Personas(
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
 );
-DROP TABLE IF EXISTS Empleados;
-CREATE TABLE Empleados(
-	IdEmpleado INT NOT NULL IDENTITY(1,1),
-	IdUsuario INT NOT NULL,
-	IdCargo INT NOT NULL,
-	IdSexo INT NOT NULL,
-	FechaNaciomiento DATE NULL,
-	FechaIngreso DATE NULL,
-	FechaRetiro DATE NULL,
-	FechaRegistro DATETIME NOT NULL,
-	CONSTRAINT PK_Empleados PRIMARY KEY(IdEmpleado),
-	CONSTRAINT UQ_Empleado_IdUsuario UNIQUE(IdUsuario),
-	CONSTRAINT FK_Empleados_Usuarios_IdUsuario FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario)
-		ON DELETE NO ACTION
-		ON UPDATE NO ACTION,
-	CONSTRAINT FK_Empleados_GruposDetalles_IdCargo FOREIGN KEY (IdCargo) REFERENCES GruposDetalles(IdGrupoDetalle)
-		ON DELETE NO ACTION
-		ON UPDATE NO ACTION,
-	CONSTRAINT FK_Empleados_GruposDetalles_IdSexo FOREIGN KEY (IdSexo) REFERENCES GruposDetalles(IdGrupoDetalle)
-		ON DELETE NO ACTION
-		ON UPDATE NO ACTION
-);
 --PRODUCTOS Y SERVICIOS
 DROP TABLE IF EXISTS ProductoServicios;
 CREATE TABLE ProductoServicios(
@@ -260,7 +238,6 @@ SELECT * FROM Personas;
 SELECT * FROM Usuarios;
 SELECT * FROM Requerimientos;
 SELECT * FROM vw_Requerimientos;
-SELECT * FROM Empleados;
 SELECT * FROM Observaciones;
 SELECT * FROM vw_ListarProductos
 SELECT * FROM Presupuestos;

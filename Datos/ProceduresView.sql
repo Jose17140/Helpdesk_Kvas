@@ -182,6 +182,21 @@ CREATE VIEW vw_Bitacora AS(
 	INNER JOIN Usuarios AS us ON bt.IdUsuario = us.IdUsuario
 	INNER JOIN GruposDetalles AS gd ON us.IdRoles = gd.IdGrupoDetalle
 )
+GO
+
+--VISTA PRESUPUESTOS
+DROP VIEW IF EXISTS vw_Presupuestos
+GO
+CREATE VIEW vw_Presupuestos AS(
+	SELECT pt.IdPresupuesto, pt.IdRequerimiento, pt.FechaEmision, pt.FechaVencimiento, pt.IdPoS, ps.Sku, ps.Nombre, ps.Descripcion, pt.Cant, 
+	pt.PrecioUnit, pt.SubTotal,pt.Iva, pt.IdEstatus
+	FROM Presupuestos AS pt
+		INNER JOIN ProductoServicios AS ps ON pt.IdPoS = ps.IdProducto
+)
+GO
+
+
+
 
 
 --DROP PROCEDURE IF EXISTS sp_BuscarProducto;

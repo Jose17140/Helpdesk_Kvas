@@ -2892,6 +2892,7 @@
     <Content Include="Views\Account\Perfil.cshtml" />
     <Content Include="Views\Account\Confirmar.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Presupuesto\PxR.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

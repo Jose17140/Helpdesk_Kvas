@@ -37,5 +37,10 @@ namespace HelpDesk_Kvas.Models.Datos.Logica
                 objRequerimiento.Mensaje = 1;
             }
         }
+
+        public IEnumerable<PresupuestoViewEntity> Listar()
+        {
+            return objPresupuestoDAL.Listar();
+        }
     }
 }

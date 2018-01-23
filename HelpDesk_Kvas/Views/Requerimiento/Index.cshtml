@@ -24,8 +24,8 @@
     @using (Html.BeginForm("Index", "Requerimiento", FormMethod.Get))
     {
         <p>
-            Buscar: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
-            <input type="submit" value="Buscar" />
+            Buscar: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string )
+            <input type="submit" value="Buscar (por CI o Cliente)" />
         </p>
     }
     <table class="table table-hover">

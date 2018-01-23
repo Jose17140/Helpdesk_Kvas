@@ -56,8 +56,14 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
         public string Sku { get; set; }
         //public int Cantidad { get; set; }
         //public int PrecioUnitario { get; set; }
-
         #endregion
     }
     #endregion
+
+    public class PresupuestoViewEntity :PresupuestosEntity
+    {
+        public string NombreProducto { get; set; }
+        public string Descripcion { get; set; }
+        public string Sku { get; set; }
+    }
 }

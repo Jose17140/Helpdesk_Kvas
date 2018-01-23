@@ -42,6 +42,24 @@ namespace HelpDesk_Kvas.Controllers
         {
             return View();
         }
+        
+        public ActionResult PxR(int id)
+        {
+            var list = objPresupuestoLogic.Listar();
+            var pxr = list.Where(m => m.IdRequerimiento.Equals(id)).ToList();
+            var iva = pxr.Sum(m => m.Iva);
+            var total = pxr.Sum(m => m.Subtotal);
+            ViewBag.Iva = iva;
+            ViewBag.Total = total;
+            ViewBag.TotalPagar = iva + total;
+            return View(pxr);
+        }
+
+        [HttpPost]
+        public ActionResult PxR(PresupuestosEntity objPresupuesto)
+        {
+            return View();
+        }
 
         public JsonResult BuscarProducto(string _nombre)
         {
@@ -64,11 +82,13 @@ namespace HelpDesk_Kvas.Controllers
             {
                 try
                 {
+                    
                     var user = HttpContext.User.Identity.Name;
                     var u = objUsuario.Buscar_x_Nombre(user);
                     ViewBag.IdUsuario = u.IdUsuario;
                     foreach (var i in ListadoDetalle)
                     {
+                        i.IdEstatus = 148;
                         i.IdEmpleado = u.IdUsuario;
                         i.IdRequerimiento = Convert.ToInt32(IdRequerimiento);
                         objPresupuestoLogic.Insertar(i);

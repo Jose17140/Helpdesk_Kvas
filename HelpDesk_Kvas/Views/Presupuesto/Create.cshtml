@@ -40,7 +40,6 @@
 </script>
 
 <script type="text/javascript">
-
     $(document).ready(function () {
         //botones guardar
         $("#guardar").click(function () {
@@ -54,7 +53,7 @@
                         "',Cantidad:'" + $(this).find('td').eq(3).text() +
                         "',PrecioUnitario:'" + $(this).find('td').eq(4).text() + "'}";
                 } else {
-                    envio += ",{IdProducto:'" + $(this).find('td').eq(0).text() +
+                    envio += ",{IdPoS:'" + $(this).find('td').eq(0).text() +
                         "',Cantidad:'" + $(this).find('td').eq(3).text() +
                         "',PrecioUnitario:'" + $(this).find('td').eq(4).text() + "'}";
                 }
@@ -106,7 +105,7 @@
         y = $("#Cantidad").val();
         x = $("#PrecioUnitario").val();
         subtotal = (x * y);
-        cadena = cadena + "<td>" + subtotal + "</td>"
+        cadena = cadena + "<td>" + subtotal + "</td>";
         cadena = cadena + "<td><a class ='elimina'><button class='btn btn-danger' type='button'><span class='fa fa-remove'></span></button></a></td>";
         $("#tproductos tbody").append(cadena);
         sumar();

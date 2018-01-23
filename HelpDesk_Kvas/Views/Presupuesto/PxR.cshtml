@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<HelpDesk_Kvas.Models.Datos.Entity.PresupuestoViewEntity>
-
+@{ 
+    Layout = null;
+}
 <div class="col-md-12">
     <!--PRESUPUESTO-->
     <div class="box box-warning">
@@ -16,7 +18,7 @@
                     <table id="tproductos" class="table table-striped">
                         <thead>
                             <tr>
-                                <th>#</th>
+                                <th>#Codigo</th>
                                 <th>Producto</th>
                                 <th>Descripcion</th>
                                 <th>Cant.</th>
@@ -28,14 +30,14 @@
                         <tbody>
                             @foreach (var item in Model)
                             {
-                            <tr>
-                                <td>@Html.DisplayFor(modelItem => item.Sku)</td>
-                                <td>@Html.DisplayFor(modelItem => item.NombreProducto)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
-                                <td>@Html.DisplayFor(modelItem => item.PrecioUnitario)</td>
-                                <td>@Html.DisplayFor(modelItem => item.PrecioUnitario)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Subtotal)</td>
-                            </tr>
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.Sku)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.NombreProducto)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Cantidad)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.PrecioUnitario)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Subtotal)</td>
+                                </tr>
                             }
                         </tbody>
                     </table>
@@ -61,15 +63,15 @@
                             <tr></tr>
                             <tr>
                                 <th style="width:50%">Subtotal:</th>
-                                <td>Bs. <input id="SubTotal" name="SubTotal" type="text" disabled style="border:0;" /></td>
+                                <td>Bs. <input id="SubTotal" name="SubTotal" type="text" value="@ViewBag.Total" disabled style="border:0;" /></td>
                             </tr>
                             <tr>
                                 <th>IVA (12%)</th>
-                                <td>Bs. <input id="Iva" name="Iva" type="text" disabled style="border:0;" /></td>
+                                <td>Bs. <input id="Iva" name="Iva" type="text" value="@ViewBag.Iva" disabled style="border:0;" /></td>
                             </tr>
                             <tr>
                                 <th>Total:</th>
-                                <td>Bs. <input id="TotalFinal" name="TotalFinal" type="text" disabled style="border:0;" /></td>
+                                <td>Bs. <input id="TotalFinal" name="TotalFinal" value="@ViewBag.TotalPagar" type="text" disabled style="border:0;" /></td>
                             </tr>
                         </table>
                     </div>
