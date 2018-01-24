@@ -1,85 +1,130 @@
 ﻿@model IEnumerable<HelpDesk_Kvas.Models.Datos.Entity.PresupuestoViewEntity>
-@{ 
+@{
     Layout = null;
 }
-<div class="col-md-12">
-    <!--PRESUPUESTO-->
-    <div class="box box-warning">
-        <div class="box-header with-border">
-            <h3 class="box-title"><span class="glyphicon glyphicon-list"></span> Presupuesto</h3>
-            <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                <i class="fa fa-minus"></i>
-            </button>
-        </div>
-        <div class="box-body">
-            <!-- /.box-header -->
-            <div class="row">
-                <div class="col-xs-12 table-responsive">
-                    <table id="tproductos" class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>#Codigo</th>
-                                <th>Producto</th>
-                                <th>Descripcion</th>
-                                <th>Cant.</th>
-                                <th>Precio</th>
-                                <th>Subtotal</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td>@Html.DisplayFor(modelItem => item.Sku)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.NombreProducto)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Cantidad)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.PrecioUnitario)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Subtotal)</td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-                <!-- /.col -->
+
+<!-- title row -->
+<div class="row">
+    <div class="col-md-8">
+        <h2 class="page-header">
+            <img src="~/Content/images/Logo.png" /> Entercop Centro de Copiado C.A.
+        </h2>
+    </div>
+    <div class="col-sm-4 invoice-col">
+        <b>Orden ID:</b> #@ViewBag.IdPre<br>
+        <b>Emisión:</b> @ViewBag.Emision<br>
+        <b>Vencimiento:</b> @ViewBag.Vencimiento<br>
+        <b>Vendedor:</b> @ViewBag.Emppleado<br>
+    </div>
+    <!-- /.col -->
+</div>
+<!-- info row -->
+<div class="row invoice-info">
+    <div class="col-sm-4 invoice-col">
+
+    </div>
+    <!-- /.col -->
+    <div class="col-sm-4 invoice-col">
+
+    </div>
+    <!-- /.col -->
+    
+</div>
+<br />
+<!-- /.row -->
+<div class="row">
+    <div class="col-md-12">
+        <!--PRESUPUESTO-->
+        <div class="box box-warning">
+            <div class="box-header with-border">
+                <h3 class="box-title"><span class="glyphicon glyphicon-list"></span> Presupuesto</h3>
+                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                    <i class="fa fa-minus"></i>
+                </button>
             </div>
-            <div class="row">
-                <!-- accepted payments column -->
-                <div class="col-xs-8">
-                    <p class="lead">Terminos y condiciones:</p>
-                    @*<img src="~/Content/images/img/credit/visa.png" alt="Visa">
-                        <img src="~/Content/images/img/credit/mastercard.png" alt="Mastercard">
-                        <img src="~/Content/images/img/credit/american-express.png" alt="American Express">*@
-                    <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
-                        Terminos y condiciones
-                    </p>
-                </div>
-                <!-- /.col -->
-                <br />
-                <div class="col-xs-4">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <tr></tr>
-                            <tr>
-                                <th style="width:50%">Subtotal:</th>
-                                <td>Bs. <input id="SubTotal" name="SubTotal" type="text" value="@ViewBag.Total" disabled style="border:0;" /></td>
-                            </tr>
-                            <tr>
-                                <th>IVA (12%)</th>
-                                <td>Bs. <input id="Iva" name="Iva" type="text" value="@ViewBag.Iva" disabled style="border:0;" /></td>
-                            </tr>
-                            <tr>
-                                <th>Total:</th>
-                                <td>Bs. <input id="TotalFinal" name="TotalFinal" value="@ViewBag.TotalPagar" type="text" disabled style="border:0;" /></td>
-                            </tr>
+            <div class="box-body">
+                <!-- /.box-header -->
+                <div class="row">
+                    <div class="col-xs-12 table-responsive">
+                        <table id="tproductos" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#Codigo</th>
+                                    <th>Producto</th>
+                                    <th>Descripcion</th>
+                                    <th>Cant.</th>
+                                    <th>Precio</th>
+                                    <th>Subtotal</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => item.Sku)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.NombreProducto)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Cantidad)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.PrecioUnitario)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Subtotal)</td>
+                                    </tr>
+                                }
+                            </tbody>
                         </table>
                     </div>
+                    <!-- /.col -->
                 </div>
-                <!-- /.col -->
+                <div class="row">
+                    <!-- accepted payments column -->
+                    <div class="col-xs-8">
+                        <p class="lead">Terminos y condiciones:</p>
+                        @*<img src="~/Content/images/img/credit/visa.png" alt="Visa">
+                            <img src="~/Content/images/img/credit/mastercard.png" alt="Mastercard">
+                            <img src="~/Content/images/img/credit/american-express.png" alt="American Express">*@
+                        <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+                            Terminos y condiciones:<br />
+                            La garantía de todos nuestros productos será la establecida por el fabricante de cada marca y será indicada en la web, dentro de la ficha de cada producto.
+                        </p>
+                    </div>
+                    <!-- /.col -->
+                    <br />
+                    <div class="col-xs-4">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <tr></tr>
+                                <tr>
+                                    <th style="width:50%">Subtotal:</th>
+                                    <td>Bs. <input id="SubTotal" name="SubTotal" type="text" value="@ViewBag.Total" disabled style="border:0;" /></td>
+                                </tr>
+                                <tr>
+                                    <th>IVA (12%)</th>
+                                    <td>Bs. <input id="Iva" name="Iva" type="text" value="@ViewBag.Iva" disabled style="border:0;" /></td>
+                                </tr>
+                                <tr>
+                                    <th>Total:</th>
+                                    <td>Bs. <input id="TotalFinal" name="TotalFinal" value="@ViewBag.TotalPagar" type="text" disabled style="border:0;" /></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.box-body -->
             </div>
-            <!-- /.box-body -->
         </div>
+        <!--PRESUPUESTO-->
     </div>
-    <!--PRESUPUESTO-->
+</div>
+
+<div class="row no-print">
+    <div class="col-xs-12">
+        <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
+        <button type="button" class="btn btn-success pull-right">
+            <i class="fa fa-credit-card"></i> Submit Payment
+        </button>
+        <button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;">
+            <i class="fa fa-download"></i> Generate PDF
+        </button>
+    </div>
 </div>

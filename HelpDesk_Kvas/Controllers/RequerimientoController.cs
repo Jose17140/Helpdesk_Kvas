@@ -20,6 +20,7 @@ namespace HelpDesk_Kvas.Controllers
         UsuarioLogic objUsuario;
         PersonasLogic objPersonaLogic;
         BitacoraLogic objBitacora;
+        PresupuestoLogic objPresupuesto;
         DAL_Main db;
 
         public RequerimientoController()
@@ -30,6 +31,7 @@ namespace HelpDesk_Kvas.Controllers
             objUsuario = new UsuarioLogic();
             objPersonaLogic = new PersonasLogic();
             objBitacora = new BitacoraLogic();
+            objPresupuesto = new PresupuestoLogic();
             db = new DAL_Main();
         }
         #region INDEX HECHO PARA CARGAR CON JSON 
@@ -83,9 +85,7 @@ namespace HelpDesk_Kvas.Controllers
                 }
 
                 ViewBag.CurrentFilter = searchString;
-
-
-
+                
                 if (!String.IsNullOrEmpty(searchString))
                 {
                     requerimientos = requerimientos.Where(s => s.Nombres.ToUpper().Contains(searchString.ToUpper())
@@ -155,6 +155,19 @@ namespace HelpDesk_Kvas.Controllers
             
         }
 
+        public ActionResult DetailsOrden(int id)
+        {
+            var list = objGrupoDetalleLogic.Listar();
+            var requerimiento = objRequerimientoLogic.Listar().Where(m => m.IdRequerimiento.Equals(id)).SingleOrDefault();
+            Listas();
+            //Lista Tecnico
+            var _departamentos = list.Where(m => m.IdPadre.Equals(36)).ToList();
+            SelectList listDepartamentos = new SelectList(_departamentos, "IdGrupoDetalle", "Titulo");
+            ViewBag.Departamentos = listDepartamentos;
+            ViewBag.IdRequerimieto = requerimiento.IdRequerimiento;
+            return View(requerimiento);
+        }
+
         // GET: Requerimiento/Details/5
         public ActionResult Details(int id)
         {
@@ -165,6 +178,7 @@ namespace HelpDesk_Kvas.Controllers
             var _departamentos = list.Where(m => m.IdPadre.Equals(36)).ToList();
             SelectList listDepartamentos = new SelectList(_departamentos, "IdGrupoDetalle", "Titulo");
             ViewBag.Departamentos = listDepartamentos;
+            ViewBag.IdRequerimieto = requerimiento.IdRequerimiento;
             return View(requerimiento);
         }
 
@@ -357,14 +371,30 @@ namespace HelpDesk_Kvas.Controllers
         {
             var bitacora = objBitacora.Listar().Where(m=>m.IdRequerimiento.Equals(id)).ToList();
             ViewBag.Mensajes = bitacora.Where(m => m.IdRequerimiento.Equals(id)).Count();
+            ViewBag.id = id;
             return View(bitacora);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Bitacora(BitacorasEntity ObjBitacora)
+        public ActionResult Bitacora(BitacorasEntity bitacora)
         {
-            return View();
+            var name = User.Identity.Name;
+            var userId = objUsuario.Listar().Where(m => m.UserName.ToUpper().Equals(name.ToUpper())).SingleOrDefault();
+            var idUser = userId.IdUsuario;
+            try
+            {
+                ObservacionesEntity obs = new ObservacionesEntity();
+                obs.IdRequerimiento = bitacora.IdRequerimiento;
+                obs.IdUsuario = idUser;
+                obs.Observacion = bitacora.Observaciones; ;
+                objBitacora.Insertar(obs);
+                return Json(new { success = true });
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
         #endregion
 

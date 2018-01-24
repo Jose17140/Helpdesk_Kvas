@@ -55,6 +55,7 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
                     {
                         IdPresupuesto = req.IdPresupuesto,
                         IdRequerimiento = req.IdRequerimiento,
+                        IdEmpleado = req.IdUsuario,
                         FechaEmision = req.FechaEmision,
                         FechaVencimiento = Convert.ToDateTime(req.FechaVencimiento),
                         IdPoS = req.IdPoS,

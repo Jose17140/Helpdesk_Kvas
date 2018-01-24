@@ -16,17 +16,16 @@ namespace HelpDesk_Kvas.Models.Datos.Logica
             objBitacoraDAL = new OxRDAL();
         }
 
-        public void Insertar(BitacorasEntity objBitacora)
+        public void Insertar(ObservacionesEntity objBitacora)
         {
             try
             {
                 objBitacoraDAL.Insertar(objBitacora);
-                objBitacora.Mensaje = 99;
                 return;
             }
             catch
             {
-                objBitacora.Mensaje = 1;
+                
             }
         }
 

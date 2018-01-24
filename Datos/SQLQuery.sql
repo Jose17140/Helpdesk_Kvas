@@ -136,7 +136,8 @@ DROP TABLE IF EXISTS Requerimientos;
 CREATE TABLE Requerimientos(
 	IdRequerimiento INT IDENTITY(1,1) NOT NULL,
 	IdDepartamento INT NOT NULL, -- SUB DEPARTAMENTO ENCARGADO DE ATENDER EL REQUERIMIENTO
-	Atendido BIT NOT NULL DEFAULT 0,
+	Presupuestado BIT NOT NULL DEFAULT 0, --FUE PRESUPUESTADO
+	Asignado BIT NOT NULL DEFAULT 0,-- SI YA FUE ASIGNADO
 	IdEmpleado INT NULL, -- USUARIO QUE GENERA EL REQUERIMIENTO O LO APRUEBA
 	IdTecnico INT NULL, -- USUARIO TECNICO ENCARGADO DE ATENDER EL REQUERIMIENTO
 	IdCliente INT NOT NULL, -- PERSONA QUE SOLICITA EL REQUERIMIENTO
@@ -246,6 +247,11 @@ SELECT * FROM vw_Personas;
 SELECT * FROM vw_Bitacora;
 SELECT * FROM vw_Usuarios_Personas;
 
+
+
+SELECT pt.IdPresupuesto, pt.IdRequerimiento, pt.IdPoS, ps.Nombre, ps.Descripcion, pt.Cant, pt.PrecioUnit, pt.SubTotal, pt.IdEstatus
+FROM Presupuestos AS pt
+INNER JOIN ProductoServicios AS ps ON pt.IdPoS = ps.IdProducto
 
 
 

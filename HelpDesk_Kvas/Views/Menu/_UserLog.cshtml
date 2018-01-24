@@ -6,7 +6,7 @@
 <li class="dropdown user user-menu">
     <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage" class="dropdown-toggle" data-toggle="dropdown">
         <img src="~/Content/images/img/@ViewBag.Avatar" class="user-image" alt="User Image">
-        <span class="hidden-xs">Hola @HttpContext.Current.User.Identity.Name! </span>
+        <span class="hidden-xs">¡Hola @HttpContext.Current.User.Identity.Name! </span>
     </a>
     <ul class="dropdown-menu">
         <!-- User image -->
@@ -42,7 +42,7 @@
                     <a href="/Account/Perfil" class="btn btn-default btn-flat">Perfil</a>
                 </div>
                 <div class="pull-right">
-                    <a href="javascript:document.getElementById('logoutForm').submit()" class="btn btn-default btn-flat">Cerrar Sesion</a>
+                    <a href="javascript:document.getElementById('logoutForm').submit()" class="btn btn-default btn-flat">Cerrar Sesión</a>
                 </div>
             }
         </li>

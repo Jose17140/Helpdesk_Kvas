@@ -31,4 +31,13 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
         //[Display(Name = "Fecha de Registro:")]
         //public DateTime FechaRegistro { get; set; }
     }
+
+    public class ObservacionesEntity
+    {
+        public int IdOxR { get; set; }
+        public int IdRequerimiento { get; set; }
+        public int IdUsuario { get; set; }
+        public string Observacion { get; set; }
+        public DateTime FechaRegistro { get; set; }
+    }
 }

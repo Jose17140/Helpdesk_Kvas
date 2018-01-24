@@ -18,7 +18,7 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
             db = new dbDataContext();
         }
 
-        public void Insertar(BitacorasEntity _bitacora)
+        public void Insertar(ObservacionesEntity _bitacora)
         {
             try
             {
@@ -26,7 +26,7 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
                 {
                     IdRequerimiento = _bitacora.IdRequerimiento,
                     IdUsuario = _bitacora.IdUsuario,
-                    Observacion = _bitacora.Observaciones,
+                    Observacion = _bitacora.Observacion,
                     FechaRegistro = DateTime.Now
                 };
                 db.Observaciones.InsertOnSubmit(m);

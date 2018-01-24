@@ -1,6 +1,6 @@
 ﻿@model HelpDesk_Kvas.Models.Datos.Entity.PresupuestoViewModel
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Presupuesto";
 }
 <script>
     $(document).ready(function () {
@@ -18,7 +18,7 @@
                                 id: item.IdProducto,
                                 sku: item.Sku,
                                 value: item.Nombre,
-                                descripcion : item.Descripcion,
+                                descripcion: item.Descripcion,
                                 precio: item.PrecioVenta
                             }
                         }))
@@ -31,20 +31,20 @@
                 $("#Sku").val(ui.item.sku);
                 $("#Descripcion").val(ui.item.descripcion);
                 $("#PrecioUnitario").val(ui.item.precio);
-                $("#Cantidad").focus();
+                $("#Cantidad").val("1");
             }
         });
     })
 
 
 </script>
-
+<script src="~/Content/js/alertify.min.js"></script>
+<link href="~/Content/css/alertify.default.css" rel="stylesheet" />
+<link href="~/Content/css/alertify.core.css" rel="stylesheet" />
 <script type="text/javascript">
     $(document).ready(function () {
         //botones guardar
         $("#guardar").click(function () {
-            //alertify.alert("Boton Iniciado");
-            console.info('hola');
             var i = 0;
             var envio = "{IdRequerimiento:'" + $("#IdRequerimiento").val() + "',";
             $("#tproductos tbody tr").each(function (index) {
@@ -63,7 +63,7 @@
 
             var json = eval("(" + envio + ')');
 
-            //alertify.alert("INGRESE DATOS");
+            alertify.alert("INGRESE DATOS");
             console.info(json);
 
             $.ajax({
@@ -74,14 +74,17 @@
                 contentType: 'application/json;charset=UTF-8',
                 dataType: 'json',
                 success: function (response) {
+
                     alertify.alert(response);
                     valid = response.valid;
+                    limpiarDetalle();
+                    console.info("Limpiar");
                 },
                 error: function (error) {
                     alertify.alert(error);
-
                 }
             });
+            
         });
 
     });
@@ -90,7 +93,7 @@
     var valor = 0;
     var subtotal = 0;
     var totalpagar = 0;
-    var iva = 0; 
+    var iva = 0;
 
     function fn_agregar() {
 
@@ -120,12 +123,10 @@
         $("#Descripcion").val("");
         $("#Cantidad").val("");
         $("#PrecioUnitario").val("");
-        
-        
     }
 
     function limpiarDetalle() {
-        $("#detalle tbody tr").val("");
+        $("#tproductos tbody tr").val("");
     }
 
     function sumar() {
@@ -160,12 +161,13 @@
 
 <section class="content-header">
     <h1>
-        Tablero
-        <small>@ViewBag.Title</small>
+        Crear Presupuesto
+        <small><span class="glyphicon glyphicon-shopping-cart"></span></small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-        <li class="active">Dashboard</li>
+        <li><a href="/"><i class="fa fa-dashboard"></i> Inicio</a></li>
+        <li><a href="/Requerimiento/Index">Requerimiento</a></li>
+        <li class="active">Presupuesto</li>
     </ol>
 </section>
 <br /><br />
@@ -197,7 +199,7 @@
                         </div>
                         <!--Nombre-->
                         <div class="col-xs-2">
-                            @Html.TextBoxFor(x => x.Cantidad, new { @class = "form-control", placeholder = "Cantidad" })
+                            @Html.TextBoxFor(x => x.Cantidad, new { @class = "form-control", placeholder = "Cantidad", @value="1" })
                             @Html.ValidationMessageFor(model => model.Cantidad, "", new { @class = "text-danger" })
                         </div>
                         <!--Nombre-->
@@ -216,7 +218,6 @@
                     </div>
                 </form>
                 <br /><br />
-
                 <div class="row">
                     <div class="col-xs-12 table-responsive">
                         <table id="tproductos" class="table table-striped">
@@ -231,8 +232,7 @@
                                     <th></th>
                                 </tr>
                             </thead>
-                            <tbody>
-                            </tbody>
+                            <tbody></tbody>
                         </table>
                     </div>
                     <!-- /.col -->
@@ -241,11 +241,12 @@
                     <!-- accepted payments column -->
                     <div class="col-xs-8">
                         <p class="lead">Terminos y condiciones:</p>
-                            @*<img src="~/Content/images/img/credit/visa.png" alt="Visa">
+                        @*<img src="~/Content/images/img/credit/visa.png" alt="Visa">
                             <img src="~/Content/images/img/credit/mastercard.png" alt="Mastercard">
                             <img src="~/Content/images/img/credit/american-express.png" alt="American Express">*@
                         <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
-                            Terminos y condiciones
+                            Terminos y condiciones:<br />
+                            La garantía de todos nuestros productos será la establecida por el fabricante de cada marca y será indicada en la web, dentro de la ficha de cada producto.
                         </p>
                     </div>
                     <!-- /.col -->
@@ -256,7 +257,7 @@
                                 <tr></tr>
                                 <tr>
                                     <th style="width:50%">Subtotal:</th>
-                                    <td>Bs. <input id="SubTotal" name="SubTotal" type="text" disabled style="border:0;"/></td>
+                                    <td>Bs. <input id="SubTotal" name="SubTotal" type="text" disabled style="border:0;" /></td>
                                 </tr>
                                 <tr>
                                     <th>IVA (12%)</th>
@@ -274,9 +275,22 @@
                 <div class="row">
                     <div id="resultados_ajax"> </div>
                     <button type="submit" class="btn btn-primary pull-right" id="guardar">Agregar</button>
+                    <button type="submit" class="btn btn-warning pull-right" id="btnLimpiar">Limpiar</button>
                 </div>
             </div>
             <hr />
         </div>
     </div>
 </section>
+<script>
+    $(document).ready(function () {
+        $("#btnLimpiar").click(function () {
+            $.ajax({
+                success: function (res) {
+                    //alertify.alert("exito");
+                    window.location.reload().ajax();
+                }
+            });
+        });
+    });
+</script>

@@ -162,7 +162,7 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
         public string UserName { get; set; }
 
         [Required]
-        [Display(Name = "Contrasena")]
+        [Display(Name = "Contraseña")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]

@@ -1,4 +1,5 @@
-﻿using HelpDesk_Kvas.Models.Datos.Entity;
+﻿using HelpDesk_Kvas.Models.Datos.DAL;
+using HelpDesk_Kvas.Models.Datos.Entity;
 using HelpDesk_Kvas.Models.Datos.Logica;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace HelpDesk_Kvas.Controllers
         UsuarioLogic objUsuario;
         PersonasLogic objPersonaLogic;
         BitacoraLogic objBitacora;
+        dbDataContext db;
 
         public PresupuestoController()
         {
@@ -29,6 +31,7 @@ namespace HelpDesk_Kvas.Controllers
             objBitacora = new BitacoraLogic();
             objProducto = new ProductoLogic();
             objPresupuestoLogic = new PresupuestoLogic();
+            db = new dbDataContext(); 
         }
 
         // GET: Presupuesto
@@ -52,6 +55,13 @@ namespace HelpDesk_Kvas.Controllers
             ViewBag.Iva = iva;
             ViewBag.Total = total;
             ViewBag.TotalPagar = iva + total;
+            var datos = pxr.Where(m => m.IdRequerimiento.Equals(id)).FirstOrDefault();
+            ViewBag.Emision = datos.FechaEmision;
+            ViewBag.Vencimiento = datos.FechaVencimiento;
+            ViewBag.IdPre = datos.IdRequerimiento;
+            var ven = datos.IdEmpleado;
+            var empl = objUsuario.Listar().Where(m => m.IdUsuario.Equals(ven)).SingleOrDefault();
+            ViewBag.Emppleado = empl.Nombres;
             return View(pxr);
         }
 
@@ -93,7 +103,13 @@ namespace HelpDesk_Kvas.Controllers
                         i.IdRequerimiento = Convert.ToInt32(IdRequerimiento);
                         objPresupuestoLogic.Insertar(i);
                     }
-                    return RedirectToAction("Index");
+                    //return RedirectToAction("Index");
+                    var Id = Convert.ToInt32(IdRequerimiento);
+                    var q = db.Requerimientos.Where(m => m.IdRequerimiento.Equals(Id)).SingleOrDefault();
+                    q.Presupuestado = Convert.ToBoolean(1);
+                    db.SubmitChanges();
+                    var mensaje = "Registro Exitoso";
+                    return Json(mensaje);
                 }
                 catch
                 {

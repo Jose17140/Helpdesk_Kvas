@@ -156,7 +156,7 @@ GO
 DROP VIEW IF EXISTS vw_Requerimientos;
 GO
 CREATE VIEW vw_Requerimientos AS (
-	SELECT rq.IdRequerimiento,rq.Atendido, rq.IdDepartamento, dt.Nombre AS Departamento, rq.IdEmpleado, em.NombreUsuario AS Empleado, RQ.FechaEntrada, rq.FechaSalida,
+	SELECT rq.IdRequerimiento,rq.Asignado, rq.Presupuestado, rq.IdDepartamento, dt.Nombre AS Departamento, rq.IdEmpleado, em.NombreUsuario AS Empleado, RQ.FechaEntrada, rq.FechaSalida,
 			rq.IdCliente, ps.Nombres AS NombreCliente, CONCAT(tp.Nombre, ps.CiRif) AS Cedula,ps.Telefonos, ps.Email, ps.Direccion, eq.IdGrupoDetalle AS IdEquipo, 
 			eq.Nombre AS Equipo, mq.IdGrupoDetalle AS IdMarca, mq.Nombre AS Marca, md.IdGrupoDetalle AS IdModelo, md.Nombre AS Modelo, pr.IdGrupoDetalle AS IdPrioridad, 
 			pr.Nombre AS Prioridad, rq.Falla, rq.Diagnostico, rq.Solucion, rq.Serial, rq.Observaciones, rq.Accesorios, tc.IdUsuario AS IdTecnico, tc.NombreUsuario AS Tecnico,
@@ -189,7 +189,7 @@ DROP VIEW IF EXISTS vw_Presupuestos
 GO
 CREATE VIEW vw_Presupuestos AS(
 	SELECT pt.IdPresupuesto, pt.IdRequerimiento, pt.FechaEmision, pt.FechaVencimiento, pt.IdPoS, ps.Sku, ps.Nombre, ps.Descripcion, pt.Cant, 
-	pt.PrecioUnit, pt.SubTotal,pt.Iva, pt.IdEstatus
+	pt.PrecioUnit, pt.SubTotal,pt.Iva, pt.IdEstatus, pt.IdUsuario
 	FROM Presupuestos AS pt
 		INNER JOIN ProductoServicios AS ps ON pt.IdPoS = ps.IdProducto
 )

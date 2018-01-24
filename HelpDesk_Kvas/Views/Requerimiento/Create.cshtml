@@ -39,8 +39,6 @@
             }
         });
     })
-
-
 </script>
 <script type="text/javascript">
     $(document).ready(function () {
@@ -92,30 +90,31 @@
         })
     });
 </script>
-@*<script>
-        $('#iddropdownlist').change(function () {
-            var url = "/nombreControlador/BuscarCargoLider?claveLider=" + $('#iddropdownlist option:selected').val();
+<script>
+    $(document).ready(function () {
+        //Dropdownlist Filtro
+        $("#IdEquipo").change(function () {
+            $("#IdModelo").empty();
             $.ajax({
-                url: url,
-                type: 'GET',
+                type: 'POST',
+                url: '@Url.Action("ObtenerModelo")', // we are calling json method
                 dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                async: true,
-                success: function (result) {
-                    var lider;
-                    if (result != null && result.length > 0) {
-                        lider = JSON.parse(result);
-                    }
-                    if (lider != null) {
-                        $('#idinput').val(lider.cargo);//cargo debe ser la propiedad de la clase lider donde se almacena el cargo del lider
-                    }
+                data: { _equipo: $("#IdEquipo").val() },
+                success: function (modelos) {
+                    // states contains the JSON formatted list
+                    // of states passed from the controller
+                    $.each(modelos, function (i, data) {
+                        $("#IdModelo").append('<option value="' + data.Value + '">' + data.Text + '</option>');
+                    }); // here we are adding option for States
                 },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    alert("error al consultar datos del lider");
+                error: function (ex) {
+                    alert('Failed to retrieve states.' + ex);
                 }
             });
-        }
-    </script>*@
+            return false;
+        })
+    });
+</script>
 <section class="content-header">
     <h1>
         Tablero
@@ -147,7 +146,7 @@
                     </a>
                 </div>
             </div>
-            
+
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-4">

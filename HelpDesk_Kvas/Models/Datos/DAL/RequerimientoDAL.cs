@@ -213,6 +213,8 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
                     {
                         IdRequerimiento = req.IdRequerimiento,
                         IdDepartamento = req.IdDepartamento,
+                        Atendido = req.Asignado,
+                        Presupuestado = req.Presupuestado,
                         Departamento = req.Departamento,
                         IdEmpleado = Convert.ToInt32(req.IdEmpleado),
                         Empleado = req.Empleado,

@@ -1,6 +1,6 @@
 ﻿@model HelpDesk_Kvas.Models.Datos.Entity.RequerimientoViewEntity
 @{
-    ViewBag.Title = "Nueva Tabla";
+    ViewBag.Title = "Detalle Requerimiento";
     //Layout = null;
 }
 @Styles.Render("~/Content/css/Grupos.css")
@@ -82,12 +82,13 @@
 </script>
 <section class="content-header">
     <h1>
-        Tablero
-        <small>Requerimiento</small>
+        Detalle de 
+        <small><span class="glyphicon glyphicon-list-alt"></span> Requerimiento Nro. @ViewBag.IdRequerimieto </small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-        <li class="active">Dashboard</li>
+        <li><a href="/"><i class="fa fa-dashboard"></i> Inicio</a></li>
+        <li><a href="/Requerimiento"> Requerimiento</a></li>
+        <li class="active">Detalle</li>
     </ol>
     <br />
     <div class="box box-default">
@@ -263,9 +264,12 @@
             }
         </div>
     </div>
-    <div class="row">
-        @{ Html.RenderAction("PxR", "Presupuesto"); }
-    </div>
+</section>
+<section class="invoice">
+    @if (Model.Presupuestado == true)
+    {
+       { Html.RenderAction("PxR", "Presupuesto"); }
+    }
 </section>
 <div id='myModal' class='modal fade in'>
     <div class="modal-dialog modal-lg">

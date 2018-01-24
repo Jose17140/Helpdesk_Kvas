@@ -271,6 +271,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\AdminLTE.css" />
+    <Content Include="Content\css\alertify.bootstrap.css" />
+    <Content Include="Content\css\alertify.core.css" />
+    <Content Include="Content\css\alertify.default.css" />
     <Content Include="Content\css\font-awesome.css" />
     <Content Include="Content\css\font-awesome.min.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
@@ -287,6 +290,7 @@
     <Content Include="Content\images\banner2.svg" />
     <Content Include="Content\images\banner3.svg" />
     <Content Include="Content\images\banner4.svg" />
+    <Content Include="Content\images\Favicom.png" />
     <Content Include="Content\images\img\avatar.png" />
     <Content Include="Content\images\img\avatar04.png" />
     <Content Include="Content\images\img\avatar2.png" />
@@ -316,7 +320,10 @@
     <Content Include="Content\images\img\user6-128x128.jpg" />
     <Content Include="Content\images\img\user7-128x128.jpg" />
     <Content Include="Content\images\img\user8-128x128.jpg" />
+    <Content Include="Content\images\Logo.png" />
     <Content Include="Content\images\Productos\product.png" />
+    <Content Include="Content\js\alertify.js" />
+    <Content Include="Content\js\alertify.min.js" />
     <Content Include="Content\js\app.js" />
     <Content Include="Content\js\dashboard.js" />
     <Content Include="Content\js\demo.js" />
@@ -2893,6 +2900,7 @@
     <Content Include="Views\Account\Confirmar.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Presupuesto\PxR.cshtml" />
+    <Content Include="Views\Requerimiento\DetailsOrden.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

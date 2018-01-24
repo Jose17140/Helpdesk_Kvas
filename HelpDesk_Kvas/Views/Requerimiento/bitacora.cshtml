@@ -11,13 +11,17 @@
             <h3 class="box-title"><span class="fa fa-envelope"></span> Observaciones</h3>
             <div class="box-tools pull-right">
                 <span data-toggle="tooltip" title="Mensajes" class="badge bg-danger">@ViewBag.Mensajes</span>
+                <span data-toggle="tooltip" title="Mensajes" class="glyphicon glyphicon-refresh"></span>
                 <button type="button" class="btn btn-box-tool" data-widget="collapse">
                     <i class="fa fa-minus"></i>
                 </button>
             </div>
         </div>
+        @using (Ajax.BeginForm("Bitacora", "Requerimiento", new AjaxOptions { HttpMethod = "POST", OnSuccess = "onAjaxRequestSuccess" }, new { @id = "AjaxformId", @class = "form-horizontal", role = "form" }))
+        {
         <!-- /.box-header -->
         <div class="box-body">
+            <input id="IdRequerimiento" name="IdRequerimiento" type="hidden" value="@ViewBag.id" />
             <!-- Conversations are loaded here -->
             <div class="direct-chat-messages">
                 <!-- Message. Default to the left -->
@@ -39,7 +43,7 @@
                             <!-- /.direct-chat-text -->
                         </div>
                     }
-                    if (i.Rol =="Master")
+                    if (i.Rol == "Master")
                     {
                         <div class="direct-chat-msg right">
                             <div class="direct-chat-info clearfix">
@@ -54,7 +58,7 @@
                             <!-- /.direct-chat-text -->
                         </div>
                     }
-                    if (i.Rol !="Master" && i.Rol !="Tecnico")
+                    if (i.Rol != "Master" && i.Rol != "Tecnico")
                     {
                         <div class="direct-chat-msg right">
                             <div class="direct-chat-info clearfix">
@@ -72,15 +76,14 @@
                 }
             </div>
         </div>
-        @using (Ajax.BeginForm("Bitacora", "Requerimiento", new AjaxOptions { HttpMethod = "POST", OnSuccess = "onAjaxRequestSuccess" }, new { @id = "AjaxformId", @class = "form-horizontal", role = "form" }))
-
-        {
+        @*@using (Html.BeginForm("Bitacora", "Requerimiento", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))*@
+        
             @Html.AntiForgeryToken()
             <!-- /.box-body -->
             <div class="box-footer">
                 <form action="#" method="post">
                     <div class="input-group">
-                        <input type="text" name="message" placeholder="Escribir mensaje" class="form-control">
+                        <input type="text" id="Observaciones" name="Observaciones" placeholder="Escribir mensaje" class="form-control">
                         <span class="input-group-btn">
                             <button type="submit" class="btn btn-success btn-flat">Enviar</button>
                         </span>
@@ -93,3 +96,9 @@
     <!--/.direct-chat -->
 </div>
 
+<script type="text/javascript">
+    var int = self.setInterval("refresh()", 800000);
+    function refresh() {
+        location.reload(true);
+    }
+</script>

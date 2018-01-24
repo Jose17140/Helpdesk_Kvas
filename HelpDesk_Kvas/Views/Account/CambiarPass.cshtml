@@ -1,6 +1,6 @@
 ﻿@model HelpDesk_Kvas.Models.Datos.Entity.RecuperarContrasenaUserEntity
 @{
-    ViewBag.Title = "Cambiar Contrasena";
+    ViewBag.Title = "Cambiar Contraseña";
     Layout = null;
 }
 <br />
@@ -20,13 +20,13 @@
                 <input type="hidden" value="@ViewBag.IdUsuario" id="IdUsuario" name="IdUsuario" />
                 <div class="col-lg-6 col-md-6 col-sm-6" style="padding-bottom: 10px;">
                     @Html.LabelFor(m => m.Password)
-                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Contrasena", style = "backface-visibility: hidden;" })
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Nueva Contraseña", style = "backface-visibility: hidden;" })
                     <span>@Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })</span>
                     <br />
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6" style="padding-bottom: 10px;">
                     @Html.LabelFor(m => m.ConfirmPassword)
-                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Confirme Contrasena", style = "backface-visibility: hidden;" })
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Confirme Contraseña", style = "backface-visibility: hidden;" })
                     <span>@Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })</span>
                     <br />
                 </div>

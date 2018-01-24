@@ -22,7 +22,10 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
 
         [Display(Name = "Atendido:")]
         public bool Atendido { get; set; }
-        
+
+        [Display(Name = "Presupuesto:")]
+        public bool Presupuestado { get; set; }
+
         [Display(Name = "Empleado:")]
         public int? IdEmpleado { get; set; }
 
