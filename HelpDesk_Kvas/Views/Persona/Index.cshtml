@@ -10,8 +10,8 @@
         <small>Lista Clientes</small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-        <li class="active">Dashboard</li>
+        <li><a href="/"><i class="fa fa-dashboard"></i> Inicio</a></li>
+        <li class="active">Clientes</li>
     </ol>
     <br />
 </section>
@@ -37,8 +37,11 @@
             </div>
             <div class="pull-right col-lg-1">
                 @*<a class="btn btn-success" data-modal="" href="/Persona/Create" id="btnCreate">
-                    <span class="glyphicon glyphicon-plus"></span>
-                </a>*@
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>*@
+                <a class="btn btn-success" data-modal="" href="/Account/RegistrarA" id="btnCreate">
+                    <span class="glyphicon glyphicon-plus">Nuevo</span>
+                </a>
             </div>
         </div>
 
@@ -54,32 +57,35 @@
                 grid.Pager(WebGridPagerModes.All);
 
                 @grid.GetHtml(htmlAttributes: new { id = "grid" },   // id for ajaxUpdateContainerId parameter
-            fillEmptyRows: false,
-            tableStyle: "table table-bordered table-hover",
-            mode: WebGridPagerModes.All,
-            columns: grid.Columns(
-              grid.Column("IdPersona", "ID"),
-              grid.Column("Nombres", "Nombres"),
-              grid.Column("Identificacion", "Ci/Rif"),
-              grid.Column("Direccion", "Direccion"),
-              grid.Column("Telefonos", "Telefonos"),
-              grid.Column("FechaRegistro", header: "Fecha", format: @<text>@String.Format("{0:MM/dd/yy}", item.FechaRegistro) </text>),
-              grid.Column(header: "Acciones", canSort: false, style: "action",
-                format: @<text>
-                @Html.Raw("<a data-modal='' href='/Persona/details/" + item.IdPersona + "' id='" + item.IdPersona + "' title='Detalles'> <span class='glyphicon glyphicon-search'> </span> </a>")
-                @if (User.IsInRole("Master") == true || User.IsInRole("Supervisor") == true) {
-                    @Html.Raw("<a data-modal='' href='/Persona/edit/" + item.IdPersona + "' id='" + item.IdPersona + "' title='Editar'> <span class='glyphicon glyphicon-edit'> </span> </a>")
-                    if (User.IsInRole("Analista") == false) {
-                    @Html.Raw("<a data-modal='' href='/Persona/delete/" + item.IdPersona + "' id='" + item.IdPersona + "' title='Eliminar'> <span class='glyphicon glyphicon-trash'> </span> </a>")
-                        } }
+                 fillEmptyRows: false,
+                 tableStyle: "table table-bordered table-hover",
+                 mode: WebGridPagerModes.All,
+                 columns: grid.Columns(
+                   grid.Column("IdPersona", "ID"),
+                   grid.Column("Nombres", "Nombres"),
+                   grid.Column("Identificacion", "Ci/Rif"),
+                   grid.Column("Direccion", "Direccion"),
+                   grid.Column("Telefonos", "Telefonos"),
+                   grid.Column("FechaRegistro", header: "Fecha", format: @<text>@String.Format("{0:MM/dd/yy}", item.FechaRegistro) </text>),
+                 grid.Column(header: "Acciones", canSort: false, style: "action",
+                   format: @<text>
+                    @Html.Raw("<a data-modal='' href='/Persona/details/" + item.IdPersona + "' id='" + item.IdPersona + "' title='Detalles'> <span class='glyphicon glyphicon-search'> </span> </a>")
+                    @if (User.IsInRole("Master") == true || User.IsInRole("Supervisor") == true)
+                         {
+                        @Html.Raw("<a data-modal='' href='/Persona/edit/" + item.IdPersona + "' id='" + item.IdPersona + "' title='Editar'> <span class='glyphicon glyphicon-edit'> </span> </a>")
+                             if (User.IsInRole("Analista") == false)
+                             {
+                            @Html.Raw("<a data-modal='' href='/Persona/delete/" + item.IdPersona + "' id='" + item.IdPersona + "' title='Eliminar'> <span class='glyphicon glyphicon-trash'> </span> </a>")
+                             }
+                         }
                 </text>)
 
-            ));
+             ));
             }
 
 
         </div>
-                }
+    }
 </div>
 <div id='myModal' class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
     <div class="modal-dialog modal-lg" role="document">

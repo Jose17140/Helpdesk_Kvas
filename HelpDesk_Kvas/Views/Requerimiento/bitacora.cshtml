@@ -4,6 +4,10 @@
     ViewBag.Title = "Observaciones";
 }
 
+<script>
+
+</script>
+
 <div class="col-md-3">
     <!-- DIRECT CHAT -->
     <div class="box box-info direct-chat direct-chat-info">
@@ -85,7 +89,7 @@
                     <div class="input-group">
                         <input type="text" id="Observaciones" name="Observaciones" placeholder="Escribir mensaje" class="form-control">
                         <span class="input-group-btn">
-                            <button type="submit" class="btn btn-success btn-flat">Enviar</button>
+                            <button type="submit" id="btnLimpiar" name="btnLimpiar" class="btn btn-success btn-flat">Enviar</button>
                         </span>
                     </div>
                 </form>
@@ -95,10 +99,15 @@
     </div>
     <!--/.direct-chat -->
 </div>
-
-<script type="text/javascript">
-    var int = self.setInterval("refresh()", 800000);
-    function refresh() {
-        location.reload(true);
-    }
+<script>
+    $(document).ready(function () {
+        $("#btnLimpiar").click(function () {
+            $.ajax({
+                success: function (res) {
+                    //alertify.alert("exito");
+                    window.location.reload().ajax();
+                }
+            });
+        });
+    });
 </script>

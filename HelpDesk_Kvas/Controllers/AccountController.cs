@@ -470,8 +470,6 @@ namespace HelpDesk_Kvas.Controllers
                 _user = Crypto.CodeHash(_user);
                 RouteValueDictionary routeValueDictionary = new System.Web.Routing.RouteValueDictionary();
                 routeValueDictionary.Add("_user", _user);
-                
-                //return RedirectToAction("Confirmar", "Account", new { dato = _user });
                 return RedirectToAction("Confirmar", "Account", routeValueDictionary);
             }
             return View(user);

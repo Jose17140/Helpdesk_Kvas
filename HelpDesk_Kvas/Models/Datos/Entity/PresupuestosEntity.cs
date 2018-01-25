@@ -66,4 +66,29 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
         public string Descripcion { get; set; }
         public string Sku { get; set; }
     }
+
+    public class PresupuestoDetalleEntity
+    {
+        public int IdRequerimiento { get; set; }
+        public int IdPresupuesto { get; set; }
+        public DateTime FechaEmision { get; set; }
+        public DateTime FechaVencimiento { get; set; }
+        public int IdEmpleado { get; set; }
+        public string NombreEmpleado { get; set; }
+        public string NombreCliente { get; set; }
+        public string Cedula { get; set; }
+        public string Telefono { get; set; }
+        public string Direccion { get; set; }
+        public string Email { get; set; }
+        public int IdPoS { get; set; }
+        public string Sku { get; set; }
+        public string NombreProducto { get; set; }
+        public string Descripcion { get; set; }
+        public int Cantidad { get; set; }
+        public int IdEstatus { get; set; }
+        public decimal PUnitario { get; set; }
+        public decimal SubTotal { get; set; }
+        public decimal Iva { get; set; }
+        public decimal TotalPagar { get  { return SubTotal + Iva; } }
+    }
 }

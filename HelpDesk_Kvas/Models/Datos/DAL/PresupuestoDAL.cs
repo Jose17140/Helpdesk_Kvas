@@ -79,6 +79,53 @@ namespace HelpDesk_Kvas.Models.Datos.DAL
             {
 
             }
+
+        }
+
+        public IEnumerable<PresupuestoDetalleEntity> ListarDetalle()
+        {
+            try
+            {
+                IList<PresupuestoDetalleEntity> lista = new List<PresupuestoDetalleEntity>();
+                var query = (from m in db.vw_PresupuestoDetalle
+                             select m).ToList();
+                foreach (var req in query)
+                {
+                    lista.Add(new PresupuestoDetalleEntity()
+                    {
+                        IdPresupuesto = req.IdPresupuesto,
+                        IdRequerimiento = req.IdRequerimiento,
+                        //IdEmpleado = req.IdUsuario,
+                        FechaEmision = req.FechaEmision,
+                        FechaVencimiento = Convert.ToDateTime(req.FechaVencimiento),
+                        IdEmpleado = req.IdEmpleado,
+                        NombreEmpleado = req.NombreEmpleado,
+                        NombreCliente = req.NombreCliente,
+                        Cedula = req.Cedula,
+                        Telefono = req.Telefonos,
+                        Direccion = req.Direccion,
+                        Email = req.Email,
+                        IdPoS = req.IdPoS,
+                        Sku = req.Sku,
+                        NombreProducto = req.NombreProducto,
+                        Descripcion = req.Descripcion,
+                        Cantidad = req.Cant,
+                        PUnitario = req.PrecioUnit,
+                        SubTotal = Convert.ToDecimal(req.SubTotal),
+                        Iva = Convert.ToDecimal(req.Iva),
+                        IdEstatus = req.IdEstatus
+                    });
+                }
+                return lista;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+
+            }
         }
     }
 }

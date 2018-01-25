@@ -184,7 +184,7 @@ CREATE VIEW vw_Bitacora AS(
 )
 GO
 
---VISTA PRESUPUESTOS
+--VISTA PRESUPUESTOS SIMPLE
 DROP VIEW IF EXISTS vw_Presupuestos
 GO
 CREATE VIEW vw_Presupuestos AS(
@@ -194,183 +194,31 @@ CREATE VIEW vw_Presupuestos AS(
 		INNER JOIN ProductoServicios AS ps ON pt.IdPoS = ps.IdProducto
 )
 GO
+--VISTA DE PRESUPUESTO COMPLETA
+DROP VIEW IF EXISTS vw_PresupuestoDetalle
+GO
+CREATE VIEW vw_PresupuestoDetalle 
+AS
+	SELECT ps.IdRequerimiento, ps.IdPresupuesto, ps.FechaEmision, ps.FechaVencimiento, us.Nombres AS Empleado, rq.NombreCliente, rq.Cedula, rq.Telefonos, rq.Direccion, rq.Email,
+			 ps.IdPoS, pd.Sku, pd.Nombre, pd.Descripcion, ps.Cant, ps.PrecioUnit, ps.Iva, ps.SubTotal, ps.IdEstatus
+	FROM vw_Requerimientos AS rq
+		INNER JOIN Presupuestos AS ps ON rq.IdRequerimiento = ps.IdRequerimiento
+		INNER JOIN ProductoServicios AS pd ON ps.IdPoS = pd.IdProducto
+		INNER JOIN vw_Usuarios_Personas AS us ON ps.IdUsuario = us.IdUsuario
+GO
 
 
 
 
-
---DROP PROCEDURE IF EXISTS sp_BuscarProducto;
---GO   
---CREATE PROCEDURE sp_BuscarProducto
--- (      
---    @IdProducto INT      
--- )      
--- AS      
--- BEGIN       
---    WITH Cte_Productos(IdGrupoDetalle,Nombre,Descripcion,Orden,IdGrupo,IdPadre,Icono,UrlDetalle,Estatus,FechaRegistro, LevelGrupo) AS (
---		SELECT g.IdGrupoDetalle, g.Nombre, g.Descripcion, g.Orden, g.IdGrupo, g.IdPadre, g.Icono, g.UrlDetalle, g.Estatus, g.FechaRegistro, 0 AS LevelGrupo
---		FROM GruposDetalles AS g
---		WHERE g.IdPadre is null
---		UNION ALL
---		SELECT gd.IdGrupoDetalle, gd.Nombre, gd.Descripcion, gd.Orden, gd.IdGrupo, gd.IdPadre, gd.Icono, gd.UrlDetalle, gd.Estatus, gd.FechaRegistro, LevelGrupo+1
---		FROM GruposDetalles AS gd
---		INNER JOIN Cte_Productos AS cte ON gd.IdPadre = cte.IdGrupoDetalle
---	)
---	SELECT ct.IdGrupoDetalle AS IdProducto, ps.Sku, ct.Nombre AS Titulo, ct.Descripcion, ct.Orden, ct.IdGrupo, g.Nombre AS Grupo, ct.IdPadre, c.Nombre AS Padre, ct.Icono, ct.UrlDetalle, ct.Estatus, 
---			ps.IdFabricante, gd.Nombre AS Fabricante, ps.Stock, ps.Stock_Min, ps.IdUnidad, ps.Garantia, ps.PrecioCompra, ps.PrecioVenta, ct.FechaRegistro
---	FROM Cte_Productos AS ct
---	INNER JOIN Cte_Productos AS c ON ct.IdPadre = c.IdGrupoDetalle
---	INNER JOIN Grupos AS g ON ct.IdGrupo = g.IdGrupo
---	LEFT JOIN PSDetalles AS ps ON ct.IdGrupoDetalle = ps.IdProducto
---	LEFT JOIN GruposDetalles AS gd ON ps.IdFabricante = gd.IdGrupoDetalle
---	WHERE ct.IdGrupoDetalle = @IdProducto
---	ORDER BY ct.LevelGrupo ASC    
--- END
--- GO
-
-----CRUDL PRODUCTOS
---IF OBJECT_ID('sp_AgregarProducto') IS NOT NULL
---BEGIN 
---	DROP PROC sp_AgregarProducto 
---END
---GO
---CREATE PROCEDURE sp_AgregarProducto (
---	@Nombre VARCHAR(50),      
---    @Descripcion VARCHAR(50),      
---    @Orden INT,
---	@IdGrupo INT,
---	@IdPadre INT,
---	@Icono VARCHAR(30), -- DIRECTORIO DONDE ESTA LA IMAGEN
---	@UrlDetalle VARCHAR(100),
---	@Estatus BIT,
---	@FechaRegistro DATETIME,
---	@Sku VARCHAR(24),
---	@IdFabricante INT,
---	@IdEquipo INT,
---	@Stock INT,
---	@IdUnidad INT,
---	@StockMin INT,
---	@PrecioCompra DECIMAL(8,2),
---	@PrecioVenta DECIMAL(8,2),
---	@Garantia INT
---)
---	AS
---	BEGIN TRY
---		BEGIN TRAN Products
---			DECLARE @Id INT
---			INSERT INTO GruposDetalles VALUES(@Nombre,@Descripcion,@Orden,@IdGrupo,@IdPadre,@Icono,@UrlDetalle,@Estatus,@FechaRegistro)
---			SELECT @Id = SCOPE_IDENTITY();
---			INSERT INTO PSDetalles VALUES (@Id,@Sku,@IdFabricante,@Stock,@IdUnidad,@IdEquipo,@StockMin,@PrecioCompra,@PrecioVenta,@Garantia)
---		COMMIT TRANSACTION Products
---	END TRY
---	BEGIN CATCH
---		SELECT ERROR_NUMBER() AS errNumber,
---			   ERROR_SEVERITY() AS errSeverity,
---			   ERROR_STATE() AS errState,
---			   ERROR_PROCEDURE() AS errProcedure,
---			   ERROR_LINE() AS errLine,
---			   ERROR_MESSAGE() AS errMessage
---		ROLLBACK TRAN Products
---	END CATCH
---GO
-
---IF OBJECT_ID('sp_ActualizarProducto') IS NOT NULL
---BEGIN 
---	DROP PROC sp_ActualizarProducto 
---END
---GO
---CREATE PROCEDURE sp_ActualizarProducto (
---	@Id INT,
---	@Nombre VARCHAR(50),      
---    @Descripcion VARCHAR(50),      
---    @Orden INT,
---	@IdGrupo INT,
---	@IdPadre INT,
---	@Icono VARCHAR(30), -- DIRECTORIO DONDE ESTA LA IMAGEN
---	@UrlDetalle VARCHAR(100),
---	@Estatus BIT,
---	@Sku VARCHAR(24),
---	@IdFabricante INT,
---	@IdEquipo INT,
---	@Stock INT,
---	@IdUnidad INT,
---	@StockMin INT,
---	@PrecioCompra DECIMAL(8,2),
---	@PrecioVenta DECIMAL(8,2),
---	@Garantia INT
---)	
---	AS
---	BEGIN TRY
---		BEGIN TRAN Products
---			UPDATE GruposDetalles SET
---				Nombre= @Nombre,      
---				Descripcion= @Descripcion,      
---				Orden= @Orden,
---				IdGrupo= @IdGrupo,
---				IdPadre= @IdPadre,
---				Icono= @Icono, -- DIRECTORIO DONDE ESTA LA IMAGEN
---				UrlDetalle= @UrlDetalle,
---				Estatus= @Estatus
---				WHERE IdGrupoDetalle = @Id;
---			UPDATE PSDetalles SET
---				Sku= @Sku,
---				IdFabricante= @IdFabricante,
---				Stock= @Stock,
---				IdUnidad= @IdUnidad,
---				Stock_Min= @StockMin,
---				PrecioCompra= @PrecioCompra,
---				PrecioVenta= @PrecioVenta,
---				Garantia= @Garantia
---				WHERE IdProducto = @Id;
---		COMMIT TRANSACTION Products
---	END TRY
---	BEGIN CATCH
---		SELECT ERROR_NUMBER() AS errNumber,
---			   ERROR_SEVERITY() AS errSeverity,
---			   ERROR_STATE() AS errState,
---			   ERROR_PROCEDURE() AS errProcedure,
---			   ERROR_LINE() AS errLine,
---			   ERROR_MESSAGE() AS errMessage
---			   ROLLBACK TRAN Products
---	END CATCH
---GO
-
---IF OBJECT_ID('sp_OperacionesInventarioProducto') IS NOT NULL
---BEGIN 
---	DROP PROC sp_OperacionesInventarioProducto 
---END
---GO
---CREATE PROCEDURE sp_OperacionesInventarioProducto (
---	@Id INT,
---	@Operador INT,
---	@Stock INT,
---	@PrecioCompra DECIMAL(8,2),
---	@PrecioVenta DECIMAL(8,2)
---)	
---	AS
---	BEGIN TRY
---		BEGIN TRAN Products
---			IF @Operador = 1
---			UPDATE PSDetalles SET
---				Stock= Stock+@Stock,
---				PrecioCompra= @PrecioCompra,
---				PrecioVenta= @PrecioVenta
---				WHERE IdProducto = @Id;
---			IF @Operador = 2
---			UPDATE PSDetalles SET
---				Stock= Stock-@Stock,
---				PrecioCompra= @PrecioCompra,
---				PrecioVenta= @PrecioVenta
---				WHERE IdProducto = @Id;
---		COMMIT TRANSACTION Products
---	END TRY
---	BEGIN CATCH
---		SELECT ERROR_NUMBER() AS errNumber,
---			   ERROR_SEVERITY() AS errSeverity,
---			   ERROR_STATE() AS errState,
---			   ERROR_PROCEDURE() AS errProcedure,
---			   ERROR_LINE() AS errLine,
---			   ERROR_MESSAGE() AS errMessage
---			   ROLLBACK TRAN Products
---	END CATCH
---GO
+--CREAR  RESPALDO
+DROP PROCEDURE IF EXISTS sp_Backup;
+GO
+CREATE PROCEDURE sp_Backup(
+	@Nombre VARCHAR(50)
+	)
+AS
+BEGIN  
+	DECLARE @path VARCHAR(1000);  
+	SET @path='C:\Backup\'+@Nombre+'_'+CONVERT(CHAR(10),  GETDATE(), 121)+'.bak';  
+	BACKUP DATABASE Helpdesk_Kvas to DISK=@path;  
+END

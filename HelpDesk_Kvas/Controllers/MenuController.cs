@@ -357,7 +357,7 @@ namespace HelpDesk_Kvas.Controllers
             else if (User.IsInRole("Analista"))
             {
                 var lista = (from m in db.GruposDetalles
-                             where m.Estatus == true && (m.IdGrupo == 1 && m.IdPadre == 0)
+                             where m.Estatus == true && (m.IdGrupo == 1 && m.IdPadre == 0) && m.IdGrupoDetalle !=17
                              orderby m.Orden ascending
                              select m).ToList();
                 return View(lista);

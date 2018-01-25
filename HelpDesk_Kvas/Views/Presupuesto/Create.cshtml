@@ -38,9 +38,6 @@
 
 
 </script>
-<script src="~/Content/js/alertify.min.js"></script>
-<link href="~/Content/css/alertify.default.css" rel="stylesheet" />
-<link href="~/Content/css/alertify.core.css" rel="stylesheet" />
 <script type="text/javascript">
     $(document).ready(function () {
         //botones guardar
@@ -60,12 +57,8 @@
                 i = 1;
             });
             envio += "]}";
-
             var json = eval("(" + envio + ')');
-
-            alertify.alert("INGRESE DATOS");
-            console.info(json);
-
+            //console.info(json);
             $.ajax({
                 url: "Create",
                 data: JSON.stringify(json),
@@ -74,14 +67,13 @@
                 contentType: 'application/json;charset=UTF-8',
                 dataType: 'json',
                 success: function (response) {
-
-                    alertify.alert(response);
+                    alert("Error Verifique los datos e intente nuevamente");
                     valid = response.valid;
-                    limpiarDetalle();
-                    console.info("Limpiar");
                 },
                 error: function (error) {
-                    alertify.alert(error);
+                    alert("Registro Exitoso, Sera redirigido a detalles de la solicitud");
+                    //window.location.reload().ajax();
+                    location.href = "/Requerimiento/Details/" + $("#IdRequerimiento").val();
                 }
             });
             
@@ -96,7 +88,6 @@
     var iva = 0;
 
     function fn_agregar() {
-
         cadena = "<tr>"
         cadena = cadena + "<td>" + $("#IdPoS").val() + "</td>";
         cadena = cadena + "<td>" + $("#Producto").val() + "</td>";
@@ -162,7 +153,7 @@
 <section class="content-header">
     <h1>
         Crear Presupuesto
-        <small><span class="glyphicon glyphicon-shopping-cart"></span></small>
+        <small><span class="glyphicon glyphicon-shopping-cart"></span> </small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="/"><i class="fa fa-dashboard"></i> Inicio</a></li>

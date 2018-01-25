@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
+using System.Web.Security;
 
 namespace HelpDesk_Kvas.Controllers
 {
@@ -20,6 +22,7 @@ namespace HelpDesk_Kvas.Controllers
         PersonasLogic objPersonaLogic;
         BitacoraLogic objBitacora;
         dbDataContext db;
+        PresupuestoDAL objPresupuestoDAL;
 
         public PresupuestoController()
         {
@@ -31,6 +34,7 @@ namespace HelpDesk_Kvas.Controllers
             objBitacora = new BitacoraLogic();
             objProducto = new ProductoLogic();
             objPresupuestoLogic = new PresupuestoLogic();
+            objPresupuestoDAL = new PresupuestoDAL();
             db = new dbDataContext(); 
         }
 
@@ -46,6 +50,11 @@ namespace HelpDesk_Kvas.Controllers
             return View();
         }
         
+        /// <summary>
+        /// PRESUPUESTO GENERADO EN LA VISTA DETALLE, NO EDITABLE
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult PxR(int id)
         {
             var list = objPresupuestoLogic.Listar();
@@ -88,6 +97,12 @@ namespace HelpDesk_Kvas.Controllers
         [HttpPost]
         public ActionResult Create(string IdRequerimiento, List<PresupuestosEntity> ListadoDetalle)
         {
+            var mensaje = "Registro Exitoso";
+            if (ListadoDetalle.Select(m => m.Cantidad == 0).FirstOrDefault())
+            {
+                mensaje = "Error";
+                return Json(mensaje);
+            }
             if (ModelState.IsValid)
             {
                 try
@@ -108,8 +123,14 @@ namespace HelpDesk_Kvas.Controllers
                     var q = db.Requerimientos.Where(m => m.IdRequerimiento.Equals(Id)).SingleOrDefault();
                     q.Presupuestado = Convert.ToBoolean(1);
                     db.SubmitChanges();
-                    var mensaje = "Registro Exitoso";
-                    return Json(mensaje);
+                    var Idquere = Convert.ToInt32(IdRequerimiento);
+                    RouteValueDictionary ruta = new RouteValueDictionary();
+                    ruta.Add("Id", Idquere);
+
+                    //return RedirectToAction("Confirmar", "Account", new { dato = _user });
+                    return RedirectToAction("Details", "Requerimiento", ruta);
+                    //mensaje = "Registro Exitoso";
+                    //return Json(mensaje);
                 }
                 catch
                 {
@@ -119,10 +140,29 @@ namespace HelpDesk_Kvas.Controllers
             return View();
         }
 
+
         // GET: Presupuesto/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var lista = objPresupuestoDAL.ListarDetalle();
+            var detalle = lista.Where(m => m.IdRequerimiento.Equals(id)).ToList();
+            var d = detalle.ToList().FirstOrDefault();
+            ViewBag.IdOrden = d.IdPresupuesto;
+            ViewBag.IdPresupuesto = d.IdPresupuesto;
+            ViewBag.FechaEmision = d.FechaEmision.Date;
+            ViewBag.FechaVencimiento = d.FechaVencimiento.Date;
+            ViewBag.Cliente = d.NombreCliente;
+            ViewBag.Ci = d.Cedula;
+            ViewBag.Telefono = d.Telefono;
+            ViewBag.Direccion = d.Direccion;
+            ViewBag.Correo = d.Email;
+            ViewBag.Empleado = d.NombreEmpleado;
+            var iva = detalle.Sum(m => m.Iva);
+            ViewBag.Iva = iva;
+            var subtotal = detalle.Sum(m => m.SubTotal);
+            ViewBag.Subtotal = subtotal;
+            ViewBag.TotalPagar = iva + subtotal;
+            return View(detalle);
         }
 
         // POST: Presupuesto/Edit/5
