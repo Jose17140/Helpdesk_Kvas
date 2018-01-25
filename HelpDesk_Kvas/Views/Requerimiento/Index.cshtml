@@ -25,7 +25,7 @@
     {
         <div class="col-sm-3">
             <div class="input-group">
-                @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", @style="display:inline;", @placeholder = "Buscar (por CI o Cliente)" })
+                @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", @style = "display:inline;", @placeholder = "Buscar (por CI o Cliente)" })
 
                 <span class="input-group-btn">
                     <button class="btn btn-default" type="submit"><span class="fa fa-search"></span></button>
@@ -144,11 +144,13 @@
                             <li><a href="/Requerimiento/Details/@item.IdRequerimiento" title="Detalles">Detalle</a></li>
                             @if (User.IsInRole("Cliente") == false)
                             {
-                                if (item.Atendido==false) {
-                                    <li><a href="/Requerimiento/Asignar/@item.IdRequerimiento" title="Asignar">Asignar</a></li>
+                                if (item.Atendido == false)
+                                {
+                                    <li><a data-modal="" href="/Requerimiento/ElegirTecnico/@item.IdRequerimiento" id="btnCreate" title="Asignar">Asignar</a></li>
                                 }
-                                if (item.Presupuestado==false) {
-                                    <li><a href="/Presupuesto/Create/@item.IdRequerimiento" title="Presupuestar">Presupuesto</a></li> 
+                                if (item.Presupuestado == false)
+                                {
+                                    <li><a href="/Presupuesto/Create/@item.IdRequerimiento"  title="Presupuestar">Presupuesto</a></li>
                                 }
                                 <li><a href="#" title="Editar">Editar</a></li>
                             }
@@ -162,5 +164,14 @@
     Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
 
     @Html.PagedListPager(Model, page => Url.Action("Index",
-                    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+                        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 </section>
+
+<div id='myModal' class='modal fade in'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+</div>
+<script src="~/Content/js/PruebaModal.js"></script>

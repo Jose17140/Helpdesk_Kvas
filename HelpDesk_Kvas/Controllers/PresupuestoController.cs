@@ -147,7 +147,7 @@ namespace HelpDesk_Kvas.Controllers
             var lista = objPresupuestoDAL.ListarDetalle();
             var detalle = lista.Where(m => m.IdRequerimiento.Equals(id)).ToList();
             var d = detalle.ToList().FirstOrDefault();
-            ViewBag.IdOrden = d.IdPresupuesto;
+            ViewBag.IdOrden = d.IdRequerimiento;
             ViewBag.IdPresupuesto = d.IdPresupuesto;
             ViewBag.FechaEmision = d.FechaEmision.Date;
             ViewBag.FechaVencimiento = d.FechaVencimiento.Date;
@@ -179,6 +179,30 @@ namespace HelpDesk_Kvas.Controllers
             {
                 return View();
             }
+        }
+
+
+        public ActionResult Imprimir(int id)
+        {
+            var lista = objPresupuestoDAL.ListarDetalle();
+            var detalle = lista.Where(m => m.IdRequerimiento.Equals(id)).ToList();
+            var d = detalle.ToList().FirstOrDefault();
+            ViewBag.IdOrden = d.IdPresupuesto;
+            ViewBag.IdPresupuesto = d.IdPresupuesto;
+            ViewBag.FechaEmision = d.FechaEmision.Date;
+            ViewBag.FechaVencimiento = d.FechaVencimiento.Date;
+            ViewBag.Cliente = d.NombreCliente;
+            ViewBag.Ci = d.Cedula;
+            ViewBag.Telefono = d.Telefono;
+            ViewBag.Direccion = d.Direccion;
+            ViewBag.Correo = d.Email;
+            ViewBag.Empleado = d.NombreEmpleado;
+            var iva = detalle.Sum(m => m.Iva);
+            ViewBag.Iva = iva;
+            var subtotal = detalle.Sum(m => m.SubTotal);
+            ViewBag.Subtotal = subtotal;
+            ViewBag.TotalPagar = iva + subtotal;
+            return View(detalle);
         }
 
         // GET: Presupuesto/Delete/5

@@ -2907,6 +2907,9 @@
     <Content Include="Views\BackupDb\Create.cshtml" />
     <Content Include="Views\Shared\_Error404.cshtml" />
     <Content Include="Views\Presupuesto\Edit.cshtml" />
+    <Content Include="Views\Presupuesto\Imprimir.cshtml" />
+    <Content Include="Views\Requerimiento\Imprimir.cshtml" />
+    <Content Include="Views\Requerimiento\ElegirTecnico.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

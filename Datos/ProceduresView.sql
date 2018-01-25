@@ -199,8 +199,8 @@ DROP VIEW IF EXISTS vw_PresupuestoDetalle
 GO
 CREATE VIEW vw_PresupuestoDetalle 
 AS
-	SELECT ps.IdRequerimiento, ps.IdPresupuesto, ps.FechaEmision, ps.FechaVencimiento, us.Nombres AS Empleado, rq.NombreCliente, rq.Cedula, rq.Telefonos, rq.Direccion, rq.Email,
-			 ps.IdPoS, pd.Sku, pd.Nombre, pd.Descripcion, ps.Cant, ps.PrecioUnit, ps.Iva, ps.SubTotal, ps.IdEstatus
+	SELECT ps.IdRequerimiento, ps.IdPresupuesto, ps.FechaEmision, ps.FechaVencimiento, ps.IdUsuario AS IdEmpleado, us.Nombres AS NombreEmpleado, rq.NombreCliente, rq.Cedula, rq.Telefonos, rq.Direccion, rq.Email,
+			 ps.IdPoS, pd.Sku, pd.Nombre AS NombreProducto, pd.Descripcion, ps.Cant, ps.PrecioUnit, ps.Iva, ps.SubTotal, ps.IdEstatus
 	FROM vw_Requerimientos AS rq
 		INNER JOIN Presupuestos AS ps ON rq.IdRequerimiento = ps.IdRequerimiento
 		INNER JOIN ProductoServicios AS pd ON ps.IdPoS = pd.IdProducto

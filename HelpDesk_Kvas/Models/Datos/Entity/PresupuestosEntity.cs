@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -90,5 +91,17 @@ namespace HelpDesk_Kvas.Models.Datos.Entity
         public decimal SubTotal { get; set; }
         public decimal Iva { get; set; }
         public decimal TotalPagar { get  { return SubTotal + Iva; } }
+    }
+
+    public class AsignadoEntity
+    {
+        public int IdRequerimiento { get; set; }
+
+        [Required]
+        [Display(Name = "Técnico:")]
+        public int IdTecnico { get; set; }
+
+        [Display(Name = "Atendido:")]
+        public bool Atendido { get; set; }
     }
 }

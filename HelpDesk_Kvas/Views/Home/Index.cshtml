@@ -25,9 +25,6 @@
                         <span class="info-box-text">ORDENES DE TRABAJO</span>
                     </a>
                     <span class="info-box-number">@ViewBag.ContarRequerimientos</span>
-                    <span class="progress-description">
-                        Ordenes nuevas: 6
-                    </span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -45,9 +42,6 @@
                         <span class="info-box-text">PRODUCTOS</span>
                     </a>
                     <span class="info-box-number">@ViewBag.ContarProductos</span>
-                    <span class="progress-description">
-                        Productos nuevos: 0
-                    </span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -64,9 +58,6 @@
                         <span class="info-box-text">SERVICIOS</span>
                     </a>
                     <span class="info-box-number">@ViewBag.ContarServicios</span>
-                    <span class="progress-description">
-                        Servicios nuevos: 0
-                    </span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -83,9 +74,6 @@
                         <span class="info-box-text">CLIENTES</span>
                     </a>
                     <span class="info-box-number">@ViewBag.ContarPersonas</span>
-                    <span class="progress-description">
-                        Clientes nuevos: 1
-                    </span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -148,10 +136,10 @@
             resize: true,
             colors: ["#3c8dbc", "#f56954", "#00a85a", "#3c8dbc"],
             data: [
-                { label: "Impresoras", value: 12 },
-                { label: "Pc", value: 30 },
-                { label: "Laptop", value: 20 },
-                { label: "Otros", value: 20 }
+                { label: "Impresoras", value: @ViewBag.ContarImpresoras },
+                { label: "Pc y Laptop", value: @ViewBag.ContarInformatica },
+                { label: "Móviles", value: @ViewBag.ContarMoviles },
+                { label: "Otros", value: @ViewBag.ContarRedes }
             ],
             hideHover: 'auto'
         });

@@ -30,6 +30,10 @@ namespace HelpDesk_Kvas.Controllers
             ViewBag.ContarRequerimientos = objRequerimiento.Listar().Count();
             ViewBag.ContarProductos = objProducto.Listar().Where(m => m.IdGrupo.Equals(16)).Count();
             ViewBag.ContarServicios = objProducto.Listar().Where(m => m.IdGrupo.Equals(17)).Count();
+            ViewBag.ContarImpresoras = objRequerimiento.Listar().Where(m => m.IdDepartamento.Equals(135)).Count();
+            ViewBag.ContarInformatica = objRequerimiento.Listar().Where(m => m.IdDepartamento.Equals(136)).Count();
+            ViewBag.ContarMoviles = objRequerimiento.Listar().Where(m => m.IdDepartamento.Equals(137)).Count();
+            ViewBag.ContarRedes = objRequerimiento.Listar().Where(m => m.IdDepartamento.Equals(138)).Count();
             //ViewBag.FRequerimientos = objRequerimiento.Listar().Where(m => m.FechaEntrada.AddDays());
             return View();
         }

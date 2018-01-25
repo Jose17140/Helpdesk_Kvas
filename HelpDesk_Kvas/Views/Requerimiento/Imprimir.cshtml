@@ -1,0 +1,108 @@
+﻿
+@model HelpDesk_Kvas.Models.Datos.Entity.RequerimientoViewEntity
+@{
+    //Layout = null;
+}
+
+<body onload="window.print();">
+    <div class="wrapper">
+        <section class="invoice">
+            <!-- title row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2 class="page-header">
+                        <img src="~/Content/images/Logo.png" />
+                    </h2>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- info row -->
+            <div class="row invoice-info">
+                <div class="col-sm-4 invoice-col">
+                    Cliente
+                    <address>
+                        <strong>@Html.DisplayFor(m => m.Nombres)</strong><br>
+                        Direccion:
+                        @Html.DisplayFor(m => m.Direccion)<br>
+                        Teléfono: @Html.DisplayFor(m => m.Telefonos)<br>
+                        Email: @Html.DisplayFor(m => m.Email)
+                    </address>
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4 invoice-col">
+                    Tienda:
+                    <address>
+                        <strong>Entercop Centro de Copiado</strong><br>
+                        Av. Bolivar C/C Argentina<br>
+                        C.C. El Lago Catia<br>
+                        Telefono: 0212-899.32.35<br>
+                        Email: ventas@entercop.com
+                    </address>
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4 invoice-col">
+                    <b>Orden ID:</b> @Html.DisplayFor(m => m.IdRequerimiento)<br><br />
+                    <b>Fecha Emisión:</b> @Html.DisplayFor(m => m.FechaEntrada)<br>
+                    <b>Fecha Entrega:</b> @Html.DisplayFor(m => m.FechaSalida)<br />
+                    <b>Vendedor:</b> @Html.DisplayFor(m => m.Empleado)
+                </div>
+                <!-- /.col -->
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2 class="page-header"></h2>
+                </div>
+                <!-- /.col -->
+            </div>
+            <div class="row invoice-info">
+                <div class="col-sm-4 invoice-col">
+                    <address>
+                        Equipo:
+                        <strong>@Html.DisplayFor(m => m.Equipo)</strong><br>
+                        Modelo:
+                        @Html.DisplayFor(m => m.Modelo)<br>
+                        Telefono: @Html.DisplayFor(m => m.Marca)<br>
+                    </address>
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4 invoice-col">
+                    <address>
+                        Serial:
+                        @Html.DisplayFor(m => m.Serial)<br>
+                        Accesorio::
+                        @Html.DisplayFor(m => m.Accesorio)<br>
+                    </address>
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4 invoice-col">
+                    <address>
+                        Prioridad:
+                        <strong>@Html.DisplayFor(m => m.Prioridad)</strong><br>
+                        Técnico:
+                        @Html.DisplayFor(m => m.Tecnico)<br>
+                    </address>
+                </div>
+                <!-- /.col -->
+            </div>
+            <div class="col-xs-12">
+                <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+                    Falla: @Html.DisplayFor(m => m.Falla)<br />
+                    Observaciones: @Html.DisplayFor(m => m.Observaciones)<br />
+                </p>
+            </div>
+            <div class="row">
+                <!-- accepted payments column -->
+                <div class="col-xs-12">
+                    <p class="lead">Terminos y condiciones:</p>
+                    <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+                        Terminos y condiciones:<br />
+                        La garantía de todos nuestros productos será la establecida por el fabricante de cada marca y será indicada en la web, dentro de la ficha de cada producto.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+
+

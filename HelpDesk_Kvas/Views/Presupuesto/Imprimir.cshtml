@@ -1,0 +1,123 @@
+﻿@model IEnumerable<HelpDesk_Kvas.Models.Datos.Entity.PresupuestoDetalleEntity>
+@{
+    ViewBag.Title = "Imprimir";
+}
+
+<body onload="window.print();">
+    <div class="wrapper">
+        <section class="invoice">
+            <!-- title row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2 class="page-header">
+                        <img src="~/Content/images/Logo.png" />
+                    </h2>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- info row -->
+            <div class="row invoice-info">
+                <div class="col-sm-4 invoice-col">
+                    Cliente
+                    <address>
+                        <strong>@ViewBag.Cliente</strong><br>
+                        Direccion:
+                        @ViewBag.Direccion<br>
+                        Telefono: @ViewBag.Telefono<br>
+                        Email: @ViewBag.Correo
+                    </address>
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4 invoice-col">
+                    Tienda:
+                    <address>
+                        <strong>Entercop Centro de Copiado</strong><br>
+                        Av. Bolivar C/C Argentina<br>
+                        C.C. El Lago Catia<br>
+                        Telefono: 0212-899.32.35<br>
+                        Email: ventas@entercop.com
+                    </address>
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4 invoice-col">
+                    <b>Presupuesto #@ViewBag.IdPresupuesto</b><br>
+                    <br>
+                    <b>Orden ID:</b> @ViewBag.IdOrden<br>
+                    <b>Fecha Emisión:</b> @ViewBag.FechaEmision<br>
+                    <b>Fecha Vencimiento:</b> @ViewBag.FechaVencimiento<br />
+                    <b>Vendedor:</b> @ViewBag.Empleado
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-xs-12 table-responsive">
+                    <table id="tproductos" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>#Codigo</th>
+                                <th>Producto</th>
+                                <th>Descripcion</th>
+                                <th>Cant.</th>
+                                <th>Precio</th>
+                                <th>Subtotal</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.Sku)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.NombreProducto)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Cantidad)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.PUnitario)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.SubTotal)</td>
+                                    <td></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.col -->
+            </div>
+            <div class="row">
+                <!-- accepted payments column -->
+                <div class="col-xs-6">
+                    <p class="lead">Terminos y condiciones:</p>
+                    @*<img src="~/Content/images/img/credit/visa.png" alt="Visa">
+                        <img src="~/Content/images/img/credit/mastercard.png" alt="Mastercard">
+                        <img src="~/Content/images/img/credit/american-express.png" alt="American Express">*@
+                    <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+                        Terminos y condiciones:<br />
+                        La garantía de todos nuestros productos será la establecida por el fabricante de cada marca y será indicada en la web, dentro de la ficha de cada producto.
+                    </p>
+                </div>
+                <!-- /.col -->
+                <br />
+                <div class="col-xs-6">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tr></tr>
+                            <tr>
+                                <th style="width:50%">Subtotal:</th>
+                                <td>Bs. <input id="SubTotal" name="SubTotal" type="text" value="@ViewBag.Subtotal" disabled style="border:0;" /></td>
+                            </tr>
+                            <tr>
+                                <th>IVA (12%)</th>
+                                <td>Bs. <input id="Iva" name="Iva" type="text" value="@ViewBag.Iva" disabled style="border:0;" /></td>
+                            </tr>
+                            <tr>
+                                <th>Total:</th>
+                                <td>Bs. <input id="TotalFinal" name="TotalFinal" value="@ViewBag.TotalPagar" type="text" disabled style="border:0;" /></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <!-- /.col -->
+            </div>
+        </section>
+    </div>
+</body>
+

@@ -22,6 +22,7 @@ namespace HelpDesk_Kvas.Controllers
         BitacoraLogic objBitacora;
         PresupuestoLogic objPresupuesto;
         DAL_Main db;
+        dbDataContext dba;
 
         public RequerimientoController()
         {
@@ -33,6 +34,7 @@ namespace HelpDesk_Kvas.Controllers
             objBitacora = new BitacoraLogic();
             objPresupuesto = new PresupuestoLogic();
             db = new DAL_Main();
+            dba = new dbDataContext();
         }
         #region INDEX HECHO PARA CARGAR CON JSON 
         // GET: Requerimiento
@@ -179,6 +181,32 @@ namespace HelpDesk_Kvas.Controllers
             SelectList listDepartamentos = new SelectList(_departamentos, "IdGrupoDetalle", "Titulo");
             ViewBag.Departamentos = listDepartamentos;
             ViewBag.IdRequerimieto = requerimiento.IdRequerimiento;
+            return View(requerimiento);
+        }
+
+        public ActionResult Imprimir(int id)
+        {
+            var list = objGrupoDetalleLogic.Listar();
+            var requerimiento = objRequerimientoLogic.Listar().Where(m => m.IdRequerimiento.Equals(id)).SingleOrDefault();
+
+
+            #region DATOS PERSONALES
+            var peronales = objPresupuesto.Listar();
+            var pxr = peronales.Where(m => m.IdRequerimiento.Equals(id)).ToList();
+            var iva = pxr.Sum(m => m.Iva);
+            var total = pxr.Sum(m => m.Subtotal);
+            ViewBag.Iva = iva;
+            ViewBag.Total = total;
+            ViewBag.TotalPagar = iva + total;
+            var datos = pxr.Where(m => m.IdRequerimiento.Equals(id)).FirstOrDefault();
+            ViewBag.Emision = datos.FechaEmision;
+            ViewBag.Vencimiento = datos.FechaVencimiento;
+            ViewBag.IdPre = datos.IdRequerimiento;
+            var ven = datos.IdEmpleado;
+            var empl = objUsuario.Listar().Where(m => m.IdUsuario.Equals(ven)).SingleOrDefault();
+            ViewBag.Emppleado = empl.Nombres;
+            #endregion
+
             return View(requerimiento);
         }
 
@@ -363,7 +391,55 @@ namespace HelpDesk_Kvas.Controllers
         [HttpPost]
         public ActionResult Asignar(RequerimientoViewEntity objRequerimiento)
         {
+            var list = objGrupoDetalleLogic.Listar();
+            if (objRequerimiento.IdTecnico == null)
+            {
+                ModelState.AddModelError("EmailExist", "Debe seleccionar un técnico");
+                Listas();
+                //Lista Tecnico
+                var _departamentos = list.Where(m => m.IdPadre.Equals(36)).ToList();
+                SelectList listDepartamentos = new SelectList(_departamentos, "IdGrupoDetalle", "Titulo");
+                ViewBag.Departamentos = listDepartamentos;
+                return View(objRequerimiento);
+            }
             return View();
+        }
+
+        public ActionResult ElegirTecnico(int id)
+        {
+            ViewBag.Id = id;
+            var listtec = objUsuario.Listar();
+            //Lista TECNICOS
+            var _tecnico = (from m in listtec
+                            where m.IdRoles == 49
+                            select m).ToList();
+            SelectList listTecnico = new SelectList(_tecnico, "IdUsuario", "Nombres");
+            ViewBag.Tecnico = listTecnico;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ElegirTecnico(AsignadoEntity objAsignar)
+        {
+            var listtec = objUsuario.Listar();
+            ViewBag.Id = objAsignar.IdRequerimiento;
+            //Lista TECNICOS
+            var _tecnico = (from m in listtec
+                            where m.IdRoles == 49
+                            select m).ToList();
+            SelectList listTecnico = new SelectList(_tecnico, "IdUsuario", "Nombres");
+            ViewBag.Tecnico = listTecnico;
+
+            if (ModelState.IsValid)
+            {
+                var r = dba.Requerimientos.Where(m => m.IdRequerimiento.Equals(objAsignar.IdRequerimiento)).SingleOrDefault();
+                r.IdTecnico = objAsignar.IdTecnico;
+                r.Asignado = true;
+                dba.SubmitChanges();
+            }
+
+            
+            return View(objAsignar);
         }
 
         #region BITACORA

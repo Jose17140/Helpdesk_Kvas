@@ -255,6 +255,7 @@ INNER JOIN ProductoServicios AS ps ON pt.IdPoS = ps.IdProducto
 
 
 
+
 INSERT INTO Observaciones(IdRequerimiento,IdUsuario,Observacion,FechaRegistro)VALUES
 (1,1,'Por favor atender',GETDATE());
 
