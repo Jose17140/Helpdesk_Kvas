@@ -73,7 +73,7 @@ namespace HelpDesk_Kvas.Controllers
         public ActionResult Create()
         {
             MensajeInicioRegistrar();
-            ViewBag.Grupo = 16;
+            ViewBag.Grupo = 17;
             var _lista = objGrupoDetalleLogic.Listar();
             var _departamentos = _lista.Where(m => m.IdPadre == 36).ToList();
             var _unidades = _lista.Where(m => m.IdGrupo == 22).ToList();
@@ -92,7 +92,7 @@ namespace HelpDesk_Kvas.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(ProductosEntity producto)
         {
-            producto.IdGrupo = 16;
+            producto.IdGrupo = 17;
             producto.IdCondicion = 103;
             if (ModelState.IsValid)
             {

@@ -141,6 +141,7 @@
                             Acciones <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
+                            <li><a href="/Requerimiento/Edit/@item.IdRequerimiento" title="Detalles">Editar</a></li>
                             <li><a href="/Requerimiento/Details/@item.IdRequerimiento" title="Detalles">Detalle</a></li>
                             @if (User.IsInRole("Cliente") == false)
                             {

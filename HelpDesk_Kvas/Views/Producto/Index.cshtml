@@ -12,7 +12,7 @@
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-        <li class="active">Dashboard</li>
+        <li class="active">Productos</li>
     </ol>
     <br />
 </section>
@@ -79,7 +79,7 @@
                 </text>),
                 grid.Column(header: "Acciones", canSort: false, style: "action",
                   format: @<text>
-                    @Html.Raw("<a data-modal='' href='/Producto/details/" + item.IdProducto + "' id='" + item.IdProducto + "' title='Detalle'> <span class='glyphicon glyphicon-search'> </span> </a>")
+                    @*@Html.Raw("<a data-modal='' href='/Producto/details/" + item.IdProducto + "' id='" + item.IdProducto + "' title='Detalle'> <span class='glyphicon glyphicon-search'> </span> </a>")*@
 
                     @if (User.IsInRole("Master") || User.IsInRole("Supervisor"))
                     {

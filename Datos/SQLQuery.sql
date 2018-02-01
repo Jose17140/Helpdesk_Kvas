@@ -1,5 +1,5 @@
---DROP DATABASE IF EXISTS Helpdesk_Kvas;
---CREATE DATABASE Helpdesk_Kvas
+DROP DATABASE IF EXISTS Helpdesk_Kvas;
+CREATE DATABASE Helpdesk_Kvas
 GO
 USE Helpdesk_Kvas;
 GO
@@ -228,7 +228,7 @@ CREATE TABLE Presupuestos(
 		ON UPDATE NO ACTION
 );
 
-
+Mostrar las cadenas de conexión de la base de datos
 
 SELECT * FROM Grupos;
 SELECT * FROM GruposDetalles where IdPadre = 135 AND IdGrupo = 14;
@@ -247,6 +247,12 @@ SELECT * FROM vw_Personas;
 SELECT * FROM vw_Bitacora;
 SELECT * FROM vw_Usuarios_Personas;
 
+
+
+
+
+SELECT *
+FROM vw_Requerimientos
 
 
 SELECT pt.IdPresupuesto, pt.IdRequerimiento, pt.IdPoS, ps.Nombre, ps.Descripcion, pt.Cant, pt.PrecioUnit, pt.SubTotal, pt.IdEstatus
