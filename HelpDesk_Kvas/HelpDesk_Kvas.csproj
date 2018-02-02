@@ -2910,6 +2910,7 @@
     <Content Include="Views\Presupuesto\Imprimir.cshtml" />
     <Content Include="Views\Requerimiento\Imprimir.cshtml" />
     <Content Include="Views\Requerimiento\ElegirTecnico.cshtml" />
+    <Content Include="Views\NewFolder1\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
