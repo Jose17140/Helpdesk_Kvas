@@ -10,7 +10,7 @@ using HelpDesk_Kvas.Models.Datos.Entity;
 
 namespace HelpDesk_Kvas.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class GrupoController : Controller
     {
         GrupoLogic objGrupoLogic;

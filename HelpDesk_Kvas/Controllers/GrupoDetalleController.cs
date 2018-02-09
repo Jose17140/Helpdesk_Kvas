@@ -11,6 +11,7 @@ using System.Web.Mvc;
 
 namespace HelpDesk_Kvas.Controllers
 {
+    [Authorize]
     public class GrupoDetalleController : Controller
     {
         GrupoDetalleLogic objGrupoDetalleLogic;

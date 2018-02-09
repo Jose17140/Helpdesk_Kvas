@@ -218,7 +218,6 @@
     <Compile Include="Controllers\RequerimientoController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\ServicioController.cs" />
-    <Compile Include="Controllers\SoporteController.cs" />
     <Compile Include="DataGrid\DataGrid.cs" />
     <Compile Include="DataGrid\PagedList.cs" />
     <Compile Include="Global.asax.cs">
@@ -378,7 +377,6 @@
     <Content Include="Content\lib\font-awesome-4.6.3\css\font-awesome.css" />
     <Content Include="Content\lib\font-awesome-4.6.3\css\font-awesome.min.css" />
     <Content Include="Content\lib\font-awesome-4.6.3\fonts\fontawesome-webfont.svg" />
-    <Content Include="Content\lib\font-awesome-4.6.3\HELP-US-OUT.txt" />
     <Content Include="Content\lib\ionicons-2.0.1\.gitignore" />
     <Content Include="Content\lib\ionicons-2.0.1\builder\cheatsheet\icon-row.html" />
     <Content Include="Content\lib\ionicons-2.0.1\builder\cheatsheet\template.html" />
@@ -2598,7 +2596,6 @@
     <Content Include="Content\lib\angular-1.6.4\angular.min.js.map" />
     <Content Include="Content\lib\angular-1.6.4\errors.json" />
     <Content Include="Content\lib\angular-1.6.4\version.json" />
-    <Content Include="Content\lib\bootstrap\.bower.json" />
     <Content Include="Content\lib\bootstrap\dist\css\bootstrap-theme.css.map" />
     <Content Include="Content\lib\bootstrap\dist\css\bootstrap-theme.min.css.map" />
     <Content Include="Content\lib\bootstrap\dist\css\bootstrap.css.map" />
@@ -2607,7 +2604,6 @@
     <Content Include="Content\lib\bootstrap\dist\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\lib\bootstrap\dist\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\lib\bootstrap\dist\fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="Content\lib\bootstrap\LICENSE" />
     <Content Include="Content\lib\font-awesome-4.6.3\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\lib\font-awesome-4.6.3\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\lib\font-awesome-4.6.3\fonts\fontawesome-webfont.woff" />
@@ -2910,12 +2906,9 @@
     <Content Include="Views\Presupuesto\Imprimir.cshtml" />
     <Content Include="Views\Requerimiento\Imprimir.cshtml" />
     <Content Include="Views\Requerimiento\ElegirTecnico.cshtml" />
-    <Content Include="Views\NewFolder1\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Soporte\" />
-    <Folder Include="Views\Usuario\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

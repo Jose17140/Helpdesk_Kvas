@@ -11,7 +11,7 @@ using System.Web.Security;
 
 namespace HelpDesk_Kvas.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class AccountController : Controller
     {
         UsuarioLogic objUsuarioLogic;
@@ -136,6 +136,7 @@ namespace HelpDesk_Kvas.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult RegistrarB()
         {
             var _ListaDetalle = objGrupoDetalleLogic.Listar();
@@ -235,14 +236,16 @@ namespace HelpDesk_Kvas.Controllers
             #endregion
 
         }
-        [AllowAnonymous]
+
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult Login()
         {
             return View();
         }
         
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginUserEntity login, string ReturnUrl = "")
         {
@@ -446,12 +449,15 @@ namespace HelpDesk_Kvas.Controllers
 
         #region CAMBIO DE CONTRASENA
 
+        [HttpGet]
+        [AllowAnonymous]
         public ActionResult ForgotPassword()
         {
             return View();
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult ForgotPassword(ForgotPasswordUserEntity user)
         {
             var isExistUser = objUsuarioLogic.IsUserExist(user.UserName);

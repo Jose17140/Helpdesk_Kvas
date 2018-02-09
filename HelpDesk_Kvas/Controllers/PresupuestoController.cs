@@ -11,6 +11,7 @@ using System.Web.Security;
 
 namespace HelpDesk_Kvas.Controllers
 {
+    [Authorize]
     public class PresupuestoController : Controller
     {
         GrupoDetalleLogic objGrupoDetalleLogic;

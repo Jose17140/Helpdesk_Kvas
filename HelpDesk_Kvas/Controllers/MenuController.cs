@@ -11,6 +11,7 @@ using System.Net;
 
 namespace HelpDesk_Kvas.Controllers
 {
+    [Authorize]
     public class MenuController : Controller
     {
         private DAL_Main db = new DAL_Main();
