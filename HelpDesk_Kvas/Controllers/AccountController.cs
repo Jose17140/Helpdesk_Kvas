@@ -313,10 +313,15 @@ namespace HelpDesk_Kvas.Controllers
         [HttpPost]
         public ActionResult LogOff()
         {
+            //FormsAuthentication.SignOut();
+            //return RedirectToAction("Login", "Account");
+
             FormsAuthentication.SignOut();
+            Session.Abandon();
+            //return Response.Redirect("Login");
             return RedirectToAction("Login", "Account");
         }
-        
+
         [Authorize]
         public ActionResult Detalles(int id)
         {
@@ -480,7 +485,8 @@ namespace HelpDesk_Kvas.Controllers
             }
             return View(user);
         }
-        
+
+        [AllowAnonymous]
         public ActionResult Confirmar(string _user)
         {
             Listas();
@@ -492,6 +498,7 @@ namespace HelpDesk_Kvas.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult Confirmar(ForgotQuestionUserEntity user)
         {
             var ConfirQuest = objUsuarioLogic.ConfirQuestion(user.RespuestaPregunta);
@@ -514,6 +521,7 @@ namespace HelpDesk_Kvas.Controllers
             return View(user);
         }
 
+        [AllowAnonymous]
         public ActionResult RecuperarPass(string _user)
         {
             Listas();
@@ -523,6 +531,7 @@ namespace HelpDesk_Kvas.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult RecuperarPass(ChanagePasswordEntity user)
         {
             if (ModelState.IsValid)

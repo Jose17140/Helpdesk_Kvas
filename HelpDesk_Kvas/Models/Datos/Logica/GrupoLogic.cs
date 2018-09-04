@@ -9,11 +9,10 @@ namespace HelpDesk_Kvas.Models.Datos.Logica
     public class GrupoLogic
     {
         private GrupoDAL objGrupoDAL;
-        dbDataContext db;
+
         public GrupoLogic()
         {
             objGrupoDAL = new GrupoDAL();
-            db = new dbDataContext();
         }
 
         public void Insertar(GruposEntity objGrupo)

@@ -37,6 +37,7 @@ namespace HelpDesk_Kvas.Controllers
             db = new DAL_Main();
             dba = new dbDataContext();
         }
+
         #region INDEX HECHO PARA CARGAR CON JSON 
         // GET: Requerimiento
         //public ActionResult Index(int idEstatus = 58, string filter = null, int page = 1, int pageSize = 15, string sort = "IdRequerimiento")
@@ -510,7 +511,15 @@ namespace HelpDesk_Kvas.Controllers
         // GET: Requerimiento/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var list = objGrupoDetalleLogic.Listar();
+            var requerimiento = objRequerimientoLogic.Listar().Where(m => m.IdRequerimiento.Equals(id)).SingleOrDefault();
+            Listas();
+            //Lista Tecnico
+            var _departamentos = list.Where(m => m.IdPadre.Equals(36)).ToList();
+            SelectList listDepartamentos = new SelectList(_departamentos, "IdGrupoDetalle", "Titulo");
+            ViewBag.Departamentos = listDepartamentos;
+            ViewBag.IdRequerimieto = requerimiento.IdRequerimiento;
+            return View(requerimiento);
         }
 
         // POST: Requerimiento/Edit/5
